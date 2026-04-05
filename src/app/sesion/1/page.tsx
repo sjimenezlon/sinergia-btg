@@ -7,8 +7,8 @@ import RevealSection from "@/components/RevealSection";
 
 const AGENDA = [
   { time: "0:00–0:15", label: "Caso BTG: IA en M&A", color: "#00E5A0" },
-  { time: "0:15–0:40", label: "Taxonomia IA & Transformers", color: "#5B52D5" },
-  { time: "0:40–1:00", label: "Tokenizacion & Modelos", color: "#5B52D5" },
+  { time: "0:15–0:40", label: "Taxonomía IA & Transformers", color: "#5B52D5" },
+  { time: "0:40–1:00", label: "Tokenización & Modelos", color: "#5B52D5" },
   { time: "1:00–1:40", label: "Config Lab: System Prompts", color: "#E85A1F" },
   { time: "1:40–2:00", label: "Reto: 3 LLMs 1 Prompt", color: "#22C55E" },
 ];
@@ -21,7 +21,7 @@ const TAXONOMY_NODES = [
     x: 50,
     y: 12,
     detail:
-      "Sistemas que simulan capacidades cognitivas humanas. En BTG: scoring crediticio, deteccion de fraude, sistemas expertos para compliance.",
+      "Sistemas que simulan capacidades cognitivas humanas. En BTG: scoring crediticio, detección de fraude, sistemas expertos para compliance.",
     example: "Motor de reglas para Know Your Customer (KYC)",
     year: "1956",
   },
@@ -32,8 +32,8 @@ const TAXONOMY_NODES = [
     x: 50,
     y: 35,
     detail:
-      "Algoritmos que aprenden de datos sin ser programados explicitamente. En BTG: modelos de riesgo, prediccion de churn, clustering de clientes.",
-    example: "Modelo XGBoost para scoring de credito corporativo",
+      "Algoritmos que aprenden de datos sin ser programados explícitamente. En BTG: modelos de riesgo, predicción de churn, clustering de clientes.",
+    example: "Modelo XGBoost para scoring de crédito corporativo",
     year: "1997",
   },
   {
@@ -43,8 +43,8 @@ const TAXONOMY_NODES = [
     x: 50,
     y: 58,
     detail:
-      "Redes neuronales profundas con multiples capas. En BTG: analisis de sentimiento de mercado, deteccion de anomalias en transacciones, NLP sobre reportes.",
-    example: "LSTM para prediccion de volatilidad en renta variable",
+      "Redes neuronales profundas con múltiples capas. En BTG: análisis de sentimiento de mercado, detección de anomalías en transacciones, NLP sobre reportes.",
+    example: "LSTM para predicción de volatilidad en renta variable",
     year: "2012",
   },
   {
@@ -54,18 +54,18 @@ const TAXONOMY_NODES = [
     x: 50,
     y: 81,
     detail:
-      "Modelos que generan contenido nuevo: texto, codigo, imagenes, datos sinteticos. En BTG: due diligence automatizada, generacion de memos de inversion, analisis de contratos.",
+      "Modelos que generan contenido nuevo: texto, código, imágenes, datos sintéticos. En BTG: due diligence automatizada, generación de memos de inversión, análisis de contratos.",
     example: "LLM que resume 847 documentos de due diligence en 8 horas",
     year: "2022",
   },
 ];
 
 const TRANSFORMER_TOKENS = [
-  "Analisis",
+  "Análisis",
   "de",
   "riesgo",
   "para",
-  "emision",
+  "emisión",
   "de",
   "bonos",
   "Ecopetrol",
@@ -111,9 +111,9 @@ const MODELS = [
     context: 1000000,
     costIn: 2.5,
     costOut: 10,
-    desc: "El modelo flagship de OpenAI. Razonamiento avanzado, herramientas nativas, vision multimodal.",
+    desc: "El modelo flagship de OpenAI. Razonamiento avanzado, herramientas nativas, visión multimodal.",
     tags: ["Multimodal", "Herramientas", "Razonamiento"],
-    strengths: "Mejor en codigo, matematicas, razonamiento largo",
+    strengths: "Mejor en código, matemáticas, razonamiento largo",
     weakness: "Costo alto en outputs extensos",
   },
   {
@@ -124,10 +124,10 @@ const MODELS = [
     context: 1000000,
     costIn: 3,
     costOut: 15,
-    desc: "Contexto de 1M tokens. Ideal para analisis de documentos largos, due diligence, y compliance financiero.",
+    desc: "Contexto de 1M tokens. Ideal para análisis de documentos largos, due diligence, y compliance financiero.",
     tags: ["1M Contexto", "Documentos", "Seguro"],
     strengths: "Documentos largos, instrucciones complejas, seguridad",
-    weakness: "Mas conservador en creatividad libre",
+    weakness: "Más conservador en creatividad libre",
   },
   {
     name: "Gemini 3.1",
@@ -137,9 +137,9 @@ const MODELS = [
     context: 2000000,
     costIn: 1.25,
     costOut: 5,
-    desc: "Contexto de 2M tokens. Integracion nativa con Google Workspace, busqueda web, y datos estructurados.",
-    tags: ["2M Contexto", "Google Suite", "Busqueda"],
-    strengths: "Integracion Workspace, costo-beneficio, multimodal",
+    desc: "Contexto de 2M tokens. Integración nativa con Google Workspace, búsqueda web, y datos estructurados.",
+    tags: ["2M Contexto", "Google Suite", "Búsqueda"],
+    strengths: "Integración Workspace, costo-beneficio, multimodal",
     weakness: "Menos consistente en instrucciones complejas",
   },
   {
@@ -150,10 +150,10 @@ const MODELS = [
     context: 512000,
     costIn: 0,
     costOut: 0,
-    desc: "Open-source de Meta. Desplegable on-premise para datos sensibles. Ideal para banca con restricciones de soberania de datos.",
+    desc: "Open-source de Meta. Desplegable on-premise para datos sensibles. Ideal para banca con restricciones de soberanía de datos.",
     tags: ["Open Source", "On-Premise", "Gratis"],
     strengths: "Privacidad total, sin dependencia de terceros, gratis",
-    weakness: "Requiere infraestructura propia para produccion",
+    weakness: "Requiere infraestructura propia para producción",
   },
   {
     name: "DeepSeek R1",
@@ -163,10 +163,10 @@ const MODELS = [
     context: 128000,
     costIn: 0.55,
     costOut: 2.19,
-    desc: "Modelo chino especializado en razonamiento y matematicas. Cadenas de pensamiento transparentes, excelente costo-beneficio.",
+    desc: "Modelo chino especializado en razonamiento y matemáticas. Cadenas de pensamiento transparentes, excelente costo-beneficio.",
     tags: ["Razonamiento", "Bajo Costo", "Chain-of-Thought"],
-    strengths: "Razonamiento matematico, costo ultra bajo",
-    weakness: "Restricciones geopoliticas, menos pruebas en espanol",
+    strengths: "Razonamiento matemático, costo ultra bajo",
+    weakness: "Restricciones geopolíticas, menos pruebas en español",
   },
   {
     name: "Copilot M365",
@@ -191,7 +191,7 @@ const PRESETS: Record<
     label: "Analyst",
     color: "#00E5A0",
     system:
-      "Eres un analista senior de banca de inversion en BTG Pactual Colombia. Respondes con precision, citas fuentes, y estructuras tus respuestas con headers claros. Priorizas datos cuantitativos y comparables de mercado. Formato: markdown con tablas cuando aplique.",
+      "Eres un analista senior de banca de inversión en BTG Pactual Colombia. Respondes con precisión, citas fuentes, y estructuras tus respuestas con headers claros. Priorizas datos cuantitativos y comparables de mercado. Formato: markdown con tablas cuando aplique.",
     temp: 0.3,
     model: "Claude 4.6",
   },
@@ -199,7 +199,7 @@ const PRESETS: Record<
     label: "Research",
     color: "#3A7BD5",
     system:
-      "Eres un investigador de equity research para mercados emergentes latinoamericanos. Produces analisis tipo sell-side con tesis de inversion, drivers, riesgos y target price. Usas multiplos comparables (EV/EBITDA, P/E, P/BV). Tono profesional pero accesible.",
+      "Eres un investigador de equity research para mercados emergentes latinoamericanos. Produces análisis tipo sell-side con tesis de inversión, drivers, riesgos y target price. Usas múltiplos comparables (EV/EBITDA, P/E, P/BV). Tono profesional pero accesible.",
     temp: 0.5,
     model: "GPT-5.4",
   },
@@ -207,7 +207,7 @@ const PRESETS: Record<
     label: "Compliance",
     color: "#E85A1F",
     system:
-      "Eres un oficial de cumplimiento especializado en regulacion financiera colombiana (SFC, URF) y estandares internacionales (Basilea, FATF/GAFI). Identificas riesgos regulatorios, citas normas especificas, y propones controles. Nunca das consejo legal definitivo, siempre recomiendas consultar al area juridica.",
+      "Eres un oficial de cumplimiento especializado en regulación financiera colombiana (SFC, URF) y estándares internacionales (Basilea, FATF/GAFI). Identificas riesgos regulatorios, citas normas específicas, y propones controles. Nunca das consejo legal definitivo, siempre recomiendas consultar al área jurídica.",
     temp: 0.1,
     model: "Claude 4.6",
   },
@@ -223,13 +223,13 @@ const PRESETS: Record<
 
 const SIMULATED_RESPONSES: Record<string, string> = {
   analyst:
-    "## Analisis: Emision de Bonos Ecopetrol 2026\n\n### Contexto de Mercado\nEcopetrol enfrenta un entorno de tasas mixto. El spread soberano de Colombia se ubica en ~320bps sobre UST, mientras que Ecopetrol cotiza a ~380bps.\n\n| Metrica | Valor |\n|---|---|\n| Rating S&P | BB+ (Perspectiva Estable) |\n| Deuda Neta/EBITDA | 1.8x |\n| Cobertura de Intereses | 6.2x |\n| Capex 2026E | USD 5.2B |\n\n### Recomendacion\nLa emision es viable en el tramo 7-10Y a un spread estimado de 360-400bps. Se recomienda bookbuilding con ancla institucional en USD 500M.\n\n**Riesgos clave:** precio del Brent <$65, downgrade soberano, riesgo regulatorio transicion energetica.",
+    "## Análisis: Emisión de Bonos Ecopetrol 2026\n\n### Contexto de Mercado\nEcopetrol enfrenta un entorno de tasas mixto. El spread soberano de Colombia se ubica en ~320bps sobre UST, mientras que Ecopetrol cotiza a ~380bps.\n\n| Métrica | Valor |\n|---|---|\n| Rating S&P | BB+ (Perspectiva Estable) |\n| Deuda Neta/EBITDA | 1.8x |\n| Cobertura de Intereses | 6.2x |\n| Capex 2026E | USD 5.2B |\n\n### Recomendación\nLa emisión es viable en el tramo 7-10Y a un spread estimado de 360-400bps. Se recomienda bookbuilding con ancla institucional en USD 500M.\n\n**Riesgos clave:** precio del Brent <$65, downgrade soberano, riesgo regulatorio transición energética.",
   research:
-    "## Tesis de Inversion: Bancolombia (CIB)\n\n**Rating: OVERWEIGHT | Target: COP 42,800 (+23%)**\n\n### Drivers\n1. **NIM expansion:** +45bps YoY por repricing de cartera comercial\n2. **Calidad de activos:** Costo de riesgo convergiendo a 1.8% (vs 2.3% actual)\n3. **Digital:** Nequi alcanza 22M usuarios, monetizacion acelerandose\n\n### Comparables\n| Banco | P/BV | ROE | P/E 2026E |\n|---|---|---|---|\n| Bancolombia | 0.9x | 14.2% | 6.8x |\n| Davivienda | 0.7x | 11.8% | 7.2x |\n| Banco de Bogota | 0.8x | 12.5% | 7.0x |\n| LatAm Promedio | 1.2x | 15.1% | 8.5x |\n\nBancolombia cotiza con descuento de 25% vs. pares LatAm. Catalizadores: resultados Q2, potencial inclusion en indice MSCI EM.",
+    "## Tesis de Inversión: Bancolombia (CIB)\n\n**Rating: OVERWEIGHT | Target: COP 42,800 (+23%)**\n\n### Drivers\n1. **NIM expansion:** +45bps YoY por repricing de cartera comercial\n2. **Calidad de activos:** Costo de riesgo convergiendo a 1.8% (vs 2.3% actual)\n3. **Digital:** Nequi alcanza 22M usuarios, monetización acelerándose\n\n### Comparables\n| Banco | P/BV | ROE | P/E 2026E |\n|---|---|---|---|\n| Bancolombia | 0.9x | 14.2% | 6.8x |\n| Davivienda | 0.7x | 11.8% | 7.2x |\n| Banco de Bogotá | 0.8x | 12.5% | 7.0x |\n| LatAm Promedio | 1.2x | 15.1% | 8.5x |\n\nBancolombia cotiza con descuento de 25% vs. pares LatAm. Catalizadores: resultados Q2, potencial inclusión en índice MSCI EM.",
   compliance:
-    "## Alerta Regulatoria: Uso de IA en Decisiones Crediticias\n\n### Marco Normativo Aplicable\n- **Circular Basica Juridica SFC** (Titulo I, Cap. XII): Debida diligencia y SARLAFT\n- **Circular Externa 029/2024 SFC:** Lineamientos para uso de IA en entidades vigiladas\n- **EU AI Act (Ref.):** Clasificacion de IA en servicios financieros como alto riesgo\n\n### Riesgos Identificados\n1. **Sesgo algoritmico:** Modelos entrenados con datos historicos pueden perpetuar discriminacion crediticia (Ley 1581/2012, art. 4)\n2. **Explicabilidad:** SFC requiere que decisiones crediticias sean explicables al cliente\n3. **Soberania de datos:** Modelos cloud pueden transferir datos personales fuera de jurisdiccion colombiana\n\n### Controles Recomendados\n- Auditoria de sesgo trimestral con metricas de disparate impact\n- Human-in-the-loop obligatorio para decisiones > $500M COP\n- Registro de prompts y respuestas para trazabilidad (retencion 10 anos)\n\n**Nota:** Este analisis no constituye concepto juridico. Consultar con la Vicepresidencia Juridica.",
+    "## Alerta Regulatoria: Uso de IA en Decisiones Crediticias\n\n### Marco Normativo Aplicable\n- **Circular Básica Jurídica SFC** (Título I, Cap. XII): Debida diligencia y SARLAFT\n- **Circular Externa 029/2024 SFC:** Lineamientos para uso de IA en entidades vigiladas\n- **EU AI Act (Ref.):** Clasificación de IA en servicios financieros como alto riesgo\n\n### Riesgos Identificados\n1. **Sesgo algorítmico:** Modelos entrenados con datos históricos pueden perpetuar discriminación crediticia (Ley 1581/2012, art. 4)\n2. **Explicabilidad:** SFC requiere que decisiones crediticias sean explicables al cliente\n3. **Soberanía de datos:** Modelos cloud pueden transferir datos personales fuera de jurisdicción colombiana\n\n### Controles Recomendados\n- Auditoría de sesgo trimestral con métricas de disparate impact\n- Human-in-the-loop obligatorio para decisiones > $500M COP\n- Registro de prompts y respuestas para trazabilidad (retención 10 años)\n\n**Nota:** Este análisis no constituye concepto jurídico. Consultar con la Vicepresidencia Jurídica.",
   creative:
-    "## Propuesta: \"Inteligencia que Mueve Capitales\"\n\n### Narrativa Central\nEn un mercado donde 847 documentos definen una operacion de M&A, la diferencia entre 60 horas y 8 horas no es eficiencia — es ventaja competitiva.\n\nBTG Pactual no adopta tecnologia. La transforma en capacidad institucional.\n\n### Key Messages para C-Suite\n\n> \"Cada analista de BTG tendra acceso a la capacidad cognitiva equivalente a un equipo de 10 personas. No para reemplazar talento, sino para amplificarlo.\"\n\n### Metricas de Impacto (Proyeccion Q3 2026)\n- **87%** reduccion en tiempo de due diligence documental\n- **100%** cobertura de documentos vs. ~60% manual\n- **3.2x** incremento en deals evaluados por equipo\n\n### Siguiente Paso\nPiloto con el equipo de IB para la proxima operacion de M&A. Timeline: 4 semanas. Inversion: $0 adicional (herramientas ya licenciadas).",
+    "## Propuesta: \"Inteligencia que Mueve Capitales\"\n\n### Narrativa Central\nEn un mercado donde 847 documentos definen una operación de M&A, la diferencia entre 60 horas y 8 horas no es eficiencia — es ventaja competitiva.\n\nBTG Pactual no adopta tecnología. La transforma en capacidad institucional.\n\n### Key Messages para C-Suite\n\n> \"Cada analista de BTG tendrá acceso a la capacidad cognitiva equivalente a un equipo de 10 personas. No para reemplazar talento, sino para amplificarlo.\"\n\n### Métricas de Impacto (Proyección Q3 2026)\n- **87%** reducción en tiempo de due diligence documental\n- **100%** cobertura de documentos vs. ~60% manual\n- **3.2x** incremento en deals evaluados por equipo\n\n### Siguiente Paso\nPiloto con el equipo de IB para la próxima operación de M&A. Timeline: 4 semanas. Inversión: $0 adicional (herramientas ya licenciadas).",
 };
 
 /* ─────────────────── HELPER: SIMULATED TOKENIZER ──────────────── */
@@ -273,7 +273,7 @@ export default function Sesion1() {
 
   /* ----- Tokenizer ----- */
   const [tokenizerText, setTokenizerText] = useState(
-    "BTG Pactual Colombia lidera la estructuracion de la emision de bonos verdes por COP 500 mil millones para financiar proyectos de energia renovable."
+    "BTG Pactual Colombia lidera la estructuración de la emisión de bonos verdes por COP 500 mil millones para financiar proyectos de energía renovable."
   );
   const tokens = simulateTokenize(tokenizerText);
   const charCount = tokenizerText.length;
@@ -329,17 +329,17 @@ export default function Sesion1() {
 
   /* ----- Copy prompt ----- */
   const [copied, setCopied] = useState(false);
-  const CHALLENGE_PROMPT = `Eres un analista de banca de inversion en BTG Pactual Colombia.
+  const CHALLENGE_PROMPT = `Eres un analista de banca de inversión en BTG Pactual Colombia.
 
-Contexto: Ecopetrol planea emitir bonos verdes por USD 1.5B a 10 anos.
+Contexto: Ecopetrol planea emitir bonos verdes por USD 1.5B a 10 años.
 
 Tarea:
-1. Evalua las condiciones actuales del mercado de deuda corporativa LatAm.
-2. Identifica los 3 principales riesgos para esta emision.
-3. Recomienda un rango de spread sobre UST con justificacion.
-4. Sugiere la estructura optima (tramo, moneda, covenants clave).
+1. Evalúa las condiciones actuales del mercado de deuda corporativa LatAm.
+2. Identifica los 3 principales riesgos para esta emisión.
+3. Recomienda un rango de spread sobre UST con justificación.
+4. Sugiere la estructura óptima (tramo, moneda, covenants clave).
 
-Formato: Memo ejecutivo de maximo 500 palabras con tabla de comparables.`;
+Formato: Memo ejecutivo de máximo 500 palabras con tabla de comparables.`;
 
   const copyPrompt = useCallback(() => {
     navigator.clipboard.writeText(CHALLENGE_PROMPT);
@@ -350,7 +350,7 @@ Formato: Memo ejecutivo de maximo 500 palabras con tabla de comparables.`;
   /* ─── Temperature label ─── */
   const tempLabel =
     temperature <= 0.3
-      ? "Frio — Preciso y determinista"
+      ? "Frío — Preciso y determinista"
       : temperature <= 0.7
       ? "Tibio — Balanceado"
       : temperature <= 1.2
@@ -378,24 +378,24 @@ Formato: Memo ejecutivo de maximo 500 palabras con tabla de comparables.`;
 
         <div className="relative z-10 max-w-4xl mx-auto">
           <p className="font-mono text-[0.72rem] text-orange uppercase tracking-widest mb-4 animate-fadeUp">
-            Modulo 01 &middot; Fundamentos &middot; Sesion 1 de 2
+            Módulo 01 &middot; Fundamentos &middot; Sesión 1 de 2
           </p>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white-f leading-tight mb-6 animate-fadeUp-1">
-            Que es la IA?{" "}
+            ¿Qué es la IA?{" "}
             <span className="bg-gradient-to-r from-cyan to-purple bg-clip-text text-transparent">
-              Del mito a la maquina
+              Del mito a la máquina
             </span>
           </h1>
           <p className="text-lg sm:text-xl text-muted max-w-2xl mx-auto mb-10 animate-fadeUp-2">
-            Historia, taxonomia, y desmitificacion de la IA. Transformers,
-            tokenizacion, y tu primer Config Lab con modelos de lenguaje.
+            Historia, taxonomía, y desmitificación de la IA. Transformers,
+            tokenización, y tu primer Config Lab con modelos de lenguaje.
           </p>
 
           {/* Meta stats */}
           <div className="flex flex-wrap justify-center gap-6 animate-fadeUp-3">
             {[
-              { val: "4h", label: "Modulo completo", icon: "◷" },
-              { val: "80%", label: "Practica", icon: "⚡" },
+              { val: "4h", label: "Módulo completo", icon: "◷" },
+              { val: "80%", label: "Práctica", icon: "⚡" },
               { val: "3", label: "LLMs en vivo", icon: "◉" },
               { val: "6", label: "Herramientas", icon: "◈" },
             ].map((s) => (
@@ -416,7 +416,7 @@ Formato: Memo ejecutivo de maximo 500 palabras con tabla de comparables.`;
       <RevealSection>
         <section className="max-w-6xl mx-auto px-6 py-12">
           <p className="font-mono text-[0.72rem] text-orange uppercase tracking-widest mb-6">
-            Agenda &middot; Sesion 1
+            Agenda &middot; Sesión 1
           </p>
           <div className="flex flex-col sm:flex-row gap-2">
             {AGENDA.map((a, i) => (
@@ -450,10 +450,10 @@ Formato: Memo ejecutivo de maximo 500 palabras con tabla de comparables.`;
           <div className="bg-[#151A3A] border border-white/[0.06] rounded-2xl overflow-hidden">
             <div className="bg-gradient-to-r from-cyan/10 to-purple/10 px-8 py-6 border-b border-white/[0.06]">
               <h2 className="text-2xl font-bold text-white-f">
-                Due Diligence en operacion M&A
+                Due Diligence en operación M&A
               </h2>
               <p className="text-muted mt-1">
-                Escenario real: adquisicion de empresa del sector energia
+                Escenario real: adquisición de empresa del sector energía
               </p>
             </div>
             <div className="p-8">
@@ -467,7 +467,7 @@ Formato: Memo ejecutivo de maximo 500 palabras con tabla de comparables.`;
                   {
                     val: "72h",
                     label: "Deadline",
-                    sub: "Ventana critica de exclusividad",
+                    sub: "Ventana crítica de exclusividad",
                   },
                   {
                     val: "3",
@@ -500,7 +500,7 @@ Formato: Memo ejecutivo de maximo 500 palabras con tabla de comparables.`;
                       <span className="text-red mt-0.5">✕</span>
                       <span>
                         <strong className="text-white-f">60+</strong>{" "}
-                        persona-horas de revision manual
+                        persona-horas de revisión manual
                       </span>
                     </li>
                     <li className="flex items-start gap-2">
@@ -514,13 +514,13 @@ Formato: Memo ejecutivo de maximo 500 palabras con tabla de comparables.`;
                     <li className="flex items-start gap-2">
                       <span className="text-red mt-0.5">✕</span>
                       <span>
-                        Riesgo de omision de clausulas criticas por fatiga
+                        Riesgo de omisión de cláusulas críticas por fatiga
                       </span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-red mt-0.5">✕</span>
                       <span>
-                        Inconsistencias entre analistas en criterios de revision
+                        Inconsistencias entre analistas en criterios de revisión
                       </span>
                     </li>
                   </ul>
@@ -550,8 +550,8 @@ Formato: Memo ejecutivo de maximo 500 palabras con tabla de comparables.`;
                     <li className="flex items-start gap-2">
                       <span className="text-cyan mt-0.5">✓</span>
                       <span>
-                        Extraccion sistematica de riesgos, obligaciones y
-                        clausulas clave
+                        Extracción sistemática de riesgos, obligaciones y
+                        cláusulas clave
                       </span>
                     </li>
                     <li className="flex items-start gap-2">
@@ -572,7 +572,7 @@ Formato: Memo ejecutivo de maximo 500 palabras con tabla de comparables.`;
       <RevealSection>
         <section className="max-w-6xl mx-auto px-6 py-16">
           <p className="font-mono text-[0.72rem] text-orange uppercase tracking-widest mb-6">
-            Taxonomia &middot; Del concepto general a la IA generativa
+            Taxonomía &middot; Del concepto general a la IA generativa
           </p>
           <div className="grid md:grid-cols-2 gap-8">
             {/* Tree visual */}
@@ -704,12 +704,12 @@ Formato: Memo ejecutivo de maximo 500 palabras con tabla de comparables.`;
             Arquitectura &middot; Transformers
           </p>
           <h2 className="text-2xl font-bold text-white-f mb-2">
-            Self-Attention: como un modelo &quot;entiende&quot; relaciones
+            Self-Attention: cómo un modelo &quot;entiende&quot; relaciones
           </h2>
           <p className="text-muted mb-8 max-w-3xl">
-            El mecanismo de atencion permite que cada token &quot;mire&quot; a
-            todos los demas para entender contexto. Haz clic en un token para
-            ver sus pesos de atencion.
+            El mecanismo de atención permite que cada token &quot;mire&quot; a
+            todos los demás para entender contexto. Haz clic en un token para
+            ver sus pesos de atención.
           </p>
 
           {/* Token bar */}
@@ -797,10 +797,10 @@ Formato: Memo ejecutivo de maximo 500 palabras con tabla de comparables.`;
             )}
 
             <p className="text-xs text-muted">
-              <strong className="text-white-f">Interpretacion:</strong> El token
-              &quot;riesgo&quot; presta mas atencion a &quot;Analisis&quot; y
+              <strong className="text-white-f">Interpretación:</strong> El token
+              &quot;riesgo&quot; presta más atención a &quot;Análisis&quot; y
               &quot;bonos&quot; — el modelo aprende que el riesgo se vincula con
-              el analisis de instrumentos financieros. Este mecanismo es lo que
+              el análisis de instrumentos financieros. Este mecanismo es lo que
               hace a los Transformers superiores a arquitecturas anteriores.
             </p>
           </div>
@@ -839,6 +839,545 @@ Formato: Memo ejecutivo de maximo 500 palabras con tabla de comparables.`;
               ))}
             </div>
           </div>
+
+          {/* ── Anatomía de un Transformer (detailed diagram) ── */}
+          <div className="bg-[#151A3A] border border-white/[0.06] rounded-2xl p-8 mt-6">
+            <p className="font-mono text-xs text-orange mb-2 uppercase tracking-widest">
+              Diagrama &middot; Anatomía completa
+            </p>
+            <h3 className="text-xl font-bold text-white-f mb-6">
+              Anatomía de un Transformer
+            </h3>
+
+            <div className="flex flex-col items-center gap-3">
+              {/* INPUT */}
+              <div className="w-full max-w-2xl">
+                <div className="rounded-xl border border-cyan/30 bg-cyan/5 p-4">
+                  <p className="font-mono text-[0.65rem] text-cyan uppercase tracking-widest mb-2">Input</p>
+                  <p className="text-white-f text-sm mb-3">
+                    &quot;Análisis de riesgo para emisión de bonos Ecopetrol&quot;
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {["Análisis","de","riesgo","para","emisión","de","bonos","Ecopetrol"].map((t,i) => (
+                      <span key={i} className="px-2 py-1 rounded bg-cyan/15 border border-cyan/20 font-mono text-xs text-cyan">{t}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <span className="text-muted/40 text-2xl">↓</span>
+
+              {/* EMBEDDING */}
+              <div className="w-full max-w-2xl">
+                <div className="rounded-xl border border-[#3A7BD5]/30 bg-[#3A7BD5]/5 p-4">
+                  <p className="font-mono text-[0.65rem] text-[#3A7BD5] uppercase tracking-widest mb-2">
+                    Token Embeddings — cada token se convierte en un vector de números
+                  </p>
+                  <div className="grid grid-cols-8 gap-1">
+                    {Array.from({ length: 32 }).map((_, i) => {
+                      const v = (Math.sin(i * 2.1 + 0.3) * 0.5 + 0.5);
+                      return (
+                        <div key={i} className="h-5 rounded-sm" style={{
+                          background: `rgba(58, 123, 213, ${0.1 + v * 0.6})`,
+                        }} />
+                      );
+                    })}
+                  </div>
+                  <p className="text-muted/50 text-[0.6rem] mt-2 font-mono">
+                    [0.23, -0.87, 0.14, 0.92, -0.33, ...] x 4096 dimensiones
+                  </p>
+                </div>
+              </div>
+
+              <span className="text-muted/40 text-lg">+</span>
+
+              {/* POSITIONAL ENCODING */}
+              <div className="w-full max-w-2xl">
+                <div className="rounded-xl border border-[#D4AF4C]/30 bg-[#D4AF4C]/5 p-4">
+                  <p className="font-mono text-[0.65rem] text-[#D4AF4C] uppercase tracking-widest mb-2">
+                    Positional Encoding — el modelo sabe el orden de las palabras
+                  </p>
+                  <div className="flex gap-0.5 h-8 items-end">
+                    {Array.from({ length: 40 }).map((_, i) => {
+                      const h = Math.abs(Math.sin(i * 0.4)) * 100;
+                      return (
+                        <div key={i} className="flex-1 rounded-t-sm" style={{
+                          height: `${Math.max(10, h)}%`,
+                          background: `rgba(212, 175, 76, ${0.2 + Math.abs(Math.sin(i * 0.4)) * 0.5})`,
+                        }} />
+                      );
+                    })}
+                  </div>
+                  <p className="text-muted/50 text-[0.6rem] mt-2">
+                    Ondas sinusoidales que codifican la posición: token 1, token 2, ... token N
+                  </p>
+                </div>
+              </div>
+
+              <span className="text-muted/40 text-2xl">↓</span>
+
+              {/* ATTENTION BLOCK (expanded) */}
+              <div className="w-full max-w-2xl">
+                <div className="rounded-xl border border-[#5B52D5]/30 bg-[#5B52D5]/5 p-4">
+                  <p className="font-mono text-[0.65rem] text-[#5B52D5] uppercase tracking-widest mb-3">
+                    Multi-Head Self-Attention
+                  </p>
+
+                  {/* Q K V */}
+                  <div className="grid grid-cols-3 gap-3 mb-4">
+                    {[
+                      { label: "Query (Q)", desc: "¿Qué estoy buscando?", color: "#E85A1F" },
+                      { label: "Key (K)", desc: "¿Qué información tengo?", color: "#5B52D5" },
+                      { label: "Value (V)", desc: "¿Cuál es el contenido?", color: "#00E5A0" },
+                    ].map((m) => (
+                      <div key={m.label} className="rounded-lg p-3 border" style={{
+                        background: `${m.color}10`,
+                        borderColor: `${m.color}30`,
+                      }}>
+                        <p className="font-mono text-xs font-bold" style={{ color: m.color }}>{m.label}</p>
+                        <p className="text-muted text-[0.65rem] mt-1">{m.desc}</p>
+                        <div className="grid grid-cols-4 gap-0.5 mt-2">
+                          {Array.from({ length: 16 }).map((_, i) => (
+                            <div key={i} className="h-3 rounded-sm" style={{
+                              background: `${m.color}${Math.floor(15 + Math.random() * 40).toString(16)}`,
+                            }} />
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Attention = softmax(QK^T / sqrt(d)) * V */}
+                  <div className="bg-[#0D1229] rounded-lg p-3 border border-white/[0.04] mb-3">
+                    <p className="font-mono text-xs text-white-f text-center">
+                      Attention(Q, K, V) = softmax(Q &middot; K<sup>T</sup> / &radic;d<sub>k</sub>) &middot; V
+                    </p>
+                  </div>
+
+                  {/* Heatmap */}
+                  <p className="font-mono text-[0.6rem] text-muted mb-2">Matriz de atención (scores):</p>
+                  <div className="grid gap-0.5" style={{ gridTemplateColumns: "repeat(8, 1fr)" }}>
+                    {Array.from({ length: 64 }).map((_, i) => {
+                      const row = Math.floor(i / 8);
+                      const col = i % 8;
+                      const w = ATTENTION_WEIGHTS[row]?.[col] ?? 0.1;
+                      return (
+                        <div key={i} className="aspect-square rounded-sm" style={{
+                          background: w > 0.2 ? `rgba(91, 82, 213, ${0.2 + w * 2.5})` : `rgba(91, 82, 213, ${0.05 + w})`,
+                        }} />
+                      );
+                    })}
+                  </div>
+                  <p className="text-muted/50 text-[0.6rem] mt-1">
+                    Cada celda muestra cuánta atención presta un token a otro. Más oscuro = más atención.
+                  </p>
+                </div>
+              </div>
+
+              <span className="text-muted/40 text-2xl">↓</span>
+
+              {/* FEED FORWARD */}
+              <div className="w-full max-w-2xl">
+                <div className="rounded-xl border border-[#E85A1F]/30 bg-[#E85A1F]/5 p-4 flex items-center justify-between">
+                  <div>
+                    <p className="font-mono text-[0.65rem] text-[#E85A1F] uppercase tracking-widest">Feed Forward Network</p>
+                    <p className="text-muted text-xs mt-1">Procesamiento no-lineal de cada posición independientemente</p>
+                  </div>
+                  <div className="flex gap-1">
+                    <div className="w-4 h-8 rounded bg-[#E85A1F]/20 border border-[#E85A1F]/30" />
+                    <div className="w-4 h-12 rounded bg-[#E85A1F]/30 border border-[#E85A1F]/30" />
+                    <div className="w-4 h-8 rounded bg-[#E85A1F]/20 border border-[#E85A1F]/30" />
+                  </div>
+                </div>
+              </div>
+
+              {/* RESIDUAL + LAYER NORM */}
+              <div className="w-full max-w-2xl flex items-center gap-3">
+                <div className="flex-1 h-px bg-gradient-to-r from-transparent via-purple/40 to-transparent" />
+                <span className="font-mono text-[0.6rem] text-muted px-3 py-1 rounded-full border border-white/[0.06] bg-[#0D1229]">
+                  + Residual &amp; LayerNorm
+                </span>
+                <div className="flex-1 h-px bg-gradient-to-r from-transparent via-purple/40 to-transparent" />
+              </div>
+
+              {/* STACK */}
+              <div className="w-full max-w-2xl">
+                <div className="rounded-xl border border-white/[0.1] bg-white/[0.02] p-4 text-center relative">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-[#151A3A] border border-white/[0.1] font-mono text-xs text-muted">
+                    &times;N capas
+                  </div>
+                  <div className="flex justify-center gap-1 mt-2">
+                    {Array.from({ length: 12 }).map((_, i) => (
+                      <div key={i} className="w-6 h-10 rounded border border-white/[0.08]" style={{
+                        background: `linear-gradient(180deg, rgba(91,82,213,${0.05 + i * 0.03}), rgba(0,229,160,${0.02 + i * 0.02}))`,
+                      }} />
+                    ))}
+                  </div>
+                  <p className="text-muted text-xs mt-3">
+                    GPT-5.4: 120 capas &middot; Claude 4.6: 96 capas &middot; Gemini 3.1: 80 capas
+                  </p>
+                </div>
+              </div>
+
+              <span className="text-muted/40 text-2xl">↓</span>
+
+              {/* OUTPUT */}
+              <div className="w-full max-w-2xl">
+                <div className="rounded-xl border border-[#22C55E]/30 bg-[#22C55E]/5 p-4">
+                  <p className="font-mono text-[0.65rem] text-[#22C55E] uppercase tracking-widest mb-2">
+                    Output — Distribución de probabilidad sobre vocabulario
+                  </p>
+                  <div className="flex gap-1 items-end h-16 mb-2">
+                    {[
+                      { t: "Ecopetrol", p: 0.42 },
+                      { t: "bonos", p: 0.18 },
+                      { t: "Colombia", p: 0.12 },
+                      { t: "corporativo", p: 0.08 },
+                      { t: "de", p: 0.06 },
+                      { t: "BB+", p: 0.05 },
+                      { t: "...", p: 0.03 },
+                    ].map((item, i) => (
+                      <div key={i} className="flex-1 flex flex-col items-center">
+                        <div className="w-full rounded-t transition-all" style={{
+                          height: `${item.p * 150}%`,
+                          background: i === 0 ? "#22C55E" : `rgba(34, 197, 94, ${0.15 + item.p})`,
+                        }} />
+                        <p className="text-[0.5rem] text-muted mt-1 truncate w-full text-center font-mono">{item.t}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="bg-[#0D1229] rounded-lg p-2 border border-white/[0.04] text-center">
+                    <p className="text-xs text-white-f">
+                      Siguiente token predicho: <strong className="text-[#22C55E] font-mono">&quot;Ecopetrol&quot;</strong>
+                      <span className="text-muted ml-2">(p=0.42)</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ── Cómo aprende un LLM ── */}
+          <div className="bg-[#151A3A] border border-white/[0.06] rounded-2xl p-8 mt-6">
+            <p className="font-mono text-xs text-orange mb-2 uppercase tracking-widest">
+              Proceso &middot; Entrenamiento
+            </p>
+            <h3 className="text-xl font-bold text-white-f mb-6">
+              ¿Cómo aprende un LLM?
+            </h3>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              {/* Phase 1 */}
+              <div className="rounded-xl border border-[#3A7BD5]/30 bg-[#3A7BD5]/5 p-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-8 h-8 rounded-full bg-[#3A7BD5]/20 border border-[#3A7BD5]/40 flex items-center justify-center">
+                    <span className="text-[#3A7BD5] font-bold text-sm">1</span>
+                  </div>
+                  <p className="text-[#3A7BD5] font-semibold text-sm">Pre-entrenamiento</p>
+                </div>
+
+                <div className="space-y-3 mb-4">
+                  <div className="flex gap-2 text-xs text-muted">
+                    <span>📚</span><span>Internet, libros, código, reportes financieros</span>
+                  </div>
+                  <div className="flex items-center justify-center py-2">
+                    <span className="text-muted text-lg">↓</span>
+                  </div>
+                  <div className="flex gap-2 text-xs text-muted">
+                    <span>🧠</span><span>El modelo absorbe patrones del lenguaje</span>
+                  </div>
+                </div>
+
+                <div className="bg-[#0D1229] rounded-lg p-3 border border-white/[0.04]">
+                  <p className="font-mono text-xs text-muted mb-1">Objetivo: predecir la siguiente palabra</p>
+                  <p className="text-white-f text-sm font-mono">
+                    &quot;El EBITDA de Ecopetrol fue de <span className="px-2 py-0.5 rounded bg-[#3A7BD5]/20 border border-[#3A7BD5]/30 text-[#3A7BD5]">___</span>&quot;
+                  </p>
+                </div>
+
+                <div className="mt-3 text-[0.6rem] text-muted/50">
+                  ~10 billones de tokens &middot; Meses de entrenamiento &middot; Millones de USD en GPUs
+                </div>
+              </div>
+
+              {/* Phase 2 */}
+              <div className="rounded-xl border border-[#5B52D5]/30 bg-[#5B52D5]/5 p-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-8 h-8 rounded-full bg-[#5B52D5]/20 border border-[#5B52D5]/40 flex items-center justify-center">
+                    <span className="text-[#5B52D5] font-bold text-sm">2</span>
+                  </div>
+                  <p className="text-[#5B52D5] font-semibold text-sm">Fine-tuning + RLHF</p>
+                </div>
+
+                <div className="space-y-3 mb-4">
+                  <div className="bg-[#0D1229] rounded-lg p-3 border border-white/[0.04] space-y-2">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[#22C55E]">👍</span>
+                      <p className="text-xs text-white-f">&quot;El rating de Ecopetrol es BB+ según S&P.&quot;</p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[#E74C3C]">👎</span>
+                      <p className="text-xs text-muted line-through">&quot;Ecopetrol es la mejor inversión del mundo.&quot;</p>
+                    </div>
+                  </div>
+                </div>
+
+                <p className="text-muted text-xs leading-relaxed">
+                  Evaluadores humanos califican las respuestas. El modelo aprende qué respuestas son <strong className="text-white-f">útiles, seguras y honestas</strong>.
+                </p>
+
+                <div className="mt-3 text-[0.6rem] text-muted/50">
+                  RLHF = Reinforcement Learning from Human Feedback
+                </div>
+              </div>
+
+              {/* Phase 3 */}
+              <div className="rounded-xl border border-[#00E5A0]/30 bg-[#00E5A0]/5 p-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-8 h-8 rounded-full bg-[#00E5A0]/20 border border-[#00E5A0]/40 flex items-center justify-center">
+                    <span className="text-[#00E5A0] font-bold text-sm">3</span>
+                  </div>
+                  <p className="text-[#00E5A0] font-semibold text-sm">Prompt (Inferencia)</p>
+                </div>
+
+                <div className="space-y-3 mb-4">
+                  <div className="bg-[#0D1229] rounded-lg p-3 border border-white/[0.04]">
+                    <p className="font-mono text-[0.6rem] text-muted mb-1">Usuario escribe:</p>
+                    <p className="text-xs text-white-f">&quot;Evalúa el perfil crediticio de Ecopetrol para una emisión de bonos verdes.&quot;</p>
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <span className="text-muted text-lg">↓</span>
+                  </div>
+                  <div className="bg-[#0D1229] rounded-lg p-3 border border-[#00E5A0]/20">
+                    <p className="font-mono text-[0.6rem] text-[#00E5A0] mb-1">Modelo genera:</p>
+                    <p className="text-xs text-white-f">&quot;Ecopetrol presenta un perfil crediticio BB+ con Deuda/EBITDA de 1.8x...&quot;</p>
+                  </div>
+                </div>
+
+                <div className="bg-[#00E5A0]/10 rounded-lg p-3 border border-[#00E5A0]/20">
+                  <p className="text-xs text-[#00E5A0] font-semibold text-center">
+                    Aquí es donde BTG interactúa con el modelo
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </RevealSection>
+
+      {/* ═══════════════════ 5B. QUE ES UN TOKEN ═══════════════════ */}
+      <RevealSection>
+        <section className="max-w-6xl mx-auto px-6 py-16">
+          <p className="font-mono text-[0.72rem] text-orange uppercase tracking-widest mb-2">
+            Concepto clave &middot; Tokens
+          </p>
+          <h2 className="text-2xl font-bold text-white-f mb-2">
+            ¿Qué es un token?
+          </h2>
+          <p className="text-muted mb-8 max-w-3xl">
+            Un LLM no lee palabras completas — lee <strong className="text-white-f">tokens</strong>, fragmentos
+            de texto que pueden ser palabras, partes de palabras, signos de puntuación o números.
+            Piensa en ellos como los ladrillos de LEGO con los que el modelo construye significado.
+          </p>
+
+          {/* LEGO metaphor */}
+          <div className="bg-[#151A3A] border border-white/[0.06] rounded-2xl p-8 mb-6">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="flex gap-1">
+                {["#00E5A0","#5B52D5","#E85A1F","#3A7BD5","#22C55E"].map((c,i) => (
+                  <div key={i} className="w-8 h-8 rounded-md border-2 border-white/20" style={{ background: c }} />
+                ))}
+              </div>
+              <p className="text-white-f text-sm">
+                Un token es como un <strong className="text-cyan">ladrillo de LEGO</strong> — el LLM construye significado ensamblando piezas.
+                Cada pieza tiene un color (significado) y una forma (ID numérico) que el modelo reconoce.
+              </p>
+            </div>
+
+            {/* Progressive tokenization */}
+            <div className="space-y-6">
+              {/* Step 1: Original text */}
+              <div>
+                <p className="font-mono text-[0.65rem] text-muted uppercase tracking-widest mb-2">
+                  1. Texto original
+                </p>
+                <div className="bg-[#0D1229] rounded-xl p-4 border border-white/[0.04]">
+                  <p className="text-white-f font-mono text-sm">
+                    BTG Pactual lidera la emisión de bonos verdes en Latinoamérica.
+                  </p>
+                </div>
+              </div>
+
+              {/* Step 2: Split into words */}
+              <div className="flex items-center gap-3">
+                <span className="text-muted text-xl">↓</span>
+                <span className="font-mono text-[0.65rem] text-muted uppercase tracking-widest">
+                  Separación en palabras
+                </span>
+              </div>
+              <div>
+                <p className="font-mono text-[0.65rem] text-muted uppercase tracking-widest mb-2">
+                  2. Palabras
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {["BTG","Pactual","lidera","la","emisión","de","bonos","verdes","en","Latinoamérica","."].map((w,i) => (
+                    <span key={i} className="px-3 py-1.5 rounded-lg bg-white/[0.06] border border-white/[0.08] text-white-f font-mono text-sm">
+                      {w}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Step 3: Subword tokens */}
+              <div className="flex items-center gap-3">
+                <span className="text-muted text-xl">↓</span>
+                <span className="font-mono text-[0.65rem] text-muted uppercase tracking-widest">
+                  BPE (Byte Pair Encoding) subdivide palabras infrecuentes
+                </span>
+              </div>
+              <div>
+                <p className="font-mono text-[0.65rem] text-muted uppercase tracking-widest mb-2">
+                  3. Tokens (subpalabras)
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {[
+                    { t: "BT", c: "#00E5A0" }, { t: "G", c: "#00E5A0" },
+                    { t: " Pact", c: "#5B52D5" }, { t: "ual", c: "#5B52D5" },
+                    { t: " lider", c: "#E85A1F" }, { t: "a", c: "#E85A1F" },
+                    { t: " la", c: "#3A7BD5" },
+                    { t: " emisi", c: "#22C55E" }, { t: "ón", c: "#22C55E" },
+                    { t: " de", c: "#3A7BD5" },
+                    { t: " bon", c: "#D4AF4C" }, { t: "os", c: "#D4AF4C" },
+                    { t: " verd", c: "#9B59B6" }, { t: "es", c: "#9B59B6" },
+                    { t: " en", c: "#3A7BD5" },
+                    { t: " Latin", c: "#E74C3C" }, { t: "oam", c: "#E74C3C" }, { t: "érica", c: "#E74C3C" },
+                    { t: ".", c: "#6B7280" },
+                  ].map((tk, i) => (
+                    <span key={i} className="inline-flex items-center px-2.5 py-1.5 rounded-md font-mono text-sm border border-white/[0.06]"
+                      style={{ background: `${tk.c}18`, color: tk.c }}>
+                      {tk.t.replace(/ /g, "\u00B7")}
+                    </span>
+                  ))}
+                </div>
+                <p className="text-xs text-muted/60 mt-2">
+                  * El punto medio (·) representa un espacio. Los tokenizadores codifican espacios como parte del token.
+                </p>
+              </div>
+
+              {/* Step 4: IDs */}
+              <div className="flex items-center gap-3">
+                <span className="text-muted text-xl">↓</span>
+                <span className="font-mono text-[0.65rem] text-muted uppercase tracking-widest">
+                  Cada token se mapea a un ID numérico del vocabulario
+                </span>
+              </div>
+              <div>
+                <p className="font-mono text-[0.65rem] text-muted uppercase tracking-widest mb-2">
+                  4. IDs numéricos (lo que realmente procesa el modelo)
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {[33, 42, 7412, 940, 48826, 64, 2751, 15723, 357, 84, 6301, 437, 9047, 288, 479, 50782, 78204, 42910, 13].map((id, i) => (
+                    <span key={i} className="px-2.5 py-1.5 rounded-md bg-[#0D1229] border border-white/[0.04] font-mono text-xs text-cyan">
+                      {id}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Side-by-side: token count comparison */}
+          <div className="grid md:grid-cols-2 gap-6 mb-6">
+            <div className="bg-[#151A3A] border border-white/[0.06] rounded-2xl p-6">
+              <p className="font-mono text-xs text-cyan mb-4">PALABRA CORTA / FRECUENTE</p>
+              <div className="space-y-4">
+                <div>
+                  <p className="text-muted text-xs mb-1">Palabra:</p>
+                  <span className="px-4 py-2 rounded-lg bg-cyan/10 border border-cyan/30 text-cyan font-mono text-lg font-bold">
+                    Ecopetrol
+                  </span>
+                </div>
+                <div>
+                  <p className="text-muted text-xs mb-1">Tokens:</p>
+                  <div className="flex gap-1.5">
+                    <span className="px-3 py-1.5 rounded-md bg-cyan/15 border border-cyan/20 font-mono text-sm text-cyan">
+                      Eco
+                    </span>
+                    <span className="px-3 py-1.5 rounded-md bg-cyan/15 border border-cyan/20 font-mono text-sm text-cyan">
+                      pet
+                    </span>
+                    <span className="px-3 py-1.5 rounded-md bg-cyan/15 border border-cyan/20 font-mono text-sm text-cyan">
+                      rol
+                    </span>
+                  </div>
+                  <p className="text-white-f font-mono text-sm mt-2">= <strong>3 tokens</strong></p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-[#151A3A] border border-white/[0.06] rounded-2xl p-6">
+              <p className="font-mono text-xs text-orange mb-4">PALABRA LARGA / INFRECUENTE</p>
+              <div className="space-y-4">
+                <div>
+                  <p className="text-muted text-xs mb-1">Palabra:</p>
+                  <span className="px-4 py-2 rounded-lg bg-orange/10 border border-orange/30 text-orange font-mono text-lg font-bold">
+                    descarbonización
+                  </span>
+                </div>
+                <div>
+                  <p className="text-muted text-xs mb-1">Tokens:</p>
+                  <div className="flex gap-1.5">
+                    <span className="px-3 py-1.5 rounded-md bg-orange/15 border border-orange/20 font-mono text-sm text-orange">
+                      des
+                    </span>
+                    <span className="px-3 py-1.5 rounded-md bg-orange/15 border border-orange/20 font-mono text-sm text-orange">
+                      carbon
+                    </span>
+                    <span className="px-3 py-1.5 rounded-md bg-orange/15 border border-orange/20 font-mono text-sm text-orange">
+                      izaci
+                    </span>
+                    <span className="px-3 py-1.5 rounded-md bg-orange/15 border border-orange/20 font-mono text-sm text-orange">
+                      ón
+                    </span>
+                  </div>
+                  <p className="text-white-f font-mono text-sm mt-2">= <strong>4 tokens</strong></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Everything is a token */}
+          <div className="bg-[#151A3A] border border-white/[0.06] rounded-2xl p-6">
+            <p className="font-mono text-xs text-purple-light mb-4">TODO SE TOKENIZA: ESPACIOS, PUNTUACIÓN Y NÚMEROS</p>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="bg-[#0D1229] rounded-xl p-4 border border-white/[0.04] text-center">
+                <p className="text-muted text-xs mb-2">Espacios</p>
+                <div className="flex justify-center gap-1">
+                  <span className="px-2 py-1 rounded bg-purple/20 border border-purple/30 font-mono text-sm text-purple">·</span>
+                  <span className="px-2 py-1 rounded bg-purple/20 border border-purple/30 font-mono text-sm text-purple">\n</span>
+                  <span className="px-2 py-1 rounded bg-purple/20 border border-purple/30 font-mono text-sm text-purple">\t</span>
+                </div>
+              </div>
+              <div className="bg-[#0D1229] rounded-xl p-4 border border-white/[0.04] text-center">
+                <p className="text-muted text-xs mb-2">Puntuación</p>
+                <div className="flex justify-center gap-1">
+                  <span className="px-2 py-1 rounded bg-orange/20 border border-orange/30 font-mono text-sm text-orange">.</span>
+                  <span className="px-2 py-1 rounded bg-orange/20 border border-orange/30 font-mono text-sm text-orange">,</span>
+                  <span className="px-2 py-1 rounded bg-orange/20 border border-orange/30 font-mono text-sm text-orange">$</span>
+                  <span className="px-2 py-1 rounded bg-orange/20 border border-orange/30 font-mono text-sm text-orange">%</span>
+                </div>
+              </div>
+              <div className="bg-[#0D1229] rounded-xl p-4 border border-white/[0.04] text-center">
+                <p className="text-muted text-xs mb-2">Números</p>
+                <div className="flex justify-center gap-1">
+                  <span className="px-2 py-1 rounded bg-cyan/20 border border-cyan/30 font-mono text-sm text-cyan">500</span>
+                  <span className="px-2 py-1 rounded bg-cyan/20 border border-cyan/30 font-mono text-sm text-cyan">,</span>
+                  <span className="px-2 py-1 rounded bg-cyan/20 border border-cyan/30 font-mono text-sm text-cyan">000</span>
+                </div>
+                <p className="text-muted/50 text-[0.6rem] mt-1">500,000 = 3 tokens</p>
+              </div>
+            </div>
+          </div>
         </section>
       </RevealSection>
 
@@ -846,15 +1385,15 @@ Formato: Memo ejecutivo de maximo 500 palabras con tabla de comparables.`;
       <RevealSection>
         <section className="max-w-6xl mx-auto px-6 py-16">
           <p className="font-mono text-[0.72rem] text-orange uppercase tracking-widest mb-2">
-            Laboratorio &middot; Tokenizacion
+            Laboratorio &middot; Tokenización
           </p>
           <h2 className="text-2xl font-bold text-white-f mb-2">
-            Como un LLM &quot;ve&quot; tu texto
+            Cómo un LLM &quot;ve&quot; tu texto
           </h2>
           <p className="text-muted mb-8 max-w-3xl">
             Los modelos no leen palabras — leen tokens. Cada token es un
             fragmento que el modelo procesa. Escribe cualquier texto para ver
-            como se tokeniza.
+            cómo se tokeniza.
           </p>
 
           <div className="bg-[#151A3A] border border-white/[0.06] rounded-2xl p-8">
@@ -1069,6 +1608,82 @@ Formato: Memo ejecutivo de maximo 500 palabras con tabla de comparables.`;
             </div>
           </div>
 
+          {/* ── Ventana de contexto explicada ── */}
+          <div className="bg-[#151A3A] border border-white/[0.06] rounded-2xl p-8 mb-8">
+            <p className="font-mono text-xs text-orange mb-2 uppercase tracking-widest">
+              Concepto clave &middot; Contexto
+            </p>
+            <h3 className="text-xl font-bold text-white-f mb-2">
+              Ventana de contexto explicada
+            </h3>
+            <p className="text-muted text-sm mb-6">
+              La ventana de contexto es la cantidad máxima de texto que un LLM puede &quot;ver&quot; a la vez.
+              Imagina una ventana deslizándose sobre un documento largo — el modelo solo puede leer lo que está dentro de la ventana.
+            </p>
+
+            {/* Visual scale */}
+            <div className="space-y-4 mb-8">
+              {[
+                { tokens: "128K", pages: "~300 págs", equiv: "1 novela corta", width: "6.4%", color: "#E85A1F", icon: "📖" },
+                { tokens: "512K", pages: "~1,200 págs", equiv: "3 informes anuales de Ecopetrol", width: "25.6%", color: "#9B59B6", icon: "📊" },
+                { tokens: "1M", pages: "~2,500 págs", equiv: "1 data room completo de M&A", width: "50%", color: "#5B52D5", icon: "🏢" },
+                { tokens: "2M", pages: "~5,000 págs", equiv: "2 data rooms + historial crediticio", width: "100%", color: "#00E5A0", icon: "🏦" },
+              ].map((item) => (
+                <div key={item.tokens} className="flex items-center gap-4">
+                  <span className="text-lg w-8 text-center shrink-0">{item.icon}</span>
+                  <span className="font-mono text-xs w-16 shrink-0" style={{ color: item.color }}>{item.tokens}</span>
+                  <div className="flex-1">
+                    <div className="h-8 rounded-full bg-[#0D1229] border border-white/[0.04] overflow-hidden">
+                      <div className="h-full rounded-full flex items-center px-3 transition-all duration-700" style={{
+                        width: item.width,
+                        background: `linear-gradient(90deg, ${item.color}40, ${item.color}20)`,
+                        borderRight: `2px solid ${item.color}`,
+                      }}>
+                        <span className="text-[0.6rem] text-white-f font-mono whitespace-nowrap">{item.pages}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <span className="text-xs text-muted w-64 shrink-0 hidden sm:block">{item.equiv}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* BTG document examples */}
+            <div className="bg-[#0D1229] rounded-xl p-6 border border-white/[0.04]">
+              <p className="font-mono text-xs text-cyan mb-4 uppercase tracking-widest">
+                ¿Cuántos documentos de BTG caben en la ventana?
+              </p>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {[
+                  { doc: "Contrato típico", tokens: "~15K tokens", icon: "📄", color: "#3A7BD5", pct: "1.5%" },
+                  { doc: "Estado financiero", tokens: "~25K tokens", icon: "📈", color: "#22C55E", pct: "2.5%" },
+                  { doc: "Historial crediticio", tokens: "~5K tokens", icon: "💳", color: "#D4AF4C", pct: "0.5%" },
+                  { doc: "Data room M&A completo", tokens: "~2-5M tokens", icon: "🗄", color: "#E85A1F", pct: "200-500%" },
+                ].map((d) => (
+                  <div key={d.doc} className="rounded-xl p-4 border" style={{
+                    background: `${d.color}08`,
+                    borderColor: `${d.color}25`,
+                  }}>
+                    <span className="text-2xl">{d.icon}</span>
+                    <p className="text-white-f text-sm font-medium mt-2">{d.doc}</p>
+                    <p className="font-mono text-xs mt-1" style={{ color: d.color }}>{d.tokens}</p>
+                    <div className="mt-2 h-1.5 rounded-full bg-[#0D1229] overflow-hidden">
+                      <div className="h-full rounded-full" style={{
+                        width: `${Math.min(100, parseFloat(d.pct))}%`,
+                        background: d.color,
+                      }} />
+                    </div>
+                    <p className="text-muted/50 text-[0.6rem] mt-1">{d.pct} de ventana 1M</p>
+                  </div>
+                ))}
+              </div>
+              <p className="text-xs text-muted/60 mt-4">
+                * Un data room completo de M&A puede exceder la ventana de contexto de la mayoría de modelos.
+                Para estos casos se usan técnicas como RAG (Retrieval-Augmented Generation) o procesamiento por partes.
+              </p>
+            </div>
+          </div>
+
           {/* Context window bars */}
           <div className="bg-[#151A3A] border border-white/[0.06] rounded-2xl p-8 mb-8">
             <h3 className="text-lg font-bold text-white-f mb-6">
@@ -1167,6 +1782,118 @@ Formato: Memo ejecutivo de maximo 500 palabras con tabla de comparables.`;
         </section>
       </RevealSection>
 
+      {/* ═══════════════════ 7B. SYSTEM vs USER PROMPT ═══════════════════ */}
+      <RevealSection>
+        <section className="max-w-6xl mx-auto px-6 py-16">
+          <p className="font-mono text-[0.72rem] text-orange uppercase tracking-widest mb-2">
+            Concepto clave &middot; Capas del prompt
+          </p>
+          <h2 className="text-2xl font-bold text-white-f mb-2">
+            System Prompt vs User Prompt
+          </h2>
+          <p className="text-muted mb-8 max-w-3xl">
+            Cada interacción con un LLM tiene capas. Entender la diferencia entre system prompt,
+            contexto y user prompt es clave para obtener resultados profesionales y consistentes.
+          </p>
+
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* Nested boxes diagram */}
+            <div className="bg-[#151A3A] border border-white/[0.06] rounded-2xl p-6">
+              <p className="font-mono text-xs text-muted mb-4">Estructura de capas:</p>
+
+              {/* System prompt - outer */}
+              <div className="rounded-xl border-2 border-[#5B52D5]/50 bg-[#5B52D5]/5 p-5">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-3 h-3 rounded-full bg-[#5B52D5]" />
+                  <p className="font-mono text-xs text-[#5B52D5] uppercase tracking-widest">System Prompt</p>
+                </div>
+                <p className="text-muted text-xs mb-4">
+                  Define el rol, reglas, personalidad y límites del modelo.
+                  El usuario final normalmente no lo ve.
+                </p>
+
+                {/* Context - middle */}
+                <div className="rounded-xl border-2 border-[#3A7BD5]/50 bg-[#3A7BD5]/5 p-5">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-3 h-3 rounded-full bg-[#3A7BD5]" />
+                    <p className="font-mono text-xs text-[#3A7BD5] uppercase tracking-widest">Contexto / Ejemplos</p>
+                  </div>
+                  <p className="text-muted text-xs mb-4">
+                    Datos de referencia, formato esperado, few-shot examples.
+                  </p>
+
+                  {/* User prompt - inner */}
+                  <div className="rounded-xl border-2 border-[#00E5A0]/50 bg-[#00E5A0]/5 p-5">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-3 h-3 rounded-full bg-[#00E5A0] animate-pulse-dot" />
+                      <p className="font-mono text-xs text-[#00E5A0] uppercase tracking-widest">User Prompt</p>
+                    </div>
+                    <p className="text-muted text-xs">
+                      La instrucción específica del usuario. Cambia con cada interacción.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* BTG Example */}
+            <div className="bg-[#151A3A] border border-white/[0.06] rounded-2xl p-6">
+              <p className="font-mono text-xs text-muted mb-4">Ejemplo BTG Pactual:</p>
+
+              <div className="space-y-3">
+                {/* System */}
+                <div className="rounded-xl border border-[#5B52D5]/30 bg-[#5B52D5]/5 p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#5B52D5]" />
+                    <p className="font-mono text-[0.65rem] text-[#5B52D5] uppercase">System</p>
+                  </div>
+                  <p className="text-white-f text-sm font-mono leading-relaxed">
+                    &quot;Eres un analista senior de riesgo en BTG Pactual Colombia.
+                    Respondes con datos cuantitativos, citas rating agencies, y
+                    estructuras tu respuesta como memo ejecutivo. Nunca das recomendación
+                    de inversión directa.&quot;
+                  </p>
+                </div>
+
+                {/* Context */}
+                <div className="rounded-xl border border-[#3A7BD5]/30 bg-[#3A7BD5]/5 p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#3A7BD5]" />
+                    <p className="font-mono text-[0.65rem] text-[#3A7BD5] uppercase">Contexto</p>
+                  </div>
+                  <p className="text-white-f text-sm font-mono leading-relaxed">
+                    &quot;Datos de la emisión: Monto: USD 1.5B &middot; Plazo: 10Y &middot;
+                    Rating actual: BB+ (S&P) &middot; Emisor: Ecopetrol &middot;
+                    Tipo: Bono verde &middot; Spread soberano: 320bps&quot;
+                  </p>
+                </div>
+
+                {/* User */}
+                <div className="rounded-xl border border-[#00E5A0]/30 bg-[#00E5A0]/5 p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#00E5A0] animate-pulse-dot" />
+                    <p className="font-mono text-[0.65rem] text-[#00E5A0] uppercase">User</p>
+                  </div>
+                  <p className="text-white-f text-sm font-mono leading-relaxed">
+                    &quot;Evalúa el perfil crediticio de Ecopetrol y recomienda un rango de spread para la emisión.&quot;
+                  </p>
+                </div>
+              </div>
+
+              {/* Key insight */}
+              <div className="mt-4 bg-[#0D1229] rounded-xl p-4 border border-white/[0.04]">
+                <p className="text-xs text-muted leading-relaxed">
+                  <strong className="text-white-f">Insight:</strong> El system prompt se configura una vez
+                  y se reutiliza. El contexto cambia según el deal. El user prompt cambia con cada pregunta.
+                  Esta separación permite <strong className="text-cyan">consistencia</strong> en el tono y formato,
+                  con <strong className="text-cyan">flexibilidad</strong> en cada consulta.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </RevealSection>
+
       {/* ═══════════════════ 8. CONFIG LAB ═══════════════════ */}
       <RevealSection>
         <section className="max-w-6xl mx-auto px-6 py-16">
@@ -1177,9 +1904,9 @@ Formato: Memo ejecutivo de maximo 500 palabras con tabla de comparables.`;
             Configura tu LLM como un profesional
           </h2>
           <p className="text-muted mb-8 max-w-3xl">
-            El system prompt es la instruccion maestra que define el comportamiento
-            del modelo. Combinalo con temperatura, modelo, y limites para
-            obtener resultados predecibles y utiles.
+            El system prompt es la instrucción maestra que define el comportamiento
+            del modelo. Combínalo con temperatura, modelo, y límites para
+            obtener resultados predecibles y útiles.
           </p>
 
           <div className="grid lg:grid-cols-2 gap-6">
@@ -1188,7 +1915,7 @@ Formato: Memo ejecutivo de maximo 500 palabras con tabla de comparables.`;
               {/* Presets */}
               <div className="bg-[#151A3A] border border-white/[0.06] rounded-2xl p-6">
                 <p className="font-mono text-xs text-muted mb-3">
-                  Presets de configuracion:
+                  Presets de configuración:
                 </p>
                 <div className="grid grid-cols-2 gap-2">
                   {Object.entries(PRESETS).map(([key, p]) => (
@@ -1319,7 +2046,7 @@ Formato: Memo ejecutivo de maximo 500 palabras con tabla de comparables.`;
               <div className="grid grid-cols-3 gap-3">
                 {[
                   {
-                    label: "Frio",
+                    label: "Frío",
                     range: "0.0–0.3",
                     color: "#3A7BD5",
                     desc: "Compliance, datos, tablas. Respuestas repetibles y factuales.",
@@ -1329,14 +2056,14 @@ Formato: Memo ejecutivo de maximo 500 palabras con tabla de comparables.`;
                     label: "Tibio",
                     range: "0.4–0.7",
                     color: "#22C55E",
-                    desc: "Analisis, research, resumen. Balance creatividad-precision.",
+                    desc: "Análisis, research, resumen. Balance creatividad-precisión.",
                     icon: "◉",
                   },
                   {
                     label: "Caliente",
                     range: "0.8–1.5",
                     color: "#E85A1F",
-                    desc: "Brainstorming, narrativa, estrategia. Mas diversidad lexica.",
+                    desc: "Brainstorming, narrativa, estrategia. Más diversidad léxica.",
                     icon: "★",
                   },
                 ].map((t) => (
@@ -1414,7 +2141,7 @@ Formato: Memo ejecutivo de maximo 500 palabras con tabla de comparables.`;
             Reto &middot; 3 LLMs, 1 Prompt
           </p>
           <h2 className="text-2xl font-bold text-white-f mb-8">
-            Compara modelos en accion
+            Compara modelos en acción
           </h2>
 
           <div className="grid lg:grid-cols-2 gap-8">
@@ -1424,7 +2151,7 @@ Formato: Memo ejecutivo de maximo 500 palabras con tabla de comparables.`;
                 {
                   n: 1,
                   title: "Copia el prompt",
-                  desc: "Usa el template de abajo. Es un memo de analisis de emision de bonos para Ecopetrol.",
+                  desc: "Usa el template de abajo. Es un memo de análisis de emisión de bonos para Ecopetrol.",
                 },
                 {
                   n: 2,
@@ -1434,7 +2161,7 @@ Formato: Memo ejecutivo de maximo 500 palabras con tabla de comparables.`;
                 {
                   n: 3,
                   title: "Compara resultados",
-                  desc: "Evalua: estructura, precision de datos, tono profesional, y actionability del output.",
+                  desc: "Evalúa: estructura, precisión de datos, tono profesional, y actionability del output.",
                 },
                 {
                   n: 4,
@@ -1484,16 +2211,16 @@ Formato: Memo ejecutivo de maximo 500 palabras con tabla de comparables.`;
                   QUICK QUIZ
                 </p>
                 <p className="text-white-f font-semibold mb-4">
-                  Que temperatura usarias para generar un informe de compliance
+                  ¿Qué temperatura usarías para generar un informe de compliance
                   regulatorio?
                 </p>
                 <div className="space-y-2">
                   {[
-                    { id: 0, label: "Temperature 0.9 — Maximo creatividad" },
+                    { id: 0, label: "Temperature 0.9 — Máximo creatividad" },
                     {
                       id: 1,
                       label:
-                        "Temperature 0.1 — Minima variabilidad, maxima precision",
+                        "Temperature 0.1 — Mínima variabilidad, máxima precisión",
                     },
                     { id: 2, label: "Temperature 1.5 — Experimental" },
                     {
@@ -1530,7 +2257,7 @@ Formato: Memo ejecutivo de maximo 500 palabras con tabla de comparables.`;
                   <div className="mt-4 bg-cyan/5 border border-cyan/20 rounded-xl p-4 animate-fadeUp">
                     <p className="text-sm text-white-f">
                       <strong>Correcto.</strong> Para compliance regulatorio
-                      necesitas la minima variabilidad posible. Temperature 0.1
+                      necesitas la mínima variabilidad posible. Temperature 0.1
                       asegura respuestas consistentes, factuales, y
                       reproducibles — exactamente lo que requiere un entorno
                       regulado como el de la SFC.
