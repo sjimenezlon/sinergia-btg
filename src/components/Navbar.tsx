@@ -4,8 +4,8 @@ import { usePathname } from "next/navigation";
 
 const links = [
   { href: "/", label: "Inicio" },
-  { href: "/sesion/1", label: "Sesion 1" },
-  { href: "/sesion/2", label: "Sesion 2" },
+  { href: "/sesion/1", label: "Sesión 1" },
+  { href: "/sesion/2", label: "Sesión 2" },
 ];
 
 export default function Navbar() {
@@ -46,7 +46,7 @@ export default function Navbar() {
         <span className="px-2 py-0.5 bg-cyan-dim text-cyan font-mono text-[0.6rem] rounded-sm">
           BTG PACTUAL
         </span>
-        <span>20 sesiones &middot; 38h</span>
+        <span>Laboratorio IA</span>
       </div>
     </nav>
   );

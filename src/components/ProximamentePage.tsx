@@ -27,7 +27,7 @@ export default function ProximamentePage({
         {modulo} &middot; {moduloNombre}
       </div>
       <div className="text-[0.85rem] font-mono text-muted mb-2">
-        Sesion {String(numero).padStart(2, "0")}
+        Sesión {String(numero).padStart(2, "0")}
       </div>
       <h1 className="text-[clamp(1.8rem,4vw,3rem)] font-bold text-white leading-tight mb-3 max-w-2xl">
         {titulo}
@@ -35,7 +35,7 @@ export default function ProximamentePage({
       <p className="text-muted text-lg mb-8 max-w-lg">{subtitulo}</p>
 
       <div className="bg-[#151A3A] border border-white/[0.06] rounded-2xl p-8 max-w-2xl w-full text-left mb-8">
-        <h3 className="text-sm font-bold text-white mb-4">Temas de esta sesion</h3>
+        <h3 className="text-sm font-bold text-white mb-4">Temas de esta sesión</h3>
         <div className="flex flex-wrap gap-2 mb-6">
           {temas.map((t) => (
             <span
@@ -47,7 +47,7 @@ export default function ProximamentePage({
           ))}
         </div>
 
-        <h3 className="text-sm font-bold text-white mb-3">Taller / Dinamica</h3>
+        <h3 className="text-sm font-bold text-white mb-3">Taller / Dinámica</h3>
         <p className="text-[0.85rem] text-[#C5CAE0] mb-6">{taller}</p>
 
         <h3 className="text-sm font-bold text-white mb-3">Herramientas</h3>
@@ -64,7 +64,7 @@ export default function ProximamentePage({
       </div>
 
       <div className="inline-flex items-center gap-2 bg-[rgba(232,90,31,0.1)] border border-[rgba(232,90,31,0.2)] rounded-full px-6 py-3 text-[0.82rem] text-[#FF7A42] font-medium mb-8">
-        <span className="text-lg">🚧</span> Contenido en construccion — Proximamente
+        <span className="text-lg">🚧</span> Contenido en construcción — Próximamente
       </div>
 
       <Link

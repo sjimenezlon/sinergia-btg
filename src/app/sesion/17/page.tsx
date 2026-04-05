@@ -8,9 +8,9 @@ export default function Sesion17() {
       subtitulo="DORA, EU AI Act, Habeas Data y normativa SFC"
       modulo="M04"
       moduloNombre="Soluciones para el negocio"
-      temas={["Resiliencia operacional", "Clasificacion de riesgo IA", "Ley 1581/2012", "DAMA-DMBOK", "Trazabilidad", "Data lineage"]}
+      temas={["Resiliencia operacional digital", "Clasificación de riesgo de IA", "Ley 1581/2012", "DAMA-DMBOK", "Trazabilidad y data lineage", "Calidad de datos como base para IA"]}
       herramientas={["DORA", "EU AI Act", "DAMA-DMBOK", "SFC Colombia"]}
-      taller="Auditoria de gobernanza de un proceso actual"
+      taller="Auditoría de gobernanza de un proceso actual de BTG Pactual"
     />
   );
 }

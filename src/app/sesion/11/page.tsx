@@ -5,12 +5,12 @@ export default function Sesion11() {
     <ProximamentePage
       numero={11}
       titulo="Copilot Studio, AI Builder y Power BI"
-      subtitulo="Agentes virtuales y analitica con lenguaje natural"
+      subtitulo="Agentes virtuales, modelos de IA y analítica con lenguaje natural"
       modulo="M03"
       moduloNombre="Automatizaciones"
-      temas={["Asistentes corporativos", "Topicos", "Entidades", "AI Builder", "Power BI + Copilot", "Pipeline integrado"]}
+      temas={["Diseño de asistentes corporativos", "Tópicos y entidades", "Flujos conversacionales", "Modelos preconstruidos en AI Builder", "Power BI + Copilot", "Pipeline integrado"]}
       herramientas={["Copilot Studio", "AI Builder", "Power BI", "Power Automate", "Copilot"]}
-      taller="Agente para consultas de compliance y dashboard con Copilot"
+      taller="Agente para consultas de compliance y dashboard con Copilot para BTG"
     />
   );
 }

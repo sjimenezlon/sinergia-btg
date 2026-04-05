@@ -4,13 +4,13 @@ export default function Sesion12() {
   return (
     <ProximamentePage
       numero={12}
-      titulo="IA agentica en finanzas"
-      subtitulo="Agentes autonomos para trading, compliance y experiencia de cliente"
+      titulo="IA agéntica en finanzas"
+      subtitulo="Agentes autónomos para trading, compliance y experiencia de cliente"
       modulo="M03"
       moduloNombre="Automatizaciones"
-      temas={["Arquitecturas multiagente", "Trading algoritmico", "KYC/AML", "Pagos agentricos", "Reporting automatico"]}
+      temas={["Arquitecturas multiagente", "Trading algorítmico", "KYC/AML automatizado", "Protocolos de comercio y pagos", "Reporting automático", "Riesgos de decisiones autónomas"]}
       herramientas={["Claude", "n8n", "Copilot Studio"]}
-      taller="Demo de un agente de analisis de mercado"
+      taller="Demo de un agente de análisis de mercado para el área de S&T de BTG"
     />
   );
 }

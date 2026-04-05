@@ -5,12 +5,12 @@ export default function Sesion5() {
     <ProximamentePage
       numero={5}
       titulo="Asistentes IA para finanzas"
-      subtitulo="Flujos profesionales de analisis y creacion"
+      subtitulo="Flujos profesionales de análisis y creación"
       modulo="M02"
       moduloNombre="Herramientas y aplicaciones"
-      temas={["Claude Projects", "Artifacts", "Code Interpreter", "Custom GPTs", "DALL-E", "Modelacion DCF", "Due diligence"]}
+      temas={["Claude Projects y Artifacts", "Análisis de documentos", "Code Interpreter", "Custom GPTs y DALL·E", "Modelación DCF asistida", "Integración con PDF y Excel"]}
       herramientas={["Claude Projects", "Artifacts", "Custom GPTs", "Code Interpreter"]}
-      taller="Taller para construir un asistente de due diligence"
+      taller="Taller para construir un asistente de due diligence para operaciones M&A"
     />
   );
 }
