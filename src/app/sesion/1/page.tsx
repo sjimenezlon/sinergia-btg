@@ -178,7 +178,7 @@ const MODELS = [
     costOut: 30,
     desc: "IA integrada en Microsoft 365. Acceso directo a correo, Teams, SharePoint, Excel. Licencia por usuario/mes.",
     tags: ["M365", "Enterprise", "$30/user/mes"],
-    strengths: "Integracion nativa con herramientas de trabajo",
+    strengths: "Integración nativa con herramientas de trabajo",
     weakness: "Costo alto por usuario, funcionalidad limitada vs. API directa",
   },
 ];
@@ -508,7 +508,7 @@ Formato: Memo ejecutivo de máximo 500 palabras con tabla de comparables.`;
                       <span>
                         Cobertura parcial:{" "}
                         <strong className="text-white-f">~60%</strong> de
-                        documentos leidos en detalle
+                        documentos leídos en detalle
                       </span>
                     </li>
                     <li className="flex items-start gap-2">
@@ -769,7 +769,7 @@ Formato: Memo ejecutivo de máximo 500 palabras con tabla de comparables.`;
             {selectedToken !== null && (
               <div className="bg-[#0D1229] rounded-xl p-4 border border-white/[0.04] mb-6 animate-fadeUp">
                 <p className="font-mono text-xs text-cyan mb-2">
-                  Atencion desde &quot;{TRANSFORMER_TOKENS[selectedToken]}&quot;
+                  Atención desde &quot;{TRANSFORMER_TOKENS[selectedToken]}&quot;
                 </p>
                 <div className="flex gap-1 items-end h-24">
                   {TRANSFORMER_TOKENS.map((t, i) => {
@@ -1442,7 +1442,7 @@ Formato: Memo ejecutivo de máximo 500 palabras con tabla de comparables.`;
             </div>
 
             <p className="text-xs text-muted/60 mt-4">
-              * Simulacion aproximada. Los tokenizadores reales (tiktoken, SentencePiece) usan BPE con vocabularios de 100K+ tokens.
+              * Simulación aproximada. Los tokenizadores reales (tiktoken, SentencePiece) usan BPE con vocabularios de 100K+ tokens.
               Precio referencia: $3 USD / 1M input tokens para Claude Sonnet.
             </p>
           </div>
@@ -2155,7 +2155,7 @@ Formato: Memo ejecutivo de máximo 500 palabras con tabla de comparables.`;
                 },
                 {
                   n: 2,
-                  title: "Envia a 3 modelos",
+                  title: "Envía a 3 modelos",
                   desc: "Usa ChatGPT (GPT-5.4), Claude.ai (Claude 4.6) y Gemini. Misma temperatura: 0.3.",
                 },
                 {
