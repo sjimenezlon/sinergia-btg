@@ -134,6 +134,78 @@ const BTG_AREAS = [
   },
 ];
 
+const AUDIT_SCENARIOS = [
+  {
+    id: 0,
+    title: "Scoring crediticio automatizado para PyMEs",
+    area: "Compliance & Risk",
+    icon: "🏢",
+    desc: "BTG implementa un modelo ML que evalua automaticamente solicitudes de credito de PyMEs usando datos financieros, historial bancario, sector economico y ubicacion geografica. El modelo aprueba o rechaza sin intervencion humana para montos menores a COP $500M.",
+    correctRisk: "alto",
+    correctThreats: ["sesgo", "opacidad", "privacidad"],
+    correctControls: ["auditoria", "explicabilidad", "humano"],
+    feedback: "El scoring crediticio automatizado esta explicitamente clasificado como ALTO RIESGO en el EU AI Act (Anexo III). La ubicacion geografica es una variable proxy clasica de sesgo socioeconomico. Sin supervision humana, viola la Circular 029/2024 SFC y el principio de Habeas Data financiero.",
+  },
+  {
+    id: 1,
+    title: "Chatbot de atencion al cliente Wealth Management",
+    area: "Wealth Management",
+    icon: "💬",
+    desc: "Un chatbot LLM atiende consultas de clientes HNW sobre sus portafolios, responde preguntas sobre rendimientos, y sugiere productos de inversion. Tiene acceso a los datos del portafolio del cliente y puede generar reportes personalizados.",
+    correctRisk: "limitado",
+    correctThreats: ["privacidad", "alucinacion", "injection"],
+    correctControls: ["dlp", "sanitizacion", "humano"],
+    feedback: "Los chatbots estan clasificados como RIESGO LIMITADO en el EU AI Act — requieren transparencia (el usuario debe saber que habla con IA). Sin embargo, al manejar datos financieros sensibles de clientes HNW, los riesgos de fuga de datos y prompt injection son criticos. Nunca debe dar recomendaciones de inversion sin disclaimers.",
+  },
+  {
+    id: 2,
+    title: "Deteccion de fraude con ML en tiempo real",
+    area: "Sales & Trading",
+    icon: "🔍",
+    desc: "Sistema ML que monitorea transacciones en tiempo real para detectar patrones anomalos de fraude y lavado de activos. Genera alertas automaticas al equipo de compliance y puede bloquear temporalmente transacciones sospechosas superiores a COP $200M.",
+    correctRisk: "alto",
+    correctThreats: ["sesgo", "opacidad", "falsos_positivos"],
+    correctControls: ["explicabilidad", "humano", "auditoria"],
+    feedback: "La deteccion de fraude AML/KYC es ALTO RIESGO: decisiones automaticas que afectan derechos financieros de personas. Los falsos positivos pueden bloquear fondos legitimos. La opacidad impide justificar bloqueos ante el regulador (SFC/UIAF). Se requiere supervision humana obligatoria antes de acciones irreversibles.",
+  },
+  {
+    id: 3,
+    title: "Generador de reportes trimestrales con LLM",
+    area: "Asset Management",
+    icon: "📊",
+    desc: "Un LLM genera borradores de reportes trimestrales para fondos de inversion usando datos de rendimiento, benchmark y condiciones macroeconomicas. Un analista revisa y aprueba antes de enviar a clientes.",
+    correctRisk: "minimo",
+    correctThreats: ["alucinacion", "privacidad"],
+    correctControls: ["humano", "dlp"],
+    feedback: "La generacion de reportes con revision humana es RIESGO MINIMO en EU AI Act. El LLM no toma decisiones autonomas — es una herramienta de productividad. Sin embargo, las alucinaciones podrian incluir cifras incorrectas, y existe riesgo de fuga de datos si se usan APIs externas sin DLP. La clave es que un humano SIEMPRE revisa antes de publicar.",
+  },
+];
+
+const RISK_LEVELS = [
+  { id: "inaceptable", label: "Inaceptable", color: "#E74C3C", icon: "🚫" },
+  { id: "alto", label: "Alto Riesgo", color: "#E85A1F", icon: "⚠️" },
+  { id: "limitado", label: "Riesgo Limitado", color: "#FBBF24", icon: "📋" },
+  { id: "minimo", label: "Riesgo Minimo", color: "#22C55E", icon: "✅" },
+];
+
+const THREAT_OPTIONS = [
+  { id: "sesgo", label: "Sesgo algoritmico", icon: "⚖️" },
+  { id: "privacidad", label: "Riesgo de privacidad / fuga de datos", icon: "🔓" },
+  { id: "opacidad", label: "Opacidad / falta de explicabilidad", icon: "🔲" },
+  { id: "injection", label: "Prompt injection", icon: "💉" },
+  { id: "alucinacion", label: "Alucinaciones / datos falsos", icon: "🌀" },
+  { id: "falsos_positivos", label: "Falsos positivos con impacto real", icon: "🚨" },
+];
+
+const CONTROL_OPTIONS = [
+  { id: "auditoria", label: "Auditoria periodica del modelo", icon: "🔍" },
+  { id: "explicabilidad", label: "Explicabilidad de decisiones", icon: "📖" },
+  { id: "humano", label: "Supervision humana obligatoria", icon: "👤" },
+  { id: "dlp", label: "DLP / prevencion de fuga de datos", icon: "🛡️" },
+  { id: "sanitizacion", label: "Sanitizacion de inputs", icon: "🧹" },
+  { id: "monitoreo", label: "Monitoreo de equidad continuo", icon: "📈" },
+];
+
 /* ────────────────────────── HELPERS ────────────────────────── */
 
 function computeFairScore(income: number, history: number): number {
@@ -221,6 +293,13 @@ export default function Sesion2Page() {
 
   /* ── Quiz State ── */
   const [quizAnswer, setQuizAnswer] = useState<number | null>(null);
+
+  /* ── Ethical Risk Auditor State ── */
+  const [auditScenario, setAuditScenario] = useState(0);
+  const [auditRiskChoice, setAuditRiskChoice] = useState<string | null>(null);
+  const [auditThreats, setAuditThreats] = useState<Set<string>>(new Set());
+  const [auditControls, setAuditControls] = useState<Set<string>>(new Set());
+  const [auditSubmitted, setAuditSubmitted] = useState(false);
 
   /* ── Format helpers ── */
   const fmtCOP = useCallback(
@@ -1649,6 +1728,273 @@ export default function Sesion2Page() {
                   </p>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+      </RevealSection>
+
+      {/* ═══════════════════════ ETHICAL RISK AUDITOR EXERCISE ═══════════════════════ */}
+      <RevealSection>
+        <section className="px-6 py-16">
+          <div className="max-w-5xl mx-auto">
+            <p className="font-mono text-[0.72rem] text-[#00E5A0] uppercase tracking-widest mb-4">Ejercicio interactivo</p>
+            <div className="flex items-center gap-3 mb-3">
+              <span className="text-3xl">🧪</span>
+              <h2 className="text-3xl font-bold">Auditor de Riesgo Etico IA</h2>
+            </div>
+            <p className="text-white/50 text-sm mb-8 max-w-3xl">
+              Aplica todo lo aprendido: clasifica el nivel de riesgo EU AI Act, identifica las amenazas
+              y selecciona los controles adecuados para cada escenario real de BTG Pactual.
+            </p>
+
+            {/* Scenario selector pills */}
+            <div className="flex flex-wrap gap-2 mb-8">
+              {AUDIT_SCENARIOS.map((sc, i) => (
+                <button
+                  key={sc.id}
+                  onClick={() => {
+                    setAuditScenario(i);
+                    setAuditRiskChoice(null);
+                    setAuditThreats(new Set());
+                    setAuditControls(new Set());
+                    setAuditSubmitted(false);
+                  }}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all cursor-pointer border ${
+                    auditScenario === i
+                      ? "border-[#00E5A0]/40 bg-[#00E5A0]/10 text-[#00E5A0]"
+                      : "border-white/[0.06] text-white/50 hover:text-white/80 hover:border-white/[0.12]"
+                  }`}
+                >
+                  <span className="mr-1.5">{sc.icon}</span>
+                  Escenario {i + 1}
+                </button>
+              ))}
+            </div>
+
+            <div className="bg-[#151A3A] border border-white/[0.06] rounded-2xl p-8">
+              {/* Scenario description */}
+              <div className="mb-8">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-3xl">{AUDIT_SCENARIOS[auditScenario].icon}</span>
+                  <div>
+                    <h3 className="text-xl font-bold text-white">{AUDIT_SCENARIOS[auditScenario].title}</h3>
+                    <span className="text-xs text-white/40 font-mono">{AUDIT_SCENARIOS[auditScenario].area}</span>
+                  </div>
+                </div>
+                <div className="bg-[#0D1229] rounded-xl p-5 border border-white/[0.06]">
+                  <p className="text-sm text-white/70 leading-relaxed">{AUDIT_SCENARIOS[auditScenario].desc}</p>
+                </div>
+              </div>
+
+              {/* Step 1: Risk classification */}
+              <div className="mb-8">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-7 h-7 rounded-lg bg-[#5B52D5]/20 flex items-center justify-center text-xs font-bold text-[#7B73E8]">1</div>
+                  <h4 className="text-sm font-bold text-[#7B73E8]">Clasifica el nivel de riesgo (EU AI Act)</h4>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {RISK_LEVELS.map((r) => {
+                    const isSelected = auditRiskChoice === r.id;
+                    const isCorrect = auditSubmitted && r.id === AUDIT_SCENARIOS[auditScenario].correctRisk;
+                    const isWrong = auditSubmitted && isSelected && r.id !== AUDIT_SCENARIOS[auditScenario].correctRisk;
+                    return (
+                      <button
+                        key={r.id}
+                        onClick={() => !auditSubmitted && setAuditRiskChoice(r.id)}
+                        className={`rounded-xl p-4 text-center transition-all cursor-pointer border-2 ${
+                          isCorrect
+                            ? "border-[#22C55E] bg-[#22C55E]/10 ring-2 ring-[#22C55E]/30"
+                            : isWrong
+                            ? "border-[#E74C3C] bg-[#E74C3C]/10"
+                            : isSelected
+                            ? "border-white/30 bg-white/5"
+                            : "border-white/[0.06] hover:border-white/[0.15]"
+                        }`}
+                      >
+                        <div className="text-2xl mb-2">{r.icon}</div>
+                        <div className="text-xs font-bold" style={{ color: r.color }}>{r.label}</div>
+                        {isCorrect && <div className="text-[10px] text-[#22C55E] mt-1 font-mono">Correcto</div>}
+                        {isWrong && <div className="text-[10px] text-[#E74C3C] mt-1 font-mono">Incorrecto</div>}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Step 2: Identify threats */}
+              <div className="mb-8">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-7 h-7 rounded-lg bg-[#E85A1F]/20 flex items-center justify-center text-xs font-bold text-[#E85A1F]">2</div>
+                  <h4 className="text-sm font-bold text-[#E85A1F]">Identifica las amenazas principales <span className="font-normal text-white/40">(selecciona todas las que apliquen)</span></h4>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                  {THREAT_OPTIONS.map((t) => {
+                    const isSelected = auditThreats.has(t.id);
+                    const isCorrect = auditSubmitted && AUDIT_SCENARIOS[auditScenario].correctThreats.includes(t.id);
+                    const isMissed = auditSubmitted && isCorrect && !isSelected;
+                    const isFalsePositive = auditSubmitted && isSelected && !isCorrect;
+                    return (
+                      <button
+                        key={t.id}
+                        onClick={() => {
+                          if (auditSubmitted) return;
+                          const next = new Set(auditThreats);
+                          if (next.has(t.id)) next.delete(t.id); else next.add(t.id);
+                          setAuditThreats(next);
+                        }}
+                        className={`rounded-xl p-3 text-left transition-all cursor-pointer border ${
+                          auditSubmitted && isCorrect && isSelected
+                            ? "border-[#22C55E] bg-[#22C55E]/10"
+                            : isMissed
+                            ? "border-[#FBBF24] bg-[#FBBF24]/5"
+                            : isFalsePositive
+                            ? "border-[#E74C3C] bg-[#E74C3C]/5"
+                            : isSelected
+                            ? "border-[#E85A1F]/50 bg-[#E85A1F]/10"
+                            : "border-white/[0.06] hover:border-white/[0.12]"
+                        }`}
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="text-lg">{t.icon}</span>
+                          <span className="text-xs text-white/70">{t.label}</span>
+                        </div>
+                        {auditSubmitted && isCorrect && isSelected && <span className="text-[9px] text-[#22C55E] font-mono mt-1 block">Bien identificado</span>}
+                        {isMissed && <span className="text-[9px] text-[#FBBF24] font-mono mt-1 block">Te falto esta</span>}
+                        {isFalsePositive && <span className="text-[9px] text-[#E74C3C] font-mono mt-1 block">No aplica aqui</span>}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Step 3: Select controls */}
+              <div className="mb-8">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-7 h-7 rounded-lg bg-[#22C55E]/20 flex items-center justify-center text-xs font-bold text-[#22C55E]">3</div>
+                  <h4 className="text-sm font-bold text-[#22C55E]">Selecciona los controles necesarios <span className="font-normal text-white/40">(selecciona todos los que apliquen)</span></h4>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                  {CONTROL_OPTIONS.map((c) => {
+                    const isSelected = auditControls.has(c.id);
+                    const isCorrect = auditSubmitted && AUDIT_SCENARIOS[auditScenario].correctControls.includes(c.id);
+                    const isMissed = auditSubmitted && isCorrect && !isSelected;
+                    const isFalsePositive = auditSubmitted && isSelected && !isCorrect;
+                    return (
+                      <button
+                        key={c.id}
+                        onClick={() => {
+                          if (auditSubmitted) return;
+                          const next = new Set(auditControls);
+                          if (next.has(c.id)) next.delete(c.id); else next.add(c.id);
+                          setAuditControls(next);
+                        }}
+                        className={`rounded-xl p-3 text-left transition-all cursor-pointer border ${
+                          auditSubmitted && isCorrect && isSelected
+                            ? "border-[#22C55E] bg-[#22C55E]/10"
+                            : isMissed
+                            ? "border-[#FBBF24] bg-[#FBBF24]/5"
+                            : isFalsePositive
+                            ? "border-[#E74C3C] bg-[#E74C3C]/5"
+                            : isSelected
+                            ? "border-[#22C55E]/50 bg-[#22C55E]/10"
+                            : "border-white/[0.06] hover:border-white/[0.12]"
+                        }`}
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="text-lg">{c.icon}</span>
+                          <span className="text-xs text-white/70">{c.label}</span>
+                        </div>
+                        {auditSubmitted && isCorrect && isSelected && <span className="text-[9px] text-[#22C55E] font-mono mt-1 block">Correcto</span>}
+                        {isMissed && <span className="text-[9px] text-[#FBBF24] font-mono mt-1 block">Recomendado</span>}
+                        {isFalsePositive && <span className="text-[9px] text-[#E74C3C] font-mono mt-1 block">No prioritario</span>}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Submit button */}
+              {!auditSubmitted ? (
+                <button
+                  onClick={() => {
+                    if (auditRiskChoice && auditThreats.size > 0 && auditControls.size > 0) {
+                      setAuditSubmitted(true);
+                    }
+                  }}
+                  disabled={!auditRiskChoice || auditThreats.size === 0 || auditControls.size === 0}
+                  className={`w-full py-4 rounded-xl text-sm font-bold transition-all ${
+                    auditRiskChoice && auditThreats.size > 0 && auditControls.size > 0
+                      ? "bg-[#00E5A0] text-[#080C1F] cursor-pointer hover:bg-[#00E5A0]/90"
+                      : "bg-white/5 text-white/20 cursor-not-allowed"
+                  }`}
+                >
+                  {auditRiskChoice && auditThreats.size > 0 && auditControls.size > 0
+                    ? "Evaluar mi analisis"
+                    : "Completa los 3 pasos para evaluar"}
+                </button>
+              ) : (
+                <div className="space-y-4">
+                  {/* Score */}
+                  {(() => {
+                    const sc = AUDIT_SCENARIOS[auditScenario];
+                    const riskOk = auditRiskChoice === sc.correctRisk;
+                    const threatHits = sc.correctThreats.filter((t: string) => auditThreats.has(t)).length;
+                    const threatTotal = sc.correctThreats.length;
+                    const controlHits = sc.correctControls.filter((c: string) => auditControls.has(c)).length;
+                    const controlTotal = sc.correctControls.length;
+                    const score = Math.round(
+                      ((riskOk ? 1 : 0) * 40 +
+                        (threatHits / threatTotal) * 30 +
+                        (controlHits / controlTotal) * 30)
+                    );
+                    const scoreColor = score >= 80 ? "#22C55E" : score >= 50 ? "#FBBF24" : "#E74C3C";
+                    const scoreLabel = score >= 80 ? "Excelente" : score >= 50 ? "Bien, pero puedes mejorar" : "Necesitas repasar los conceptos";
+                    return (
+                      <>
+                        <div className="bg-[#0D1229] rounded-xl p-6 border border-white/[0.06] text-center">
+                          <div className="text-xs text-white/40 uppercase tracking-widest mb-2">Tu puntaje</div>
+                          <div className="text-5xl font-bold font-mono mb-2" style={{ color: scoreColor }}>{score}<span className="text-2xl text-white/30">/100</span></div>
+                          <div className="text-sm font-medium" style={{ color: scoreColor }}>{scoreLabel}</div>
+                          <div className="flex justify-center gap-6 mt-4">
+                            <div className="text-center">
+                              <div className="text-xs text-white/40">Riesgo</div>
+                              <div className="text-sm font-mono font-bold" style={{ color: riskOk ? "#22C55E" : "#E74C3C" }}>{riskOk ? "40" : "0"}/40</div>
+                            </div>
+                            <div className="text-center">
+                              <div className="text-xs text-white/40">Amenazas</div>
+                              <div className="text-sm font-mono font-bold" style={{ color: threatHits === threatTotal ? "#22C55E" : "#FBBF24" }}>{Math.round((threatHits / threatTotal) * 30)}/30</div>
+                            </div>
+                            <div className="text-center">
+                              <div className="text-xs text-white/40">Controles</div>
+                              <div className="text-sm font-mono font-bold" style={{ color: controlHits === controlTotal ? "#22C55E" : "#FBBF24" }}>{Math.round((controlHits / controlTotal) * 30)}/30</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="bg-[#5B52D5]/10 border border-[#5B52D5]/30 rounded-xl p-5">
+                          <div className="flex items-start gap-3">
+                            <span className="text-xl">💡</span>
+                            <div>
+                              <div className="text-sm font-semibold text-[#7B73E8] mb-2">Retroalimentacion</div>
+                              <p className="text-sm text-white/70 leading-relaxed">{sc.feedback}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    );
+                  })()}
+                  <button
+                    onClick={() => {
+                      setAuditRiskChoice(null);
+                      setAuditThreats(new Set());
+                      setAuditControls(new Set());
+                      setAuditSubmitted(false);
+                    }}
+                    className="w-full py-3 rounded-xl text-sm font-medium border border-white/[0.1] text-white/60 hover:text-white/80 hover:border-white/[0.2] transition-all cursor-pointer"
+                  >
+                    Reintentar este escenario
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </section>
