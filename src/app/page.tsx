@@ -51,8 +51,8 @@ const bloques = [
 const sesiones = [
   { n: 1, title: "¿Qué es la IA? Del mito a la máquina", sub: "Historia, taxonomía y desmitificación", mod: "M01", active: true },
   { n: 2, title: "IA en el sector financiero", sub: "Responsabilidad en el sector más regulado", mod: "M01", active: true },
-  { n: 3, title: "Prompt engineering: comunicarse con la IA", sub: "Técnicas avanzadas para resultados profesionales", mod: "M02", active: false },
-  { n: 4, title: "Ecosistema de herramientas IA", sub: "Mapa y selección estratégica según el rol", mod: "M02", active: false },
+  { n: 3, title: "Prompt engineering: comunicarse con la IA", sub: "Técnicas avanzadas para resultados profesionales", mod: "M02", active: true },
+  { n: 4, title: "Ecosistema de herramientas IA", sub: "Mapa y selección estratégica según el rol", mod: "M02", active: true },
   { n: 5, title: "Asistentes IA para finanzas", sub: "Flujos profesionales de análisis y creación", mod: "M02", active: false },
   { n: 6, title: "Gemini, NotebookLM y Microsoft Copilot", sub: "Investigación documental y ecosistema M365", mod: "M02", active: false },
   { n: 7, title: "Cursor, Claude Code y GitHub Copilot", sub: "Programación asistida por IA", mod: "M02", active: false },
