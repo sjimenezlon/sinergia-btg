@@ -431,12 +431,12 @@ const SETUP_GUIDES = [
     name: "Claude",
     provider: "Anthropic",
     url: "claude.ai",
-    plan: "Pro $20/mes · Team $30/user · Enterprise (contacto)",
+    plan: "Free · Pro $20 · Max $100/$200 · Team $25–30/user · Enterprise",
     color: "#E85A1F",
     icon: "◉",
     tagline: "El más seguro para finanzas, 1M tokens, memoria persistente nativa",
     steps: [
-      { title: "Crear cuenta y elegir plan", body: "Entra a claude.ai → Sign up con email corporativo. Para BTG: Team o Enterprise (Pro no incluye Projects ilimitados ni zero-retention)." },
+      { title: "Crear cuenta y elegir plan", body: "Entra a claude.ai → Sign up con email corporativo. Pro ($20/mes) ya incluye Projects ilimitados, memoria, Claude Code en terminal, Google Workspace y remote MCP. Max ($100 por 5× Pro, $200 por 20× Pro) para power users. Team ($25 anual / $30 mensual por usuario) añade workspace compartido y zero-retention. Enterprise para BTG." },
       { title: "Custom Instructions globales", body: "Settings → Profile → 'What should Claude know about you'. Escribe tu rol, área de BTG, estilo de respuesta preferido y restricciones de datos. Esto persiste en TODA conversación." },
       { title: "Crear tu primer Project", body: "Sidebar → Projects → New Project. Sube hasta 200K tokens de docs (normativa SFC, modelos financieros, templates). Claude los trata como 'knowledge base' permanente." },
       { title: "Activar Memory tool", body: "En Projects → Settings → Memory: ON. Claude guarda hechos que aprende sobre ti y tus proyectos entre sesiones. Aparece como archivos editables — puedes borrar memorias específicas." },
@@ -451,12 +451,12 @@ const SETUP_GUIDES = [
     name: "ChatGPT",
     provider: "OpenAI",
     url: "chatgpt.com",
-    plan: "Plus $20 · Team $30/user · Enterprise · Edu",
+    plan: "Free · Go $8 · Plus $20 · Pro $200 · Business $25–30 · Enterprise",
     color: "#22C55E",
     icon: "◈",
-    tagline: "El ecosistema más amplio: GPTs custom, Canvas, DALL·E, browsing",
+    tagline: "El ecosistema más amplio: GPTs custom, Canvas, Sora, Agent Mode",
     steps: [
-      { title: "Suscripción y selección de modelo", body: "chatgpt.com → Upgrade → Plus o Team. En el selector superior elige GPT-5.4 para tareas generales u o3 para razonamiento complejo. Team incluye zero-retention." },
+      { title: "Suscripción y selección de modelo", body: "chatgpt.com → Upgrade. Go ($8) tier económico, Plus ($20) el estándar con GPT-5.4 Thinking y Deep Research (10/mes), Pro ($200) con razonamiento y Sora ilimitados + Agent Mode avanzado, Business ($25 anual / $30 mensual por usuario) con zero-retention, Enterprise para BTG. Selector superior: GPT-5.4 base, GPT-5.4 Thinking u o3 para razonamiento profundo." },
       { title: "Customize ChatGPT", body: "Perfil → Customize ChatGPT. Dos campos: 'What would you like ChatGPT to know' (quién eres) y 'How would you like to respond' (estilo). Aplica a todo el historial." },
       { title: "Memory ON", body: "Settings → Personalization → Memory: ON. ChatGPT recuerda entre chats: tus clientes clave, formatos preferidos, jerga de BTG. Puedes listar y borrar memorias individualmente." },
       { title: "Crear un Custom GPT", body: "Explore GPTs → Create. Define nombre, instrucciones, knowledge files (hasta 20 PDFs) y tools (browsing, DALL·E, code interpreter). Comparte con tu equipo Team con link privado." },
@@ -471,12 +471,12 @@ const SETUP_GUIDES = [
     name: "Gemini",
     provider: "Google",
     url: "gemini.google.com",
-    plan: "Advanced $20 · Business $30 · Enterprise $45",
+    plan: "Google AI Pro $20 · Ultra $250 · Workspace Business $20–30/user",
     color: "#3A7BD5",
     icon: "◆",
-    tagline: "2M tokens, integración nativa Workspace, Deep Research autónomo",
+    tagline: "2M tokens, integración nativa Workspace, Deep Research ilimitado",
     steps: [
-      { title: "Activar Google One AI Premium o Workspace", body: "Si BTG usa Workspace: pide al admin activar Gemini Business/Enterprise. Si es personal: gemini.google.com → Advanced. Enterprise incluye data-privacy garantizada." },
+      { title: "Activar Google AI Pro o Workspace with Gemini", body: "El nombre 'Gemini Advanced' se retiró: ahora es Google AI Pro ($20/mes) — incluye Gemini 3.1 Pro, Deep Research ilimitado, NotebookLM Plus y 2TB. Para razonamiento máximo: Google AI Ultra ($250/mes) con Gemini 3.1 Ultra + Deep Think. Si BTG usa Workspace: pide al admin activar Workspace with Gemini (Business $20 / Enterprise $30 por usuario) con data-privacy garantizada." },
       { title: "Elegir modelo", body: "Selector superior: Gemini 3.1 Ultra (razonamiento máximo), Flash (velocidad) o Deep Think (chain-of-thought extendido). Para research financiero: Ultra + Deep Think." },
       { title: "Crear un Gem personalizado", body: "Sidebar → Gems → New Gem. Equivalente a un GPT custom: nombre, instrucciones, knowledge. Se invoca con @gem_name desde cualquier chat de Gemini." },
       { title: "Conectar Workspace", body: "Extensions → activa Gmail, Drive, Docs, Calendar, Maps. Puedes pedir 'busca el contrato X en Drive y resumime las cláusulas de exclusividad' y lo hace sin salir del chat." },
@@ -523,6 +523,44 @@ const SETUP_GUIDES = [
       { title: "Copilot Studio (agentes)", body: "copilotstudio.microsoft.com → crea agentes low-code que consultan SharePoint, Dataverse o APIs internas. Deploy en Teams como bot para helpdesk interno." },
     ],
     btgTip: "Copilot brilla cuando ya vives en Outlook + Teams + SharePoint. El ROI está en 'resume esta reunión y genera action items' × 500 personas × todos los días.",
+  },
+  {
+    id: "deepseek",
+    name: "DeepSeek",
+    provider: "DeepSeek AI",
+    url: "chat.deepseek.com",
+    plan: "Chat gratis · API $0.55/$2.19 por M tokens (R1) · 1M tokens gratis/mes",
+    color: "#D4AF4C",
+    icon: "◎",
+    tagline: "Razonamiento matemático top, open-weights, 96% más barato que o3",
+    steps: [
+      { title: "Crear cuenta en chat.deepseek.com", body: "Sign up con email o Google. El chat web es gratuito sin límites estrictos. Para API: platform.deepseek.com → API Keys. Las cuentas nuevas reciben 1 millón de tokens gratis al mes." },
+      { title: "Elegir modelo", body: "En el chat, toggle 'DeepThink (R1)' para razonamiento profundo con chain-of-thought visible, o déjalo off para V3.2 en tareas generales. 'Search' activa búsqueda web integrada. Coder está disponible vía API para programación." },
+      { title: "Chain-of-thought transparente", body: "Con R1 activo, el modelo muestra cada paso de su razonamiento en un bloque desplegable antes de la respuesta final. Puedes auditar cálculos línea a línea — crítico para risk y compliance donde necesitas trazabilidad total." },
+      { title: "API OpenAI-compatible", body: "Endpoint: https://api.deepseek.com. Usa el SDK de OpenAI con base_url cambiado — código existente funciona sin refactor. Modelos: deepseek-chat (V3.2) y deepseek-reasoner (R1). Cache hits bajan el input a $0.14/M tokens." },
+      { title: "Correr local u on-prem", body: "R1 y V3 son open-weights en Hugging Face. Las versiones distilled (1.5B–70B) corren en laptops con Ollama: ollama pull deepseek-r1:70b. El modelo completo (671B MoE) requiere clúster multi-GPU." },
+      { title: "Consideraciones de jurisdicción", body: "DeepSeek es empresa china. Para datos sensibles BTG no uses el chat web ni la API oficial — descarga los pesos y córrelo on-premise o en tu cloud (AWS, Azure, GCP). Así obtienes el costo y el razonamiento sin exponer datos a jurisdicción china." },
+    ],
+    btgTip: "Para trading cuantitativo y risk: R1 on-prem te da razonamiento matemático competitivo con o3 a costo cero de API y con trazabilidad total de cada cálculo.",
+  },
+  {
+    id: "kimi",
+    name: "Kimi K2.5",
+    provider: "Moonshot AI",
+    url: "kimi.com",
+    plan: "Chat gratis · API vía platform.moonshot.ai · también en AWS Bedrock y NVIDIA NIM",
+    color: "#9B59B6",
+    icon: "◐",
+    tagline: "1T parámetros MoE, 256K contexto, Agent Swarm con 100 agentes en paralelo",
+    steps: [
+      { title: "Acceder al chat", body: "kimi.com (global) ofrece chat gratuito con Kimi K2.5. Launched el 27 de enero de 2026. Soporta entrada multimodal nativa (imágenes, PDFs, texto). Para inglés/español funciona perfectamente; la versión .cn es solo chino." },
+      { title: "Activar modo Thinking", body: "Toggle 'Thinking' en la interfaz de chat. K2.5 tiene dos modos: non-thinking (respuesta rápida estilo Sistema 1) y thinking (razonamiento deliberativo estilo Sistema 2). El modo thinking activa hasta 32K tokens de deliberación interna." },
+      { title: "Aprovechar los 256K tokens", body: "Sube documentos largos directamente al chat — K2.5 maneja 256K tokens de contexto (≈500 páginas). Ideal para leer data rooms completos, contratos extensos o múltiples reportes simultáneamente sin fragmentar." },
+      { title: "Agent Swarm para tareas complejas", body: "En tareas multi-paso, K2.5 puede coordinar hasta 100 agentes especializados en paralelo (su feature diferencial). Acelera 4.5× ejecuciones largas: research multi-fuente, análisis comparativo de sectores, due diligence distribuida." },
+      { title: "API Moonshot", body: "platform.moonshot.ai → crea API key. Endpoint compatible con OpenAI SDK. Modelos: kimi-k2.5, kimi-k2-thinking (razonamiento), kimi-k2-turbo (velocidad). Documentación en inglés, SLA comercial disponible." },
+      { title: "Deploy enterprise", body: "K2.5 está disponible en AWS Bedrock y NVIDIA NIM — útil si BTG ya tiene contratos con alguno. Los pesos completos están en Hugging Face (moonshotai/Kimi-K2.5) para self-hosted con vLLM o SGLang." },
+    ],
+    btgTip: "Cuando necesites paralelizar — research de 20 empresas comparables, análisis de 50 earnings calls — Agent Swarm ejecuta lo que a un LLM tradicional le tomaría una hora en minutos.",
   },
   {
     id: "local",
@@ -921,7 +959,7 @@ export default function Sesion4() {
           </p>
 
           {/* Tool selector */}
-          <div className="grid grid-cols-2 md:grid-cols-6 gap-2 mb-6">
+          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-8 gap-2 mb-6">
             {SETUP_GUIDES.map((g) => (
               <button
                 key={g.id}
