@@ -410,28 +410,46 @@ export default function Sesion6() {
             Google apuesta a que todo pase por Workspace + Gemini. Microsoft a que el centro de gravedad sigue siendo M365. La decisión en BTG depende de dónde ya vive tu equipo.
           </p>
 
-          {/* Versus tabs */}
-          <div className="grid md:grid-cols-2 gap-3 mb-6">
-            {ECOSYSTEMS.map((e) => (
+          {/* Big VS visual */}
+          <div className="relative grid grid-cols-[1fr_auto_1fr] items-stretch gap-3 mb-6">
+            {ECOSYSTEMS.map((e, idx) => (
               <button
                 key={e.id}
                 onClick={() => setActiveEcosystem(e.id)}
-                className="text-left rounded-2xl p-5 border transition-all"
+                className="text-left rounded-2xl p-6 border transition-all relative overflow-hidden"
                 style={{
-                  background: activeEcosystem === e.id ? `${e.color}15` : "#151A3A",
-                  borderColor: activeEcosystem === e.id ? `${e.color}60` : "rgba(255,255,255,0.06)",
+                  background: activeEcosystem === e.id ? `linear-gradient(135deg, ${e.color}25, ${e.color}08)` : "#151A3A",
+                  borderColor: activeEcosystem === e.id ? e.color : "rgba(255,255,255,0.06)",
+                  boxShadow: activeEcosystem === e.id ? `0 15px 40px ${e.color}30` : "none",
+                  order: idx === 0 ? 1 : 3,
                 }}
               >
-                <div className="flex items-center gap-3 mb-2">
-                  <span className="text-3xl">{e.icon}</span>
-                  <div>
-                    <p className="text-xl font-bold text-white-f">{e.name}</p>
-                    <p className="font-mono text-[0.6rem] uppercase tracking-widest text-muted">Anclado a: {e.ground}</p>
+                <div className="absolute top-0 right-0 text-[9rem] opacity-[0.06] leading-none pointer-events-none">{e.icon}</div>
+                <div className="relative">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-14 h-14 rounded-xl grid place-items-center text-3xl" style={{
+                      background: `${e.color}20`,
+                      border: `1px solid ${e.color}50`,
+                    }}>{e.icon}</div>
+                    <div>
+                      <p className="text-xl font-bold text-white-f leading-tight">{e.name}</p>
+                      <p className="font-mono text-[0.6rem] uppercase tracking-widest text-muted mt-1">Anclado a: {e.ground}</p>
+                    </div>
+                  </div>
+                  <p className="text-sm italic leading-relaxed" style={{ color: e.color }}>&quot;{e.killer}&quot;</p>
+                  <div className="mt-4 flex gap-2 flex-wrap">
+                    <span className="font-mono text-[0.55rem] px-2 py-1 rounded border" style={{ borderColor: `${e.color}40`, color: e.color }}>{e.priceTag.split(" ")[0]}</span>
+                    <span className="font-mono text-[0.55rem] px-2 py-1 rounded bg-white/5 text-muted">{e.strengths.length} fortalezas</span>
                   </div>
                 </div>
-                <p className="text-sm italic leading-relaxed" style={{ color: e.color }}>&quot;{e.killer}&quot;</p>
               </button>
             ))}
+            <div className="grid place-items-center" style={{ order: 2 }}>
+              <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-full border-2 border-dashed grid place-items-center font-black text-lg md:text-xl text-white-f bg-[#0D1229]" style={{ borderColor: "rgba(255,255,255,0.15)" }}>
+                VS
+                <div className="absolute -inset-2 rounded-full border border-white/5 animate-pulse-dot" />
+              </div>
+            </div>
           </div>
 
           <div className="bg-[#0D1229] border rounded-2xl p-6 md:p-8" style={{ borderColor: `${ecoData.color}30` }}>
@@ -530,19 +548,149 @@ export default function Sesion6() {
             </div>
           </div>
 
+          {/* Mock NotebookLM UI */}
+          <div className="mt-10">
+            <p className="font-mono text-xs text-cyan uppercase tracking-wider mb-4">◉ Cómo se ve un notebook real</p>
+            <div className="rounded-2xl border border-white/[0.08] overflow-hidden bg-[#fafafa] shadow-[0_20px_60px_rgba(0,229,160,0.2)]">
+              {/* Google-ish header */}
+              <div className="flex items-center justify-between px-5 py-3 bg-white border-b border-gray-200">
+                <div className="flex items-center gap-3">
+                  <div className="text-lg">📒</div>
+                  <div>
+                    <p className="text-sm font-semibold text-gray-900">Sector Retail LatAm · Q2 2026</p>
+                    <p className="text-[0.65rem] text-gray-500">22 fuentes · última edición 14 abr 2026</p>
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <span className="px-2.5 py-1 rounded bg-blue-50 text-blue-600 text-[0.65rem] font-medium border border-blue-200">🎙 Generate Audio</span>
+                  <span className="px-2.5 py-1 rounded bg-gray-100 text-gray-600 text-[0.65rem] font-medium">Share</span>
+                </div>
+              </div>
+              <div className="grid grid-cols-[220px_1fr_220px] min-h-[380px] text-[0.7rem]">
+                {/* Sources panel */}
+                <div className="bg-white border-r border-gray-200 p-3">
+                  <p className="font-semibold text-gray-900 mb-2 text-[0.7rem]">Sources (22)</p>
+                  <div className="space-y-1">
+                    {[
+                      { n: "1", name: "CIM Target.pdf", c: "#00E5A0" },
+                      { n: "2", name: "Earnings Q4 2025", c: "#5B52D5" },
+                      { n: "3", name: "Audit KPMG 2024", c: "#E85A1F" },
+                      { n: "4", name: "Research EAFIT Retail", c: "#3A7BD5" },
+                      { n: "5", name: "SFC Circular 048", c: "#D4AF4C" },
+                      { n: "6", name: "Bloomberg Retail Brief", c: "#9B59B6" },
+                    ].map((s) => (
+                      <div key={s.n} className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50">
+                        <div className="w-5 h-5 rounded grid place-items-center font-mono text-[0.55rem] font-bold text-white shrink-0" style={{ background: s.c }}>{s.n}</div>
+                        <span className="text-[0.62rem] text-gray-800 truncate">{s.name}</span>
+                      </div>
+                    ))}
+                    <div className="text-[0.55rem] text-gray-400 px-2 italic">+16 más...</div>
+                  </div>
+                </div>
+                {/* Chat with citations */}
+                <div className="p-4 bg-[#fafafa]">
+                  <div className="space-y-3">
+                    <div className="bg-blue-50 rounded-lg px-3 py-2 text-[0.72rem] text-gray-800 ml-12">
+                      ¿Cuáles son los 3 principales riesgos macro del target según las fuentes?
+                    </div>
+                    <div className="text-[0.72rem] text-gray-900 leading-relaxed">
+                      <p className="font-semibold mb-1">Según las fuentes, los 3 riesgos macro más relevantes son:</p>
+                      <p className="mb-2">
+                        <span className="font-semibold">1. Exposición cambiaria sin hedge</span> — 42% de revenues en USD con costos 100% COP, lo que vulnerabiliza márgenes ante devaluación
+                        <sup className="ml-1">
+                          <span className="inline-block w-4 h-4 rounded bg-[#E85A1F] text-white text-[0.5rem] font-mono font-bold text-center leading-4">3</span>
+                          <span className="inline-block w-4 h-4 rounded bg-[#00E5A0] text-white text-[0.5rem] font-mono font-bold text-center leading-4 ml-0.5">1</span>
+                        </sup>
+                      </p>
+                      <p className="mb-2">
+                        <span className="font-semibold">2. Deterioro del consumo</span> — el sector retail LatAm proyecta contracción de 2.3% real en 2026
+                        <sup className="ml-1">
+                          <span className="inline-block w-4 h-4 rounded bg-[#9B59B6] text-white text-[0.5rem] font-mono font-bold text-center leading-4">6</span>
+                          <span className="inline-block w-4 h-4 rounded bg-[#3A7BD5] text-white text-[0.5rem] font-mono font-bold text-center leading-4 ml-0.5">4</span>
+                        </sup>
+                      </p>
+                      <p>
+                        <span className="font-semibold">3. Regulación precios</span> — circular SFC 048 impone techos a comisiones desde Q3 2026
+                        <sup className="ml-1">
+                          <span className="inline-block w-4 h-4 rounded bg-[#D4AF4C] text-white text-[0.5rem] font-mono font-bold text-center leading-4">5</span>
+                        </sup>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                {/* Studio panel */}
+                <div className="bg-white border-l border-gray-200 p-3">
+                  <p className="font-semibold text-gray-900 mb-2 text-[0.7rem]">Studio</p>
+                  <div className="rounded-lg border border-orange-200 bg-orange-50 p-3 mb-2">
+                    <div className="flex items-center gap-1.5 mb-1.5">
+                      <span className="text-sm">🎙</span>
+                      <p className="text-[0.6rem] font-semibold text-orange-700">Audio Overview</p>
+                      <span className="ml-auto text-[0.5rem] font-mono text-orange-500 animate-pulse-dot">● Live</span>
+                    </div>
+                    <p className="text-[0.55rem] text-orange-600 leading-snug">Deep dive · 2 hosts · 14:32</p>
+                  </div>
+                  <div className="rounded-lg border border-blue-200 bg-blue-50 p-2 mb-2">
+                    <div className="flex items-center gap-1.5 mb-1">
+                      <span>📚</span>
+                      <p className="text-[0.6rem] font-semibold text-blue-700">Study Guide</p>
+                    </div>
+                    <p className="text-[0.52rem] text-blue-600">22 Q · timeline · glosario</p>
+                  </div>
+                  <div className="rounded-lg border border-purple-200 bg-purple-50 p-2">
+                    <div className="flex items-center gap-1.5 mb-1">
+                      <span>🧠</span>
+                      <p className="text-[0.6rem] font-semibold text-purple-700">Mind Map</p>
+                    </div>
+                    <p className="text-[0.52rem] text-purple-600">Relaciones entre fuentes</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Audio Overview showcase */}
           <div className="mt-8 bg-gradient-to-br from-orange/10 to-cyan/10 border border-orange/30 rounded-2xl p-6 md:p-8">
             <div className="flex items-start gap-4 mb-4">
               <div className="w-12 h-12 rounded-full bg-gradient-to-br from-orange to-red grid place-items-center text-2xl shrink-0">🎙</div>
               <div className="flex-1">
                 <p className="font-mono text-[0.6rem] uppercase tracking-widest text-orange mb-1">Feature killer · Audio Overview</p>
-                <p className="text-white-f text-lg leading-snug mb-3">
+                <p className="text-white-f text-lg leading-snug mb-4">
                   Dos hosts AI conversan sobre <em>tus</em> fuentes durante 10–20 min. Se interrumpen, se corrigen, introducen analogías. Suena como un podcast profesional.
                 </p>
-                <div className="flex items-center gap-3 bg-[#0D1229] rounded-full px-4 py-2.5 border border-orange/20">
-                  <span className="w-3 h-3 rounded-full bg-orange animate-pulse-dot" />
-                  <p className="font-mono text-xs text-white-f">▶ Host A: &quot;So let&apos;s dive in — this is fascinating stuff about the target&apos;s cash flow profile...&quot;</p>
-                  <p className="font-mono text-[0.65rem] text-muted ml-auto">14:32</p>
+                {/* Audio player mock */}
+                <div className="bg-[#0D1229] rounded-2xl p-4 border border-orange/20">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange to-red grid place-items-center text-white cursor-pointer animate-glowPulse">▶</div>
+                    <div className="flex-1">
+                      <p className="font-semibold text-white-f text-xs">Target LatAm Retail · Deep dive</p>
+                      <p className="font-mono text-[0.6rem] text-muted">Host A · Host B · 14:32 · Generado hoy 10:24am</p>
+                    </div>
+                    <span className="font-mono text-[0.6rem] text-muted">2:14 / 14:32</span>
+                  </div>
+                  {/* Waveform */}
+                  <div className="flex items-center gap-[2px] h-12 mb-3">
+                    {Array.from({ length: 60 }).map((_, i) => {
+                      const played = i / 60 < 2.14 / 14.5;
+                      const h = 20 + Math.abs(Math.sin(i * 0.8) * 22) + (i % 3) * 4;
+                      return (
+                        <div
+                          key={i}
+                          className="flex-1 rounded-full transition-all"
+                          style={{
+                            height: `${Math.min(h, 44)}px`,
+                            background: played ? "#E85A1F" : "rgba(232,90,31,0.25)",
+                          }}
+                        />
+                      );
+                    })}
+                  </div>
+                  {/* Transcript line */}
+                  <div className="flex items-start gap-2 bg-white/[0.02] rounded-lg px-3 py-2">
+                    <span className="font-mono text-[0.55rem] font-bold text-cyan shrink-0 mt-0.5">[A]</span>
+                    <p className="text-[0.72rem] text-white-f italic leading-relaxed">
+                      &quot;Let&apos;s dive in — this cash flow profile is fascinating. They&apos;re bleeding working capital but the unit economics are actually <em>improving</em>...&quot;
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -591,6 +739,47 @@ export default function Sesion6() {
             <div className="bg-[#151A3A] rounded-xl p-4 border border-white/[0.06]">
               <p className="font-mono text-[0.6rem] uppercase tracking-widest mb-2" style={{ color: featureData.color }}>Caso BTG</p>
               <p className="text-sm text-white-f italic leading-relaxed">{featureData.btg}</p>
+            </div>
+          </div>
+
+          {/* Context window comparison */}
+          <div className="mt-10">
+            <p className="font-mono text-xs text-blue uppercase tracking-wider mb-4">◆ El ancho del contexto — visualizado</p>
+            <div className="bg-[#0D1229] border border-blue/20 rounded-2xl p-6">
+              <p className="text-muted text-sm mb-5">
+                Cada barra = tokens simultáneos que el modelo puede tener &quot;a la vista&quot;. Un <em>data room</em> medio BTG = ~400K tokens.
+              </p>
+              <div className="space-y-3">
+                {[
+                  { name: "Gemini 3.1 Ultra", tokens: 2000000, color: "#3A7BD5", bar: 100, label: "2M", note: "2 años de earnings calls + 50 PDFs" },
+                  { name: "Claude 4.6 Opus", tokens: 1000000, color: "#E85A1F", bar: 50, label: "1M", note: "Data room completo + histórico" },
+                  { name: "GPT-5.4", tokens: 1000000, color: "#22C55E", bar: 50, label: "1M", note: "Empatado con Opus" },
+                  { name: "Data room BTG típico", tokens: 400000, color: "#D4AF4C", bar: 20, label: "400K", note: "Referencia · lo que subes", dashed: true },
+                  { name: "Claude Sonnet 4.6", tokens: 200000, color: "#7B73E8", bar: 10, label: "200K", note: "Tareas diarias" },
+                  { name: "DeepSeek R1", tokens: 128000, color: "#D4AF4C", bar: 6.4, label: "128K", note: "Budget model" },
+                  { name: "GPT-3.5 (2022)", tokens: 4096, color: "#7a82a0", bar: 0.2, label: "4K", note: "Cuando empezó todo", faded: true },
+                ].map((m) => (
+                  <div key={m.name}>
+                    <div className="flex justify-between items-baseline mb-1">
+                      <span className={`text-xs ${m.faded ? "text-muted" : "text-white-f"} ${m.dashed ? "italic" : ""}`}>{m.name}</span>
+                      <span className="font-mono text-[0.7rem]" style={{ color: m.color }}>{m.label} tokens</span>
+                    </div>
+                    <div className="h-5 rounded bg-white/[0.03] relative overflow-hidden">
+                      <div
+                        className="h-full rounded transition-all duration-1000 flex items-center px-2"
+                        style={{
+                          width: `${m.bar}%`,
+                          background: `linear-gradient(90deg, ${m.color}, ${m.color}60)`,
+                          border: m.dashed ? `1px dashed ${m.color}` : "none",
+                          opacity: m.faded ? 0.4 : 1,
+                        }}
+                      >
+                        {m.bar > 15 && <span className="font-mono text-[0.55rem] text-white-f whitespace-nowrap">{m.note}</span>}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -642,7 +831,7 @@ export default function Sesion6() {
                 </p>
               </div>
             </div>
-            <div className="p-6 md:p-8 grid md:grid-cols-[1.5fr_1fr] gap-6">
+            <div className="p-6 md:p-8 grid md:grid-cols-[1fr_1.2fr] gap-6">
               <div>
                 <p className="font-mono text-[0.6rem] uppercase tracking-widest text-muted mb-3">Prompts que funcionan</p>
                 <div className="space-y-2">
@@ -652,13 +841,156 @@ export default function Sesion6() {
                     </div>
                   ))}
                 </div>
+                <div className="mt-4 p-3 rounded-lg border" style={{
+                  background: `${COPILOT_APPS[activeApp].color}10`,
+                  borderColor: `${COPILOT_APPS[activeApp].color}30`,
+                }}>
+                  <p className="font-mono text-[0.6rem] uppercase tracking-widest mb-1" style={{ color: COPILOT_APPS[activeApp].color }}>Aplicación BTG</p>
+                  <p className="text-xs text-white-f leading-relaxed italic">{COPILOT_APPS[activeApp].btg}</p>
+                </div>
               </div>
-              <div className="bg-gradient-to-br rounded-xl p-4 border" style={{
-                background: `linear-gradient(135deg, ${COPILOT_APPS[activeApp].color}15, transparent)`,
-                borderColor: `${COPILOT_APPS[activeApp].color}30`,
-              }}>
-                <p className="font-mono text-[0.6rem] uppercase tracking-widest mb-2" style={{ color: COPILOT_APPS[activeApp].color }}>Aplicación BTG</p>
-                <p className="text-sm text-white-f leading-relaxed italic">{COPILOT_APPS[activeApp].btg}</p>
+              {/* Mock UI per app */}
+              <div className="rounded-xl overflow-hidden border border-white/[0.08] bg-white shadow-xl">
+                {/* Title bar */}
+                <div className="flex items-center justify-between px-3 py-2 text-white text-[0.62rem] font-semibold" style={{ background: COPILOT_APPS[activeApp].color }}>
+                  <div className="flex items-center gap-1.5">
+                    <span>{COPILOT_APPS[activeApp].icon}</span>
+                    <span>{COPILOT_APPS[activeApp].app === "PowerPoint" ? "Presentation1" : COPILOT_APPS[activeApp].app === "Excel" ? "DealTracker.xlsx" : COPILOT_APPS[activeApp].app === "Teams" ? "Team · IB Deals" : "Document1"}</span>
+                  </div>
+                  <div className="flex gap-1 opacity-70">
+                    <div className="w-2 h-2 rounded-full bg-white/30" />
+                    <div className="w-2 h-2 rounded-full bg-white/30" />
+                    <div className="w-2 h-2 rounded-full bg-white/30" />
+                  </div>
+                </div>
+                {/* Ribbon */}
+                <div className="flex gap-0.5 px-1 py-1 bg-gray-50 border-b border-gray-200 text-[0.55rem] text-gray-600">
+                  {["File", "Home", "Insert", "Data", "Review"].map((t, i) => (
+                    <span key={t} className={`px-2 py-0.5 rounded ${i === 1 ? "bg-white border border-gray-200" : ""}`}>{t}</span>
+                  ))}
+                  <span className="ml-auto px-2 py-0.5 rounded font-bold text-white flex items-center gap-1" style={{ background: `linear-gradient(135deg, ${COPILOT_APPS[activeApp].color}, #9B59B6)` }}>
+                    ✨ Copilot
+                  </span>
+                </div>
+                {/* App-specific content */}
+                <div className="p-3 bg-white min-h-[200px] text-[0.6rem]">
+                  {COPILOT_APPS[activeApp].app === "Word" && (
+                    <div className="text-gray-800">
+                      <p className="text-center font-bold text-sm mb-2">IC MEMO · TARGET LATAM RETAIL</p>
+                      <p className="text-center text-gray-500 mb-3 text-[0.55rem]">BTG Pactual · abril 2026</p>
+                      <p className="font-semibold">1. Investment Thesis</p>
+                      <div className="h-1 bg-gray-200 rounded w-full my-1" />
+                      <div className="h-1 bg-gray-200 rounded w-[92%] my-1" />
+                      <div className="h-1 bg-gray-200 rounded w-[85%] my-1" />
+                      <p className="font-semibold mt-2">2. Key Risks</p>
+                      <div className="h-1 bg-gray-200 rounded w-full my-1" />
+                      <div className="h-1 bg-gray-200 rounded w-[78%] my-1" />
+                      <div className="absolute mt-[-15px] ml-[60%] text-white font-bold px-1.5 py-0.5 rounded text-[0.5rem] shadow-lg" style={{ background: "#2B579A" }}>✨ Copilot drafting...</div>
+                    </div>
+                  )}
+                  {COPILOT_APPS[activeApp].app === "Excel" && (
+                    <div>
+                      <div className="grid grid-cols-5 gap-0 text-[0.55rem] border border-gray-200">
+                        {["Ticker", "EV/EBITDA", "EBITDA", "Growth", "Rating"].map((h) => (
+                          <div key={h} className="bg-gray-100 px-1.5 py-1 font-semibold text-gray-700 border-r border-gray-200">{h}</div>
+                        ))}
+                        {[
+                          ["ALIC.CO", "7.2x", "142", "8.1%", "A"],
+                          ["EXIT.MX", "9.8x", "89", "12.3%", "BBB"],
+                          ["RETL.BR", "6.5x", "234", "5.8%", "A-"],
+                          ["CONS.CL", "11.1x", "67", "15.2%", "BB"],
+                        ].map((row, i) => (
+                          row.map((cell, j) => (
+                            <div key={`${i}-${j}`} className={`px-1.5 py-1 border-r border-t border-gray-200 ${j === 1 && parseFloat(cell) > 10 ? "bg-red-50 text-red-700" : "text-gray-800"}`}>{cell}</div>
+                          ))
+                        ))}
+                      </div>
+                      <div className="mt-2 p-2 rounded bg-green-50 border border-green-200 text-[0.55rem] text-green-800">
+                        <span className="font-bold">✨ Copilot:</span> Detecté 1 outlier (CONS.CL en 11.1x). Mediana: 8.5x, dentro del rango del sector.
+                      </div>
+                    </div>
+                  )}
+                  {COPILOT_APPS[activeApp].app === "PowerPoint" && (
+                    <div className="grid grid-cols-4 gap-1">
+                      {[
+                        { c: "#D24726", l: "Cover" },
+                        { c: "#E85A1F", l: "Thesis" },
+                        { c: "#5B52D5", l: "Market" },
+                        { c: "#3A7BD5", l: "Comps" },
+                        { c: "#00E5A0", l: "DCF" },
+                        { c: "#D4AF4C", l: "Risks" },
+                        { c: "#9B59B6", l: "Next" },
+                        { c: "#22C55E", l: "Close" },
+                      ].map((s, i) => (
+                        <div key={i} className="aspect-[4/3] rounded border border-gray-300 grid place-items-center font-mono text-[0.55rem] text-gray-700" style={{ background: `${s.c}15` }}>
+                          <div className="text-center">
+                            <div className="text-gray-400 text-[0.5rem]">{i + 1}/12</div>
+                            <div className="font-semibold" style={{ color: s.c }}>{s.l}</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {COPILOT_APPS[activeApp].app === "Teams" && (
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2 p-2 rounded bg-purple-50 border border-purple-200">
+                        <div className="w-5 h-5 rounded-full bg-[#6264A7] text-white grid place-items-center text-[0.55rem] font-bold">MR</div>
+                        <div className="flex-1">
+                          <p className="text-[0.6rem] font-semibold text-gray-900">IC Deal Review · 45 min</p>
+                          <p className="text-[0.5rem] text-gray-500">5 participantes · grabado</p>
+                        </div>
+                        <span className="text-[0.5rem] text-[#6264A7] font-semibold">✨ Summary</span>
+                      </div>
+                      <div className="rounded bg-gray-50 p-2 text-[0.55rem] text-gray-700">
+                        <p className="font-bold mb-1">Action Items (Copilot):</p>
+                        <p>• MR: Enviar comps ajustados por multiples normalizados — vie 17</p>
+                        <p>• SJ: Solicitar updated Q4 financials al target</p>
+                        <p>• AV: Review legal riesgo #3 (exclusividad)</p>
+                      </div>
+                    </div>
+                  )}
+                  {COPILOT_APPS[activeApp].app === "Outlook" && (
+                    <div className="space-y-1.5">
+                      <div className="p-2 rounded border-l-2 border-l-red-500 bg-red-50">
+                        <p className="text-[0.55rem] font-semibold text-gray-900">🔴 MD Carlos · Deal memo feedback</p>
+                        <p className="text-[0.5rem] text-gray-500">Urgente · requiere respuesta hoy</p>
+                      </div>
+                      <div className="p-2 rounded border-l-2 border-l-orange-500 bg-orange-50">
+                        <p className="text-[0.55rem] font-semibold text-gray-900">🟠 Cliente BTG WM · Update portfolio</p>
+                        <p className="text-[0.5rem] text-gray-500">Follow-up del lunes</p>
+                      </div>
+                      <div className="p-2 rounded border-l-2 border-l-gray-300 bg-gray-50">
+                        <p className="text-[0.55rem] font-semibold text-gray-900">⚪ Newsletter Bloomberg · Daily brief</p>
+                        <p className="text-[0.5rem] text-gray-500">Baja prioridad</p>
+                      </div>
+                      <div className="mt-2 p-2 rounded bg-blue-50 border border-blue-200 text-[0.55rem] text-blue-800">
+                        <span className="font-bold">✨ Copilot:</span> 47 correos hoy · 5 requieren acción · 2 drafts listos
+                      </div>
+                    </div>
+                  )}
+                  {COPILOT_APPS[activeApp].app === "SharePoint" && (
+                    <div>
+                      <div className="flex gap-1.5 mb-2 items-center">
+                        <span className="text-[0.55rem] text-gray-500">🔍</span>
+                        <div className="flex-1 h-5 rounded border border-gray-300 bg-gray-50 px-2 text-[0.55rem] text-gray-700 grid items-center">memos Retail LatAm últimos 6 meses</div>
+                      </div>
+                      {[
+                        { name: "IC Memo · Target LatAm", path: "IB/Deals/2026/Q2", date: "2026-04-14" },
+                        { name: "Research Retail LatAm", path: "Research/Sector", date: "2026-04-02" },
+                        { name: "Comps Retail Q1 2026", path: "IB/Comps", date: "2026-03-28" },
+                      ].map((f) => (
+                        <div key={f.name} className="flex items-center gap-2 py-1 border-b border-gray-100">
+                          <span className="text-[0.55rem]">📄</span>
+                          <div className="flex-1">
+                            <p className="text-[0.6rem] text-gray-900 font-medium">{f.name}</p>
+                            <p className="text-[0.5rem] text-gray-500">{f.path}</p>
+                          </div>
+                          <span className="text-[0.5rem] text-gray-500 font-mono">{f.date}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
