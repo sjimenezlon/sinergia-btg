@@ -8,6 +8,8 @@ const links = [
   { href: "/sesion/2", label: "S2" },
   { href: "/sesion/3", label: "S3" },
   { href: "/sesion/4", label: "S4" },
+  { href: "/sesion/5", label: "S5" },
+  { href: "/sesion/6", label: "S6" },
 ];
 
 export default function Navbar() {
