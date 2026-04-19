@@ -1080,9 +1080,9 @@ export default function Sesion5() {
                 <div className="space-y-1.5">
                   <div className="grid grid-cols-[120px_repeat(4,1fr)] gap-2 text-[0.65rem] font-mono">
                     <div className="text-muted">Segmento</div>
-                    <div className="text-muted text-right">Q4 24</div>
-                    <div className="text-muted text-right">Q4 25</div>
-                    <div className="text-muted text-right">Guidance Q1</div>
+                    <div className="text-muted text-right">Q1 25</div>
+                    <div className="text-muted text-right">Q1 26</div>
+                    <div className="text-muted text-right">Guidance Q2 26</div>
                     <div className="text-muted text-right">Δ</div>
                   </div>
                   {[
