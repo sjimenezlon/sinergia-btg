@@ -4,13 +4,13 @@ export default function Sesion19() {
   return (
     <ProximamentePage
       numero={19}
-      titulo="Definición del proyecto: Jobs To Be Done"
-      subtitulo="Elegir correctamente el problema antes de construir la solución"
+      titulo="Demo Day: presentación y cierre"
+      subtitulo="Presentación por equipos, panel evaluador y certificación"
       modulo="M05"
       moduloNombre="Aprender haciendo"
-      temas={["JTBD aplicado a proyectos IA", "Procesos de alto impacto", "Matriz impacto × esfuerzo", "Alcance y métricas", "Stakeholders", "Stack y brief"]}
-      herramientas={["JTBD Canvas", "Claude", "FigJam"]}
-      taller="Definición y aprobación del brief del proyecto integrador por equipo"
+      temas={["Presentación por equipo", "Panel evaluador con liderazgo BTG", "Criterios de innovación, factibilidad, impacto y calidad", "Retroalimentación estructurada", "Hoja de ruta postcurso", "Certificación e insignias"]}
+      herramientas={["Formato Demo Day", "Certificación", "Insignia digital"]}
+      taller="Demo Day con liderazgo de BTG Pactual. Máximo 5 proyectos por grupo"
     />
   );
 }

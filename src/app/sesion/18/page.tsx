@@ -4,13 +4,13 @@ export default function Sesion18() {
   return (
     <ProximamentePage
       numero={18}
-      titulo="Gestión del riesgo tecnológico y compliance IA"
-      subtitulo="Confianza institucional en soluciones de IA"
-      modulo="M04"
-      moduloNombre="Soluciones para el negocio"
-      temas={["Framework de riesgo para proyectos IA", "Model Risk Management", "RegTech", "Auditoría de explicabilidad", "Sesgo y degradación", "Gestión de proveedores y continuidad"]}
-      herramientas={["Risk Assessment", "Checklist"]}
-      taller="Construcción de checklist de riesgo para implementar IA en BTG Pactual"
+      titulo="Refinamiento, testing y pitch"
+      subtitulo="Corrección de errores, pruebas con datos reales y estructura de pitch ejecutivo"
+      modulo="M05"
+      moduloNombre="Aprender haciendo"
+      temas={["Corrección de errores y edge cases", "Pruebas con datos reales", "Documentación técnica", "Estructura de pitch ejecutivo", "Cálculo de impacto", "Ensayo"]}
+      herramientas={["Pitch deck", "Demo", "Documentación"]}
+      taller="Ensayo de pitch de 5 minutos con retroalimentación estructurada"
     />
   );
 }

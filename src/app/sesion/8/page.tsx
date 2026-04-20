@@ -4,13 +4,13 @@ export default function Sesion8() {
   return (
     <ProximamentePage
       numero={8}
-      titulo="n8n: automatización sin código"
-      subtitulo="Conectar herramientas y eliminar trabajo manual"
+      titulo="n8n + IA: automatización inteligente"
+      subtitulo="LLMs integrados a flujos de automatización"
       modulo="M03"
       moduloNombre="Automatizaciones"
-      temas={["Nodos y triggers", "Credenciales", "Integraciones con correo y Teams", "Hojas de cálculo y bases de datos", "Flujo de alertas", "Errores y condicionales"]}
-      herramientas={["n8n", "Sheets", "Teams", "Correo electrónico"]}
-      taller="Taller de monitoreo de noticias financieras con alertas para el equipo de research"
+      temas={["Integración con OpenAI, Anthropic y Google AI", "Análisis de sentimiento", "Extracción de PDFs y correos", "Clasificación automática", "Reportes automáticos", "Pipeline RSS → LLM → resumen → Teams/Slack"]}
+      herramientas={["n8n", "Claude API", "Gemini API", "Docling", "Llama Parse"]}
+      taller="Pipeline de research automatizado end-to-end para el área de Asset Management"
     />
   );
 }

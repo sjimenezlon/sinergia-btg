@@ -4,13 +4,13 @@ export default function Sesion12() {
   return (
     <ProximamentePage
       numero={12}
-      titulo="IA agéntica en finanzas"
-      subtitulo="Agentes autónomos para trading, compliance y experiencia de cliente"
+      titulo="Ecosistema FinTech 2026: mapa de fuerzas"
+      subtitulo="Del open banking a los agentes financieros autónomos"
       modulo="M03"
       moduloNombre="Automatizaciones"
-      temas={["Arquitecturas multiagente", "Trading algorítmico", "KYC/AML automatizado", "Protocolos de comercio y pagos", "Reporting automático", "Riesgos de decisiones autónomas"]}
-      herramientas={["Claude", "n8n", "Copilot Studio"]}
-      taller="Demo de un agente de análisis de mercado para el área de S&T de BTG"
+      temas={["Panorama FinTech global y LATAM", "Open Finance", "Pagos en tiempo real", "CBDC y stablecoins", "Neobancos y casos en Colombia", "Rol de BTG como puente entre banca y tecnología"]}
+      herramientas={["NotebookLM", "Claude"]}
+      taller="Mapeo de cinco oportunidades FinTech para el área de cada participante en BTG"
     />
   );
 }

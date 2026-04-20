@@ -4,13 +4,13 @@ export default function Sesion10() {
   return (
     <ProximamentePage
       numero={10}
-      titulo="Power Platform: Power Apps + Power Automate"
-      subtitulo="Aplicaciones low-code y automatización de procesos"
+      titulo="Power Platform: Copilot Studio, AI Builder y Power BI"
+      subtitulo="Agentes virtuales, modelos de IA y analítica con lenguaje natural"
       modulo="M03"
       moduloNombre="Automatizaciones"
-      temas={["Qué es Power Platform", "Creación de apps", "SharePoint y Dataverse", "Diseño de formularios", "Flujos de aprobación", "Comparación con n8n"]}
-      herramientas={["Power Apps", "Power Automate", "SharePoint", "Dataverse", "Teams"]}
-      taller="App de solicitudes internas de BTG con flujo de aprobación"
+      temas={["Diseño de asistentes corporativos", "Tópicos, entidades y flujos conversacionales", "Integración con Power Automate", "Modelos preconstruidos en AI Builder", "Power BI + Copilot", "Pipeline integrado"]}
+      herramientas={["Copilot Studio", "AI Builder", "Power BI", "Power Automate", "Copilot"]}
+      taller="Agente para consultas de compliance y dashboard con Copilot para BTG"
     />
   );
 }

@@ -4,13 +4,13 @@ export default function Sesion16() {
   return (
     <ProximamentePage
       numero={16}
-      titulo="IA y protección de datos: riesgos y mitigación"
-      subtitulo="Usar IA sin comprometer información sensible"
-      modulo="M04"
-      moduloNombre="Soluciones para el negocio"
-      temas={["Fugas de datos en LLMs", "Políticas de información no compartible", "DLP", "Anonimización y pseudonimización", "Uso on-premise", "Purview y Shadow AI"]}
-      herramientas={["DeepSeek local", "Microsoft Purview", "Política AUP"]}
-      taller="Diseño de una política de uso aceptable de IA por área de BTG Pactual"
+      titulo="Desarrollo del prototipo — parte 1"
+      subtitulo="Construcción del MVP con mentoría técnica"
+      modulo="M05"
+      moduloNombre="Aprender haciendo"
+      temas={["Trabajo por equipos", "Flujo principal del MVP", "Integración de datos", "Resolución de bloqueos", "Checkpoint funcional"]}
+      herramientas={["Variable según el equipo"]}
+      taller="Desarrollo guiado del MVP — primera iteración con mentoría técnica por equipo"
     />
   );
 }

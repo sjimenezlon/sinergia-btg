@@ -4,13 +4,13 @@ export default function Sesion17() {
   return (
     <ProximamentePage
       numero={17}
-      titulo="Gobernanza de datos: marcos regulatorios"
-      subtitulo="DORA, EU AI Act, Habeas Data y normativa SFC"
-      modulo="M04"
-      moduloNombre="Soluciones para el negocio"
-      temas={["Resiliencia operacional digital", "Clasificación de riesgo de IA", "Ley 1581/2012", "DAMA-DMBOK", "Trazabilidad y data lineage", "Calidad de datos como base para IA"]}
-      herramientas={["DORA", "EU AI Act", "DAMA-DMBOK", "SFC Colombia"]}
-      taller="Auditoría de gobernanza de un proceso actual de BTG Pactual"
+      titulo="Desarrollo del prototipo — parte 2"
+      subtitulo="Integración de datos, resolución de bloqueos y avance del MVP"
+      modulo="M05"
+      moduloNombre="Aprender haciendo"
+      temas={["Integración de datos reales", "Resolución de bloqueos técnicos", "Iteración funcional", "Checkpoint de avance", "Mentoría personalizada"]}
+      herramientas={["Variable según el equipo"]}
+      taller="Avance del MVP con mentoría técnica — segunda iteración por equipo"
     />
   );
 }

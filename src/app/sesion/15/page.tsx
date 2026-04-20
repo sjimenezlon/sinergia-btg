@@ -4,13 +4,13 @@ export default function Sesion15() {
   return (
     <ProximamentePage
       numero={15}
-      titulo="IA aplicada a líneas de negocio de BTG Pactual"
-      subtitulo="Aplicaciones en IB, WM, AM, S&T, operaciones, compliance y tecnología"
+      titulo="Gestión del riesgo tecnológico y compliance IA"
+      subtitulo="DORA, EU AI Act, Habeas Data, SFC y confianza institucional"
       modulo="M04"
       moduloNombre="Soluciones para el negocio"
-      temas={["Deal sourcing y due diligence", "Reporting y scoring ESG", "Pricing y riesgo", "Reconciliación y AML", "Matriz impacto × factibilidad"]}
-      herramientas={["JTBD Canvas", "Claude", "FigJam"]}
-      taller="Taller para identificar el caso de uso más valioso por área de BTG Pactual"
+      temas={["Resiliencia operacional digital (DORA)", "Clasificación de riesgo de IA (EU AI Act)", "Ley 1581/2012 y normativa SFC", "DAMA-DMBOK, trazabilidad y data lineage", "Model Risk Management y RegTech", "Auditoría de explicabilidad, sesgo y degradación"]}
+      herramientas={["DORA", "EU AI Act", "DAMA-DMBOK", "SFC Colombia", "Risk Assessment", "Checklist"]}
+      taller="Auditoría de gobernanza de un proceso actual y checklist de riesgo para implementar IA en BTG"
     />
   );
 }

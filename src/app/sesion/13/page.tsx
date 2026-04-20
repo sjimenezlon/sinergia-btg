@@ -4,13 +4,13 @@ export default function Sesion13() {
   return (
     <ProximamentePage
       numero={13}
-      titulo="Ecosistema FinTech 2026: mapa de fuerzas"
-      subtitulo="Del open banking a los agentes financieros autónomos"
-      modulo="M03"
-      moduloNombre="Automatizaciones"
-      temas={["Panorama FinTech global y LATAM", "Open Finance", "Pagos en tiempo real", "CBDC y stablecoins", "Neobancos", "Rol de BTG como puente entre banca y tecnología"]}
-      herramientas={["NotebookLM", "Claude"]}
-      taller="Mapeo de cinco oportunidades FinTech para el área de cada participante en BTG"
+      titulo="IA aplicada a líneas de negocio de BTG Pactual"
+      subtitulo="Aplicaciones en IB, WM, AM, S&T, operaciones, compliance y tecnología — definición del proyecto con JTBD"
+      modulo="M04"
+      moduloNombre="Soluciones para el negocio"
+      temas={["Deal sourcing y due diligence", "Reporting y scoring ESG", "Pricing y riesgo", "Reconciliación y AML", "Matriz impacto × factibilidad por área", "Definición del proyecto con JTBD"]}
+      herramientas={["JTBD Canvas", "Claude", "FigJam"]}
+      taller="Definición del proyecto con JTBD — ficha JTBD del caso priorizado por equipo"
     />
   );
 }

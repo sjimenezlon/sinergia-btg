@@ -4,13 +4,13 @@ export default function Sesion7() {
   return (
     <ProximamentePage
       numero={7}
-      titulo="Cursor, Claude Code y GitHub Copilot"
-      subtitulo="Programación asistida por IA"
-      modulo="M02"
-      moduloNombre="Herramientas y aplicaciones"
-      temas={["IDE con IA", "Chat contextual", "Autocompletado", "Generación de scripts", "Dashboards financieros", "Revisión de código y testing"]}
-      herramientas={["Cursor", "Claude Code", "GitHub Copilot", "Python"]}
-      taller="Construcción de un dashboard de portafolio de inversión con apoyo de IA"
+      titulo="n8n: automatización sin código"
+      subtitulo="Conectar herramientas y eliminar trabajo manual"
+      modulo="M03"
+      moduloNombre="Automatizaciones"
+      temas={["Nodos, triggers y credenciales", "Integraciones con correo y Teams", "Hojas de cálculo y bases de datos", "Primer flujo de alertas", "Errores y condicionales", "Seguridad cloud vs. self-hosted"]}
+      herramientas={["n8n", "Sheets", "Teams", "Correo electrónico"]}
+      taller="Taller de monitoreo de noticias financieras con alertas para el equipo de research"
     />
   );
 }

@@ -4,13 +4,13 @@ export default function Sesion9() {
   return (
     <ProximamentePage
       numero={9}
-      titulo="n8n + IA: automatización inteligente"
-      subtitulo="LLMs integrados a flujos de automatización"
+      titulo="Power Platform: Power Apps + Power Automate"
+      subtitulo="Aplicaciones low-code y automatización de procesos"
       modulo="M03"
       moduloNombre="Automatizaciones"
-      temas={["Integración con OpenAI y Anthropic", "Google AI", "Análisis de sentimiento", "Extracción de PDFs y correos", "Clasificación automática", "Pipeline RSS → LLM → resumen"]}
-      herramientas={["n8n", "Claude API", "Gemini API", "Docling", "Llama Parse"]}
-      taller="Pipeline de research automatizado end-to-end para el área de Asset Management"
+      temas={["Qué es Power Platform", "Creación de apps", "Conexión con SharePoint, Excel, Dataverse y SQL", "Diseño de formularios", "Flujos de trabajo, aprobaciones y notificaciones", "Comparación con n8n"]}
+      herramientas={["Power Apps", "Power Automate", "SharePoint", "Dataverse", "Teams"]}
+      taller="App de solicitudes internas de BTG con flujo de aprobación"
     />
   );
 }

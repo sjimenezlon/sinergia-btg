@@ -4,13 +4,13 @@ export default function Sesion14() {
   return (
     <ProximamentePage
       numero={14}
-      titulo="Tokenización, blockchain y activos digitales"
-      subtitulo="La infraestructura financiera del futuro"
+      titulo="IA y protección de datos: riesgos y mitigación"
+      subtitulo="Usar IA sin comprometer información sensible"
       modulo="M04"
       moduloNombre="Soluciones para el negocio"
-      temas={["Tokenización de activos del mundo real", "Smart contracts", "DeFi institucional", "Stablecoins para pagos", "Marcos regulatorios MiCA", "Sandboxes LATAM"]}
-      herramientas={["Simulación", "Gemini"]}
-      taller="Análisis de un prospecto de activo tokenizado con IA para el área de Investment Banking"
+      temas={["Fugas de datos en LLMs", "Políticas de información no compartible", "DLP", "Anonimización y pseudonimización", "Uso on-premise", "Purview y Shadow AI"]}
+      herramientas={["DeepSeek local", "Microsoft Purview", "Política AUP"]}
+      taller="Diseño de una política de uso aceptable de IA por área de BTG Pactual"
     />
   );
 }
