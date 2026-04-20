@@ -352,9 +352,60 @@ const TALLER_STEPS = [
   { n: 7, title: "Pitch 90 seg", desc: "Presenta al equipo: tesis + cómo el asistente aceleró el proceso." },
 ];
 
+/* Live chat demo — DD de M&A en tiempo real */
+type ChatMsg =
+  | { role: "user"; name: string; avatar: string; time: string; text: string; delay: number }
+  | { role: "tool"; icon: string; text: string; delay: number }
+  | { role: "assistant"; name: string; avatar: string; time: string; text: string; delay: number; citations?: string[] }
+  | { role: "artifact"; title: string; subtitle: string; delay: number };
+
+const LIVE_CHAT: ChatMsg[] = [
+  {
+    role: "user",
+    name: "María · Analyst IB",
+    avatar: "M",
+    time: "09:12",
+    text: "Acabo de cargar el data room de Cementos Portales (47 docs). Dame el top 3 de red flags materiales para el memo del IC del jueves.",
+    delay: 1000,
+  },
+  {
+    role: "tool",
+    icon: "📂",
+    text: "Leyendo 47 docs · CIM · Audit KPMG 2024 · Term Sheet · Legal Opinion · Financials 2021–25",
+    delay: 1600,
+  },
+  {
+    role: "tool",
+    icon: "🧠",
+    text: "Extended Thinking · 1M tokens activos · cross-referencing 3,420 páginas",
+    delay: 1600,
+  },
+  {
+    role: "tool",
+    icon: "⚡",
+    text: "Python en sandbox · calculando DSO histórico y ratio covenant",
+    delay: 1400,
+  },
+  {
+    role: "assistant",
+    name: "Claude 4.7 Opus · DD Assistant BTG",
+    avatar: "◉",
+    time: "09:14",
+    text: "**3 red flags materiales identificados**\n\n**1 · DSO en deterioro severo**\nDías de cobro pasaron de 45 (2022) a 78 (2025). Implica liquidez estructural comprometida o venta forzada a clientes de bajo rating crediticio.\n\n**2 · Covenant breach inminente**\nNet Debt / EBITDA actual: 3.42×. Covenant: 3.50×. Margen de solo 0.08×. Un trimestre débil lo revienta y gatilla aceleración.\n\n**3 · Contingencia DIAN no provisionada**\nLa DIAN notificó ajuste fiscal por COP 8.200M el 12-feb-2026. No aparece ni en los EEFF ni en el memo del target. Materialidad: 1.4% EBITDA.",
+    citations: ["CIM p.34", "Audit KPMG p.112", "Term Sheet §4.2", "Legal Opinion §7"],
+    delay: 3500,
+  },
+  {
+    role: "artifact",
+    title: "Matriz red flags · severidad × probabilidad",
+    subtitle: "Artifact · 1 página · exportable a PDF o Excel",
+    delay: 1400,
+  },
+];
+
 /* ════════════════════════════ COMPONENT ════════════════════════════ */
 
-export default function Sesion5() {
+export default function Sesion4() {
   const [activeLayer, setActiveLayer] = useState<string>("model");
   const [activeStage, setActiveStage] = useState<number>(0);
   const [activeArtifact, setActiveArtifact] = useState<number>(0);
@@ -374,6 +425,29 @@ export default function Sesion5() {
   const [wfStep, setWfStep] = useState(0);
   useEffect(() => {
     const iv = setInterval(() => setWfStep((s) => (s + 1) % DD_WORKFLOW.length), 2500);
+    return () => clearInterval(iv);
+  }, []);
+
+  /* Live chat demo — auto-advance mensajes, loop cada 22s */
+  const [chatVisible, setChatVisible] = useState(0);
+  useEffect(() => {
+    if (chatVisible >= LIVE_CHAT.length) {
+      const reset = setTimeout(() => setChatVisible(0), 6000);
+      return () => clearTimeout(reset);
+    }
+    const next = setTimeout(() => setChatVisible((v) => v + 1), LIVE_CHAT[chatVisible]?.delay ?? 1500);
+    return () => clearTimeout(next);
+  }, [chatVisible]);
+
+  /* ROI counter animado (horas ahorradas / mes) */
+  const [roiHours, setRoiHours] = useState(0);
+  useEffect(() => {
+    let n = 0;
+    const iv = setInterval(() => {
+      n += 4;
+      setRoiHours(n);
+      if (n >= 184) { setRoiHours(184); clearInterval(iv); }
+    }, 30);
     return () => clearInterval(iv);
   }, []);
 
@@ -749,6 +823,196 @@ export default function Sesion5() {
                       <div className="h-6 bg-cyan/20 rounded" />
                     </div>
                     <p className="font-mono text-[0.5rem] text-muted mt-2">10 páginas · 4 charts · 8 citas</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </RevealSection>
+
+      {/* ═══════════════ 5B. ASISTENTE EN ACCIÓN — LIVE CHAT DEMO ═══════════════ */}
+      <RevealSection>
+        <section className="relative max-w-6xl mx-auto px-6 py-24">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_70%_at_50%_30%,rgba(232,90,31,0.05),transparent)] pointer-events-none" />
+
+          <div className="relative">
+            <p className="font-mono text-[0.72rem] text-orange uppercase tracking-widest mb-3">Demo en vivo · DD M&amp;A</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-white-f leading-tight mb-4">
+              47 docs. <span className="text-orange">3 red flags.</span> <span className="text-cyan">2 minutos.</span>
+            </h2>
+            <p className="text-muted text-[0.95rem] max-w-2xl mb-10">
+              Así responde un asistente bien configurado cuando un analyst sube el data room del target y pide red flags para el comité de inversiones.
+              Este chat corre en loop — obsérvalo de principio a fin.
+            </p>
+
+            <div className="grid lg:grid-cols-[1.55fr_1fr] gap-6 items-start">
+              {/* CHAT WINDOW */}
+              <div className="bg-[#0C1130] border border-white/[0.06] rounded-2xl overflow-hidden shadow-2xl shadow-orange/10">
+                {/* Chat header */}
+                <div className="flex items-center justify-between px-5 py-3 border-b border-white/[0.05] bg-[rgba(232,90,31,0.04)]">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F57]" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#FEBC2E]" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#28C840]" />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#00E5A0] animate-pulse-dot" />
+                    <p className="font-mono text-[0.65rem] text-muted">claude.ai/projects/cementos-portales-dd</p>
+                  </div>
+                  <div className="font-mono text-[0.6rem] text-muted/60">· Live demo</div>
+                </div>
+
+                {/* Messages */}
+                <div className="p-5 space-y-3 min-h-[520px] max-h-[620px] overflow-hidden flex flex-col justify-end bg-gradient-to-b from-transparent to-[rgba(232,90,31,0.02)]">
+                  {LIVE_CHAT.slice(0, chatVisible).map((m, i) => {
+                    const isLast = i === chatVisible - 1;
+                    if (m.role === "user") {
+                      return (
+                        <div key={i} className="flex gap-3 animate-fadeUp">
+                          <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#5B52D5] to-[#3A7BD5] grid place-items-center text-white font-bold text-sm flex-shrink-0">{m.avatar}</div>
+                          <div className="flex-1">
+                            <div className="flex items-baseline gap-2 mb-1">
+                              <span className="text-xs font-semibold text-white-f">{m.name}</span>
+                              <span className="font-mono text-[0.6rem] text-muted/70">{m.time}</span>
+                            </div>
+                            <div className="bg-[rgba(91,82,213,0.12)] border border-[rgba(91,82,213,0.2)] rounded-xl rounded-tl-sm px-4 py-2.5 text-[0.85rem] text-white-f leading-relaxed">
+                              {m.text}
+                              {isLast && <span className="inline-block w-1.5 h-4 bg-[#5B52D5] ml-1 align-middle animate-blink" />}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    }
+                    if (m.role === "tool") {
+                      return (
+                        <div key={i} className="flex gap-3 animate-fadeUp ml-12">
+                          <div className="flex items-center gap-2 bg-[rgba(0,229,160,0.08)] border border-[rgba(0,229,160,0.2)] rounded-full px-3 py-1.5 text-[0.72rem] text-white-f">
+                            <span className="text-sm">{m.icon}</span>
+                            <span>{m.text}</span>
+                            {isLast && <span className="w-1 h-1 rounded-full bg-[#00E5A0] animate-pulse-dot" />}
+                          </div>
+                        </div>
+                      );
+                    }
+                    if (m.role === "assistant") {
+                      return (
+                        <div key={i} className="flex gap-3 animate-fadeUp">
+                          <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#E85A1F] to-[#D4AF4C] grid place-items-center text-white font-bold text-base flex-shrink-0">{m.avatar}</div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-baseline gap-2 mb-1">
+                              <span className="text-xs font-semibold text-orange">{m.name}</span>
+                              <span className="font-mono text-[0.6rem] text-muted/70">{m.time}</span>
+                            </div>
+                            <div className="bg-[rgba(232,90,31,0.08)] border border-[rgba(232,90,31,0.2)] rounded-xl rounded-tl-sm px-4 py-3 text-[0.85rem] text-white-f leading-relaxed whitespace-pre-line">
+                              {m.text.split("\n").map((ln, k) => {
+                                if (ln.startsWith("**") && ln.endsWith("**")) {
+                                  return <div key={k} className="font-bold text-white-f text-[0.9rem] my-2 first:mt-0">{ln.replaceAll("**", "")}</div>;
+                                }
+                                return <div key={k}>{ln}</div>;
+                              })}
+                              {isLast && <span className="inline-block w-1.5 h-4 bg-orange ml-1 align-middle animate-blink" />}
+                              {m.citations && (
+                                <div className="mt-3 pt-3 border-t border-white/[0.06] flex flex-wrap gap-1.5">
+                                  {m.citations.map((c) => (
+                                    <span key={c} className="font-mono text-[0.6rem] px-2 py-0.5 bg-cyan/10 border border-cyan/20 rounded-sm text-cyan">
+                                      📎 {c}
+                                    </span>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    }
+                    // artifact
+                    return (
+                      <div key={i} className="flex gap-3 animate-fadeUp ml-12">
+                        <div className="flex-1 bg-gradient-to-br from-[rgba(0,229,160,0.1)] to-[rgba(58,123,213,0.08)] border border-[rgba(0,229,160,0.25)] rounded-xl p-3.5 flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-lg bg-[rgba(0,229,160,0.15)] border border-[rgba(0,229,160,0.3)] grid place-items-center text-cyan text-lg">▣</div>
+                          <div className="flex-1">
+                            <p className="text-[0.85rem] font-semibold text-white-f">{m.title}</p>
+                            <p className="font-mono text-[0.6rem] text-muted">{m.subtitle}</p>
+                          </div>
+                          <button className="text-[0.65rem] font-mono px-3 py-1 rounded-md bg-cyan/15 border border-cyan/30 text-cyan hover:bg-cyan/25 transition-all">ABRIR</button>
+                        </div>
+                      </div>
+                    );
+                  })}
+
+                  {/* Typing indicator when preparing next message */}
+                  {chatVisible > 0 && chatVisible < LIVE_CHAT.length && (
+                    <div className="flex gap-3 ml-12 opacity-70">
+                      <div className="flex gap-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-orange animate-pulse-dot" style={{ animationDelay: "0s" }} />
+                        <span className="w-1.5 h-1.5 rounded-full bg-orange animate-pulse-dot" style={{ animationDelay: "0.2s" }} />
+                        <span className="w-1.5 h-1.5 rounded-full bg-orange animate-pulse-dot" style={{ animationDelay: "0.4s" }} />
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Chat footer input */}
+                <div className="px-5 py-3 border-t border-white/[0.05] bg-[rgba(15,20,55,0.5)] flex items-center gap-2">
+                  <div className="flex-1 text-[0.75rem] text-muted/50 font-mono">Preguntar al DD Assistant…</div>
+                  <div className="flex gap-1.5">
+                    <span className="font-mono text-[0.55rem] px-2 py-0.5 bg-white/[0.04] border border-white/[0.08] rounded-sm text-muted/60">📂 47 docs</span>
+                    <span className="font-mono text-[0.55rem] px-2 py-0.5 bg-white/[0.04] border border-white/[0.08] rounded-sm text-muted/60">⚡ Python</span>
+                    <span className="font-mono text-[0.55rem] px-2 py-0.5 bg-white/[0.04] border border-white/[0.08] rounded-sm text-muted/60">🧠 Extended</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* IMPACT SIDEBAR */}
+              <div className="space-y-4">
+                {/* Headline ROI */}
+                <div className="relative bg-gradient-to-br from-[#0F1438] to-[#080C1F] border border-orange/30 rounded-2xl p-6 overflow-hidden">
+                  <div className="absolute -top-8 -right-8 w-32 h-32 rounded-full bg-orange/10 blur-3xl" />
+                  <p className="font-mono text-[0.6rem] uppercase tracking-widest text-orange mb-2">Horas ahorradas · mes</p>
+                  <div className="flex items-baseline gap-2 mb-1">
+                    <span className="text-5xl font-bold text-white-f tabular-nums">{roiHours}</span>
+                    <span className="text-lg text-orange font-mono">h</span>
+                  </div>
+                  <p className="text-[0.75rem] text-muted">Equipo de 6 analysts en IB. DD M&amp;A típica 3 deals/mes.</p>
+                  <div className="mt-4 pt-4 border-t border-white/[0.06] grid grid-cols-2 gap-3">
+                    <div>
+                      <p className="text-[0.6rem] text-muted/70 uppercase tracking-wider mb-0.5">Antes</p>
+                      <p className="text-sm font-bold text-white/50 line-through">2 semanas</p>
+                    </div>
+                    <div>
+                      <p className="text-[0.6rem] text-cyan uppercase tracking-wider mb-0.5">Con asistente</p>
+                      <p className="text-sm font-bold text-cyan">3 días</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* What just happened */}
+                <div className="bg-[#0F1438] border border-white/[0.06] rounded-2xl p-5">
+                  <p className="font-mono text-[0.6rem] uppercase tracking-widest text-cyan mb-3">Qué pasó bajo el capó</p>
+                  <ul className="space-y-2.5 text-[0.78rem] text-white-f">
+                    {[
+                      { k: "Leyó", v: "3,420 páginas en 47 docs" },
+                      { k: "Comparó", v: "DSO histórico vs 2 peers" },
+                      { k: "Ejecutó", v: "Python para calcular ratio covenant" },
+                      { k: "Cruzó", v: "CIM + KPMG + Legal + email DIAN" },
+                      { k: "Citó", v: "4 fuentes con página exacta" },
+                      { k: "Generó", v: "Artifact exportable en 1 click" },
+                    ].map((s) => (
+                      <li key={s.k} className="flex items-start gap-2.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-orange mt-1.5 flex-shrink-0" />
+                        <span className="leading-snug"><span className="font-mono text-[0.7rem] text-orange mr-1.5">{s.k}</span>{s.v}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Credibility strip */}
+                <div className="bg-[rgba(0,229,160,0.06)] border border-[rgba(0,229,160,0.2)] rounded-xl p-4 flex items-center gap-3">
+                  <span className="text-xl">🎯</span>
+                  <div className="flex-1">
+                    <p className="text-[0.75rem] font-semibold text-white-f leading-tight">El analyst no lee menos.</p>
+                    <p className="text-[0.7rem] text-muted leading-tight mt-0.5">Verifica lo que importa — el asistente le dice dónde mirar primero.</p>
                   </div>
                 </div>
               </div>

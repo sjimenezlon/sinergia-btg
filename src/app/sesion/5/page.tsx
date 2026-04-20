@@ -311,9 +311,40 @@ const TALLER_STEPS = [
   { n: 7, title: "Demo 2 min", desc: "Muestra el output + decide qué ecosistema adoptarías en BTG y por qué." },
 ];
 
+/* NotebookLM Audio Overview — datos del podcast */
+const PODCAST = {
+  title: "Briefing ejecutivo · Adquisición Cementos Portales",
+  subtitle: "Generado por NotebookLM · 15 fuentes · hosts sintéticos Ana + Diego",
+  totalSec: 754, // 12:34
+  sources: [
+    { n: "CIM Target", type: "PDF", pages: 42 },
+    { n: "Audit KPMG 2024", type: "PDF", pages: 112 },
+    { n: "Term Sheet Draft", type: "PDF", pages: 8 },
+    { n: "Legal Opinion", type: "PDF", pages: 23 },
+    { n: "Financials 2021–25", type: "XLSX", pages: 14 },
+    { n: "Research Cemex", type: "PDF", pages: 34 },
+    { n: "Research Argos", type: "PDF", pages: 28 },
+    { n: "Bloomberg Comps", type: "PDF", pages: 9 },
+    { n: "Email DIAN 12-feb", type: "PDF", pages: 3 },
+    { n: "Contratos Key Clients", type: "PDF", pages: 67 },
+    { n: "Proyecciones 5Y", type: "XLSX", pages: 22 },
+    { n: "Esquema Estructura", type: "PDF", pages: 6 },
+    { n: "Brief Estrategia", type: "PDF", pages: 11 },
+    { n: "FAQ Comité", type: "PDF", pages: 5 },
+    { n: "Slides Pitch V3", type: "PPTX", pages: 18 },
+  ],
+  chapters: [
+    { start: 0,   label: "Thesis de inversión",        gist: "Plataforma cemento + energía · TIR objetivo 22%" },
+    { start: 134, label: "Análisis financiero",         gist: "EBITDA en deterioro · working capital stress" },
+    { start: 348, label: "Red flags materiales",        gist: "DSO · covenant breach · contingencia DIAN" },
+    { start: 502, label: "Precio y estructura",         gist: "COP 2.4B @ 8× EBITDA · earn-out 15% a 3 años" },
+    { start: 615, label: "Recomendación al Comité",     gist: "Proceder con 3 condicionantes pre-closing" },
+  ],
+};
+
 /* ════════════════════════════ COMPONENT ════════════════════════════ */
 
-export default function Sesion6() {
+export default function Sesion5() {
   const [activeEcosystem, setActiveEcosystem] = useState<string>("google");
   const [activeNbStep, setActiveNbStep] = useState<number>(0);
   const [activeFeature, setActiveFeature] = useState<string>("context");
@@ -333,6 +364,25 @@ export default function Sesion6() {
     const iv = setInterval(() => setWfStep((s) => (s + 1) % BRIEFING_WORKFLOW.length), 3000);
     return () => clearInterval(iv);
   }, []);
+
+  /* Audio Overview player (simulado) */
+  const [playing, setPlaying] = useState(true);
+  const [elapsed, setElapsed] = useState(0);
+  useEffect(() => {
+    if (!playing) return;
+    const iv = setInterval(() => {
+      setElapsed((e) => (e + 2 >= PODCAST.totalSec ? 0 : e + 2));
+    }, 120);
+    return () => clearInterval(iv);
+  }, [playing]);
+  const fmt = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+  const currentChapter = useMemo(() => {
+    const arr = PODCAST.chapters;
+    for (let i = arr.length - 1; i >= 0; i--) {
+      if (elapsed >= arr[i].start) return i;
+    }
+    return 0;
+  }, [elapsed]);
 
   const ecoData = useMemo(() => ECOSYSTEMS.find((e) => e.id === activeEcosystem)!, [activeEcosystem]);
   const featureData = useMemo(() => GEMINI_FEATURES.find((f) => f.id === activeFeature)!, [activeFeature]);
@@ -690,6 +740,188 @@ export default function Sesion6() {
                     <p className="text-[0.72rem] text-white-f italic leading-relaxed">
                       &quot;Let&apos;s dive in — this cash flow profile is fascinating. They&apos;re bleeding working capital but the unit economics are actually <em>improving</em>...&quot;
                     </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </RevealSection>
+
+      {/* ═══════════════ 4B. AUDIO OVERVIEW PLAYER — KILLER FEATURE ═══════════════ */}
+      <RevealSection>
+        <section className="relative max-w-6xl mx-auto px-6 py-24">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_30%,rgba(58,123,213,0.07),transparent)] pointer-events-none" />
+
+          <div className="relative">
+            <p className="font-mono text-[0.72rem] uppercase tracking-widest text-blue mb-3">Killer feature · Audio Overview</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-white-f leading-tight mb-4">
+              15 docs <span className="text-blue">→</span> <span className="bg-gradient-to-r from-blue to-cyan bg-clip-text text-transparent">podcast de 12 min</span>
+            </h2>
+            <p className="text-muted text-[0.95rem] max-w-2xl mb-10">
+              El CEO escucha el briefing del deal en el carro camino al Comité. Dos hosts sintéticos hablan entre sí y citan las fuentes exactas. Cero alucinaciones — solo tus docs.
+            </p>
+
+            <div className="grid lg:grid-cols-[1.7fr_1fr] gap-6 items-start">
+              {/* PLAYER CARD */}
+              <div className="relative bg-gradient-to-br from-[#0B1B3D] via-[#0C1130] to-[#0E1A38] border border-blue/25 rounded-3xl p-6 md:p-8 overflow-hidden shadow-2xl shadow-blue/10">
+                {/* Glow */}
+                <div className="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-blue/10 blur-3xl pointer-events-none" />
+                <div className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-purple/10 blur-3xl pointer-events-none" />
+
+                <div className="relative">
+                  {/* Brand */}
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="flex items-center gap-2">
+                      <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue to-purple grid place-items-center text-xs font-bold text-white">◉</div>
+                      <span className="font-mono text-[0.65rem] uppercase tracking-widest text-white-f/80">NotebookLM · Audio Overview</span>
+                    </div>
+                    <span className="flex items-center gap-1.5 text-[0.62rem] font-mono text-cyan">
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse-dot" />
+                      LIVE · generado hoy 08:47
+                    </span>
+                  </div>
+
+                  {/* Cover + hosts */}
+                  <div className="flex gap-4 mb-6">
+                    <div className="relative w-24 h-24 md:w-28 md:h-28 rounded-2xl bg-gradient-to-br from-blue via-purple to-[#7B73E8] grid place-items-center text-white text-3xl shadow-lg flex-shrink-0">
+                      🎙
+                      <div className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-cyan/90 border-2 border-[#0B1B3D] grid place-items-center text-[0.6rem] font-bold text-[#0B1B3D]">AI</div>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-lg md:text-xl font-bold text-white-f leading-tight mb-1 truncate">{PODCAST.title}</h3>
+                      <p className="text-[0.78rem] text-muted mb-3">{PODCAST.subtitle}</p>
+                      <div className="flex gap-2 flex-wrap">
+                        <span className="inline-flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.08] rounded-full px-2.5 py-1 text-[0.65rem] text-white-f/80">
+                          <span className="w-5 h-5 rounded-full bg-gradient-to-br from-[#E85A1F] to-[#D4AF4C] grid place-items-center text-[0.55rem] font-bold text-white">A</span>
+                          Ana · Host
+                        </span>
+                        <span className="inline-flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.08] rounded-full px-2.5 py-1 text-[0.65rem] text-white-f/80">
+                          <span className="w-5 h-5 rounded-full bg-gradient-to-br from-[#3A7BD5] to-[#5B52D5] grid place-items-center text-[0.55rem] font-bold text-white">D</span>
+                          Diego · Analyst
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Now speaking indicator */}
+                  <div className="mb-4 flex items-center gap-3 text-[0.78rem]">
+                    <div className="flex items-center gap-2">
+                      <div className={`w-6 h-6 rounded-full grid place-items-center text-[0.55rem] font-bold text-white transition-all ${currentChapter % 2 === 0 ? "bg-gradient-to-br from-[#E85A1F] to-[#D4AF4C] scale-110 ring-2 ring-orange/40" : "bg-gradient-to-br from-[#3A7BD5] to-[#5B52D5] opacity-50"}`}>A</div>
+                      <div className={`w-6 h-6 rounded-full grid place-items-center text-[0.55rem] font-bold text-white transition-all ${currentChapter % 2 === 1 ? "bg-gradient-to-br from-[#3A7BD5] to-[#5B52D5] scale-110 ring-2 ring-blue/40" : "bg-gradient-to-br from-[#3A7BD5] to-[#5B52D5] opacity-50"}`}>D</div>
+                    </div>
+                    <p className="text-white-f italic flex-1 leading-tight">&ldquo;{PODCAST.chapters[currentChapter].gist}&rdquo;</p>
+                  </div>
+
+                  {/* Waveform animado */}
+                  <div className="relative h-16 flex items-center gap-[2px] mb-2 bg-[rgba(0,0,0,0.2)] rounded-xl px-3 py-2 border border-white/[0.04]">
+                    {Array.from({ length: 72 }).map((_, i) => {
+                      const progress = elapsed / PODCAST.totalSec;
+                      const played = i / 72 < progress;
+                      const h = 18 + Math.abs(Math.sin(i * 0.48 + Math.cos(i * 0.11) * 2)) * 28;
+                      return (
+                        <div
+                          key={i}
+                          className="flex-1 rounded-full transition-all"
+                          style={{
+                            height: `${h}%`,
+                            background: played
+                              ? `linear-gradient(to top, #3A7BD5, #7B73E8)`
+                              : "rgba(255,255,255,0.08)",
+                            animation: playing && Math.abs(i / 72 - progress) < 0.05 ? "float 0.6s ease-in-out infinite" : undefined,
+                            animationDelay: `${i * 0.03}s`,
+                          }}
+                        />
+                      );
+                    })}
+                  </div>
+
+                  {/* Tiempo */}
+                  <div className="flex items-center justify-between font-mono text-[0.65rem] text-muted mb-5">
+                    <span className="text-cyan">{fmt(elapsed)}</span>
+                    <span>–{fmt(PODCAST.totalSec - elapsed)}</span>
+                  </div>
+
+                  {/* Controles */}
+                  <div className="flex items-center justify-center gap-4 mb-6">
+                    <button className="w-10 h-10 rounded-full border border-white/[0.08] grid place-items-center text-muted hover:text-white-f hover:border-white/20 transition-all text-sm">⏮</button>
+                    <button className="w-10 h-10 rounded-full border border-white/[0.08] grid place-items-center text-muted hover:text-white-f hover:border-white/20 transition-all text-[0.7rem] font-mono">−15s</button>
+                    <button
+                      onClick={() => setPlaying((p) => !p)}
+                      className="w-16 h-16 rounded-full bg-gradient-to-br from-blue to-purple grid place-items-center text-white text-2xl shadow-lg shadow-blue/40 hover:scale-105 transition-all"
+                    >
+                      {playing ? "❚❚" : "▶"}
+                    </button>
+                    <button className="w-10 h-10 rounded-full border border-white/[0.08] grid place-items-center text-muted hover:text-white-f hover:border-white/20 transition-all text-[0.7rem] font-mono">+15s</button>
+                    <button className="w-10 h-10 rounded-full border border-white/[0.08] grid place-items-center text-muted hover:text-white-f hover:border-white/20 transition-all text-sm">⏭</button>
+                  </div>
+
+                  {/* Capítulos */}
+                  <div className="space-y-1">
+                    {PODCAST.chapters.map((c, i) => {
+                      const active = i === currentChapter;
+                      return (
+                        <button
+                          key={i}
+                          onClick={() => setElapsed(c.start)}
+                          className={`w-full grid grid-cols-[60px_1fr_auto] gap-3 items-center px-3 py-2 rounded-lg text-left transition-all border ${active ? "bg-[rgba(58,123,213,0.12)] border-blue/30" : "bg-transparent border-transparent hover:bg-white/[0.03]"}`}
+                        >
+                          <span className={`font-mono text-[0.68rem] ${active ? "text-cyan" : "text-muted/60"}`}>{fmt(c.start)}</span>
+                          <span className={`text-[0.8rem] font-semibold ${active ? "text-white-f" : "text-white-f/70"}`}>{c.label}</span>
+                          {active && <span className="text-[0.58rem] font-mono text-cyan flex items-center gap-1"><span className="w-1 h-1 rounded-full bg-cyan animate-pulse-dot" />NOW</span>}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+
+              {/* SIDEBAR · fuentes + valor percibido */}
+              <div className="space-y-4">
+                {/* Valor percibido */}
+                <div className="bg-gradient-to-br from-[#0F1438] to-[#080C1F] border border-blue/30 rounded-2xl p-5">
+                  <p className="font-mono text-[0.6rem] uppercase tracking-widest text-blue mb-2">Por qué importa</p>
+                  <h4 className="text-lg font-bold text-white-f leading-tight mb-3">
+                    El comité escucha el deal <span className="text-cyan">antes</span> de que llegue al comité.
+                  </h4>
+                  <ul className="space-y-2 text-[0.78rem] text-white-f/90">
+                    {[
+                      "Los senior leen menos y escuchan más",
+                      "14 min en el carro = lectura completa de 3,420 páginas",
+                      "Dos voces debatiendo es más memorable que un memo",
+                      "Cero alucinaciones: solo contenido de tus docs",
+                    ].map((v) => (
+                      <li key={v} className="flex gap-2">
+                        <span className="text-cyan mt-0.5">✓</span>
+                        <span className="leading-snug">{v}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Fuentes */}
+                <div className="bg-[#0F1438] border border-white/[0.06] rounded-2xl p-5">
+                  <div className="flex items-center justify-between mb-3">
+                    <p className="font-mono text-[0.6rem] uppercase tracking-widest text-cyan">Fuentes del podcast</p>
+                    <span className="font-mono text-[0.65rem] text-white-f font-bold">{PODCAST.sources.length}</span>
+                  </div>
+                  <div className="space-y-1 max-h-[260px] overflow-y-auto pr-1">
+                    {PODCAST.sources.map((s, i) => (
+                      <div key={i} className="flex items-center gap-2 text-[0.72rem] py-1 border-b border-white/[0.04] last:border-0">
+                        <span className={`font-mono text-[0.55rem] px-1.5 py-0.5 rounded-sm font-semibold ${s.type === "PDF" ? "bg-[rgba(232,90,31,0.12)] text-orange" : s.type === "XLSX" ? "bg-[rgba(34,197,94,0.12)] text-[#22C55E]" : "bg-[rgba(232,90,31,0.12)] text-[#E85A1F]"}`}>{s.type}</span>
+                        <span className="flex-1 text-white-f/80 truncate">{s.n}</span>
+                        <span className="font-mono text-[0.6rem] text-muted/60">{s.pages}p</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Badge compliance */}
+                <div className="bg-[rgba(0,229,160,0.06)] border border-[rgba(0,229,160,0.2)] rounded-xl p-4 flex items-center gap-3">
+                  <span className="text-xl">🔒</span>
+                  <div className="flex-1">
+                    <p className="text-[0.75rem] font-semibold text-white-f leading-tight">NotebookLM Enterprise</p>
+                    <p className="text-[0.68rem] text-muted leading-tight mt-0.5">Datos no se usan para entrenar. SOC2 Type II · ISO 27001.</p>
                   </div>
                 </div>
               </div>
