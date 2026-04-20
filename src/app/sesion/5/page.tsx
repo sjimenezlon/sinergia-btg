@@ -311,6 +311,96 @@ const TALLER_STEPS = [
   { n: 7, title: "Demo 2 min", desc: "Muestra el output + decide qué ecosistema adoptarías en BTG y por qué." },
 ];
 
+/* Universo de modelos 2026 — frontier + abiertos + especializados */
+type ModelCategory = "frontier" | "open" | "specialized";
+const MODELS_2026: Array<{
+  id: string; name: string; provider: string; flag: string;
+  category: ModelCategory; color: string; icon: string;
+  context: string; input: number; output: number; license: string;
+  strength: string; btg: string;
+}> = [
+  // FRONTIER (cerrados)
+  {
+    id: "claude", name: "Claude 4.7 Opus", provider: "Anthropic", flag: "🇺🇸",
+    category: "frontier", color: "#E85A1F", icon: "◉",
+    context: "1M", input: 15, output: 75, license: "Propietario",
+    strength: "Extended Thinking · docs largos · el más seguro para finanzas",
+    btg: "Due diligence, compliance, memos IC — el adoptado por BTG",
+  },
+  {
+    id: "gpt", name: "GPT-5.4", provider: "OpenAI", flag: "🇺🇸",
+    category: "frontier", color: "#22C55E", icon: "◎",
+    context: "400K", input: 10, output: 40, license: "Propietario",
+    strength: "Razonamiento nativo · Canvas · Code Interpreter · DALL·E 4",
+    btg: "Modelación cuantitativa · Custom GPTs · research visual",
+  },
+  {
+    id: "gemini", name: "Gemini 3.1", provider: "Google", flag: "🇺🇸",
+    category: "frontier", color: "#3A7BD5", icon: "◆",
+    context: "2M", input: 7, output: 28, license: "Propietario",
+    strength: "2M contexto · Deep Research · NotebookLM nativo",
+    btg: "Research masivo · Workspace · cross-referencing de fuentes",
+  },
+  // OPEN WEIGHTS
+  {
+    id: "deepseek", name: "DeepSeek R2", provider: "DeepSeek AI", flag: "🇨🇳",
+    category: "open", color: "#7B73E8", icon: "🐋",
+    context: "256K", input: 0.2, output: 1.1, license: "DeepSeek Open (MIT-like)",
+    strength: "25× más barato · razonamiento tipo O-series · self-hosting real",
+    btg: "Scoring on-premise · clasificación masiva · casos con datos sensibles",
+  },
+  {
+    id: "llama", name: "Llama 4", provider: "Meta", flag: "🇺🇸",
+    category: "open", color: "#0866FF", icon: "🦙",
+    context: "1M", input: 0.5, output: 2.0, license: "Llama 4 Community",
+    strength: "Multimodal nativo · pesos públicos · mejor open del mercado",
+    btg: "RAG interno · fine-tune sector financiero LATAM · self-hosting",
+  },
+  {
+    id: "mistral", name: "Mistral Small 3", provider: "Mistral AI", flag: "🇫🇷",
+    category: "open", color: "#FF7000", icon: "⚜",
+    context: "512K", input: 0.3, output: 0.9, license: "Apache 2.0",
+    strength: "Soberanía europea · GDPR · on-prem dentro de la UE",
+    btg: "Compliance DORA · operaciones EU · data residency estricta",
+  },
+  {
+    id: "qwen", name: "Qwen 3 Max", provider: "Alibaba", flag: "🇨🇳",
+    category: "open", color: "#6B5CFF", icon: "阿",
+    context: "1M", input: 0.6, output: 2.4, license: "Apache 2.0",
+    strength: "Líder benchmarks AsiaPac · multilingüe (mandarín, español)",
+    btg: "Análisis mercados asiáticos · research emitentes chinos y coreanos",
+  },
+  // ESPECIALIZADOS
+  {
+    id: "kimi", name: "Kimi K2.5", provider: "Moonshot AI", flag: "🇨🇳",
+    category: "specialized", color: "#FFB020", icon: "🌙",
+    context: "10M", input: 1.5, output: 6.0, license: "Propietario",
+    strength: "10M tokens — el contexto más grande del mundo",
+    btg: "Data rooms enteros + histórico · sin chunking · sin pérdida",
+  },
+  {
+    id: "cohere", name: "Command A", provider: "Cohere", flag: "🇨🇦",
+    category: "specialized", color: "#FF3D96", icon: "❖",
+    context: "256K", input: 2.5, output: 10.0, license: "Propietario",
+    strength: "Optimizado RAG enterprise · audit trail · grounding nativo",
+    btg: "Knowledge base interno · búsqueda semántica · compliance trail",
+  },
+  {
+    id: "grok", name: "Grok 4", provider: "xAI", flag: "🇺🇸",
+    category: "specialized", color: "#9333EA", icon: "𝕏",
+    context: "256K", input: 3.0, output: 15.0, license: "Propietario",
+    strength: "Datos X/Twitter en vivo · noticias financieras instantáneas",
+    btg: "Sentiment de mercados · monitoreo reputacional ticker-level",
+  },
+];
+
+const MODEL_FILTERS: Array<{ id: ModelCategory | "all"; label: string; count: number }> = [
+  { id: "all", label: "Todos", count: MODELS_2026.length },
+  { id: "frontier", label: "Frontier (cerrados)", count: MODELS_2026.filter((m) => m.category === "frontier").length },
+  { id: "open", label: "Abiertos", count: MODELS_2026.filter((m) => m.category === "open").length },
+  { id: "specialized", label: "Especializados", count: MODELS_2026.filter((m) => m.category === "specialized").length },
+];
+
 /* M365 Copilot live demo — apps en rotación */
 const M365_APPS = [
   {
@@ -434,6 +524,13 @@ export default function Sesion5() {
     return () => clearInterval(iv);
   }, []);
 
+  /* Filtro de modelos */
+  const [modelFilter, setModelFilter] = useState<ModelCategory | "all">("all");
+  const filteredModels = useMemo(
+    () => (modelFilter === "all" ? MODELS_2026 : MODELS_2026.filter((m) => m.category === modelFilter)),
+    [modelFilter]
+  );
+
   /* M365 Copilot live — cycling apps + progressive output */
   const [m365Idx, setM365Idx] = useState(0);
   const [m365Line, setM365Line] = useState(0);
@@ -489,24 +586,24 @@ export default function Sesion5() {
 
         <div className="relative z-10 max-w-4xl mx-auto">
           <p className="font-mono text-[0.72rem] text-orange uppercase tracking-widest mb-4 animate-fadeUp">
-            Módulo 02 &middot; Herramientas &middot; Sesión 5 de 4+
+            Módulo 02 &middot; Herramientas &middot; Sesión 5
           </p>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white-f leading-tight mb-6 animate-fadeUp-1">
-            <span className="bg-gradient-to-r from-blue to-purple-light bg-clip-text text-transparent">Gemini</span>,{" "}
-            <span className="text-cyan">NotebookLM</span> y{" "}
-            <span className="bg-gradient-to-r from-purple-light to-purple bg-clip-text text-transparent">Copilot M365</span>
+            <span className="text-white-f">Ecosistemas, research</span>{" "}
+            y{" "}
+            <span className="bg-gradient-to-r from-blue via-purple-light to-cyan bg-clip-text text-transparent">modelos abiertos</span>
           </h1>
           <p className="text-lg sm:text-xl text-muted max-w-2xl mx-auto mb-10 animate-fadeUp-2">
-            La guerra de ecosistemas en 2026. Research documental con cero alucinaciones, productividad dentro de Office, y el IA en cada app que ya usas todos los días.
+            Research documental con NotebookLM, productividad en Copilot M365, la guerra Google vs Microsoft — y más allá: el universo de modelos abiertos (DeepSeek, Llama, Mistral, Qwen) que están redefiniendo el stack IA para banca.
           </p>
 
           <div className="flex flex-wrap justify-center gap-4 animate-fadeUp-3">
             {[
-              { val: heroCount >= 1 ? "2M" : "—", label: "Tokens Gemini", icon: "◆", color: "#3A7BD5" },
-              { val: heroCount >= 2 ? "300" : "—", label: "Fuentes NotebookLM", icon: "📚", color: "#00E5A0" },
-              { val: heroCount >= 3 ? "6" : "—", label: "Apps Copilot", icon: "🏢", color: "#7B73E8" },
-              { val: heroCount >= 4 ? "0%" : "—", label: "Alucinaciones*", icon: "◎", color: "#22C55E" },
-              { val: heroCount >= 5 ? "2" : "—", label: "Ecosistemas", icon: "⚔", color: "#E85A1F" },
+              { val: heroCount >= 1 ? "10" : "—", label: "Modelos 2026", icon: "◉", color: "#E85A1F" },
+              { val: heroCount >= 2 ? "2M" : "—", label: "Tokens Gemini", icon: "◆", color: "#3A7BD5" },
+              { val: heroCount >= 3 ? "300" : "—", label: "Fuentes NotebookLM", icon: "📚", color: "#00E5A0" },
+              { val: heroCount >= 4 ? "6" : "—", label: "Apps Copilot", icon: "🏢", color: "#7B73E8" },
+              { val: heroCount >= 5 ? "$0.20" : "—", label: "DeepSeek / 1M tok", icon: "🐋", color: "#22C55E" },
             ].map((s) => (
               <div key={s.label} className="bg-[#151A3A] border rounded-2xl px-5 py-3 min-w-[110px] transition-all hover:scale-105" style={{ borderColor: `${s.color}25` }}>
                 <span className="text-lg" style={{ color: s.color }}>{s.icon}</span>
@@ -623,6 +720,162 @@ export default function Sesion5() {
                 <p className="font-mono text-[0.6rem] uppercase tracking-widest text-muted mb-1">Dónde encaja en BTG</p>
                 <p className="text-sm text-white-f">{ecoData.btgFit}</p>
               </div>
+            </div>
+          </div>
+        </section>
+      </RevealSection>
+
+      {/* ═══════════════ 3B. UNIVERSO DE MODELOS 2026 ═══════════════ */}
+      <RevealSection>
+        <section className="relative max-w-6xl mx-auto px-6 py-24">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_30%,rgba(123,115,232,0.06),transparent),radial-gradient(ellipse_50%_60%_at_85%_80%,rgba(34,197,94,0.05),transparent)] pointer-events-none" />
+
+          <div className="relative">
+            <p className="font-mono text-[0.72rem] uppercase tracking-widest text-purple-light mb-3">El universo de modelos · abril 2026</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-white-f leading-tight mb-4">
+              No son <span className="text-muted line-through decoration-2">tres</span>{" "}
+              <span className="bg-gradient-to-r from-orange via-purple-light to-cyan bg-clip-text text-transparent">son diez</span>
+            </h2>
+            <p className="text-muted text-[0.95rem] max-w-2xl mb-8">
+              Claude, GPT y Gemini son la punta del iceberg. Debajo hay un ecosistema de modelos abiertos (DeepSeek, Llama, Mistral, Qwen) que son 10–25× más baratos y se pueden correr on-premise, más especialistas como Kimi (10M contexto) y Grok (datos en vivo). Para BTG esto significa: libertad de costo, soberanía y self-hosting.
+            </p>
+
+            {/* Filtros */}
+            <div className="flex flex-wrap gap-2 mb-6">
+              {MODEL_FILTERS.map((f) => {
+                const active = modelFilter === f.id;
+                return (
+                  <button
+                    key={f.id}
+                    onClick={() => setModelFilter(f.id)}
+                    className={`px-4 py-1.5 rounded-full border text-xs font-semibold transition-all ${active
+                      ? "bg-gradient-to-r from-purple-light/20 to-cyan/20 border-purple-light/50 text-white-f"
+                      : "bg-white/[0.02] border-white/[0.06] text-muted/80 hover:text-white-f hover:bg-white/[0.05]"}`}
+                  >
+                    {f.label}
+                    <span className={`ml-1.5 font-mono text-[0.65rem] ${active ? "text-cyan" : "text-muted/50"}`}>{f.count}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Grid de modelos */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {filteredModels.map((m) => {
+                const catLabel = m.category === "frontier" ? "Frontier" : m.category === "open" ? "Abierto" : "Especializado";
+                const catColor = m.category === "frontier" ? "#E85A1F" : m.category === "open" ? "#22C55E" : "#9333EA";
+                return (
+                  <div
+                    key={m.id}
+                    className="relative bg-[#0F1438] border rounded-2xl p-5 transition-all hover:-translate-y-1 hover:shadow-xl overflow-hidden group"
+                    style={{ borderColor: `${m.color}30` }}
+                  >
+                    {/* Top accent */}
+                    <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: m.color }} />
+                    {/* Glow hover */}
+                    <div
+                      className="absolute -top-12 -right-12 w-32 h-32 rounded-full blur-2xl opacity-0 group-hover:opacity-30 transition-opacity"
+                      style={{ background: m.color }}
+                    />
+
+                    {/* Header */}
+                    <div className="relative flex items-start justify-between mb-3">
+                      <div className="flex items-center gap-2.5">
+                        <div
+                          className="w-10 h-10 rounded-xl grid place-items-center text-xl font-bold text-white flex-shrink-0"
+                          style={{ background: `${m.color}25`, color: m.color }}
+                        >
+                          {m.icon}
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-sm font-bold text-white-f truncate">{m.name}</p>
+                          <p className="text-[0.65rem] text-muted flex items-center gap-1 truncate">
+                            <span>{m.flag}</span>
+                            <span>{m.provider}</span>
+                          </p>
+                        </div>
+                      </div>
+                      <span
+                        className="font-mono text-[0.55rem] uppercase tracking-wider px-2 py-0.5 rounded-sm border"
+                        style={{ color: catColor, borderColor: `${catColor}40`, background: `${catColor}10` }}
+                      >
+                        {catLabel}
+                      </span>
+                    </div>
+
+                    {/* Spec row */}
+                    <div className="grid grid-cols-3 gap-2 mb-3 pb-3 border-b border-white/[0.05]">
+                      <div>
+                        <p className="font-mono text-[0.55rem] uppercase tracking-wider text-muted/60 mb-0.5">Contexto</p>
+                        <p className="text-[0.78rem] font-bold text-white-f">{m.context}</p>
+                      </div>
+                      <div>
+                        <p className="font-mono text-[0.55rem] uppercase tracking-wider text-muted/60 mb-0.5">Input /1M</p>
+                        <p className="text-[0.78rem] font-bold text-white-f">${m.input}</p>
+                      </div>
+                      <div>
+                        <p className="font-mono text-[0.55rem] uppercase tracking-wider text-muted/60 mb-0.5">Output /1M</p>
+                        <p className="text-[0.78rem] font-bold text-white-f">${m.output}</p>
+                      </div>
+                    </div>
+
+                    {/* Strengths */}
+                    <p className="text-[0.72rem] text-white-f/85 leading-snug mb-2.5">{m.strength}</p>
+
+                    {/* BTG fit */}
+                    <p className="text-[0.68rem] text-muted italic leading-snug">
+                      <span className="text-cyan font-mono not-italic text-[0.6rem] mr-1">BTG:</span>
+                      {m.btg}
+                    </p>
+
+                    {/* License chip */}
+                    <div className="mt-3 pt-3 border-t border-white/[0.05]">
+                      <span
+                        className="font-mono text-[0.55rem] uppercase tracking-wider"
+                        style={{ color: m.license.toLowerCase().includes("propietario") ? "#9333EA" : "#22C55E" }}
+                      >
+                        {m.license.toLowerCase().includes("propietario") ? "🔒" : "⬚"} {m.license}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Valor estratégico */}
+            <div className="mt-10 grid md:grid-cols-3 gap-4">
+              {[
+                {
+                  t: "Costo",
+                  v: "25× más barato",
+                  d: "DeepSeek R2 a $0.20/M vs Claude Opus a $15/M. Misma capacidad para el 80% de tareas.",
+                  c: "#22C55E",
+                  icon: "💰",
+                },
+                {
+                  t: "Soberanía",
+                  v: "On-premise real",
+                  d: "Mistral + Llama corren en tu data center. Datos regulados nunca salen de BTG.",
+                  c: "#3A7BD5",
+                  icon: "🔒",
+                },
+                {
+                  t: "Especialización",
+                  v: "Un modelo por tarea",
+                  d: "Kimi para data rooms, Cohere para RAG interno, Grok para sentiment. Elige el right tool.",
+                  c: "#9333EA",
+                  icon: "🎯",
+                },
+              ].map((s) => (
+                <div key={s.t} className="bg-gradient-to-br from-[#0F1438] to-[#080C1F] border border-white/[0.06] rounded-2xl p-5">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-2xl">{s.icon}</span>
+                    <p className="font-mono text-[0.6rem] uppercase tracking-widest" style={{ color: s.c }}>{s.t}</p>
+                  </div>
+                  <p className="text-xl font-bold text-white-f mb-2">{s.v}</p>
+                  <p className="text-[0.75rem] text-muted leading-snug">{s.d}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>

@@ -53,7 +53,7 @@ const sesiones = [
   { n: 2, title: "IA en el sector financiero", sub: "Responsabilidad y ciberseguridad en banca de inversión", mod: "M01", active: true },
   { n: 3, title: "Prompt engineering: comunicarse con la IA", sub: "Técnicas avanzadas y criterios para elegir la herramienta correcta", mod: "M02", active: true },
   { n: 4, title: "Asistentes IA para finanzas", sub: "Flujos profesionales de análisis y creación", mod: "M02", active: true },
-  { n: 5, title: "Gemini, NotebookLM y Microsoft Copilot", sub: "Investigación documental, productividad y ecosistema M365", mod: "M02", active: true },
+  { n: 5, title: "Ecosistemas, research y modelos abiertos", sub: "NotebookLM, Gemini, Copilot M365 y el universo de modelos (DeepSeek, Llama, Mistral, Qwen, Kimi)", mod: "M02", active: true },
   { n: 6, title: "Cursor, Claude Code y GitHub Copilot", sub: "Programación asistida por IA", mod: "M02", active: false },
   { n: 7, title: "n8n: automatización sin código", sub: "Conectar herramientas y eliminar trabajo manual", mod: "M03", active: false },
   { n: 8, title: "n8n + IA: automatización inteligente", sub: "LLMs integrados a flujos de automatización", mod: "M03", active: false },
