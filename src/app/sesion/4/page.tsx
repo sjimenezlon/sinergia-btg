@@ -19,7 +19,7 @@ const ASSISTANT_LAYERS = [
     id: "model",
     layer: "1 · Modelo base",
     title: "El cerebro razonante",
-    desc: "El LLM que piensa: Claude 4.6 Opus, GPT-5.4, Gemini 3.1. Decide la calidad del análisis, la latencia y el costo por token.",
+    desc: "El LLM que piensa: Claude 4.7 Opus, GPT-5.4, Gemini 3.1. Decide la calidad del análisis, la latencia y el costo por token.",
     finance: "Para due diligence en M&A: Claude Opus (1M ctx + Extended Thinking). Para modelación cuantitativa: GPT-5.4 o o3.",
     color: "#E85A1F",
     icon: "◉",

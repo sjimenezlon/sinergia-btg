@@ -752,7 +752,7 @@ export default function Sesion6() {
               <div className="space-y-3">
                 {[
                   { name: "Gemini 3.1 Ultra", tokens: 2000000, color: "#3A7BD5", bar: 100, label: "2M", note: "2 años de earnings calls + 50 PDFs" },
-                  { name: "Claude 4.6 Opus", tokens: 1000000, color: "#E85A1F", bar: 50, label: "1M", note: "Data room completo + histórico" },
+                  { name: "Claude 4.7 Opus", tokens: 1000000, color: "#E85A1F", bar: 50, label: "1M", note: "Data room completo + histórico" },
                   { name: "GPT-5.4", tokens: 1000000, color: "#22C55E", bar: 50, label: "1M", note: "Empatado con Opus" },
                   { name: "Data room BTG típico", tokens: 400000, color: "#D4AF4C", bar: 20, label: "400K", note: "Referencia · lo que subes", dashed: true },
                   { name: "Claude Sonnet 4.6", tokens: 200000, color: "#7B73E8", bar: 10, label: "200K", note: "Tareas diarias" },

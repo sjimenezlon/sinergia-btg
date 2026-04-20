@@ -82,7 +82,7 @@ const BTG_AREAS = [
       "Modelación financiera asistida: escenarios de valuación con Monte Carlo + IA",
       "Identificación de targets M&A usando clustering de empresas por métricas similares",
     ],
-    tools: ["Claude 4.6 (docs largos)", "GPT-5.4 (modelación)", "Copilot Excel"],
+    tools: ["Claude 4.7 (docs largos)", "GPT-5.4 (modelación)", "Copilot Excel"],
   },
   {
     id: "wm",
@@ -94,7 +94,7 @@ const BTG_AREAS = [
       "Asistente conversacional para asesores: busca en histórico de interacciones",
       "Predicción de churn de clientes usando patrones de transacciones",
     ],
-    tools: ["Gemini 3.1 (Workspace)", "Claude 4.6 (compliance)", "Modelos ML internos"],
+    tools: ["Gemini 3.1 (Workspace)", "Claude 4.7 (compliance)", "Modelos ML internos"],
   },
   {
     id: "am",
@@ -130,7 +130,7 @@ const BTG_AREAS = [
       "Generación automática de reportes regulatorios (SFC, UIAF, Superfinanciera)",
       "Análisis de contratos: detección de cláusulas riesgosas o no estándar",
     ],
-    tools: ["Claude 4.6 (contratos)", "Copilot M365 (reportes)", "Sistemas internos"],
+    tools: ["Claude 4.7 (contratos)", "Copilot M365 (reportes)", "Sistemas internos"],
   },
 ];
 

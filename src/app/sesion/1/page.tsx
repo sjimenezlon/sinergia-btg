@@ -117,7 +117,7 @@ const MODELS = [
     weakness: "Costo alto en outputs extensos",
   },
   {
-    name: "Claude 4.6",
+    name: "Claude 4.7",
     provider: "Anthropic",
     icon: "◉",
     color: "#E85A1F",
@@ -193,7 +193,7 @@ const PRESETS: Record<
     system:
       "Eres un analista senior de banca de inversión en BTG Pactual Colombia. Respondes con precisión, citas fuentes, y estructuras tus respuestas con headers claros. Priorizas datos cuantitativos y comparables de mercado. Formato: markdown con tablas cuando aplique.",
     temp: 0.3,
-    model: "Claude 4.6",
+    model: "Claude 4.7",
   },
   research: {
     label: "Research",
@@ -209,7 +209,7 @@ const PRESETS: Record<
     system:
       "Eres un oficial de cumplimiento especializado en regulación financiera colombiana (SFC, URF) y estándares internacionales (Basilea, FATF/GAFI). Identificas riesgos regulatorios, citas normas específicas, y propones controles. Nunca das consejo legal definitivo, siempre recomiendas consultar al área jurídica.",
     temp: 0.1,
-    model: "Claude 4.6",
+    model: "Claude 4.7",
   },
   creative: {
     label: "Creative",
@@ -1014,7 +1014,7 @@ Formato: Memo ejecutivo de máximo 500 palabras con tabla de comparables.`;
                     ))}
                   </div>
                   <p className="text-muted text-xs mt-3">
-                    GPT-5.4: 120 capas &middot; Claude 4.6: 96 capas &middot; Gemini 3.1: 80 capas
+                    GPT-5.4: 120 capas &middot; Claude 4.7: 96 capas &middot; Gemini 3.1: 80 capas
                   </p>
                 </div>
               </div>
@@ -1960,7 +1960,7 @@ Formato: Memo ejecutivo de máximo 500 palabras con tabla de comparables.`;
               <div className="bg-[#151A3A] border border-white/[0.06] rounded-2xl p-6">
                 <p className="font-mono text-xs text-muted mb-3">Modelo:</p>
                 <div className="grid grid-cols-3 gap-2">
-                  {["GPT-5.4", "Claude 4.6", "Gemini 3.1"].map((m) => (
+                  {["GPT-5.4", "Claude 4.7", "Gemini 3.1"].map((m) => (
                     <button
                       key={m}
                       onClick={() => setLabModel(m)}
@@ -2156,7 +2156,7 @@ Formato: Memo ejecutivo de máximo 500 palabras con tabla de comparables.`;
                 {
                   n: 2,
                   title: "Envía a 3 modelos",
-                  desc: "Usa ChatGPT (GPT-5.4), Claude.ai (Claude 4.6) y Gemini. Misma temperatura: 0.3.",
+                  desc: "Usa ChatGPT (GPT-5.4), Claude.ai (Claude 4.7) y Gemini. Misma temperatura: 0.3.",
                 },
                 {
                   n: 3,

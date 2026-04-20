@@ -239,7 +239,7 @@ const MULTIMODAL_CAPABILITIES = [
       "Screenshot de un dashboard Power BI → identifica anomalías y tendencias",
       "Imagen de una pizarra de trading → transcribe y organiza las posiciones",
     ],
-    models: ["Claude 4.6 Opus", "GPT-5.4", "Gemini 3.1"],
+    models: ["Claude 4.7 Opus", "GPT-5.4", "Gemini 3.1"],
   },
   {
     id: "files",
@@ -253,7 +253,7 @@ const MULTIMODAL_CAPABILITIES = [
       "Carga un pitch deck → pide feedback sobre fortalezas y debilidades del argumento",
       "Sube estados financieros en PDF → extrae ratios y genera comparables automáticamente",
     ],
-    models: ["Claude 4.6 (1M tokens)", "ChatGPT (archivos)", "Gemini (Drive)"],
+    models: ["Claude 4.7 (1M tokens)", "ChatGPT (archivos)", "Gemini (Drive)"],
   },
   {
     id: "audio",
@@ -976,7 +976,7 @@ export default function Sesion3() {
             <div className="bg-[#151A3A] border border-white/[0.06] rounded-2xl p-6 flex flex-col">
               <div className="flex items-center gap-2 mb-4">
                 <span className="w-2 h-2 rounded-full bg-cyan animate-pulse-dot" />
-                <p className="font-mono text-xs text-muted">Respuesta simulada &middot; Claude 4.6 Opus</p>
+                <p className="font-mono text-xs text-muted">Respuesta simulada &middot; Claude 4.7 Opus</p>
               </div>
               <div className="flex-1 bg-[#0D1229] rounded-xl p-6 border border-white/[0.04] overflow-y-auto max-h-[450px] min-h-[300px]">
                 {displayedText ? (
