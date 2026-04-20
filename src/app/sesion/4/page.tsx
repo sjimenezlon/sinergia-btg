@@ -587,6 +587,223 @@ export default function Sesion4() {
         </section>
       </RevealSection>
 
+      {/* ═══════════════ 3B. ANTES / AHORA — SPLIT VISUAL ═══════════════ */}
+      <RevealSection>
+        <section className="relative max-w-6xl mx-auto px-6 py-20">
+          <div className="mb-10">
+            <p className="font-mono text-[0.72rem] uppercase tracking-widest text-orange mb-3">El salto · visualizado</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-white-f leading-tight mb-3">
+              <span className="text-muted/60 line-through decoration-2">Así se veía</span> &nbsp;&nbsp;<span className="text-orange">así se ve ahora</span>
+            </h2>
+            <p className="text-muted text-[0.9rem] max-w-2xl">
+              El mismo analyst. El mismo deal. Dos mundos. Uno con 11 pestañas abiertas y post-its; otro con una conversación.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-[1fr_72px_1fr] gap-4 items-stretch">
+            {/* ═══ ANTES ═══ */}
+            <div className="relative bg-[#1A1208] border border-orange/15 rounded-2xl overflow-hidden">
+              {/* Header bar grayscale */}
+              <div className="flex items-center justify-between px-4 py-2 border-b border-white/[0.05] bg-[rgba(255,95,87,0.06)]">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2 h-2 rounded-full bg-[#FF5F57]/60" />
+                  <div className="w-2 h-2 rounded-full bg-[#FEBC2E]/60" />
+                  <div className="w-2 h-2 rounded-full bg-[#28C840]/60" />
+                </div>
+                <p className="font-mono text-[0.55rem] text-muted/60 uppercase tracking-wider">Analyst desk · 8:14 am · día 11</p>
+                <span className="font-mono text-[0.55rem] text-[#FF5F57]">● RECORDING</span>
+              </div>
+
+              {/* Chaos content */}
+              <div className="p-4 min-h-[360px] relative">
+                {/* Floating browser tabs */}
+                <div className="flex gap-1 mb-3 overflow-hidden">
+                  {["CIM.pdf", "Financials.xlsx", "KPMG_Audit", "email chain", "Bloomberg", "Term Sheet"].map((t, i) => (
+                    <div key={t} className={`font-mono text-[0.55rem] px-2 py-1 rounded-t-md border border-white/[0.05] border-b-0 text-muted/70 whitespace-nowrap ${i === 2 ? "bg-[#2A1D10] text-white-f/80" : "bg-white/[0.02]"}`}>
+                      {t}
+                    </div>
+                  ))}
+                  <div className="font-mono text-[0.55rem] px-1.5 py-1 rounded-t-md bg-white/[0.02] border border-white/[0.05] border-b-0 text-muted/50">+5</div>
+                </div>
+
+                {/* Fake Excel grid */}
+                <div className="bg-white/[0.02] border border-white/[0.05] rounded p-2 mb-3">
+                  <div className="grid grid-cols-6 gap-0 text-[0.55rem] font-mono text-muted/60">
+                    {["", "A", "B", "C", "D", "E"].map((h, i) => (
+                      <div key={i} className="border-b border-white/5 pb-0.5 pl-1 text-muted/40">{h}</div>
+                    ))}
+                    {["1", "Revenue", "85,400", "92,100", "#REF!", "..."].concat(
+                      ["2", "EBITDA", "12,750", "13,400", "??", "..."],
+                      ["3", "DSO días", "45", "62", "78 ⚠", "..."],
+                      ["4", "Covenant", "3.12×", "3.28×", "3.42×", "..."]
+                    ).map((c, i) => (
+                      <div key={i} className={`border-b border-white/5 py-0.5 pl-1 ${c.includes("#REF") ? "bg-[#FF5F57]/10 text-[#FF5F57]" : c.includes("??") ? "bg-[#FEBC2E]/10 text-[#FEBC2E]" : c.includes("⚠") ? "text-orange" : "text-white-f/70"} truncate`}>{c}</div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Stack of papers */}
+                <div className="relative mb-3 h-14">
+                  {[0, 1, 2, 3].map((i) => (
+                    <div key={i} className="absolute bg-white/[0.04] border border-white/10 rounded" style={{
+                      top: i * 3, left: i * 4, right: 60 - i * 6, height: 44,
+                      transform: `rotate(${(i % 2 === 0 ? -1 : 1) * (i + 0.5)}deg)`,
+                    }}>
+                      <div className="w-full h-1 bg-white/[0.06] mt-2 ml-2" style={{ width: "60%" }} />
+                      <div className="w-full h-1 bg-white/[0.04] mt-1 ml-2" style={{ width: "40%" }} />
+                      <div className="w-full h-1 bg-white/[0.04] mt-1 ml-2" style={{ width: "70%" }} />
+                    </div>
+                  ))}
+                </div>
+
+                {/* Post-it notes */}
+                <div className="flex gap-2 mb-3">
+                  <div className="bg-[#FEBC2E]/20 border border-[#FEBC2E]/30 rounded px-2 py-1 text-[0.55rem] text-[#FEBC2E] font-mono rotate-[-3deg]">¿DSO real?</div>
+                  <div className="bg-[#FF5F57]/20 border border-[#FF5F57]/30 rounded px-2 py-1 text-[0.55rem] text-[#FF5F57] font-mono rotate-[2deg]">covenant!!</div>
+                  <div className="bg-[#00E5A0]/20 border border-[#00E5A0]/30 rounded px-2 py-1 text-[0.55rem] text-[#00E5A0] font-mono rotate-[-1deg]">email DIAN?</div>
+                </div>
+
+                {/* Metrics row */}
+                <div className="absolute bottom-3 left-4 right-4 grid grid-cols-3 gap-2 font-mono text-[0.6rem]">
+                  <div className="bg-[rgba(255,95,87,0.08)] border border-[#FF5F57]/20 rounded px-2 py-1.5">
+                    <p className="text-[#FF5F57] mb-0.5">Pestañas</p>
+                    <p className="text-white-f font-bold text-sm">11</p>
+                  </div>
+                  <div className="bg-[rgba(254,188,46,0.08)] border border-[#FEBC2E]/20 rounded px-2 py-1.5">
+                    <p className="text-[#FEBC2E] mb-0.5">Café del día</p>
+                    <p className="text-white-f font-bold text-sm">4</p>
+                  </div>
+                  <div className="bg-[rgba(232,90,31,0.08)] border border-orange/20 rounded px-2 py-1.5">
+                    <p className="text-orange mb-0.5">Días restantes</p>
+                    <p className="text-white-f font-bold text-sm">3</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Footer badge */}
+              <div className="border-t border-white/[0.05] px-4 py-2.5 bg-[rgba(255,95,87,0.04)] flex items-center justify-between">
+                <span className="font-mono text-[0.62rem] text-[#FF5F57]/90 uppercase tracking-wider flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF5F57] animate-pulse-dot" />
+                  Stress level: alto
+                </span>
+                <span className="font-mono text-[0.62rem] text-muted/60">Tiempo DD: 2 semanas</span>
+              </div>
+            </div>
+
+            {/* ═══ DIVIDER "→" ═══ */}
+            <div className="hidden md:grid place-items-center">
+              <div className="relative w-full h-full flex flex-col items-center justify-center">
+                <div className="flex flex-col items-center gap-2">
+                  <div className="font-mono text-[0.55rem] uppercase tracking-widest text-muted/50">Con asistente IA</div>
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-orange to-purple grid place-items-center text-white text-2xl shadow-lg shadow-orange/30 animate-glowPulse">→</div>
+                  <div className="font-mono text-[0.6rem] text-cyan font-bold">−83%</div>
+                  <div className="font-mono text-[0.5rem] text-muted/60 text-center leading-tight">tiempo<br />DD</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Mobile divider */}
+            <div className="md:hidden flex items-center justify-center py-4">
+              <div className="flex items-center gap-3">
+                <div className="w-16 h-px bg-gradient-to-r from-transparent to-orange" />
+                <span className="font-mono text-[0.6rem] text-cyan font-bold">−83%</span>
+                <div className="w-16 h-px bg-gradient-to-l from-transparent to-purple" />
+              </div>
+            </div>
+
+            {/* ═══ AHORA ═══ */}
+            <div className="relative bg-gradient-to-br from-[#0A1238] to-[#0C1130] border border-cyan/25 rounded-2xl overflow-hidden shadow-xl shadow-cyan/5">
+              {/* Header chat-style */}
+              <div className="flex items-center justify-between px-4 py-2 border-b border-white/[0.05] bg-[rgba(0,229,160,0.05)]">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2 h-2 rounded-full bg-[#FF5F57]" />
+                  <div className="w-2 h-2 rounded-full bg-[#FEBC2E]" />
+                  <div className="w-2 h-2 rounded-full bg-[#28C840]" />
+                </div>
+                <p className="font-mono text-[0.55rem] text-cyan uppercase tracking-wider">claude.ai · proyecto DD</p>
+                <span className="font-mono text-[0.55rem] text-cyan">● FOCUS</span>
+              </div>
+
+              {/* Clean chat */}
+              <div className="p-4 min-h-[360px] flex flex-col">
+                {/* Single user bubble */}
+                <div className="flex gap-2 mb-4">
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#5B52D5] to-[#3A7BD5] grid place-items-center text-[0.55rem] font-bold text-white flex-shrink-0">M</div>
+                  <div className="bg-[rgba(91,82,213,0.08)] border border-[rgba(91,82,213,0.15)] rounded-lg rounded-tl-sm px-3 py-2 text-[0.72rem] text-white-f/90 leading-snug">
+                    Top 3 red flags del data room para el IC del jueves.
+                  </div>
+                </div>
+
+                {/* Clean assistant response */}
+                <div className="flex gap-2 mb-3 flex-1">
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-orange to-[#D4AF4C] grid place-items-center text-[0.6rem] font-bold text-white flex-shrink-0">◉</div>
+                  <div className="flex-1 bg-[rgba(232,90,31,0.06)] border border-[rgba(232,90,31,0.15)] rounded-lg rounded-tl-sm px-3 py-2.5">
+                    <p className="text-[0.72rem] font-semibold text-orange mb-1.5">3 red flags materiales</p>
+                    <div className="space-y-1.5 text-[0.68rem] text-white-f/80">
+                      {[
+                        { n: 1, t: "DSO deteriorado", c: "CIM p.34" },
+                        { n: 2, t: "Covenant breach", c: "Term §4.2" },
+                        { n: 3, t: "Contingencia DIAN", c: "Legal §7" },
+                      ].map((r) => (
+                        <div key={r.n} className="flex items-center gap-2">
+                          <span className="w-4 h-4 rounded-full bg-orange/20 text-orange grid place-items-center text-[0.55rem] font-bold flex-shrink-0">{r.n}</span>
+                          <span className="flex-1 font-semibold text-white-f/90">{r.t}</span>
+                          <span className="font-mono text-[0.5rem] text-cyan bg-cyan/10 px-1.5 py-0.5 rounded">{r.c}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Clean metrics row */}
+                <div className="mt-auto grid grid-cols-3 gap-2 font-mono text-[0.6rem]">
+                  <div className="bg-[rgba(0,229,160,0.06)] border border-cyan/20 rounded px-2 py-1.5">
+                    <p className="text-cyan mb-0.5">Pestañas</p>
+                    <p className="text-white-f font-bold text-sm">1</p>
+                  </div>
+                  <div className="bg-[rgba(0,229,160,0.06)] border border-cyan/20 rounded px-2 py-1.5">
+                    <p className="text-cyan mb-0.5">Café del día</p>
+                    <p className="text-white-f font-bold text-sm">1</p>
+                  </div>
+                  <div className="bg-[rgba(0,229,160,0.06)] border border-cyan/20 rounded px-2 py-1.5">
+                    <p className="text-cyan mb-0.5">Días restantes</p>
+                    <p className="text-white-f font-bold text-sm">11</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Footer badge */}
+              <div className="border-t border-white/[0.05] px-4 py-2.5 bg-[rgba(0,229,160,0.04)] flex items-center justify-between">
+                <span className="font-mono text-[0.62rem] text-cyan uppercase tracking-wider flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse-dot" />
+                  Stress level: controlado
+                </span>
+                <span className="font-mono text-[0.62rem] text-muted/60">Tiempo DD: 3 días</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom strip */}
+          <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-3">
+            {[
+              { k: "Horas totales", antes: "112h", ahora: "18h", color: "#E85A1F" },
+              { k: "Docs revisados", antes: "47 manual", ahora: "47 cross-ref", color: "#5B52D5" },
+              { k: "Fuentes citadas", antes: "~6 recordadas", ahora: "23 con página", color: "#3A7BD5" },
+              { k: "Riesgo omisión", antes: "Alto", ahora: "Bajo", color: "#00E5A0" },
+            ].map((m) => (
+              <div key={m.k} className="bg-[#0F1438] border border-white/[0.06] rounded-xl p-3">
+                <p className="font-mono text-[0.55rem] uppercase tracking-wider text-muted/70 mb-1.5">{m.k}</p>
+                <div className="flex items-baseline gap-2 text-[0.75rem]">
+                  <span className="text-muted/50 line-through">{m.antes}</span>
+                  <span className="text-muted/30">→</span>
+                  <span className="font-bold" style={{ color: m.color }}>{m.ahora}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      </RevealSection>
+
       {/* ═══════════════ 4. ANATOMÍA DEL ASISTENTE ═══════════════ */}
       <RevealSection>
         <section className="max-w-6xl mx-auto px-6 py-20">

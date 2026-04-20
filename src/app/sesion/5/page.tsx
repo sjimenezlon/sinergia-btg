@@ -311,6 +311,75 @@ const TALLER_STEPS = [
   { n: 7, title: "Demo 2 min", desc: "Muestra el output + decide qué ecosistema adoptarías en BTG y por qué." },
 ];
 
+/* M365 Copilot live demo — apps en rotación */
+const M365_APPS = [
+  {
+    id: "word",
+    name: "Word",
+    color: "#2B579A",
+    icon: "W",
+    subtitle: "Memo ejecutivo — IC Cementos Portales",
+    doc: "IC_Memo_Cementos_Portales.docx",
+    ribbon: ["Inicio", "Insertar", "Diseño", "Disposición", "Referencias", "Correspondencia", "Revisar"],
+    copilotPrompt: "Resume en 3 bullets los red flags del data room para la carátula del memo.",
+    copilotOutput: [
+      "DSO deteriorado: 45d → 78d (2022–2025). Liquidez estructural comprometida.",
+      "Covenant Net Debt/EBITDA 3.42× vs límite 3.50× — margen 0.08×.",
+      "Contingencia DIAN COP 8.2B no provisionada en EEFF del target.",
+    ],
+    suggestions: ["Reescribir tono más ejecutivo", "Añadir sensibilidades", "Generar resumen para el board"],
+  },
+  {
+    id: "excel",
+    name: "Excel",
+    color: "#217346",
+    icon: "X",
+    subtitle: "Modelo DCF — Cementos Portales",
+    doc: "DCF_Cementos_Portales.xlsx",
+    ribbon: ["Inicio", "Insertar", "Dibujar", "Disposición", "Fórmulas", "Datos", "Revisar"],
+    copilotPrompt: "Explica por qué el FCF year 3 cae 22% y sugiere sensibilidad.",
+    copilotOutput: [
+      "Caída driven por ciclo expansivo de capex (+COP 340B) en planta Cartagena.",
+      "Recomiendo sensibilidad ±10% en working capital y ±50bps en WACC.",
+      "Sugerencia: añadir escenario bear con capex diferido 12 meses.",
+    ],
+    suggestions: ["Crear gráfico tornado", "Añadir escenario bear", "Copiar como reporte Word"],
+  },
+  {
+    id: "ppt",
+    name: "PowerPoint",
+    color: "#B7472A",
+    icon: "P",
+    subtitle: "Pitch deck comité — slide 7 de 14",
+    doc: "Pitch_Comite_V3.pptx",
+    ribbon: ["Inicio", "Insertar", "Diseño", "Transiciones", "Animaciones", "Presentación"],
+    copilotPrompt: "Genera speaker notes para esta slide de red flags (90 segundos).",
+    copilotOutput: [
+      "Introducir: identificamos 3 riesgos materiales del target.",
+      "DSO ha empeorado 73% en 3 años — señal de presión de ventas.",
+      "Covenant breach a 1 trimestre de distancia, riesgo real de aceleración.",
+      "DIAN notificó en febrero, no está en EEFF. Ajuste de 1.4% EBITDA.",
+    ],
+    suggestions: ["Cambiar diseño a versión ejecutiva", "Generar slide resumen", "Sugerir transiciones"],
+  },
+  {
+    id: "outlook",
+    name: "Outlook",
+    color: "#0078D4",
+    icon: "O",
+    subtitle: "Triaje · Bandeja de entrada · 42 correos",
+    doc: "Bandeja de entrada",
+    ribbon: ["Inicio", "Enviar/recibir", "Carpeta", "Ver", "Ayuda"],
+    copilotPrompt: "¿Qué correos requieren acción hoy antes de las 3pm?",
+    copilotOutput: [
+      "KPMG — firma electrónica del Term Sheet modificado (urgente, hoy 2pm).",
+      "Legal BTG — confirmación sobre cláusula de earn-out Portales.",
+      "CFO target — respondió sobre DIAN, necesitas confirmar call de mañana.",
+    ],
+    suggestions: ["Borrador respuesta KPMG", "Agendar call CFO", "Marcar 3 correos como leídos"],
+  },
+];
+
 /* NotebookLM Audio Overview — datos del podcast */
 const PODCAST = {
   title: "Briefing ejecutivo · Adquisición Cementos Portales",
@@ -364,6 +433,24 @@ export default function Sesion5() {
     const iv = setInterval(() => setWfStep((s) => (s + 1) % BRIEFING_WORKFLOW.length), 3000);
     return () => clearInterval(iv);
   }, []);
+
+  /* M365 Copilot live — cycling apps + progressive output */
+  const [m365Idx, setM365Idx] = useState(0);
+  const [m365Line, setM365Line] = useState(0);
+  useEffect(() => {
+    const current = M365_APPS[m365Idx];
+    if (m365Line < current.copilotOutput.length) {
+      const t = setTimeout(() => setM365Line((l) => l + 1), 900);
+      return () => clearTimeout(t);
+    }
+    // Wait, then switch app
+    const t = setTimeout(() => {
+      setM365Idx((i) => (i + 1) % M365_APPS.length);
+      setM365Line(0);
+    }, 2500);
+    return () => clearTimeout(t);
+  }, [m365Line, m365Idx]);
+  const m365Current = M365_APPS[m365Idx];
 
   /* Audio Overview player (simulado) */
   const [playing, setPlaying] = useState(true);
@@ -1224,6 +1311,262 @@ export default function Sesion5() {
                   )}
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+      </RevealSection>
+
+      {/* ═══════════════ 6B. M365 COPILOT LIVE RIBBON ═══════════════ */}
+      <RevealSection>
+        <section className="relative max-w-6xl mx-auto px-6 py-24">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_30%,rgba(0,120,212,0.05),transparent)] pointer-events-none" />
+
+          <div className="relative">
+            <p className="font-mono text-[0.72rem] uppercase tracking-widest text-[#3A7BD5] mb-3">Copilot M365 · en vivo</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-white-f leading-tight mb-4">
+              La IA vive donde <span className="bg-gradient-to-r from-[#2B579A] via-[#0078D4] to-[#217346] bg-clip-text text-transparent">ya trabajas</span>
+            </h2>
+            <p className="text-muted text-[0.95rem] max-w-2xl mb-8">
+              Cuatro apps, una licencia. El Copilot lee el contexto del documento o correo abierto y sugiere en el panel derecho. Observa cómo cicla entre Word, Excel, PowerPoint y Outlook.
+            </p>
+
+            {/* App switcher tabs */}
+            <div className="flex flex-wrap gap-2 mb-4">
+              {M365_APPS.map((app, i) => {
+                const active = i === m365Idx;
+                return (
+                  <button
+                    key={app.id}
+                    onClick={() => { setM365Idx(i); setM365Line(0); }}
+                    className={`flex items-center gap-2 px-3.5 py-2 rounded-lg border text-xs font-semibold transition-all ${active ? "text-white-f scale-[1.02]" : "text-muted/70 hover:text-white-f"}`}
+                    style={{
+                      background: active ? `${app.color}22` : "rgba(255,255,255,0.02)",
+                      borderColor: active ? `${app.color}66` : "rgba(255,255,255,0.08)",
+                    }}
+                  >
+                    <span
+                      className="w-6 h-6 rounded grid place-items-center font-bold text-white text-[0.72rem]"
+                      style={{ background: app.color }}
+                    >
+                      {app.icon}
+                    </span>
+                    {app.name}
+                    {active && <span className="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse-dot ml-1" />}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* App window mockup */}
+            <div className="bg-[#1E1E1E] border border-white/[0.08] rounded-xl overflow-hidden shadow-2xl shadow-black/30">
+              {/* Title bar */}
+              <div className="flex items-center justify-between px-3 py-2 bg-[#2D2D30]">
+                <div className="flex items-center gap-2">
+                  <div
+                    className="w-5 h-5 rounded-sm grid place-items-center font-bold text-white text-[0.6rem]"
+                    style={{ background: m365Current.color }}
+                  >
+                    {m365Current.icon}
+                  </div>
+                  <span className="text-[0.72rem] text-white/80">{m365Current.doc} — {m365Current.name}</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <button className="w-6 h-6 rounded grid place-items-center text-white/40 hover:bg-white/10 text-[0.7rem]">—</button>
+                  <button className="w-6 h-6 rounded grid place-items-center text-white/40 hover:bg-white/10 text-[0.7rem]">□</button>
+                  <button className="w-6 h-6 rounded grid place-items-center text-white/40 hover:bg-white/10 text-[0.7rem]">✕</button>
+                </div>
+              </div>
+
+              {/* Ribbon */}
+              <div className="bg-[#252526] border-b border-white/[0.06] px-3 py-1.5 flex items-center gap-4 overflow-hidden">
+                <div
+                  className="text-[0.65rem] font-semibold px-2 py-0.5 rounded text-white"
+                  style={{ background: m365Current.color }}
+                >
+                  Archivo
+                </div>
+                {m365Current.ribbon.map((r, i) => (
+                  <span key={r} className={`text-[0.65rem] whitespace-nowrap ${i === 0 ? "text-white font-semibold" : "text-white/50"}`}>{r}</span>
+                ))}
+                <div className="ml-auto flex items-center gap-2 bg-[rgba(0,120,212,0.18)] border border-[#0078D4]/40 rounded-md px-2 py-1">
+                  <span className="w-4 h-4 rounded-full bg-gradient-to-br from-[#0078D4] to-[#7B73E8] grid place-items-center text-[0.55rem] font-bold text-white">✦</span>
+                  <span className="text-[0.62rem] font-semibold text-white">Copilot</span>
+                </div>
+              </div>
+
+              {/* Main grid: document area + copilot pane */}
+              <div className="grid md:grid-cols-[1.6fr_1fr] min-h-[420px]">
+                {/* DOCUMENT AREA */}
+                <div className="bg-[#1B1B1C] p-5 border-r border-white/[0.05] overflow-hidden">
+                  {m365Current.id === "word" && (
+                    <div className="bg-white/95 rounded-sm p-8 text-[#1a1a1a] max-w-[90%] mx-auto shadow-lg min-h-[380px]">
+                      <div className="text-center mb-5 pb-3 border-b-2 border-[#2B579A]">
+                        <p className="font-mono text-[0.58rem] uppercase tracking-widest text-[#2B579A] mb-1">Investment Committee Memo</p>
+                        <h4 className="text-lg font-bold">Adquisición · Cementos Portales</h4>
+                        <p className="text-[0.65rem] text-gray-600 mt-0.5">Preparado por: María Ortega · IB Latam · 20-abr-2026</p>
+                      </div>
+                      <p className="text-[0.72rem] font-bold text-[#2B579A] mb-2 uppercase tracking-wide">Red flags materiales</p>
+                      <div className="space-y-2 text-[0.72rem] leading-relaxed">
+                        {m365Current.copilotOutput.slice(0, m365Line).map((line, i) => (
+                          <div key={i} className="flex gap-2 animate-fadeUp">
+                            <span className="font-bold text-[#B7472A]">{i + 1}.</span>
+                            <span className="text-gray-800">{line}</span>
+                          </div>
+                        ))}
+                        {m365Line > 0 && m365Line <= m365Current.copilotOutput.length && (
+                          <span className="inline-block w-1.5 h-3.5 bg-[#2B579A] animate-blink align-middle" />
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {m365Current.id === "excel" && (
+                    <div className="bg-[#f3f3f3] rounded-sm text-[#1a1a1a] min-h-[380px]">
+                      <div className="grid grid-cols-[40px_1fr_1fr_1fr_1fr] text-[0.62rem] font-mono border-b border-[#c0c0c0]">
+                        {["", "A", "B", "C", "D"].map((h) => <div key={h} className="bg-[#e6e6e6] text-center py-1 border-r border-[#c0c0c0] font-semibold">{h}</div>)}
+                      </div>
+                      {[
+                        ["1", "Concepto", "2025A", "2026E", "2027E"],
+                        ["2", "Revenue", "850,420", "918,454", "982,745"],
+                        ["3", "EBITDA", "127,563", "146,872", "157,239"],
+                        ["4", "Margen EBITDA", "15.0%", "16.0%", "16.0%"],
+                        ["5", "Capex", "(85,042)", "(425,000)", "(98,274)"],
+                        ["6", "ΔWorking Cap", "(8,504)", "(12,300)", "(10,810)"],
+                        ["7", "FCF", "34,017", "−290,428", "48,155"],
+                        ["8", "Crecimiento FCF", "—", "−953%", "↑"],
+                      ].map((row, r) => (
+                        <div key={r} className={`grid grid-cols-[40px_1fr_1fr_1fr_1fr] text-[0.62rem] font-mono border-b border-[#d0d0d0] ${r === 6 ? "bg-[#fff9c4]" : r === 0 ? "bg-[#e6e6e6]" : "bg-white"}`}>
+                          {row.map((c, i) => (
+                            <div key={i} className={`text-center py-1 border-r border-[#c0c0c0] ${i === 0 ? "bg-[#e6e6e6] font-semibold" : ""} ${c.includes("−") ? "text-[#B7472A] font-semibold" : ""}`}>{c}</div>
+                          ))}
+                        </div>
+                      ))}
+                      <div className="p-3 bg-white border-t border-[#c0c0c0] text-[0.68rem] text-gray-700">
+                        <span className="font-semibold text-[#217346]">💡 Copilot: </span>
+                        {m365Line > 0 ? m365Current.copilotOutput.slice(0, m365Line).join(" · ") : "Analizando celda B7..."}
+                        {m365Line > 0 && m365Line <= m365Current.copilotOutput.length && (
+                          <span className="inline-block w-1 h-3 bg-[#217346] animate-blink align-middle ml-1" />
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {m365Current.id === "ppt" && (
+                    <div className="bg-gradient-to-br from-[#1a1a2e] to-[#0f0f1e] rounded-sm p-8 shadow-lg min-h-[380px] relative border-4 border-white/95">
+                      <div className="absolute top-3 right-3 font-mono text-[0.55rem] text-white/40">7 / 14</div>
+                      <div className="absolute top-3 left-3 text-[0.55rem] font-mono uppercase tracking-widest text-white/50">BTG Pactual · Confidential</div>
+                      <h3 className="text-2xl font-bold text-white mt-8 mb-6">Red flags materiales</h3>
+                      <div className="space-y-3">
+                        {["DSO 45 → 78 días", "Covenant 3.42× vs 3.50×", "DIAN: COP 8.2B no provisionados"].map((r, i) => (
+                          <div key={i} className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-full bg-[#B7472A] grid place-items-center text-white font-bold">{i + 1}</div>
+                            <p className="text-white text-sm">{r}</p>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="absolute bottom-4 left-4 right-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-md px-3 py-2">
+                        <p className="text-[0.55rem] font-mono text-white/60 uppercase mb-1">Speaker notes · generadas por Copilot</p>
+                        <p className="text-[0.65rem] text-white/90 leading-snug">
+                          {m365Current.copilotOutput.slice(0, m365Line).join(" ")}
+                          {m365Line > 0 && m365Line <= m365Current.copilotOutput.length && (
+                            <span className="inline-block w-1 h-3 bg-white/60 animate-blink align-middle ml-0.5" />
+                          )}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {m365Current.id === "outlook" && (
+                    <div className="bg-[#fafafa] rounded-sm min-h-[380px] text-[#1a1a1a]">
+                      <div className="border-b border-gray-200 px-3 py-2 bg-[#f3f3f3] flex items-center gap-2">
+                        <span className="text-[0.7rem] font-semibold">Bandeja de entrada</span>
+                        <span className="font-mono text-[0.6rem] text-[#0078D4] bg-[#0078D4]/10 px-2 py-0.5 rounded-full">42 sin leer</span>
+                      </div>
+                      {[
+                        { from: "KPMG · Auditoría", subj: "⚡ Urgente — firma Term Sheet modificado", time: "10:42", unread: true, flag: "#0078D4" },
+                        { from: "Legal BTG", subj: "Re: Cláusula earn-out Portales", time: "10:15", unread: true, flag: "#0078D4" },
+                        { from: "CFO Cementos Portales", subj: "Respuesta — contingencia DIAN", time: "09:58", unread: true, flag: "#B7472A" },
+                        { from: "Nodo EAFIT", subj: "Recordatorio: sesión 5 mañana 8am", time: "08:22", unread: false, flag: null },
+                        { from: "Bloomberg Alerts", subj: "Cemex guidance 2026", time: "07:15", unread: false, flag: null },
+                      ].map((m, i) => (
+                        <div key={i} className={`grid grid-cols-[160px_1fr_60px] gap-3 px-3 py-2 border-b border-gray-200 text-[0.68rem] ${m.unread ? "bg-white font-semibold" : "bg-gray-50 text-gray-600"}`}>
+                          <span className="truncate">{m.from}</span>
+                          <span className="truncate flex items-center gap-1.5">
+                            {m.flag && <span className="w-1.5 h-1.5 rounded-full" style={{ background: m.flag }} />}
+                            {m.subj}
+                          </span>
+                          <span className="text-gray-500 text-right font-mono text-[0.6rem]">{m.time}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* COPILOT PANE */}
+                <div className="bg-[#212122] p-4 flex flex-col">
+                  <div className="flex items-center gap-2 mb-3 pb-3 border-b border-white/[0.06]">
+                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#0078D4] via-[#5B52D5] to-[#7B73E8] grid place-items-center text-white font-bold text-xs">✦</div>
+                    <div className="flex-1">
+                      <p className="text-[0.72rem] font-semibold text-white">Copilot</p>
+                      <p className="text-[0.58rem] text-white/50">Con contexto de {m365Current.name}</p>
+                    </div>
+                    <span className="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse-dot" />
+                  </div>
+
+                  {/* User prompt */}
+                  <div className="bg-white/5 border border-white/[0.08] rounded-lg rounded-tr-sm p-2.5 mb-3 self-end ml-6 animate-fadeUp">
+                    <p className="text-[0.7rem] text-white/90 leading-snug">{m365Current.copilotPrompt}</p>
+                  </div>
+
+                  {/* Copilot thinking + response */}
+                  <div className="bg-gradient-to-br from-[rgba(0,120,212,0.1)] to-[rgba(91,82,213,0.08)] border border-[#0078D4]/25 rounded-lg rounded-tl-sm p-3 flex-1 min-h-[160px]">
+                    {m365Line === 0 && (
+                      <div className="flex items-center gap-1.5 mb-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#0078D4] animate-pulse-dot" style={{ animationDelay: "0s" }} />
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#0078D4] animate-pulse-dot" style={{ animationDelay: "0.2s" }} />
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#0078D4] animate-pulse-dot" style={{ animationDelay: "0.4s" }} />
+                        <span className="text-[0.6rem] text-white/60 ml-1">Leyendo {m365Current.name}…</span>
+                      </div>
+                    )}
+                    <div className="space-y-2 text-[0.68rem] text-white/90 leading-relaxed">
+                      {m365Current.copilotOutput.slice(0, m365Line).map((line, i) => (
+                        <div key={i} className="flex gap-2 animate-fadeUp">
+                          <span className="text-[#0078D4] font-bold">•</span>
+                          <span>{line}</span>
+                        </div>
+                      ))}
+                      {m365Line > 0 && m365Line < m365Current.copilotOutput.length && (
+                        <span className="inline-block w-1 h-3 bg-[#0078D4] animate-blink align-middle ml-1" />
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Suggestion chips */}
+                  <div className="mt-3 space-y-1.5">
+                    <p className="font-mono text-[0.55rem] uppercase tracking-widest text-white/40 mb-1">Sugerencias</p>
+                    {m365Current.suggestions.map((s) => (
+                      <button key={s} className="w-full text-left px-2.5 py-1.5 bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.06] rounded-md text-[0.62rem] text-white/80 transition-all">
+                        <span className="text-[#0078D4] mr-1">✦</span> {s}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Valor M365 */}
+            <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
+              {[
+                { k: "Cero migración", v: "Vive en tu M365 actual", c: "#0078D4" },
+                { k: "Respeta permisos", v: "Sensitivity labels + DLP", c: "#2B579A" },
+                { k: "Contexto tenant", v: "Lee tus correos y docs", c: "#217346" },
+                { k: "Licencia E5", v: "Incluido sin costo extra", c: "#B7472A" },
+              ].map((s) => (
+                <div key={s.k} className="bg-[#0F1438] border border-white/[0.06] rounded-xl p-3">
+                  <p className="font-mono text-[0.55rem] uppercase tracking-wider mb-1" style={{ color: s.c }}>{s.k}</p>
+                  <p className="text-[0.75rem] font-semibold text-white-f">{s.v}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
