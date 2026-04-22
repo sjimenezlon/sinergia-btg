@@ -743,6 +743,76 @@ const ECO_EJERCICIOS = [
   },
 ];
 
+/* 3 extras con DeepSeek — quick wins sin APIs pagas */
+const ECO_EJERCICIOS_DEEPSEEK = [
+  {
+    n: 4,
+    title: "Hola DeepSeek · chat web comparativo",
+    level: "⭐",
+    time: "8 min",
+    tag: "Sin setup",
+    tools: [
+      { name: "chat.deepseek.com", color: "#22C55E" },
+      { name: "ChatGPT (comparación)", color: "#6B7280" },
+    ],
+    context: "Tu equipo evalúa alternativas a ChatGPT porque los costos de token se dispararon. En 8 min tienes que dar una opinión informada en el daily.",
+    why: "DeepSeek-V3.2 es open weights y comparable a GPT-5 en muchos benchmarks, con API ~10× más barata. Vale la pena tenerlo en el radar aunque el equipo siga en ChatGPT.",
+    steps: [
+      { s: "1", t: "Abre chat.deepseek.com en una pestaña y chatgpt.com en otra. DeepSeek no pide login en la primera interacción." },
+      { s: "2", t: "Pega la misma pregunta en ambos: 'Explícame en 150 palabras la estructura de capital típica de una emisión corporativa colombiana 2026 — senior secured, senior unsecured, subordinada, híbrida — con rangos de spread orientativos.'" },
+      { s: "3", t: "Compara tres dimensiones en una tabla: precisión de las cifras, claridad del español técnico y adaptación al contexto local colombiano." },
+      { s: "4", t: "Prueba con una 2ª tarea: 'Traduce este párrafo de prospecto de inglés a español manteniendo precisión financiera: [pega un párrafo real de un KID/KIID]'." },
+    ],
+    deliverable: "Tabla comparativa 2 columnas × 3 filas + un veredicto de 3 líneas de qué tarea asignar a cada modelo en tu día a día.",
+    cost: "USD 0",
+    color: "#22C55E",
+  },
+  {
+    n: 5,
+    title: "DeepSeek offline en tu laptop",
+    level: "⭐",
+    time: "12 min",
+    tag: "On-prem casero",
+    tools: [
+      { name: "Ollama", color: "#22C55E" },
+      { name: "deepseek-r1:7b", color: "#16A34A" },
+    ],
+    context: "Compliance dice que cierta data no puede enviarse a APIs externas. Demuestras que tu propia laptop puede correr un modelo de razonamiento decente sin tocar internet.",
+    why: "Ollama + DeepSeek-R1 7B pesa 4.7 GB y corre en Apple Silicon o cualquier laptop con 16 GB RAM. Es la prueba viva de que P-III+ tiene un camino sin salir de la red.",
+    steps: [
+      { s: "1", t: "Mac: `curl -fsSL https://ollama.com/install.sh | sh`. Windows: descarga desde ollama.com. 30 segundos." },
+      { s: "2", t: "Terminal: `ollama pull deepseek-r1:7b`. Descarga ~4.7 GB (3-5 min en fibra). Si tu equipo no tiene GPU, descarga también `deepseek-r1:1.5b` (1.1 GB) como fallback." },
+      { s: "3", t: "Corre: `ollama run deepseek-r1:7b`. Pregunta: 'Escribe una función Python que calcule VaR histórico al 95% de confianza a partir de una serie de retornos. Incluye docstring y manejo del caso series < 30 observaciones.'" },
+      { s: "4", t: "Desconecta el WiFi completamente. Repite la pregunta con otro parámetro (VaR al 99%). Confirma que sigue respondiendo — 100% local." },
+      { s: "5", t: "Vuelve a conectar. Prueba: `ollama run deepseek-r1:7b 'en una frase, ¿qué es CETIP?'`. El modelo chino también entiende contexto brasileño." },
+    ],
+    deliverable: "Screenshot de la terminal con WiFi apagado respondiendo + el snippet Python de VaR copiado a un archivo .py.",
+    cost: "USD 0 · ~5 GB de disco",
+    color: "#16A34A",
+  },
+  {
+    n: 6,
+    title: "Resumen ejecutivo de circular regulatoria",
+    level: "⭐",
+    time: "10 min",
+    tag: "TL;DR accionable",
+    tools: [
+      { name: "chat.deepseek.com", color: "#22C55E" },
+    ],
+    context: "Salió una circular nueva de la SFC de 14 páginas sobre un cambio regulatorio. El MD vuela a Bogotá en 1 h y quiere el TL;DR para la reunión con la junta.",
+    why: "DeepSeek-V3.2 maneja bien español técnico regulatorio y da respuestas estructuradas sin cuenta ni pago. Para lecturas rápidas de circulares SFC o URF es la herramienta más liviana del ecosistema.",
+    steps: [
+      { s: "1", t: "Ve a sfc.gov.co o urf.gov.co, descarga la circular más reciente (o usa una que ya tengas). Copia el texto completo (Ctrl+A, Ctrl+C del PDF)." },
+      { s: "2", t: "En chat.deepseek.com pega: 'Eres el chief of staff de un MD en banca. Resume esta circular SFC en 5 bullets de máximo 22 palabras cada uno, para una reunión con la junta en 1 hora. Incluye: fecha de entrada en vigor, impacto directo para un banco universal colombiano y 1 acción recomendada. [pega texto]'." },
+      { s: "3", t: "Pide una derivada: 'Ahora genera un mensaje interno de Slack de 3 líneas para tesorería con el cambio más material y un email de 4 líneas para el comité de riesgo.'" },
+      { s: "4", t: "Valida: abre la circular original y confirma que los bullets citan artículos o páginas reales. Si no, agrega al prompt: 'sé específico citando artículo y página exacta'." },
+    ],
+    deliverable: "5 bullets + mensaje Slack + email comité en un solo archivo md listo para compartir.",
+    cost: "USD 0",
+    color: "#15803D",
+  },
+];
+
 /* Casos reales abril 2026 — cómo se combinan varias herramientas */
 const CASOS_ECOSISTEMA = [
   {
@@ -2625,10 +2695,10 @@ export default function Sesion6() {
           <div className="relative">
             <p className="font-mono text-[0.72rem] text-cyan uppercase tracking-widest mb-3">Primeros ejercicios · quick wins</p>
             <h2 className="text-3xl md:text-5xl font-bold text-white-f leading-tight mb-5">
-              3 tareas reales de BTG que <span className="bg-gradient-to-r from-cyan via-purple-light to-gold bg-clip-text text-transparent">ahora toman minutos</span>
+              6 tareas reales de BTG que <span className="bg-gradient-to-r from-cyan via-purple-light to-gold bg-clip-text text-transparent">ahora toman minutos</span>
             </h2>
             <p className="text-lg text-muted max-w-3xl mb-10 leading-relaxed">
-              Antes de entrar al taller grande del dashboard, tres ejercicios cortos para tocar herramientas del ecosistema en problemas reales de analista: research sectorial, dashboard desde Excel y ficha de emisor desde PDF. 60 minutos en total, todo abrible desde tu laptop hoy.
+              Antes de entrar al taller grande del dashboard, seis ejercicios cortos para tocar herramientas del ecosistema en problemas reales de analista: research sectorial, dashboard desde Excel, ficha de emisor y tres extras con DeepSeek (web, offline con Ollama y resumen regulatorio). ~90 minutos en total, todo abrible desde tu laptop hoy.
             </p>
 
             {/* Leyenda */}
@@ -2636,6 +2706,9 @@ export default function Sesion6() {
               <span className="font-mono text-[0.6rem] uppercase tracking-widest text-muted px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.06]">⭐ 15 min · research</span>
               <span className="font-mono text-[0.6rem] uppercase tracking-widest text-muted px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.06]">⭐⭐ 20 min · dashboard</span>
               <span className="font-mono text-[0.6rem] uppercase tracking-widest text-muted px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.06]">⭐⭐⭐ 25 min · comité de crédito</span>
+              <span className="font-mono text-[0.6rem] uppercase tracking-widest text-green-400 px-3 py-1.5 rounded-full bg-green-500/8 border border-green-500/25">⭐ 8 min · chat DeepSeek</span>
+              <span className="font-mono text-[0.6rem] uppercase tracking-widest text-green-400 px-3 py-1.5 rounded-full bg-green-500/8 border border-green-500/25">⭐ 12 min · DeepSeek offline</span>
+              <span className="font-mono text-[0.6rem] uppercase tracking-widest text-green-400 px-3 py-1.5 rounded-full bg-green-500/8 border border-green-500/25">⭐ 10 min · circular SFC</span>
             </div>
 
             <div className="grid lg:grid-cols-3 gap-4">
@@ -2732,11 +2805,126 @@ export default function Sesion6() {
               ))}
             </div>
 
+            {/* ────── Separador · 3 extras con DeepSeek ────── */}
+            <div className="mt-16 mb-6">
+              <div className="flex items-center gap-4">
+                <span className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-green-500/40 to-transparent" />
+                <span className="font-mono text-[0.68rem] uppercase tracking-widest text-green-400 px-4 py-1.5 rounded-full border border-green-500/25 bg-green-500/5">
+                  + 3 extras · DeepSeek · sin tarjeta de crédito
+                </span>
+                <span className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-green-500/40 to-transparent" />
+              </div>
+            </div>
+
+            <h3 className="text-2xl md:text-3xl font-bold text-white-f mb-3 leading-tight">
+              Más simples: <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">solo navegador o tu laptop</span>
+            </h3>
+            <p className="text-[0.88rem] text-muted mb-6 max-w-3xl leading-relaxed">
+              Tres quick wins adicionales centrados en DeepSeek — el modelo open weights que muchos equipos están probando para casos donde no vale pagar API o la data no debería salir de la red. Solo navegador o tu propia laptop, sin cuenta corporativa.
+            </p>
+
+            <div className="grid lg:grid-cols-3 gap-4">
+              {ECO_EJERCICIOS_DEEPSEEK.map((e) => (
+                <div
+                  key={e.n}
+                  className="relative bg-[#0D1229] border rounded-2xl overflow-hidden flex flex-col"
+                  style={{ borderColor: `${e.color}30` }}
+                >
+                  {/* Header ribbon */}
+                  <div
+                    className="px-5 py-4 flex items-start gap-3 border-b"
+                    style={{
+                      background: `linear-gradient(135deg, ${e.color}20, ${e.color}08)`,
+                      borderColor: `${e.color}25`,
+                    }}
+                  >
+                    <div
+                      className="w-12 h-12 rounded-xl grid place-items-center shrink-0 text-xl font-bold"
+                      style={{ background: `${e.color}25`, color: e.color, border: `1px solid ${e.color}50` }}
+                    >
+                      {String(e.n).padStart(2, "0")}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap mb-1">
+                        <span className="text-[0.7rem]" style={{ color: e.color }}>{e.level}</span>
+                        <span className="font-mono text-[0.55rem] uppercase tracking-widest text-muted">{e.time}</span>
+                        <span
+                          className="font-mono text-[0.55rem] uppercase tracking-widest px-1.5 py-0.5 rounded"
+                          style={{ background: `${e.color}15`, color: e.color }}
+                        >
+                          {e.tag}
+                        </span>
+                      </div>
+                      <p className="text-[0.95rem] font-bold text-white-f leading-tight">{e.title}</p>
+                    </div>
+                  </div>
+
+                  {/* Body */}
+                  <div className="p-5 flex flex-col flex-1">
+                    {/* Tools */}
+                    <div className="flex flex-wrap gap-1.5 mb-4">
+                      {e.tools.map((tool) => (
+                        <span
+                          key={tool.name}
+                          className="font-mono text-[0.58rem] uppercase tracking-wider px-2 py-1 rounded-md"
+                          style={{ background: `${tool.color}18`, color: tool.color, border: `1px solid ${tool.color}35` }}
+                        >
+                          {tool.name}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Context */}
+                    <div className="mb-3">
+                      <p className="font-mono text-[0.55rem] uppercase tracking-widest mb-1" style={{ color: e.color }}>Contexto BTG</p>
+                      <p className="text-[0.75rem] text-white-f/85 leading-relaxed italic">&ldquo;{e.context}&rdquo;</p>
+                    </div>
+
+                    {/* Why */}
+                    <div className="mb-4 bg-white/[0.03] border border-white/[0.06] rounded-lg p-3">
+                      <p className="font-mono text-[0.55rem] uppercase tracking-widest mb-1 text-gold">Por qué DeepSeek aquí</p>
+                      <p className="text-[0.72rem] text-white-f/80 leading-snug">{e.why}</p>
+                    </div>
+
+                    {/* Steps */}
+                    <div className="mb-4">
+                      <p className="font-mono text-[0.55rem] uppercase tracking-widest mb-2" style={{ color: e.color }}>Pasos</p>
+                      <ol className="space-y-2">
+                        {e.steps.map((step) => (
+                          <li key={step.s} className="flex gap-2.5 items-start">
+                            <span
+                              className="w-5 h-5 rounded-full grid place-items-center font-mono text-[0.58rem] shrink-0 mt-0.5"
+                              style={{ background: `${e.color}20`, color: e.color, border: `1px solid ${e.color}40` }}
+                            >
+                              {step.s}
+                            </span>
+                            <p className="text-[0.72rem] text-white-f/85 leading-relaxed flex-1">{step.t}</p>
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
+
+                    {/* Deliverable + cost */}
+                    <div className="mt-auto space-y-2 pt-3 border-t border-white/[0.06]">
+                      <div>
+                        <p className="font-mono text-[0.55rem] uppercase tracking-widest text-cyan mb-1">Entregable</p>
+                        <p className="text-[0.72rem] text-white-f/90 leading-snug">{e.deliverable}</p>
+                      </div>
+                      <div className="flex items-center justify-between gap-2 pt-1">
+                        <span className="font-mono text-[0.55rem] uppercase tracking-widest text-muted">Costo</span>
+                        <span className="font-mono text-[0.65rem]" style={{ color: e.color }}>{e.cost}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
             {/* Nota de cierre */}
-            <div className="mt-8 bg-gradient-to-br from-cyan/10 to-gold/5 border border-cyan/20 rounded-2xl p-5">
+            <div className="mt-8 bg-gradient-to-br from-cyan/10 to-green-500/5 border border-cyan/20 rounded-2xl p-5">
               <p className="font-mono text-[0.6rem] uppercase tracking-widest text-cyan mb-2">Regla del instructor</p>
               <p className="text-[0.88rem] text-white-f/90 leading-relaxed">
-                No completes los 3 en el orden estricto. Elige el que más duele en tu día a día — research sectorial si acabas de entrar a un equipo nuevo, dashboard si tu jefe siempre pide gráficos, ficha de emisor si estás en crédito o renta fija. Uno bien hecho vale más que los tres a medias.
+                6 ejercicios, ~90 minutos en total, pero no están pensados como checklist. Elige 2-3 que toquen el dolor más cercano: research sectorial si entraste a un equipo nuevo, dashboard si tu jefe siempre pide gráficos, ficha de emisor si estás en crédito, DeepSeek local si compliance es un bloqueador. Uno bien hecho vale más que los seis a medias.
               </p>
             </div>
           </div>
