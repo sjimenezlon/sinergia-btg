@@ -813,6 +813,103 @@ const ECO_EJERCICIOS_DEEPSEEK = [
   },
 ];
 
+/* 4 en línea con DeepSeek + Kimi — cero setup, puro navegador */
+const ECO_EJERCICIOS_ONLINE = [
+  {
+    n: 7,
+    title: "Benchmark triple en vivo · ChatGPT vs DeepSeek vs Kimi",
+    level: "⭐",
+    time: "10 min",
+    tag: "3 pestañas",
+    tools: [
+      { name: "chatgpt.com", color: "#10A37F" },
+      { name: "chat.deepseek.com", color: "#22C55E" },
+      { name: "kimi.com", color: "#16A34A" },
+    ],
+    context: "El equipo de research evalúa qué modelo usar para queries diarias. En 10 min corres un benchmark práctico con preguntas tipo BTG y decides dónde asignar cada uno.",
+    why: "Los benchmarks públicos se hacen viejos rápido. Vale más un ejercicio propio de 3 preguntas reales que 10 métricas académicas. Y estos 3 modelos tienen tier gratis — no hay excusa para no probarlos.",
+    steps: [
+      { s: "1", t: "Abre 3 pestañas: chatgpt.com, chat.deepseek.com y kimi.com (login Google en Kimi para evitar el SMS chino)." },
+      { s: "2", t: "Pregunta de cifras (idéntica en las 3): 'Calcula la duración modificada y convexidad de un TES B 2032, cupón 7.25% anual, precio 92.50, base 365. Muestra las fórmulas.'" },
+      { s: "3", t: "Pregunta cualitativa local: '¿Qué riesgos específicos tiene un bono perpetuo Tier 1 (AT1) de un banco colombiano vs uno brasileño en abril 2026? Considera regulación SFC vs Bacen.'" },
+      { s: "4", t: "Pregunta de español técnico: 'Resume las reglas de provisión de la Circular Externa 100 de la SFC en 5 bullets de máximo 20 palabras cada uno.'" },
+      { s: "5", t: "Arma la matriz 3×3 (modelos × preguntas) con puntaje 1-5 en precisión, español técnico y citas." },
+    ],
+    deliverable: "Matriz 3×3 + una recomendación de 3 líneas: qué tarea asignar a cada modelo en tu día a día.",
+    cost: "USD 0 en los 3",
+    color: "#10A37F",
+  },
+  {
+    n: 8,
+    title: "Memoria anual de 280 pp en Kimi · todo en una conversación",
+    level: "⭐",
+    time: "15 min",
+    tag: "Long context",
+    tools: [
+      { name: "kimi.com", color: "#16A34A" },
+      { name: "Thinking mode", color: "#16A34A" },
+    ],
+    context: "Llega la memoria anual 2025 de un emisor del portafolio (p. ej. Ecopetrol, ISA, Bancolombia) — 280 páginas. Tu reunión con el portfolio manager es en 20 minutos y quiere saber si la tesis sigue intacta.",
+    why: "Kimi K2.5 soporta 256K tokens ≈ 524 páginas en una sola conversación. Una memoria anual entera cabe sin chunking, sin RAG, sin embeddings — solo drag & drop.",
+    steps: [
+      { s: "1", t: "Entra a kimi.com y haz login con Google (evita el flujo de teléfono chino). La UI está en inglés por defecto pero responde perfectamente en español." },
+      { s: "2", t: "Descarga la memoria anual del IR del emisor (buscar 'Memoria anual 2025' + emisor). Arrastra el PDF a la caja del chat. Click en 'Thinking' para activar el modo razonamiento." },
+      { s: "3", t: "Prompt: 'Extrae los 10 principales factores de riesgo declarados. Para cada uno: página de referencia, categoría (operacional/financiero/regulatorio/estratégico) y si el documento reporta materialización o mitigación durante el año.'" },
+      { s: "4", t: "Follow-up: 'Compara los factores de riesgo 2024 vs 2025 en la sección de cambios. ¿Qué desapareció y qué es nuevo? Tabla con columnas año-a-año.'" },
+      { s: "5", t: "Último prompt: 'Dame 3 preguntas que haría un analista sénior en la próxima call con el CFO del emisor, basadas en estos cambios.'" },
+    ],
+    deliverable: "Tabla con 10 riesgos + diff 2024→2025 + 3 preguntas para la llamada. Todo sobre una sola conversación de Kimi.",
+    cost: "USD 0",
+    color: "#16A34A",
+  },
+  {
+    n: 9,
+    title: "Balance en PDF → ratios listos · DeepSeek file upload",
+    level: "⭐",
+    time: "12 min",
+    tag: "File upload",
+    tools: [
+      { name: "chat.deepseek.com", color: "#22C55E" },
+      { name: "DeepThink", color: "#22C55E" },
+    ],
+    context: "Un emisor entrega balance trimestral de 15 páginas como PDF el miércoles tarde. Necesitas 8 ratios clave con evidencia de línea para el comité de inversiones del jueves 9 am.",
+    why: "El file upload de DeepSeek (hasta 10 MB: PDF/DOCX/PPTX/XLSX) + modo DeepThink da transparencia: el modelo muestra de qué línea sacó cada número. Eso es auditable cuando el comité te pregunte.",
+    steps: [
+      { s: "1", t: "Ve a chat.deepseek.com. Click en el clip (abajo a la izquierda de la caja) y sube el PDF del balance. No se requiere cuenta para archivos menores." },
+      { s: "2", t: "Activa 'DeepThink' (botón junto al clip). Esto fuerza razonamiento paso a paso." },
+      { s: "3", t: "Prompt: 'De este balance calcula: razón corriente, prueba ácida, endeudamiento total, deuda financiera neta / EBITDA, cobertura de intereses, ROE, ROA, margen EBITDA. Devuelve tabla markdown con valor, fórmula y la línea exacta del balance de donde viene cada componente.'" },
+      { s: "4", t: "Valida: abre el PDF original y verifica 2 cifras clave (activo total y deuda financiera neta). Si algo no cuadra, pégalo al chat: 'la cifra X de la línea Y es Z, no lo que dijiste — recalcula'." },
+      { s: "5", t: "Follow-up: 'Compara estos ratios con los promedios del sector en Colombia 2026 y señala las 3 métricas más alejadas de la mediana sectorial con semáforo 🟢🟡🔴.'" },
+    ],
+    deliverable: "Tabla de 8 ratios con trazabilidad de línea + semáforo vs sector + 3 líneas de recomendación para el comité.",
+    cost: "USD 0",
+    color: "#22C55E",
+  },
+  {
+    n: 10,
+    title: "Due diligence express · web search DeepSeek + Kimi",
+    level: "⭐",
+    time: "12 min",
+    tag: "Web search",
+    tools: [
+      { name: "DeepSeek DeepThink + Search", color: "#22C55E" },
+      { name: "Kimi Thinking + Search", color: "#16A34A" },
+    ],
+    context: "A las 3 pm te avisan: tienes primera llamada con un emisor que no conocías, mañana 9 am. En 12 minutos tienes que saber lo material público y tener preguntas punzantes listas.",
+    why: "Web search integrada + modo razonamiento en ambos modelos hace lo que antes era una hora de Google + Bloomberg. Usar dos fuentes en paralelo reduce el riesgo de que uno alucine citas.",
+    steps: [
+      { s: "1", t: "En chat.deepseek.com activa el botón globo (web search) y DeepThink. Pregunta: 'Dossier ejecutivo del emisor [NOMBRE] a abril 2026: eventos materiales últimos 12 meses, rating vigente (S&P/Moody/Fitch), últimas revisiones, cambios en gobierno corporativo y noticias negativas si existen. Cita URL exacta de cada dato.'" },
+      { s: "2", t: "En paralelo, en kimi.com activa Web Search y Thinking. Haz la misma pregunta palabra por palabra." },
+      { s: "3", t: "Pide a ambos: 'Ahora dame 5 preguntas punzantes que haría un analista sénior en la primera llamada con el CFO, basadas en lo que encontraste. Ordénalas de más a menos material.'" },
+      { s: "4", t: "Cruza las dos respuestas: ¿qué fuente encontró cada uno? ¿alguno citó un URL inventado? Click en cada URL y verifica que exista." },
+      { s: "5", t: "Consolida el dossier final en un archivo .md con: (a) 5 hechos materiales con link verificado, (b) rating actual, (c) 3 riesgos rojos y (d) las 5 preguntas para la llamada." },
+    ],
+    deliverable: "Dossier 1-página .md con URLs verificadas + 5 preguntas para la llamada de mañana.",
+    cost: "USD 0 en los 2",
+    color: "#15803D",
+  },
+];
+
 /* Casos reales abril 2026 — cómo se combinan varias herramientas */
 const CASOS_ECOSISTEMA = [
   {
@@ -2695,20 +2792,24 @@ export default function Sesion6() {
           <div className="relative">
             <p className="font-mono text-[0.72rem] text-cyan uppercase tracking-widest mb-3">Primeros ejercicios · quick wins</p>
             <h2 className="text-3xl md:text-5xl font-bold text-white-f leading-tight mb-5">
-              6 tareas reales de BTG que <span className="bg-gradient-to-r from-cyan via-purple-light to-gold bg-clip-text text-transparent">ahora toman minutos</span>
+              10 tareas reales de BTG que <span className="bg-gradient-to-r from-cyan via-purple-light to-gold bg-clip-text text-transparent">ahora toman minutos</span>
             </h2>
             <p className="text-lg text-muted max-w-3xl mb-10 leading-relaxed">
-              Antes de entrar al taller grande del dashboard, seis ejercicios cortos para tocar herramientas del ecosistema en problemas reales de analista: research sectorial, dashboard desde Excel, ficha de emisor y tres extras con DeepSeek (web, offline con Ollama y resumen regulatorio). ~90 minutos en total, todo abrible desde tu laptop hoy.
+              Antes de entrar al taller grande del dashboard, diez ejercicios cortos en tres tandas: tres con el stack core (NotebookLM, ChatGPT, LlamaParse), tres con DeepSeek (web, offline con Ollama y circular SFC) y cuatro en línea con DeepSeek + Kimi — sin descargas, sin tarjeta de crédito. ~2h 30 min en total, todo abrible desde tu laptop hoy.
             </p>
 
             {/* Leyenda */}
             <div className="flex flex-wrap gap-2 mb-8">
-              <span className="font-mono text-[0.6rem] uppercase tracking-widest text-muted px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.06]">⭐ 15 min · research</span>
-              <span className="font-mono text-[0.6rem] uppercase tracking-widest text-muted px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.06]">⭐⭐ 20 min · dashboard</span>
-              <span className="font-mono text-[0.6rem] uppercase tracking-widest text-muted px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.06]">⭐⭐⭐ 25 min · comité de crédito</span>
-              <span className="font-mono text-[0.6rem] uppercase tracking-widest text-green-400 px-3 py-1.5 rounded-full bg-green-500/8 border border-green-500/25">⭐ 8 min · chat DeepSeek</span>
-              <span className="font-mono text-[0.6rem] uppercase tracking-widest text-green-400 px-3 py-1.5 rounded-full bg-green-500/8 border border-green-500/25">⭐ 12 min · DeepSeek offline</span>
-              <span className="font-mono text-[0.6rem] uppercase tracking-widest text-green-400 px-3 py-1.5 rounded-full bg-green-500/8 border border-green-500/25">⭐ 10 min · circular SFC</span>
+              <span className="font-mono text-[0.6rem] uppercase tracking-widest text-muted px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.06]">⭐ 15m · research</span>
+              <span className="font-mono text-[0.6rem] uppercase tracking-widest text-muted px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.06]">⭐⭐ 20m · dashboard</span>
+              <span className="font-mono text-[0.6rem] uppercase tracking-widest text-muted px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.06]">⭐⭐⭐ 25m · crédito</span>
+              <span className="font-mono text-[0.6rem] uppercase tracking-widest text-green-400 px-3 py-1.5 rounded-full bg-green-500/8 border border-green-500/25">⭐ 8m · chat DeepSeek</span>
+              <span className="font-mono text-[0.6rem] uppercase tracking-widest text-green-400 px-3 py-1.5 rounded-full bg-green-500/8 border border-green-500/25">⭐ 12m · Ollama offline</span>
+              <span className="font-mono text-[0.6rem] uppercase tracking-widest text-green-400 px-3 py-1.5 rounded-full bg-green-500/8 border border-green-500/25">⭐ 10m · circular SFC</span>
+              <span className="font-mono text-[0.6rem] uppercase tracking-widest text-emerald-300 px-3 py-1.5 rounded-full bg-emerald-500/8 border border-emerald-500/25">⭐ 10m · benchmark 3×</span>
+              <span className="font-mono text-[0.6rem] uppercase tracking-widest text-emerald-300 px-3 py-1.5 rounded-full bg-emerald-500/8 border border-emerald-500/25">⭐ 15m · Kimi 280pp</span>
+              <span className="font-mono text-[0.6rem] uppercase tracking-widest text-emerald-300 px-3 py-1.5 rounded-full bg-emerald-500/8 border border-emerald-500/25">⭐ 12m · balance PDF</span>
+              <span className="font-mono text-[0.6rem] uppercase tracking-widest text-emerald-300 px-3 py-1.5 rounded-full bg-emerald-500/8 border border-emerald-500/25">⭐ 12m · due diligence</span>
             </div>
 
             <div className="grid lg:grid-cols-3 gap-4">
@@ -2920,11 +3021,138 @@ export default function Sesion6() {
               ))}
             </div>
 
+            {/* ────── Separador · 4 extras online (DeepSeek + Kimi) ────── */}
+            <div className="mt-16 mb-6">
+              <div className="flex items-center gap-4">
+                <span className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent" />
+                <span className="font-mono text-[0.68rem] uppercase tracking-widest text-emerald-300 px-4 py-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/5">
+                  + 4 en línea · DeepSeek & Kimi · cero setup
+                </span>
+                <span className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent" />
+              </div>
+            </div>
+
+            <h3 className="text-2xl md:text-3xl font-bold text-white-f mb-3 leading-tight">
+              Solo navegador: <span className="bg-gradient-to-r from-emerald-300 to-green-400 bg-clip-text text-transparent">los modelos chinos gratis</span>
+            </h3>
+            <p className="text-[0.88rem] text-muted mb-6 max-w-3xl leading-relaxed">
+              Cuatro quick wins 100% en el navegador — cero instalaciones, cero API keys, cero tarjetas de crédito. <span className="text-white-f font-medium">Kimi K2.5</span> (kimi.com) trae 256K tokens de contexto (≈ 524 páginas) para procesar memorias completas, y <span className="text-white-f font-medium">DeepSeek V3.2</span> (chat.deepseek.com) acepta file upload directo hasta 10 MB con modo razonamiento DeepThink. Ambos con web search integrada.
+            </p>
+
+            {/* Nota operativa de acceso */}
+            <div className="mb-8 grid md:grid-cols-2 gap-3">
+              <div className="bg-green-500/8 border border-green-500/25 rounded-xl p-4">
+                <p className="font-mono text-[0.6rem] uppercase tracking-widest text-green-300 mb-1">Acceso DeepSeek</p>
+                <p className="text-[0.75rem] text-white-f/85 leading-snug">chat.deepseek.com · signup con email · sin verificación de teléfono · uso gratis sin cuotas explícitas · ideal para tareas con PDFs cortos.</p>
+              </div>
+              <div className="bg-emerald-500/8 border border-emerald-500/25 rounded-xl p-4">
+                <p className="font-mono text-[0.6rem] uppercase tracking-widest text-emerald-300 mb-1">Acceso Kimi</p>
+                <p className="text-[0.75rem] text-white-f/85 leading-snug">kimi.com · login con Google (el flujo SMS chino es fricción innecesaria) · 256K tokens · modo Thinking y Agent gratis.</p>
+              </div>
+            </div>
+
+            <div className="grid lg:grid-cols-2 gap-4">
+              {ECO_EJERCICIOS_ONLINE.map((e) => (
+                <div
+                  key={e.n}
+                  className="relative bg-[#0D1229] border rounded-2xl overflow-hidden flex flex-col"
+                  style={{ borderColor: `${e.color}30` }}
+                >
+                  {/* Header ribbon */}
+                  <div
+                    className="px-5 py-4 flex items-start gap-3 border-b"
+                    style={{
+                      background: `linear-gradient(135deg, ${e.color}20, ${e.color}08)`,
+                      borderColor: `${e.color}25`,
+                    }}
+                  >
+                    <div
+                      className="w-12 h-12 rounded-xl grid place-items-center shrink-0 text-xl font-bold"
+                      style={{ background: `${e.color}25`, color: e.color, border: `1px solid ${e.color}50` }}
+                    >
+                      {String(e.n).padStart(2, "0")}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap mb-1">
+                        <span className="text-[0.7rem]" style={{ color: e.color }}>{e.level}</span>
+                        <span className="font-mono text-[0.55rem] uppercase tracking-widest text-muted">{e.time}</span>
+                        <span
+                          className="font-mono text-[0.55rem] uppercase tracking-widest px-1.5 py-0.5 rounded"
+                          style={{ background: `${e.color}15`, color: e.color }}
+                        >
+                          {e.tag}
+                        </span>
+                      </div>
+                      <p className="text-[0.95rem] font-bold text-white-f leading-tight">{e.title}</p>
+                    </div>
+                  </div>
+
+                  {/* Body */}
+                  <div className="p-5 flex flex-col flex-1">
+                    {/* Tools */}
+                    <div className="flex flex-wrap gap-1.5 mb-4">
+                      {e.tools.map((tool) => (
+                        <span
+                          key={tool.name}
+                          className="font-mono text-[0.58rem] uppercase tracking-wider px-2 py-1 rounded-md"
+                          style={{ background: `${tool.color}18`, color: tool.color, border: `1px solid ${tool.color}35` }}
+                        >
+                          {tool.name}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Context */}
+                    <div className="mb-3">
+                      <p className="font-mono text-[0.55rem] uppercase tracking-widest mb-1" style={{ color: e.color }}>Contexto BTG</p>
+                      <p className="text-[0.75rem] text-white-f/85 leading-relaxed italic">&ldquo;{e.context}&rdquo;</p>
+                    </div>
+
+                    {/* Why */}
+                    <div className="mb-4 bg-white/[0.03] border border-white/[0.06] rounded-lg p-3">
+                      <p className="font-mono text-[0.55rem] uppercase tracking-widest mb-1 text-gold">Por qué esta combinación</p>
+                      <p className="text-[0.72rem] text-white-f/80 leading-snug">{e.why}</p>
+                    </div>
+
+                    {/* Steps */}
+                    <div className="mb-4">
+                      <p className="font-mono text-[0.55rem] uppercase tracking-widest mb-2" style={{ color: e.color }}>Pasos</p>
+                      <ol className="space-y-2">
+                        {e.steps.map((step) => (
+                          <li key={step.s} className="flex gap-2.5 items-start">
+                            <span
+                              className="w-5 h-5 rounded-full grid place-items-center font-mono text-[0.58rem] shrink-0 mt-0.5"
+                              style={{ background: `${e.color}20`, color: e.color, border: `1px solid ${e.color}40` }}
+                            >
+                              {step.s}
+                            </span>
+                            <p className="text-[0.72rem] text-white-f/85 leading-relaxed flex-1">{step.t}</p>
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
+
+                    {/* Deliverable + cost */}
+                    <div className="mt-auto space-y-2 pt-3 border-t border-white/[0.06]">
+                      <div>
+                        <p className="font-mono text-[0.55rem] uppercase tracking-widest text-cyan mb-1">Entregable</p>
+                        <p className="text-[0.72rem] text-white-f/90 leading-snug">{e.deliverable}</p>
+                      </div>
+                      <div className="flex items-center justify-between gap-2 pt-1">
+                        <span className="font-mono text-[0.55rem] uppercase tracking-widest text-muted">Costo</span>
+                        <span className="font-mono text-[0.65rem]" style={{ color: e.color }}>{e.cost}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
             {/* Nota de cierre */}
-            <div className="mt-8 bg-gradient-to-br from-cyan/10 to-green-500/5 border border-cyan/20 rounded-2xl p-5">
+            <div className="mt-8 bg-gradient-to-br from-cyan/10 to-emerald-500/5 border border-cyan/20 rounded-2xl p-5">
               <p className="font-mono text-[0.6rem] uppercase tracking-widest text-cyan mb-2">Regla del instructor</p>
               <p className="text-[0.88rem] text-white-f/90 leading-relaxed">
-                6 ejercicios, ~90 minutos en total, pero no están pensados como checklist. Elige 2-3 que toquen el dolor más cercano: research sectorial si entraste a un equipo nuevo, dashboard si tu jefe siempre pide gráficos, ficha de emisor si estás en crédito, DeepSeek local si compliance es un bloqueador. Uno bien hecho vale más que los seis a medias.
+                10 ejercicios, ~2h 30 min en total, pero no están pensados como checklist. Elige 2-3 que toquen el dolor más cercano: research sectorial si entraste a un equipo nuevo, dashboard si tu jefe siempre pide gráficos, ficha de emisor si estás en crédito, memoria anual completa en Kimi si analizas emisores, due diligence express con web search si estás en corporate o renta variable. Uno bien hecho vale más que los diez a medias.
               </p>
             </div>
           </div>
