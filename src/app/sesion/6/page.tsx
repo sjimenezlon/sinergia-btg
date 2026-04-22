@@ -457,8 +457,9 @@ type EcoTool = {
   tagline: string;
   detail: string;
   btg: string;
+  example: string;
   price: string;
-  status: "core" | "pro" | "corporate" | "emerging" | "local" | "open" | "next-module";
+  status: "core" | "pro" | "corporate" | "emerging" | "local" | "open" | "next-module" | "sunset";
 };
 
 const ECOSISTEMA_TOOLS: EcoTool[] = [
@@ -466,169 +467,198 @@ const ECOSISTEMA_TOOLS: EcoTool[] = [
   {
     id: "cursor", name: "Cursor", vendor: "Anysphere (USA)", cat: "ide_ai", logo: "▲",
     tagline: "Fork de VS Code con IA en cada capa.",
-    detail: "Tab completion con todo el repo como contexto, Composer multi-archivo y Agent mode autónomo. Mezcla modelos (Claude 4.x, GPT-5, Gemini 2.5). Bring-your-own-API-key.",
+    detail: "Tab completion con todo el repo como contexto, Composer multi-archivo y Agent mode autónomo. Mezcla Claude 4.7, GPT-5.3-Codex, Gemini 3 Pro. Desde junio 2025 usa modelo de créditos: cada plan trae un pool mensual en USD equivalente al precio.",
     btg: "Feature nuevo desde cero · refactor de repos legacy · onboarding rápido de analistas nuevos.",
-    price: "USD 20/mes Pro · USD 40/mes Business",
+    example: "Abril 2026 · un analista de renta fija pide: 'añade optimización Markowitz al módulo portafolio.py y escribe tests'. Composer planea, edita 4 archivos y corre pytest en 6 min.",
+    price: "Hobby gratis · Pro USD 20 · Pro+ USD 60 · Ultra USD 200 · Teams USD 40/user",
     status: "core",
   },
   {
-    id: "claude-code", name: "Claude Code (VS Code)", vendor: "Anthropic (USA)", cat: "ide_ai", logo: "◆",
-    tagline: "Agente CLI + extensión VS Code de Anthropic.",
-    detail: "Agente de ingeniería real: lee muchos archivos, ejecuta bash, corre tests, hace commits. Memoria persistente (CLAUDE.md), hooks y skills. Claude Opus 4.7 por defecto con contexto 1M.",
-    btg: "Auditorías sobre muchos repos · runbooks automáticos · tareas largas sin supervisión.",
-    price: "Incluido en Claude Max (USD 100/mes) o API pago-por-uso",
+    id: "claude-code", name: "Claude Code (CLI + VS Code)", vendor: "Anthropic (USA)", cat: "ide_ai", logo: "◆",
+    tagline: "Agente de ingeniería con memoria, skills y hooks.",
+    detail: "Claude Opus 4.7 con contexto 1M. Skills (carpetas con SKILL.md reutilizables), hooks que disparan en eventos del IDE, worktrees con un comando, PreCompact hooks para bloquear compactación. CLI + extensión VS Code. Background plugin monitors para agentes paralelos.",
+    btg: "Auditorías sobre muchos repos · runbooks automáticos · tareas largas sin supervisión · scripts ad-hoc sobre data warehouse.",
+    example: "Abril 2026 · 'audita 9 repos de microservicios por CVEs abiertos, genera reporte markdown con recomendaciones'. Claude Code corre 25 min solo y regresa con PR propuesto por repo.",
+    price: "Incluido en Claude Max USD 100/mes · API pago-por-uso · Claude Pro USD 20 con límites",
     status: "core",
   },
   {
     id: "kiro", name: "Kiro", vendor: "Amazon Web Services", cat: "ide_ai", logo: "△",
     tagline: "IDE AI-first de AWS con workflow por specs.",
-    detail: "Paradigma spec-driven: describes qué quiere el negocio, Kiro genera specs → código → tests → infraestructura. Motor sobre Bedrock (Claude, Nova). Fuerte en AWS CDK, Lambda y OpenAPI.",
-    btg: "Migraciones a AWS · microservicios en Lambda · equipos que ya tienen Landing Zone de Amazon.",
-    price: "Free tier + USD 19/mes Pro (mediados 2026)",
+    detail: "Spec-driven development: describes el feature en lenguaje natural → Kiro genera requirements.md, architecture.md, test plan y recién después el código. Hooks event-driven (on save, PR open). Routea entre Claude Sonnet (specs) y Amazon Nova (throughput) vía Bedrock. Estable desde ene 2026.",
+    btg: "Microservicios en Lambda · migraciones a AWS · teams con Landing Zone ya montada · compliance trazable (specs versionados).",
+    example: "Abril 2026 · un spec de 2 párrafos sobre endpoint de KYC genera requirements doc, plan arquitectónico y código Lambda + CDK + tests listos para merge.",
+    price: "Free tier generoso · Pro desde USD 19/user (rollout 2026)",
     status: "emerging",
   },
   {
     id: "firebase-studio", name: "Firebase Studio", vendor: "Google", cat: "ide_ai", logo: "◇",
-    tagline: "IDE en navegador. Sucesor de Project IDX.",
-    detail: "Vibe coding con Gemini 2.5 Pro / Gemini 3. Preview instantáneo de apps móviles (Android emulator embebido) y web. Deploy a Firebase Hosting, Cloud Run o App Hosting en un click.",
-    btg: "Prototipos rápidos de apps móviles internas · landing pages de campaña · demos de negocio.",
-    price: "Gratis (tier generoso) · cobro por Firebase",
-    status: "open",
+    tagline: "SUNSET 19-mar-2026 · migrar a AI Studio o Antigravity.",
+    detail: "El IDE en navegador sucesor de Project IDX fue sunset el 19 de marzo de 2026. Workspaces existentes siguen accesibles hasta el 22-mar-2027, pero la creación de nuevos workspaces se desactiva el 22-jun-2026. Google movió la apuesta a AI Studio (vibe coding con Gemini 3) y Antigravity (agent-first).",
+    btg: "Migrar proyectos vivos antes de jun-2026 · sustituir por Google AI Studio (rapid prototyping) o Antigravity (agent-first).",
+    example: "Abril 2026 · cualquier proyecto nuevo que hubiera ido a Firebase Studio en 2025 hoy se abre en Antigravity o AI Studio — el runtime Firebase (Hosting, Functions) sigue vigente.",
+    price: "Deprecated · usar AI Studio (gratis) o Antigravity (preview)",
+    status: "sunset",
+  },
+  {
+    id: "antigravity", name: "Google Antigravity", vendor: "Google", cat: "ide_ai", logo: "◉",
+    tagline: "IDE agent-first con Gemini 3 Pro + Claude Opus 4.6 built-in.",
+    detail: "Lanzado 18-nov-2025 junto a Gemini 3. No es un chatbot en sidebar: dos surfaces — Editor View (autocompletado + inline) y Manager Surface donde orquestas agentes en paralelo con navegador Chrome embebido. 76.2% en SWE-bench Verified. 6% de adopción global a abril 2026.",
+    btg: "Tareas que se benefician de paralelismo — un agente documenta, otro prueba, otro implementa · POCs con multi-agente.",
+    example: "Abril 2026 · un dev abre 3 agentes en paralelo desde Manager: uno escribe tests Jest, otro documenta con markdown, otro implementa un endpoint de pricing. Los ve avanzar asíncronos.",
+    price: "Public preview gratis para individuos a abril 2026",
+    status: "emerging",
   },
 
   /* IDE plugin */
   {
-    id: "copilot-cli", name: "GitHub Copilot (CLI + IDE)", vendor: "GitHub · Microsoft", cat: "ide_plugin", logo: "✦",
-    tagline: "El asistente corporativo por defecto.",
-    detail: "Copilot en VS Code/JetBrains + CLI (gh copilot suggest/explain) + Copilot Workspace (plan → PR) + revisión automática de PRs. Modelos: GPT-5, Claude 4.x, Gemini 2.5 seleccionables por task.",
-    btg: "Estándar del equipo · PRs con descripción IA · Actions en lenguaje natural · audit trail empresarial.",
-    price: "USD 19/mes Business · USD 39/mes Enterprise",
+    id: "copilot-cli", name: "GitHub Copilot (IDE + CLI + coding agent)", vendor: "GitHub · Microsoft", cat: "ide_plugin", logo: "✦",
+    tagline: "El default corporativo. Coding agent autónomo desde mar 2026.",
+    detail: "Copilot en VS Code y JetBrains + `gh copilot suggest/explain` + Copilot Workspace + coding agent autónomo (determina qué archivos editar, corre terminal, itera sobre errores). Modelos seleccionables: GPT-5.3, Claude Opus 4.7, Gemini 3. Premium requests por plan.",
+    btg: "Estándar del equipo · PRs con Copilot Code Review · audit trail empresarial · fixes de tests sin supervisión.",
+    example: "Abril 2026 · abres un PR en GitHub Enterprise, Copilot Code Review comenta 12 líneas con sugerencias accionables y el coding agent corrige los tests rotos antes del merge.",
+    price: "Free · Pro USD 10 · Pro+ USD 39 (1.500 premium reqs) · Business USD 19/user · Enterprise USD 39/user",
     status: "corporate",
   },
   {
     id: "gemini-code", name: "Gemini Code Assist", vendor: "Google Cloud", cat: "ide_plugin", logo: "★",
     tagline: "Plugin para VS Code, IntelliJ y Cloud Workstations.",
-    detail: "Autocompletado con Gemini 2.5, chat contextual y scanning SAST integrado. Tier gratis muy generoso (180k completions/mes). Opciones Enterprise con data-residency controlada.",
-    btg: "Alternativa corporate-friendly a Copilot · retención de datos estricta · integra con BigQuery y GCP.",
-    price: "Gratis hasta 180k comp/mes · USD 19/mes Standard",
+    detail: "Autocompletado con Gemini 3, chat contextual, scanning SAST, conectores directos a BigQuery y Cloud Storage. Tier gratis de 180k completions/mes (de los más generosos del mercado). Standard con retención de datos controlada y data residency.",
+    btg: "Alternativa corporate-friendly a Copilot · equipos con stack GCP · compliance con residencia de datos por región.",
+    example: "Abril 2026 · migración de un pipeline Python a Dataflow: Gemini Code Assist samplea datos reales desde BigQuery y ajusta la función de transformación según el schema actual.",
+    price: "Gratis hasta 180k comp/mes · Standard USD 19/user · Enterprise custom",
     status: "corporate",
   },
   {
     id: "jetbrains-ai", name: "JetBrains AI Assistant + Junie", vendor: "JetBrains (Checa)", cat: "ide_plugin", logo: "◼",
-    tagline: "IA nativa en IntelliJ, PyCharm, CLion, WebStorm.",
-    detail: "Chat contextual, edición multi-archivo y Junie (agent mode) desde 2025. Mezcla Claude, GPT, Gemini y modelos locales. Aprovecha el indexador semántico de JetBrains — el mejor del mercado para refactors tipados.",
-    btg: "Quants en PyCharm · devs Kotlin/Java en IntelliJ · motores C++ en CLion. Conserva los refactors profundos.",
-    price: "USD 10/mes AI Pro · incluido en All Products Pack",
+    tagline: "IA nativa en IntelliJ, PyCharm, CLion. Junie CLI en beta mar 2026.",
+    detail: "Chat contextual, edición multi-archivo y Junie (agent mode). Modelo-agnóstico: Claude, GPT, Gemini, local. Aprovecha el indexador semántico de JetBrains — el mejor para refactors tipados. Consumo basado en créditos: 1 AI Credit = USD 1. Junie CLI (beta mar 2026) opera desde terminal.",
+    btg: "Quants en PyCharm · devs Kotlin/Java en IntelliJ · motores C++ en CLion. Refactors tipados sin romper el índice del proyecto.",
+    example: "Abril 2026 · 'migra este risk engine a Python 3.13 y mueve a asyncio donde corresponda'. Junie consulta el índice, propone el refactor tipado, corre mypy y los tests.",
+    price: "AI Pro USD 10/mes o USD 100/año · AI Ultimate USD 30/mes (USD 60/org) · créditos USD 1 c/u",
     status: "pro",
   },
   {
     id: "clion", name: "CLion", vendor: "JetBrains", cat: "ide_plugin", logo: "◾",
     tagline: "IDE profesional de C/C++ con AI Assistant.",
-    detail: "Refactors tipados sobre C++20/23, CMake, Bazel. Integra con CUDA y toolchains remotas. Con AI Assistant: explicación de templates, generación de tests Catch2/GoogleTest.",
-    btg: "Mesa cuantitativa con motores de pricing / baja latencia en C++ · HFT · risk engines tick-by-tick.",
-    price: "USD 249/año Individual · USD 499/año Company",
+    detail: "Refactors tipados sobre C++20/23, CMake, Bazel. Integración con CUDA y toolchains remotas. Con AI Assistant: explicación de templates, generación de Catch2/GoogleTest, análisis de lifetimes.",
+    btg: "Mesa cuantitativa con motores de pricing de baja latencia en C++ · risk engines tick-by-tick · análisis de performance con perf + flamegraphs.",
+    example: "Abril 2026 · en el pricing engine, CLion + AI Assistant explica un template variadic de 80 líneas y genera Catch2 para cada especialización. El quant acepta 6 de 8 tests.",
+    price: "USD 249/año Individual · USD 499/año Company · All Products Pack USD 779/año",
     status: "pro",
   },
   {
     id: "amazon-q", name: "Amazon Q Business + Developer", vendor: "AWS", cat: "ide_plugin", logo: "◧",
     tagline: "Asistente empresarial con RAG sobre datos internos.",
-    detail: "Q Business indexa S3, SharePoint, Confluence, Jira, Gmail y responde preguntas de negocio con permisos heredados. Q Developer entra en VS Code/IntelliJ para código, refactor y transformación (Java 8 → 21, COBOL → Java).",
-    btg: "Chatbot corporativo con acceso a procedimientos y manuales · transformación de legacy · auditoría IAM.",
-    price: "USD 20/mes Business · USD 19/mes Developer Pro",
+    detail: "Q Business indexa S3, SharePoint, Confluence, Jira, Gmail y responde preguntas con permisos heredados. Q Developer entra en VS Code/IntelliJ para código + transformación de legacy (Java 8 → 21, COBOL → Java, .NET upgrades). Pro trae IP indemnity, SSO, analytics.",
+    btg: "Chatbot corporativo con procedimientos internos · transformación de mainframe legacy · auditoría IAM.",
+    example: "Abril 2026 · Q Business responde 'cuáles son los pasos para aprobar un nuevo emisor' leyendo 340 pp de procedimientos en SharePoint con permisos heredados por rol.",
+    price: "Q Business Lite USD 3/user · Q Business Pro USD 20/user · Q Developer Pro USD 19/user (1.000 agentic req + 4.000 LOC/mes)",
     status: "corporate",
   },
 
   /* Chats & agentes */
   {
     id: "chatgpt", name: "ChatGPT", vendor: "OpenAI", cat: "chat", logo: "◉",
-    tagline: "El chat más popular. Ventana universal.",
-    detail: "GPT-5 + o-series para razonamiento. Canvas para edición de documentos y código, Code Interpreter (Python sandbox), Deep Research, conectores a Drive/SharePoint. Modo agente 'ChatGPT Agent' para tareas con navegador.",
-    btg: "Análisis ad-hoc · memos financieros · presentaciones · búsqueda con contexto · drafts rápidos.",
-    price: "USD 20/mes Plus · USD 30/mes Business · USD 200/mes Pro",
+    tagline: "Chat universal. Nuevo tier Pro USD 100/mes desde 9-abr-2026.",
+    detail: "GPT-5.2 para general y GPT-5.3-Codex para coding/agentic. Canvas (edición de docs y código), Code Interpreter, Deep Research, conectores a Drive/SharePoint, ChatGPT Agent (tareas con navegador). Tier Pro USD 100 anunciado el 9-abr-2026 con 5× límites vs Plus y 10× Codex vs Plus hasta 31-may.",
+    btg: "Análisis ad-hoc · memos financieros · presentaciones · drafts rápidos · agentes con navegador para investigación web.",
+    example: "Abril 2026 · un AVP sube el Excel de comisiones a Code Interpreter: 'compara vs mes anterior, grafica outliers y dame memo de 1 página'. GPT-5.2 entrega en 90 s.",
+    price: "Free (con ads) · Go USD 8 · Plus USD 20 · Pro USD 100 (nuevo abr 2026) · Pro USD 200",
     status: "core",
   },
   {
     id: "gemini", name: "Gemini (App + Workspace)", vendor: "Google", cat: "chat", logo: "✶",
-    tagline: "La IA dentro de Docs, Sheets, Slides, Gmail.",
-    detail: "Gemini 2.5 Pro (contexto 2M tokens) y Gemini 3 en early access (mar 2026). Acceso directo desde Google Workspace sin cambiar de ventana. Deep Research multi-horas, generación de audio y video.",
-    btg: "Equipos que ya viven en Workspace · análisis de Sheets muy grandes · síntesis de correos y docs.",
-    price: "USD 24/mes Business · incluido en Workspace Enterprise",
+    tagline: "Gemini 3 liberado 15-abr-2026. Nativo en Docs, Sheets, Slides.",
+    detail: "Gemini 3 Pro en preview desde 15-abr-2026 y Gemini 3 Flash como default en la app. Gemini 3.1 Flash-Lite en preview (mar 2026). Contexto 2M tokens, Deep Think en Ultra para razonamiento profundo. Embebido en Workspace (Docs/Sheets/Slides/Gmail) y Chrome (Win/Mac).",
+    btg: "Equipos en Google Workspace · análisis de Sheets muy grandes · síntesis de correos · research docs con citación.",
+    example: "Abril 2026 · en Sheets de análisis de M&A con 200 targets, Gemini 3 identifica los 10 más alineados al thesis y genera ficha individual por cada uno.",
+    price: "Gratis (app con Flash) · Google AI Pro USD 20/mes · Google AI Ultra USD 250/mes (Deep Think) · Workspace Business USD 24/user",
     status: "corporate",
   },
   {
     id: "ada", name: "ADA (Asistente Digital Avanzado)", vendor: "Plataforma interna (banca)", cat: "chat", logo: "◆",
     tagline: "Capa gobernada de IA generativa corporativa.",
-    detail: "Patrón banca: un orquestador propio que expone los modelos de frontera (Claude, GPT, Gemini) con guardrails, masking de PII, logs de auditoría, control de costos y asignación por área. No es un modelo, es el control-tower.",
-    btg: "Único canal aprobado por seguridad para data sensible · uniforma costos y controles entre áreas.",
-    price: "Licenciamiento interno · pass-through de tokens",
+    detail: "Patrón banca: orquestador propio que expone modelos de frontera (Claude, GPT, Gemini) con guardrails, masking de PII, logs de auditoría, control de costos y asignación por área. No es un modelo — es el control-tower. Único canal aprobado por seguridad para data P-II/III.",
+    btg: "Único canal autorizado para data sensible · uniforma costos y controles entre áreas · registro y trazabilidad de prompts.",
+    example: "Abril 2026 · un analista sube matriz de riesgo con datos de clientes. ADA la enruta a Claude con masking de PII automático. La respuesta llega anonimizada con log de auditoría.",
+    price: "Licenciamiento interno · pass-through de tokens del modelo subyacente",
     status: "corporate",
   },
   {
-    id: "devin", name: "Devin", vendor: "Cognition AI (USA)", cat: "chat", logo: "◎",
-    tagline: "Agente de software autónomo con su propia VM.",
-    detail: "Le asignas un ticket de Jira/Linear, Devin despliega una VM con navegador, editor y terminal, planea, escribe, prueba y devuelve un PR. Mejor para tareas rutinarias y upgrades de dependencias que para arquitectura.",
-    btg: "Offload de mantenimiento · upgrades npm/pip · bug-fixes menores · refactors mecánicos.",
-    price: "USD 500/mes por seat · USD 20/ACU pago por uso",
+    id: "devin", name: "Devin 2.0", vendor: "Cognition AI (USA)", cat: "chat", logo: "◎",
+    tagline: "Devin 2.0 (abr 2025) bajó a USD 20/mes pay-as-you-go.",
+    detail: "Agente de software autónomo con su propia VM (navegador, editor, terminal). Le asignas un ticket de Jira/Linear y devuelve un PR. 1 ACU ≈ 15 min de trabajo activo. Devin 2.0 (abril 2025) bajó el entry de USD 500 a USD 20/mes Core pay-as-you-go. Equipos grandes pagan Team USD 500/mes con 250 ACUs.",
+    btg: "Offload de mantenimiento · upgrades de dependencias · bug-fixes menores · refactors mecánicos en lote.",
+    example: "Abril 2026 · ticket 'sube pandas 2.0 → 2.3 en 11 repos'. Devin abre 11 PRs con tests verdes en 3 h. Costo ~12 ACUs × USD 2.25 = USD 27.",
+    price: "Core USD 20/mes + USD 2.25/ACU · Team USD 500/mes (250 ACUs + USD 2/extra) · Enterprise VPC custom",
     status: "emerging",
   },
   {
     id: "notebooklm", name: "NotebookLM", vendor: "Google", cat: "chat", logo: "◐",
-    tagline: "Research assistant anclado a fuentes.",
-    detail: "Cargas PDFs, videos YouTube, audios, webs, Slides. NotebookLM responde solo con lo cargado y cita — anti-alucinación por diseño. Mindmaps, audio overviews con voces, timelines interactivas.",
-    btg: "Due diligence · estudios sectoriales · síntesis de reportes de research · onboarding a sectores nuevos.",
-    price: "Gratis · NotebookLM Plus USD 20/mes",
+    tagline: "Research anclado a fuentes. Mindmaps + video overviews + quizzes.",
+    detail: "Cargas PDFs, videos YouTube, audios, webs, Slides. NotebookLM responde solo con lo cargado y cita — anti-alucinación por diseño. Studio: audio overviews (9 idiomas), video overviews, mindmaps interactivos, slide decks, infográficos, quizzes, flashcards. Plus: +100 notebooks y >50 fuentes por notebook.",
+    btg: "Due diligence · estudios sectoriales · síntesis de reportes · onboarding a sectores nuevos · compliance training.",
+    example: "Abril 2026 · cargo 40 reportes sectoriales de utilities LatAm. Pido mindmap + audio overview en español. Resultado: síntesis auditada con citas para comité.",
+    price: "Gratis · NotebookLM Plus USD 20/mes · incluido en Google AI Pro/Ultra",
     status: "open",
   },
   {
-    id: "deepseek", name: "DeepSeek (local)", vendor: "DeepSeek AI (CN)", cat: "chat", logo: "◑",
-    tagline: "Modelo open source que rivaliza con los cerrados.",
-    detail: "DeepSeek-V3.2 y R1 (reasoning). Pesos abiertos (MIT-like). Corre on-prem con Ollama, vLLM o SGLang. Calidad cercana a Claude/GPT en tareas en inglés y código, pero 100% dentro de la red.",
-    btg: "Casos P-III+ donde no puede salir data · proof-of-concepts on-prem · reducción de costos en cargas masivas.",
-    price: "Gratis (pesos abiertos) · costo = infra GPU propia",
+    id: "deepseek", name: "DeepSeek-V3.2 (local)", vendor: "DeepSeek AI (CN)", cat: "chat", logo: "◑",
+    tagline: "Open weights con calidad frontera. Pensamiento + tool use integrados.",
+    detail: "DeepSeek-V3.2 (dic 2025) es el flagship actual con DeepSeek Sparse Attention (DSA) para eficiencia, y es el primer modelo de la casa que integra thinking directamente con tool use. Performance comparable a GPT-5 en benchmarks. R2 especializado en razonamiento. Corre con Ollama, vLLM, SGLang.",
+    btg: "Casos P-III+ donde no puede salir data · POCs on-prem · cargas masivas de resumen y clasificación a bajo costo.",
+    example: "Abril 2026 · on-prem con 4 H100. Procesamos memos P-III con DeepSeek-V3.2 en Ollama — cero tokens salen de la red BTG, latencia ~350 ms/query.",
+    price: "Open weights gratis · costo = infra GPU propia · API DeepSeek ~10× más barata que GPT-5",
     status: "local",
   },
 
   /* Datos, docs & diseño */
   {
-    id: "dbeaver", name: "DBeaver (Ultimate AI)", vendor: "DBeaver Corp", cat: "data_doc", logo: "▣",
-    tagline: "IDE universal de bases de datos.",
-    detail: "Conecta a ~80 motores: Oracle, PostgreSQL, Snowflake, Redshift, MS SQL, MongoDB, BigQuery. Edition Ultimate incluye AI SQL assistant con text-to-SQL, explain plan y generación de scripts de migración.",
-    btg: "Analistas y data engineers consultando el datawarehouse · queries ad-hoc · modelado visual.",
-    price: "Community gratis · Ultimate USD 19/mes",
+    id: "dbeaver", name: "DBeaver (Ultimate / Enterprise)", vendor: "DBeaver Corp", cat: "data_doc", logo: "▣",
+    tagline: "IDE universal de BD con AI Chat desde Lite.",
+    detail: "Conecta ~80 motores: Oracle, PostgreSQL, Snowflake, Redshift, MS SQL, MongoDB, BigQuery. AI Chat disponible en Lite/Enterprise/Ultimate. Pro y Enterprise integran OpenAI, GitHub Copilot, Azure OpenAI y Google Gemini para text-to-SQL, troubleshooting y exploración de esquemas.",
+    btg: "Analistas y data engineers consultando el datawarehouse · queries ad-hoc · modelado visual · migraciones entre motores.",
+    example: "Abril 2026 · analista conectado a Snowflake: 'dame el top 10 de clientes por AUM del último trimestre'. DBeaver AI genera el SQL con los joins correctos contra el modelo estrella.",
+    price: "Community gratis · Lite USD 11/mes · Pro/Ultimate USD 100–200/año (estimado) · Enterprise custom",
     status: "pro",
   },
   {
-    id: "figma-mcp", name: "Figma MCP Server", vendor: "Figma", cat: "data_doc", logo: "◈",
-    tagline: "Conector Model Context Protocol oficial.",
-    detail: "Expone archivos Figma al IDE. Cursor / Claude Code leen frames, design tokens y componentes como contexto. Le pides: 'implementa este mockup con el design system' y respeta espaciados, tipografías y colores.",
-    btg: "Implementar dashboards que diseñó el equipo de producto · mantener consistencia con el design system BTG.",
-    price: "Incluido en Figma Pro/Org",
+    id: "figma-mcp", name: "Figma MCP Server (Dev Mode)", vendor: "Figma", cat: "data_doc", logo: "◈",
+    tagline: "Conector Model Context Protocol. Cursor/VS Code/Claude Code/Codex/Windsurf.",
+    detail: "Dos modalidades: remote server (recomendado) o desktop. Expone frames, design tokens, variables, componentes y FigJam al IDE. Genera código con Code Connect mapeado a componentes reales. Puede escribir directo al canvas (crear/actualizar contenido Figma desde el IDE).",
+    btg: "Implementar dashboards del equipo de producto · mantener consistencia con el design system BTG · cerrar gap design→code.",
+    example: "Abril 2026 · el equipo de diseño entrega el nuevo panel de treasury en Figma. En Cursor: '@figma — implementa este frame'. React + tokens + spacing respetados al primer intento.",
+    price: "Incluido en Figma Dev Mode (todos los planes de pago)",
     status: "open",
   },
   {
-    id: "llama-parse", name: "LlamaParse", vendor: "LlamaIndex", cat: "data_doc", logo: "▤",
-    tagline: "Parsing de PDFs complejos grado producción.",
-    detail: "Lee tablas anidadas, charts, formularios y estados financieros escaneados. Salida en Markdown de alta fidelidad, JSON estructurado o CSVs. Modo 'premium' con LLM para documentos difíciles.",
-    btg: "Ingestar prospectos de emisión · memorias anuales · estados financieros de emisores · KID/KIID de fondos.",
-    price: "3.000 páginas gratis/mes · USD 3 / 1.000 páginas extra",
+    id: "llama-parse", name: "LlamaParse v2", vendor: "LlamaIndex", cat: "data_doc", logo: "▤",
+    tagline: "Parsing de PDFs complejos. v2 dic 2025 — más barato y preciso.",
+    detail: "Tablas anidadas, charts, formularios, estados financieros escaneados → Markdown, JSON estructurado o CSVs. Modo premium con LLM para documentos difíciles. v2 (dic 2025): mejor accuracy, menor latencia, nuevos precios por modo. Integra directo con RAG sobre LlamaIndex.",
+    btg: "Prospectos de emisión · memorias anuales · estados financieros escaneados · KID/KIID de fondos · reportes regulatorios.",
+    example: "Abril 2026 · prospecto de 180 pp con tablas anidadas en modo premium: 10.800 créditos ≈ USD 13,5. Salida Markdown estructurada lista para embeddings.",
+    price: "10.000 créditos gratis/mes · 1.000 créditos = USD 1,25 · premium 60 créditos/pg",
     status: "pro",
   },
   {
-    id: "docling", name: "Docling", vendor: "IBM Research", cat: "data_doc", logo: "▥",
-    tagline: "Parsing de documentos local y open source.",
-    detail: "Librería Python. PDF, DOCX, PPTX, XLSX, HTML, imágenes → Markdown / JSON estructurado. Modelos layout-aware (DocLayNet) corren localmente. Integra con LangChain y LlamaIndex.",
-    btg: "Alternativa a LlamaParse cuando el documento no puede salir de la red BTG · pipelines batch on-prem.",
-    price: "Gratis (MIT) · costo = CPU/GPU propia",
+    id: "docling", name: "Docling (Linux Foundation)", vendor: "IBM Research · AAIF", cat: "data_doc", logo: "▥",
+    tagline: "Donado a Linux Foundation en 2026. Granite-Docling 258M built-in.",
+    detail: "PDF, DOCX, PPTX, XLSX, HTML, WAV, MP3, WebVTT, imágenes, LaTeX → Markdown/JSON. Heron layout model (dic 2025) y Granite-Docling 258M VLM (Apache 2.0). En 2026: donado al Linux Foundation (AAIF) + OpenShift Operator con Red Hat targeting bancos.",
+    btg: "Alternativa a LlamaParse cuando el documento no puede salir de la red · pipelines batch on-prem · compliance con datos sensibles.",
+    example: "Abril 2026 · pipeline on-prem con OpenShift Operator de Red Hat (partnership IBM). Procesa 5.000 PDFs/día de extractos bancarios sin salir de la red BTG.",
+    price: "Apache 2.0 · costo = CPU/GPU propia · Red Hat OpenShift Operator según contrato RHEL",
     status: "local",
   },
 
   /* Automation */
   {
     id: "n8n", name: "n8n", vendor: "n8n GmbH (Berlín)", cat: "automation", logo: "⚡",
-    tagline: "Orquestador low-code self-hostable.",
-    detail: "+500 nodos nativos: Outlook, SharePoint, Snowflake, Slack, Jira, HTTP, bases de datos, LLMs. Cron, webhooks, bifurcación lógica, manejo de errores. Se despliega on-prem con docker y cumple data residency.",
-    btg: "Módulo 03 del curso. Pegar IA + sistemas: alertas de riesgo, flujos de aprobación, notificaciones.",
-    price: "Self-hosted gratis · Cloud USD 20/mes · Enterprise desde USD 667/mes",
+    tagline: "Orquestador low-code self-hostable. Módulo 03.",
+    detail: "+500 nodos nativos: Outlook, SharePoint, Snowflake, Slack, Jira, HTTP, bases de datos, LLMs (OpenAI, Anthropic, Gemini, local). Cron, webhooks, bifurcación lógica, manejo de errores. Desde 2026: sin límites de workflows activos en ningún plan — solo se paga por ejecuciones.",
+    btg: "Módulo 03 del curso. Pegamento entre IA + sistemas: alertas de riesgo, aprobaciones, notificaciones, pipelines de ingesta documental.",
+    example: "Abril 2026 · cron nocturno n8n: lee nuevos PDFs en SharePoint → Docling los parsea → ADA resume con Claude → escribe ficha en Snowflake → notifica research en Slack.",
+    price: "Self-hosted gratis · Starter EUR 24 · Pro EUR 60 · Business EUR 800 · Startup Program USD 400/mes · Enterprise custom",
     status: "next-module",
   },
 ];
@@ -641,7 +671,91 @@ const ECO_STATUS_BADGES: Record<EcoTool["status"], { label: string; color: strin
   local: { label: "On-prem / privado", color: "#22C55E" },
   open: { label: "Open / freemium", color: "#D4AF4C" },
   "next-module": { label: "Módulo 03 →", color: "#F97316" },
+  sunset: { label: "Sunset 2026 ⚠", color: "#6B7280" },
 };
+
+/* Casos reales abril 2026 — cómo se combinan varias herramientas */
+const CASOS_ECOSISTEMA = [
+  {
+    n: 1,
+    title: "Ingesta automática de prospectos de emisión",
+    scenario: "Un emisor entrega prospecto de 220 pp el jueves tarde. Hay que sacar ficha, riesgos y comparables para el comité del viernes.",
+    flow: [
+      { tool: "n8n", role: "Trigger en SharePoint detecta el nuevo PDF" },
+      { tool: "LlamaParse v2", role: "Parsing premium (tablas anidadas) → Markdown" },
+      { tool: "ADA + Claude", role: "Resumen estructurado + extracción de covenants" },
+      { tool: "Snowflake", role: "Ficha persiste en tabla de emisores" },
+      { tool: "Slack", role: "Notificación al equipo de research con link" },
+    ],
+    impact: "4 min vs 3 h manuales · auditable · replicable a todos los emisores del pipeline",
+    color: "#5B52D5",
+  },
+  {
+    n: 2,
+    title: "Dashboard financiero de cero a desplegado",
+    scenario: "El equipo de producto diseñó un panel de treasury en Figma. Hay que llevarlo a producción.",
+    flow: [
+      { tool: "Figma MCP", role: "Frame del panel expuesto como contexto MCP" },
+      { tool: "Cursor (Composer)", role: "Lee design tokens y genera React + Chart.js" },
+      { tool: "GitHub Copilot", role: "Review del PR + descripción auto" },
+      { tool: "GitHub Actions", role: "CI/CD despliega a GitHub Pages" },
+    ],
+    impact: "45 min de Figma a URL compartible · respeta tokens y spacing al primer intento",
+    color: "#00E5A0",
+  },
+  {
+    n: 3,
+    title: "Auditoría cross-repo de dependencias (CISO request)",
+    scenario: "El CISO pregunta: ¿qué versiones de log4j tenemos en producción y qué CVEs nos afectan?",
+    flow: [
+      { tool: "Claude Code CLI", role: "Corre sobre 34 repos con skill de inventario" },
+      { tool: "OSV-Scanner", role: "Cruce con base de CVEs" },
+      { tool: "Claude Code", role: "Genera reporte markdown + remediación sugerida" },
+      { tool: "Devin (opcional)", role: "Abre PRs de upgrade en los 9 repos críticos" },
+    ],
+    impact: "22 min de inventario + humano firma · riesgo material reducido en una tarde",
+    color: "#3A7BD5",
+  },
+  {
+    n: 4,
+    title: "Migración legacy Java 8 → Java 21",
+    scenario: "120k líneas de código de un sistema de liquidación corren en Java 8 — EOL de soporte es este año.",
+    flow: [
+      { tool: "Amazon Q Developer", role: "Code transformation (bulk Java 8 → 21)" },
+      { tool: "Junie (JetBrains)", role: "Verifica tests tipados y refactor con índice semántico" },
+      { tool: "GitHub Copilot", role: "Code Review antes del merge + sugerencias defensivas" },
+      { tool: "DBeaver AI", role: "Valida queries SQL con el nuevo driver JDBC" },
+    ],
+    impact: "8 días en lugar de 3 meses · menos riesgo porque cada paso es reversible y auditado",
+    color: "#E85A1F",
+  },
+  {
+    n: 5,
+    title: "Research sectorial gobernado (thesis paper)",
+    scenario: "El equipo necesita tesis sobre data centers en LatAm para pitch de inversión el próximo mes.",
+    flow: [
+      { tool: "NotebookLM", role: "60 fuentes cargadas: reports, presentaciones, papers, videos" },
+      { tool: "NotebookLM Studio", role: "Mindmap + audio overview ES + video overview" },
+      { tool: "ChatGPT Canvas", role: "Redacción del memo con GPT-5.2" },
+      { tool: "Gemini en Docs", role: "Layout final, gráficos y formato BTG" },
+    ],
+    impact: "1 día de proceso vs 2 semanas · cada afirmación citada contra fuente original",
+    color: "#D4AF4C",
+  },
+  {
+    n: 6,
+    title: "Alertas de riesgo on-prem (data P-III)",
+    scenario: "Movimientos anómalos en portafolios con data clasificada P-III que no puede salir de la red.",
+    flow: [
+      { tool: "Docling (local)", role: "Parsea reportes diarios de custodia (on-prem)" },
+      { tool: "DeepSeek-V3.2 (Ollama)", role: "Clasificación + resumen con modelo local" },
+      { tool: "n8n (self-hosted)", role: "Orquesta pipeline y genera alertas" },
+      { tool: "ADA", role: "Escala a analista si umbral cruzado (con log de auditoría)" },
+    ],
+    impact: "Cero tokens fuera de la red · misma latencia que un flujo SaaS · compliance total",
+    color: "#22C55E",
+  },
+];
 
 const ECO_DECISION = [
   { trigger: "Tienes el repo abierto en VS Code y necesitas un feature nuevo", tool: "Cursor", color: "#5B52D5" },
@@ -748,11 +862,11 @@ export default function Sesion6() {
             Módulo 02 · Herramientas · Sesión 6
           </p>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white-f leading-tight mb-6 animate-fadeUp-1">
-            <span className="text-white-f">Cursor, Claude Code</span>{" "}
-            <span className="bg-gradient-to-r from-purple via-purple-light to-cyan bg-clip-text text-transparent">y GitHub Copilot</span>
+            <span className="text-white-f">Programación</span>{" "}
+            <span className="bg-gradient-to-r from-purple via-purple-light to-cyan bg-clip-text text-transparent">asistida por IA</span>
           </h1>
           <p className="text-lg sm:text-xl text-muted max-w-2xl mx-auto mb-10 animate-fadeUp-2">
-            Programación asistida por IA para analistas financieros. De cero a dashboard de portafolio desplegado en GitHub Pages, con tests, PRs y CI/CD generados por la IA en dos horas.
+            Del editor de texto al agente autónomo. El stack que un analista BTG usa hoy para generar código, tests, PRs y dashboards con IA — sin perder governance ni calidad. Con el panorama completo del ecosistema 2026.
           </p>
 
           <div className="flex flex-wrap justify-center gap-4 animate-fadeUp-3">
@@ -2143,20 +2257,20 @@ export default function Sesion6() {
           <div className="relative">
             <p className="font-mono text-[0.72rem] text-purple-light uppercase tracking-widest mb-3">Panorama · abril 2026</p>
             <h2 className="text-3xl md:text-5xl font-bold text-white-f leading-tight mb-5">
-              El ecosistema completo: <span className="bg-gradient-to-r from-purple-light via-cyan to-gold bg-clip-text text-transparent">20 herramientas, 5 categorías</span>
+              El ecosistema completo: <span className="bg-gradient-to-r from-purple-light via-cyan to-gold bg-clip-text text-transparent">21 herramientas, 5 categorías, 6 casos reales</span>
             </h2>
             <p className="text-lg text-muted max-w-3xl mb-10 leading-relaxed">
-              Hasta aquí trabajamos con Cursor, Claude Code y GitHub Copilot — el núcleo. Pero el mercado se mueve rápido. Este es el mapa vivo de las herramientas que un analista BTG debería conocer hoy, agrupadas por rol, con precio y caso de uso corporativo concreto.
+              Hasta aquí trabajamos con Cursor, Claude Code y GitHub Copilot — el núcleo. Pero el mercado se mueve rápido: Gemini 3 se liberó el 15-abr, Firebase Studio fue sunset el 19-mar, Devin 2.0 bajó a USD 20/mes. Este es el mapa vivo — con precios, ejemplos concretos y flujos end-to-end — que un analista BTG debería conocer a abril de 2026.
             </p>
 
             {/* Hero stats del ecosistema */}
             <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-10">
               {[
-                { n: "20", l: "Herramientas", c: "#5B52D5" },
+                { n: "21", l: "Herramientas", c: "#5B52D5" },
                 { n: "5", l: "Categorías", c: "#3A7BD5" },
-                { n: "8", l: "Core / pro / corporate", c: "#00D4E5" },
+                { n: "6", l: "Casos reales compuestos", c: "#00D4E5" },
                 { n: "3", l: "On-prem (P-III+)", c: "#22C55E" },
-                { n: "2026", l: "Release window", c: "#E85A1F" },
+                { n: "abr 26", l: "Datos verificados", c: "#E85A1F" },
               ].map((s) => (
                 <div key={s.l} className="bg-[#151A3A] border rounded-2xl p-4 text-center" style={{ borderColor: `${s.c}25` }}>
                   <p className="text-2xl font-bold" style={{ color: s.c }}>{s.n}</p>
@@ -2272,6 +2386,17 @@ export default function Sesion6() {
                       {t.detail}
                     </p>
 
+                    {/* Example — abril 2026 */}
+                    <div
+                      className="pl-2 pr-2 py-2 mb-3 rounded-lg border-l-2"
+                      style={{ borderColor: cat.color, background: `${cat.color}0A` }}
+                    >
+                      <p className="font-mono text-[0.54rem] uppercase tracking-widest mb-1" style={{ color: cat.color }}>
+                        ▸ Ejemplo real
+                      </p>
+                      <p className="text-[0.72rem] text-white-f/85 leading-relaxed">{t.example}</p>
+                    </div>
+
                     {/* BTG use + price */}
                     <div className="pl-2 space-y-2">
                       <div className="flex gap-2 items-start">
@@ -2286,6 +2411,74 @@ export default function Sesion6() {
                   </div>
                 );
               })}
+            </div>
+
+            {/* ────── Casos reales · Cómo se combinan ────── */}
+            <div className="mt-14">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="font-mono text-[0.7rem] text-cyan uppercase tracking-widest">Casos reales · abril 2026</span>
+                <span className="h-[1px] flex-1 bg-gradient-to-r from-cyan/40 to-transparent" />
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-white-f mb-3 leading-tight">
+                El valor está en la <span className="bg-gradient-to-r from-cyan via-purple-light to-gold bg-clip-text text-transparent">combinación</span>
+              </h3>
+              <p className="text-[0.88rem] text-muted mb-6 max-w-3xl leading-relaxed">
+                Ninguna herramienta sola resuelve un problema de negocio. Estos 6 casos muestran cómo se encadenan en flujos end-to-end que los analistas BTG pueden montar hoy — con tiempos, costos y salidas concretas.
+              </p>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                {CASOS_ECOSISTEMA.map((c) => (
+                  <div
+                    key={c.n}
+                    className="bg-[#0D1229] border rounded-2xl p-5 transition-all hover:-translate-y-0.5"
+                    style={{ borderColor: `${c.color}30` }}
+                  >
+                    {/* Header */}
+                    <div className="flex items-start gap-3 mb-3">
+                      <div
+                        className="w-9 h-9 rounded-lg grid place-items-center shrink-0 font-mono text-xs"
+                        style={{ background: `${c.color}20`, color: c.color, border: `1px solid ${c.color}40` }}
+                      >
+                        {String(c.n).padStart(2, "0")}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[0.95rem] font-bold text-white-f leading-tight mb-1">{c.title}</p>
+                        <p className="text-[0.72rem] text-white-f/70 leading-snug italic">&ldquo;{c.scenario}&rdquo;</p>
+                      </div>
+                    </div>
+
+                    {/* Flujo */}
+                    <div className="mt-4 mb-4">
+                      <p className="font-mono text-[0.55rem] uppercase tracking-widest mb-2" style={{ color: c.color }}>Flujo end-to-end</p>
+                      <div className="space-y-1.5">
+                        {c.flow.map((step, i) => (
+                          <div key={i} className="flex items-center gap-2">
+                            <div
+                              className="w-5 h-5 rounded-full grid place-items-center font-mono text-[0.55rem] shrink-0"
+                              style={{ background: `${c.color}15`, color: c.color, border: `1px solid ${c.color}30` }}
+                            >
+                              {i + 1}
+                            </div>
+                            <div className="flex-1 min-w-0 flex items-baseline gap-2 flex-wrap">
+                              <span className="font-mono text-[0.7rem] font-bold shrink-0" style={{ color: c.color }}>{step.tool}</span>
+                              <span className="text-[0.7rem] text-white-f/70 leading-snug">{step.role}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Impact */}
+                    <div
+                      className="rounded-lg p-2.5 border"
+                      style={{ background: `${c.color}12`, borderColor: `${c.color}30` }}
+                    >
+                      <p className="font-mono text-[0.55rem] uppercase tracking-widest mb-1" style={{ color: c.color }}>⚡ Impacto</p>
+                      <p className="text-[0.72rem] text-white-f/90 leading-snug">{c.impact}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* Matriz de decisión */}
