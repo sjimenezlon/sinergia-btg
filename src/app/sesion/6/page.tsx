@@ -3225,7 +3225,7 @@ export default function Sesion6() {
               {[
                 { k: "M02 · S5", v: "Research ecosystems + Modelos 2026", c: "#00E5A0" },
                 { k: "M02 · S6", v: "Stack programación asistida", c: "#5B52D5" },
-                { k: "Próximo · M03", v: "Automatizaciones n8n + Power Platform", c: "#E85A1F" },
+                { k: "Próxima · S7", v: "Ciberseguridad y gobernanza de datos", c: "#DC2626" },
               ].map((s) => (
                 <div key={s.k} className="bg-white/[0.02] border border-white/[0.06] rounded-xl p-4">
                   <p className="font-mono text-[0.58rem] uppercase tracking-widest mb-1.5" style={{ color: s.c }}>{s.k}</p>
