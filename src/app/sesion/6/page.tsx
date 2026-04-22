@@ -674,6 +674,75 @@ const ECO_STATUS_BADGES: Record<EcoTool["status"], { label: string; color: strin
   sunset: { label: "Sunset 2026 ⚠", color: "#6B7280" },
 };
 
+/* Primeros ejercicios · quick wins con el ecosistema */
+const ECO_EJERCICIOS = [
+  {
+    n: 1,
+    title: "Onboarding a un sector en 15 min",
+    level: "⭐",
+    time: "15 min",
+    tools: [
+      { name: "NotebookLM", color: "#00D4E5" },
+    ],
+    context: "Es tu primer día en el equipo de Renta Fija. Mañana 8 am tienes reunión con el portfolio manager y quieres hablar con criterio sobre utilities colombianas sin parecer improvisado.",
+    why: "NotebookLM responde solo con las fuentes que cargas y cita la página exacta — imposible alucinar y defendible ante un MD.",
+    steps: [
+      { s: "1", t: "Entra a notebooklm.google.com y crea un notebook: 'Utilities Colombia 2026'." },
+      { s: "2", t: "Carga 5 fuentes: último reporte trimestral de ISA, EPM y Celsia (PDF de sus IR), un informe sectorial de research (Credicorp o Davivienda) y un video de YouTube de análisis del sector." },
+      { s: "3", t: "Click en Studio → 'Audio Overview' en español. Escúchalo mientras caminas o almuerzas." },
+      { s: "4", t: "Studio → 'Mind Map'. Recorre las ramas de CAPEX, regulación, tarifa, financiamiento." },
+      { s: "5", t: "Haz 3 preguntas en el chat: (a) ¿cuáles son los 3 riesgos regulatorios del sector en 2026?, (b) ¿cómo afecta la tasa BanRep al CAPEX de estas empresas?, (c) ¿qué emisor lidera inversión este año y por qué? Verifica que cada respuesta traiga cita." },
+    ],
+    deliverable: "Link compartible al notebook + 1 captura del mindmap + una frase de 2 líneas que vas a decir en la reunión.",
+    cost: "USD 0 (tier gratis NotebookLM)",
+    color: "#00D4E5",
+  },
+  {
+    n: 2,
+    title: "Dashboard de portafolio desde Excel en 20 min",
+    level: "⭐⭐",
+    time: "20 min",
+    tools: [
+      { name: "ChatGPT (Code Interpreter)", color: "#5B52D5" },
+      { name: "Canvas", color: "#7B73E8" },
+    ],
+    context: "Son las 2:30 pm. Tu jefe te pasa el Excel del portafolio (120 posiciones) y pide 'algo visual' para el comité de las 4:00. Nunca has hecho un dashboard de esa cartera.",
+    why: "Code Interpreter corre Python real en sandbox, lee tu Excel, grafica y te da HTML autocontenido — sin instalar nada ni pedirle nada a infraestructura.",
+    steps: [
+      { s: "1", t: "En ChatGPT Plus, nuevo chat. Sube el archivo portafolio_abril.xlsx (drag & drop)." },
+      { s: "2", t: "Prompt: 'Calcula AUM total, AUM por sector, top 10 posiciones por peso, distribución por rating (IG vs HY) y duración ponderada del portafolio. Devuelve tabla resumen.'" },
+      { s: "3", t: "Pide gráficos: 'Grafica dona de sector, barras horizontales por rating, scatter de duration vs yield, y marca outliers > 2σ en rojo.'" },
+      { s: "4", t: "Pide empaquetado: 'Genera un dashboard.html autocontenido con Chart.js (CDN), paleta dark minimal, título BTG Portfolio Analytics — Abril 2026 y timestamp.'" },
+      { s: "5", t: "Descarga el HTML, ábrelo en Chrome, cruza 2 números con el Excel original (AUM total y top 1). Corrige en el chat si algo no cuadra." },
+    ],
+    deliverable: "dashboard.html funcional + 1 párrafo de 3 líneas identificando qué corregiste en el prompt hasta cuadrar los números.",
+    cost: "USD 20/mes ChatGPT Plus (o Pro $100)",
+    color: "#5B52D5",
+  },
+  {
+    n: 3,
+    title: "Ficha de emisor desde prospecto PDF en 25 min",
+    level: "⭐⭐⭐",
+    time: "25 min",
+    tools: [
+      { name: "LlamaParse v2", color: "#D4AF4C" },
+      { name: "Claude / ChatGPT", color: "#E85A1F" },
+    ],
+    context: "Llega el prospecto de emisión de un nuevo corporativo colombiano — 180 páginas, con tablas anidadas y estados financieros escaneados. El comité de crédito es mañana 9 am y necesitas una ficha de 1 página con lo esencial.",
+    why: "Leer 180 páginas toma 4 h y se escapan detalles. LlamaParse v2 en modo premium desglosa tablas y estructura en ~10 min, y el LLM extrae exactamente los campos que necesitas.",
+    steps: [
+      { s: "1", t: "Entra a cloud.llamaindex.ai/parse. Crea cuenta (trae 10k créditos gratis/mes). Sube el prospecto en modo 'Premium' (60 créditos/pg = ~10.800 créditos ≈ USD 13 si agotas el tier gratis)." },
+      { s: "2", t: "Espera el output (~10 min para 180 pp). Descarga el Markdown estructurado." },
+      { s: "3", t: "En Claude o ChatGPT, pega el Markdown con este prompt: 'De este prospecto extrae en JSON: emisor, monto emisión COP, plazo, tasa cupón, uso de fondos, principales covenants (lista), EBITDA últimos 3 años, deuda/EBITDA, cobertura de intereses y rating. Si un campo no aparece, marca null.'" },
+      { s: "4", t: "Pide la ficha ejecutiva: 'Con ese JSON, genera una ficha markdown de máximo 1 página con encabezado, KPIs financieros, 5 covenants clave, 3 riesgos identificados y un semáforo rojo/ámbar/verde justificado.'" },
+      { s: "5", t: "Pide comparación con peer: 'Compara esta emisión con Promigas 2024 en plazo, cupón, covenants y D/EBITDA. Señala las 3 diferencias más relevantes para el comité.'" },
+    ],
+    deliverable: "Ficha.md de 1 página + tabla comparativa vs peer + los 3 riesgos listados con página del prospecto como evidencia.",
+    cost: "USD 0 si cabes en tier gratis · ~USD 13 en premium · + API de Claude/ChatGPT",
+    color: "#D4AF4C",
+  },
+];
+
 /* Casos reales abril 2026 — cómo se combinan varias herramientas */
 const CASOS_ECOSISTEMA = [
   {
@@ -2543,6 +2612,132 @@ export default function Sesion6() {
                   <p className="text-[0.82rem] text-white-f/90 leading-relaxed">{r.v}</p>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+      </RevealSection>
+
+      {/* ═══════════════ 9C. PRIMEROS EJERCICIOS · QUICK WINS ═══════════════ */}
+      <RevealSection>
+        <section className="relative max-w-6xl mx-auto px-6 py-20">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_30%_30%,rgba(0,212,229,0.06),transparent),radial-gradient(ellipse_50%_40%_at_80%_70%,rgba(212,175,76,0.05),transparent)] pointer-events-none" />
+
+          <div className="relative">
+            <p className="font-mono text-[0.72rem] text-cyan uppercase tracking-widest mb-3">Primeros ejercicios · quick wins</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-white-f leading-tight mb-5">
+              3 tareas reales de BTG que <span className="bg-gradient-to-r from-cyan via-purple-light to-gold bg-clip-text text-transparent">ahora toman minutos</span>
+            </h2>
+            <p className="text-lg text-muted max-w-3xl mb-10 leading-relaxed">
+              Antes de entrar al taller grande del dashboard, tres ejercicios cortos para tocar herramientas del ecosistema en problemas reales de analista: research sectorial, dashboard desde Excel y ficha de emisor desde PDF. 60 minutos en total, todo abrible desde tu laptop hoy.
+            </p>
+
+            {/* Leyenda */}
+            <div className="flex flex-wrap gap-2 mb-8">
+              <span className="font-mono text-[0.6rem] uppercase tracking-widest text-muted px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.06]">⭐ 15 min · research</span>
+              <span className="font-mono text-[0.6rem] uppercase tracking-widest text-muted px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.06]">⭐⭐ 20 min · dashboard</span>
+              <span className="font-mono text-[0.6rem] uppercase tracking-widest text-muted px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.06]">⭐⭐⭐ 25 min · comité de crédito</span>
+            </div>
+
+            <div className="grid lg:grid-cols-3 gap-4">
+              {ECO_EJERCICIOS.map((e) => (
+                <div
+                  key={e.n}
+                  className="relative bg-[#0D1229] border rounded-2xl overflow-hidden flex flex-col"
+                  style={{ borderColor: `${e.color}30` }}
+                >
+                  {/* Header ribbon */}
+                  <div
+                    className="px-5 py-4 flex items-start gap-3 border-b"
+                    style={{
+                      background: `linear-gradient(135deg, ${e.color}18, ${e.color}06)`,
+                      borderColor: `${e.color}25`,
+                    }}
+                  >
+                    <div
+                      className="w-12 h-12 rounded-xl grid place-items-center shrink-0 text-xl font-bold"
+                      style={{ background: `${e.color}25`, color: e.color, border: `1px solid ${e.color}50` }}
+                    >
+                      {String(e.n).padStart(2, "0")}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap mb-1">
+                        <span className="text-[0.7rem]" style={{ color: e.color }}>{e.level}</span>
+                        <span className="font-mono text-[0.55rem] uppercase tracking-widest text-muted">{e.time}</span>
+                        <span className="font-mono text-[0.55rem] uppercase tracking-widest px-1.5 py-0.5 rounded" style={{ background: `${e.color}15`, color: e.color }}>
+                          BTG · {e.n === 1 ? "Research" : e.n === 2 ? "Portafolio" : "Crédito"}
+                        </span>
+                      </div>
+                      <p className="text-[0.95rem] font-bold text-white-f leading-tight">{e.title}</p>
+                    </div>
+                  </div>
+
+                  {/* Body */}
+                  <div className="p-5 flex flex-col flex-1">
+                    {/* Tools */}
+                    <div className="flex flex-wrap gap-1.5 mb-4">
+                      {e.tools.map((tool) => (
+                        <span
+                          key={tool.name}
+                          className="font-mono text-[0.58rem] uppercase tracking-wider px-2 py-1 rounded-md"
+                          style={{ background: `${tool.color}18`, color: tool.color, border: `1px solid ${tool.color}35` }}
+                        >
+                          {tool.name}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Context */}
+                    <div className="mb-3">
+                      <p className="font-mono text-[0.55rem] uppercase tracking-widest mb-1" style={{ color: e.color }}>Contexto BTG</p>
+                      <p className="text-[0.75rem] text-white-f/85 leading-relaxed italic">&ldquo;{e.context}&rdquo;</p>
+                    </div>
+
+                    {/* Why */}
+                    <div className="mb-4 bg-white/[0.03] border border-white/[0.06] rounded-lg p-3">
+                      <p className="font-mono text-[0.55rem] uppercase tracking-widest mb-1 text-gold">Por qué esta combinación</p>
+                      <p className="text-[0.72rem] text-white-f/80 leading-snug">{e.why}</p>
+                    </div>
+
+                    {/* Steps */}
+                    <div className="mb-4">
+                      <p className="font-mono text-[0.55rem] uppercase tracking-widest mb-2" style={{ color: e.color }}>Pasos</p>
+                      <ol className="space-y-2">
+                        {e.steps.map((step) => (
+                          <li key={step.s} className="flex gap-2.5 items-start">
+                            <span
+                              className="w-5 h-5 rounded-full grid place-items-center font-mono text-[0.58rem] shrink-0 mt-0.5"
+                              style={{ background: `${e.color}20`, color: e.color, border: `1px solid ${e.color}40` }}
+                            >
+                              {step.s}
+                            </span>
+                            <p className="text-[0.72rem] text-white-f/85 leading-relaxed flex-1">{step.t}</p>
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
+
+                    {/* Deliverable + cost */}
+                    <div className="mt-auto space-y-2 pt-3 border-t border-white/[0.06]">
+                      <div>
+                        <p className="font-mono text-[0.55rem] uppercase tracking-widest text-cyan mb-1">Entregable</p>
+                        <p className="text-[0.72rem] text-white-f/90 leading-snug">{e.deliverable}</p>
+                      </div>
+                      <div className="flex items-center justify-between gap-2 pt-1">
+                        <span className="font-mono text-[0.55rem] uppercase tracking-widest text-muted">Costo</span>
+                        <span className="font-mono text-[0.65rem] text-white-f/70">{e.cost}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Nota de cierre */}
+            <div className="mt-8 bg-gradient-to-br from-cyan/10 to-gold/5 border border-cyan/20 rounded-2xl p-5">
+              <p className="font-mono text-[0.6rem] uppercase tracking-widest text-cyan mb-2">Regla del instructor</p>
+              <p className="text-[0.88rem] text-white-f/90 leading-relaxed">
+                No completes los 3 en el orden estricto. Elige el que más duele en tu día a día — research sectorial si acabas de entrar a un equipo nuevo, dashboard si tu jefe siempre pide gráficos, ficha de emisor si estás en crédito o renta fija. Uno bien hecho vale más que los tres a medias.
+              </p>
             </div>
           </div>
         </section>
