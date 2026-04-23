@@ -601,57 +601,195 @@ const ATAQUES = [
   },
 ];
 
-/* Marco regulatorio */
+/* Marco regulatorio — datos verificados a abril 2026 */
 const REGULACION = [
   {
-    code: "Circular Externa 010 / 2026",
-    issuer: "SFC · Superintendencia Financiera de Colombia",
-    whenApplies: "Vigencia julio 2026",
-    scope: "Entidades vigiladas que usen IA en procesos críticos (crédito, riesgo, fraude, AML).",
-    key: ["Registro de sistemas IA en el supervisor", "Evaluación de sesgo y discriminación", "Trazabilidad de decisiones automatizadas", "Reporte anual con métricas de desempeño", "Notificación al cliente cuando aplique decisión automatizada"],
-    color: "#D4AF4C",
-  },
-  {
-    code: "Ley 1581 · habeas data",
-    issuer: "Congreso de Colombia · SIC",
-    whenApplies: "Vigente desde 2012 · decreto 1377/13",
-    scope: "Cualquier tratamiento de data personal. Aplica a TODO prompt con PII.",
-    key: ["Consentimiento previo y expreso", "Principio de finalidad", "Derecho al olvido (suprimir de vector stores)", "Reporte de incidentes <15 días", "Oficial de Protección de Datos designado"],
-    color: "#22C55E",
-  },
-  {
-    code: "CONPES 4144 · Política Nacional de IA",
-    issuer: "DNP Colombia",
-    whenApplies: "Adoptado feb 2025 · rutas 2025-2030",
-    scope: "Marco nacional para desarrollo de IA responsable. No es vinculante pero orienta supervisores.",
-    key: ["Impulso a sandbox regulatorio", "Principios éticos: transparencia, explicabilidad, no discriminación", "Capacidades nacionales en IA", "Talento humano y academia", "Infraestructura y data pública"],
-    color: "#5B52D5",
-  },
-  {
-    code: "EU AI Act",
+    code: "EU AI Act · Reglamento 2024/1689",
     issuer: "Unión Europea",
-    whenApplies: "Aplicación plena agosto 2026",
-    scope: "Extraterritorial · aplica a BTG si opera con EU (filiales, clientes, modelos entrenados en EU).",
-    key: ["Clasificación por riesgo: prohibido/alto/limitado/mínimo", "Obligaciones GPAI (ChatGPT, Claude, Gemini)", "Documentación técnica y ficha de modelo", "Supervisión humana en 'alto riesgo'", "Multas hasta 7% de revenue global"],
+    whenApplies: "Entró en vigor 1-ago-2024 · prohibiciones feb 2025 · GPAI ago 2025 · alto riesgo 2-ago-2026",
+    scope: "Extraterritorial · aplica a BTG si comercializa o usa IA con efecto en la UE (filiales Luxembourg/UK, clientes EU, proveedores que operan en EU).",
+    key: [
+      "Clasificación por riesgo: prohibido / alto / limitado / mínimo (Anexo III)",
+      "GPAI (ChatGPT, Claude, Gemini, Llama, Mistral): documentación técnica, ficha de modelo, evaluaciones",
+      "Alto riesgo (scoring, KYC, fraude): Cap. III — gestión de riesgo + supervisión humana + registro UE",
+      "Multas hasta EUR 35 M o 7% facturación global · obligaciones GPAI desde ago 2025",
+      "Código de buenas prácticas GPAI publicado 10-jul-2025 (EU AI Board)",
+    ],
     color: "#3A7BD5",
+    jurisdiction: "EU",
+    active: true,
   },
   {
-    code: "SFC · Circular Básica Contable y Financiera (100)",
-    issuer: "SFC",
-    whenApplies: "Vigente con actualizaciones 2025-2026",
-    scope: "Marco prudencial: riesgo operacional, SARO, ciberseguridad (subcap. 4.4).",
-    key: ["Gestión de riesgo operacional incluye riesgo tecnológico", "Ciberseguridad como capacidad crítica", "Continuidad y resiliencia", "Third-party risk · aplica a proveedores SaaS de IA", "Reporte de incidentes ciber con impacto material"],
+    code: "DORA · Reglamento 2022/2554",
+    issuer: "EBA · ESMA · EIOPA (autoridades EU)",
+    whenApplies: "Plenamente aplicable desde 17-ene-2025",
+    scope: "Resiliencia operacional digital en entidades financieras UE. Aplica a BTG por filiales EU y por proveedores de TIC (incluye SaaS de IA).",
+    key: [
+      "Gestión de riesgo TIC y gobernanza (5 pilares: ident., protección, detección, respuesta, recuperación)",
+      "Reporte de incidentes serios al regulador en ≤ 24 h",
+      "Third-party risk: due diligence obligatorio a proveedores SaaS de IA (OpenAI, Anthropic, Google, AWS)",
+      "Pruebas de resiliencia TLPT (threat-led penetration testing) para entidades grandes",
+      "Multas hasta 2% facturación mundial · plus responsabilidad personal del board",
+    ],
     color: "#E85A1F",
+    jurisdiction: "EU",
+    active: true,
   },
   {
-    code: "Habeas Data Financiero · Ley 1266",
-    issuer: "Congreso · Centrales de riesgo",
-    whenApplies: "Vigente",
-    scope: "Regula reporte a centrales de riesgo · crucial si IA decide crédito.",
-    key: ["Información veraz y actualizada", "Derecho a conocer y rectificar", "Plazos máximos de permanencia", "Obligación de notificar reporte negativo", "Uso limitado por finalidad autorizada"],
+    code: "Ley 1581 de 2012 · habeas data general",
+    issuer: "Congreso de Colombia · SIC",
+    whenApplies: "Vigente · Decreto reglamentario 1377/2013 · Circular Externa 003/2018 SIC",
+    scope: "Cualquier tratamiento de datos personales. Aplica a TODO prompt que contenga PII.",
+    key: [
+      "Consentimiento previo, expreso e informado · principio de finalidad",
+      "Derecho al olvido: borrar de vector stores y prompts logueados",
+      "Transferencias internacionales: solo a países con nivel adecuado (OpenAI/Anthropic US → cláusulas contractuales tipo)",
+      "Reporte de incidentes a la SIC dentro de 15 días · multas hasta 2,000 SMMLV",
+      "Oficial de Protección de Datos designado · Registro Nacional de Bases de Datos",
+    ],
+    color: "#22C55E",
+    jurisdiction: "CO",
+    active: true,
+  },
+  {
+    code: "CONPES 4144 de 2025 · Política Nacional de IA",
+    issuer: "DNP · Departamento Nacional de Planeación",
+    whenApplies: "Aprobado 14-feb-2025 · rutas hasta 2030 · inversión COP $479 MM",
+    scope: "Política pública · no vinculante pero orienta supervisores (SFC/SIC/MinTIC). 100+ acciones concretas.",
+    key: [
+      "Ejes: ética y gobernanza, infraestructura de datos, I+D+i, talento humano",
+      "Impulso a sandbox regulatorio para casos de alto impacto",
+      "Principios: transparencia, explicabilidad, no discriminación, sostenibilidad",
+      "Capacidades nacionales en modelos, datos abiertos y cómputo soberano",
+      "Alineación con OCDE AI Principles · seguimiento por Comité IA (Gobierno + privados + academia)",
+    ],
+    color: "#5B52D5",
+    jurisdiction: "CO",
+    active: true,
+  },
+  {
+    code: "Proyecto de Ley 043/2025 · Marco regulatorio IA",
+    issuer: "Congreso (radicado MinCiencias 3-dic-2025) · Cámara + Senado",
+    whenApplies: "En trámite · NO vigente aún a abril 2026 · seguimiento activo",
+    scope: "De aprobarse, sería la primera ley colombiana específica de IA. Estructura inspirada en EU AI Act (clasificación por riesgo).",
+    key: [
+      "Categoría 'alto riesgo' para IA en sector financiero (crédito, fraude, AML)",
+      "Autoridad administrativa de IA · designación de supervisor único",
+      "Obligación de AI literacy interna · equivalente a Art. 4 EU AI Act",
+      "Evaluación de impacto obligatoria pre-despliegue (DPIA + AIA)",
+      "Sanciones proporcionales: advertencias → multas → suspensión del sistema",
+    ],
+    color: "#F59E0B",
+    jurisdiction: "CO",
+    active: false,
+  },
+  {
+    code: "SFC · Circular Básica Jurídica 029/2014 + CBCF 100",
+    issuer: "Superintendencia Financiera de Colombia",
+    whenApplies: "Vigente con actualizaciones 2024-2026 · cap. 4.4 ciberseguridad",
+    scope: "Marco prudencial: riesgo operacional (SARO), ciberseguridad, continuidad. Aplica directamente a BTG como entidad vigilada.",
+    key: [
+      "SARO (Sistema de Administración de Riesgo Operacional): incluye riesgo tecnológico e IA",
+      "Ciberseguridad: capacidades críticas · reporte de incidentes materiales en 48 h",
+      "Third-party risk: due diligence a proveedores SaaS (OpenAI, Anthropic, Google, AWS)",
+      "Continuidad y resiliencia · BIA + plan DRP probado anualmente",
+      "Lineamientos IA en desarrollo · seguimiento de la Superintendencia vía comunicados",
+    ],
+    color: "#D4AF4C",
+    jurisdiction: "CO",
+    active: true,
+  },
+  {
+    code: "Ley 1266 de 2008 · Habeas Data Financiero",
+    issuer: "Congreso · SFC + SIC",
+    whenApplies: "Vigente · modificada por Ley 2157/2021",
+    scope: "Regula operación de centrales de riesgo crediticio (DataCrédito, TransUnion). Crucial cuando IA asiste decisiones de crédito.",
+    key: [
+      "Información veraz, actualizada, completa · finalidad autorizada",
+      "Derecho a conocer, rectificar y actualizar",
+      "Plazos máximos de permanencia de reporte negativo (reducidos por Ley 2157/2021)",
+      "Notificación previa al titular antes del reporte negativo",
+      "Uso limitado a finalidad financiera/crediticia · no para decisiones de empleo",
+    ],
     color: "#7C3AED",
+    jurisdiction: "CO",
+    active: true,
+  },
+  {
+    code: "NIST AI RMF 1.0 + GenAI Profile 2024",
+    issuer: "NIST · EE.UU. (aplicable como best practice global)",
+    whenApplies: "AI RMF 1.0 ene-2023 · GenAI Profile jul-2024 · referencia global",
+    scope: "Framework voluntario pero referencia de facto para auditores, aseguradoras y supervisores globales. No vinculante pero demostrable.",
+    key: [
+      "4 funciones: GOVERN · MAP · MEASURE · MANAGE",
+      "Generative AI Profile con 12 categorías de riesgo (CBRN, confabulación, seguridad de datos, etc.)",
+      "Base común para demostrar 'cuidado razonable' ante incidentes",
+      "Alineación natural con EU AI Act y DORA",
+      "Documentación técnica reusable entre jurisdicciones",
+    ],
+    color: "#0EA5E9",
+    jurisdiction: "US",
+    active: true,
   },
 ];
+
+/* Mapa de jurisdicciones · dónde vive la data con cada herramienta */
+const JURISDICCIONES = [
+  {
+    id: "us",
+    label: "EE.UU.",
+    flag: "🇺🇸",
+    color: "#3A7BD5",
+    tools: ["OpenAI (ChatGPT / Codex)", "Anthropic (Claude, Claude Code)", "Google (Gemini, NotebookLM, Antigravity)", "Microsoft (Copilot)", "AWS (Q, Kiro, Bedrock)", "Meta (Llama)", "Cognition (Devin)", "Anysphere (Cursor)", "LlamaIndex (LlamaParse)", "Braintrust", "Arize Phoenix"],
+    risk: "Medio · CLOUD Act permite acceso gubernamental · IRA protege empresas pero no siempre data extranjera · requiere cláusulas contractuales tipo + DPA",
+    compliance: "Aceptable con contrato enterprise + opt-out + data residency si está disponible. Evitar free tier para P-II+.",
+  },
+  {
+    id: "eu",
+    label: "Unión Europea",
+    flag: "🇪🇺",
+    color: "#22C55E",
+    tools: ["Mistral AI (FR)", "JetBrains (CZ) · AI + Junie", "n8n GmbH (DE)", "Langfuse (DE)", "DeepL (DE)", "Aleph Alpha (DE)"],
+    risk: "Bajo · GDPR + EU AI Act + DORA · marco más robusto del mundo",
+    compliance: "Preferido para P-III donde se pueda · data residency EU garantizada por default. Alinea con DORA de BTG filiales EU.",
+  },
+  {
+    id: "cn",
+    label: "China",
+    flag: "🇨🇳",
+    color: "#DC2626",
+    tools: ["DeepSeek (web / API)", "Kimi / Moonshot AI", "Qwen / Alibaba", "ByteDance (Doubao)", "Baidu (Ernie)"],
+    risk: "Alto · Ley de Seguridad Nacional exige entrega de data a autoridades chinas · PIPL permite acceso estatal · exportación de data restringida",
+    compliance: "Bloquear en proxy para uso corporativo con P-II+. Solo uso on-prem (open weights) cumple con política BTG para data sensible.",
+  },
+  {
+    id: "co",
+    label: "Colombia",
+    flag: "🇨🇴",
+    color: "#D4AF4C",
+    tools: ["ADA (interno BTG)", "MinTIC · La Red (sandbox gubernamental)", "Algunos SaaS con data residency CO (ej. Snowflake región)"],
+    risk: "Bajo · jurisdicción propia · Ley 1581 + habeas data · régimen SFC",
+    compliance: "Ideal para P-III y P-IV. ADA como único canal obligatorio para data sensible. Preferir infraestructura CO cuando aplique.",
+  },
+  {
+    id: "global",
+    label: "Open weights · tenant propio",
+    flag: "◎",
+    color: "#7C3AED",
+    tools: ["DeepSeek V3.2 on-prem", "Llama 3.3 on-prem", "Mistral weights on-prem", "Ollama · vLLM · SGLang", "Docling (Apache 2.0)", "Qwen 2.5 on-prem"],
+    risk: "Mínimo · cero tokens salen del perímetro · la organización controla el stack",
+    compliance: "Único camino viable para P-IV estricto. Requiere infra GPU + MLOps. Ideal para compliance + audit trail total.",
+  },
+];
+
+/* Costos / multas reales por jurisdicción · rangos públicos */
+const COSTOS_INCIDENTE = {
+  eu_aiact: { label: "EU AI Act · violación", max: 35_000_000, pctRevenue: 7, ref: "Art. 99 Reglamento 2024/1689" },
+  eu_gdpr: { label: "GDPR · violación", max: 20_000_000, pctRevenue: 4, ref: "Art. 83 Reglamento 2016/679" },
+  eu_dora: { label: "DORA · incumplimiento", max: 10_000_000, pctRevenue: 2, ref: "Art. 50 Reglamento 2022/2554" },
+  co_1581: { label: "Ley 1581 · SIC", max: 1_500_000_000, pctRevenue: 0, ref: "Art. 23 · hasta 2,000 SMMLV (2026)" },
+  co_sfc: { label: "SFC · multa prudencial", max: 7_500_000_000, pctRevenue: 0, ref: "EOSF · hasta 10,000 SMMLV" },
+};
 
 /* 5 pilares de gobernanza de IA para BTG */
 const PILARES = [
@@ -830,6 +968,43 @@ export default function Sesion7() {
     [diagScore]
   );
   const resetDiag = () => setDiagAnswers({});
+
+  /* Jurisdicciones selector */
+  const [activeJuris, setActiveJuris] = useState<string>("us");
+  const currentJuris = useMemo(() => JURISDICCIONES.find((j) => j.id === activeJuris)!, [activeJuris]);
+
+  /* Simulador de incidente */
+  const [simUsers, setSimUsers] = useState(5000);
+  const [simRevenue, setSimRevenue] = useState(500);
+  const [simDataLevel, setSimDataLevel] = useState<"p2" | "p3" | "p4">("p3");
+  const [simJuris, setSimJuris] = useState<"co_1581" | "eu_aiact" | "eu_gdpr" | "eu_dora" | "co_sfc">("co_1581");
+
+  const simCost = useMemo(() => {
+    const base = COSTOS_INCIDENTE[simJuris];
+    const pctFine = (base.pctRevenue / 100) * (simRevenue * 1_000_000);
+    const fixedFine = base.max;
+    const maxFine = pctFine > 0 ? Math.min(pctFine, fixedFine) : fixedFine;
+
+    // Severidad por nivel de data y volumen
+    const levelMult = simDataLevel === "p2" ? 0.15 : simDataLevel === "p3" ? 0.5 : 1;
+    const volMult = Math.min(simUsers / 100_000, 1) * 0.7 + 0.3;
+    const expectedFine = maxFine * levelMult * volMult;
+
+    // Costos indirectos
+    const remediacion = simUsers * 45; // USD 45 por usuario afectado (avg LatAm)
+    const reputacion = expectedFine * 0.8;
+    const legal = 250_000 + simUsers * 3;
+    const total = expectedFine + remediacion + reputacion + legal;
+
+    return { max: maxFine, expected: expectedFine, remediacion, reputacion, legal, total, ref: base.ref };
+  }, [simUsers, simRevenue, simDataLevel, simJuris]);
+
+  /* Data flow animation step (autoplay) */
+  const [flowStep, setFlowStep] = useState(0);
+  useEffect(() => {
+    const iv = setInterval(() => setFlowStep((s) => (s + 1) % 5), 1600);
+    return () => clearInterval(iv);
+  }, []);
 
   /* Hero counter */
   const [heroN, setHeroN] = useState(0);
@@ -1744,35 +1919,406 @@ export default function Sesion7() {
         </section>
       </RevealSection>
 
+      {/* ═══════════════ 9F. MAPA DE JURISDICCIONES ═══════════════ */}
+      <RevealSection>
+        <section className="max-w-6xl mx-auto px-6 py-20">
+          <p className="font-mono text-[0.72rem] text-[#3A7BD5] uppercase tracking-widest mb-3">Mapa de jurisdicciones · dónde vive tu data</p>
+          <h2 className="text-3xl md:text-5xl font-bold text-white-f leading-tight mb-5">
+            Cada herramienta <span className="bg-gradient-to-r from-[#3A7BD5] via-[#22C55E] to-[#DC2626] bg-clip-text text-transparent">tiene una bandera</span>
+          </h2>
+          <p className="text-lg text-muted max-w-3xl mb-10 leading-relaxed">
+            La jurisdicción del proveedor define qué gobierno puede pedir tu data, qué ley aplica al proveedor y qué nivel de control tienes. Click en cada región para ver qué herramientas del stack viven ahí y las implicaciones para BTG.
+          </p>
+
+          {/* Selector visual tipo mapa */}
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-2 mb-6">
+            {JURISDICCIONES.map((j) => {
+              const active = activeJuris === j.id;
+              return (
+                <button
+                  key={j.id}
+                  onClick={() => setActiveJuris(j.id)}
+                  className="rounded-xl p-4 border transition-all hover:-translate-y-0.5 text-center"
+                  style={{
+                    background: active ? `linear-gradient(135deg, ${j.color}22, ${j.color}06)` : "#0D1229",
+                    borderColor: active ? j.color : `${j.color}25`,
+                    boxShadow: active ? `0 0 30px ${j.color}20 inset` : "none",
+                  }}
+                >
+                  <p className="text-3xl mb-1">{j.flag}</p>
+                  <p className="text-sm font-bold text-white-f leading-tight">{j.label}</p>
+                  <p className="font-mono text-[0.55rem] uppercase tracking-widest mt-1" style={{ color: j.color }}>
+                    {j.tools.length} {j.tools.length === 1 ? "tool" : "tools"}
+                  </p>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Detalle activo */}
+          <div className="bg-[#0D1229] border rounded-2xl p-6 md:p-7" style={{ borderColor: `${currentJuris.color}40` }}>
+            <div className="flex items-center gap-4 mb-5 flex-wrap">
+              <span className="text-5xl">{currentJuris.flag}</span>
+              <div className="flex-1 min-w-0">
+                <h3 className="text-2xl md:text-3xl font-bold text-white-f leading-tight">{currentJuris.label}</h3>
+                <p className="font-mono text-[0.65rem] uppercase tracking-widest" style={{ color: currentJuris.color }}>
+                  {currentJuris.tools.length} herramientas del stack BTG
+                </p>
+              </div>
+            </div>
+
+            {/* Tools como chips */}
+            <div className="mb-5">
+              <p className="font-mono text-[0.58rem] uppercase tracking-widest mb-2" style={{ color: currentJuris.color }}>▸ Herramientas que viven aquí</p>
+              <div className="flex flex-wrap gap-2">
+                {currentJuris.tools.map((t) => (
+                  <span
+                    key={t}
+                    className="font-mono text-[0.68rem] px-2.5 py-1.5 rounded-md"
+                    style={{
+                      background: `${currentJuris.color}15`,
+                      color: currentJuris.color,
+                      border: `1px solid ${currentJuris.color}35`,
+                    }}
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-4">
+                <p className="font-mono text-[0.58rem] uppercase tracking-widest mb-1.5 text-orange">▸ Riesgo regulatorio</p>
+                <p className="text-[0.82rem] text-white-f/85 leading-relaxed">{currentJuris.risk}</p>
+              </div>
+              <div className="rounded-xl p-4 border" style={{ background: `${currentJuris.color}08`, borderColor: `${currentJuris.color}30` }}>
+                <p className="font-mono text-[0.58rem] uppercase tracking-widest mb-1.5" style={{ color: currentJuris.color }}>✓ Política BTG recomendada</p>
+                <p className="text-[0.82rem] text-white-f/90 leading-relaxed">{currentJuris.compliance}</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </RevealSection>
+
+      {/* ═══════════════ 9G. FLUJO DE DATA · MASKING ═══════════════ */}
+      <RevealSection>
+        <section className="max-w-6xl mx-auto px-6 py-20">
+          <p className="font-mono text-[0.72rem] text-[#00E5A0] uppercase tracking-widest mb-3">Flujo de datos · control plane ADA</p>
+          <h2 className="text-3xl md:text-5xl font-bold text-white-f leading-tight mb-5">
+            Así viaja un prompt con data sensible <span className="bg-gradient-to-r from-[#00E5A0] via-[#5B52D5] to-[#D4AF4C] bg-clip-text text-transparent">que SÍ se puede enviar</span>
+          </h2>
+          <p className="text-lg text-muted max-w-3xl mb-10 leading-relaxed">
+            El patrón banca: ningún prompt de P-II+ va directo al LLM. Pasa por ADA — masking, validación, enrutamiento, log y retorno. Esto hace que herramientas americanas puedan usarse con data colombiana respetando Ley 1581 y reduciendo exposición a CLOUD Act.
+          </p>
+
+          <div className="bg-[#0D1229] border border-white/[0.08] rounded-2xl p-6 md:p-8">
+            {/* Diagrama horizontal */}
+            <div className="relative grid grid-cols-5 gap-2 md:gap-4 items-center">
+              {[
+                { n: 1, label: "Usuario", sub: "Analista BTG", icon: "👤", color: "#3A7BD5", detail: "Escribe: 'Resume el AUM de Cliente Juan Pérez...' con data P-III" },
+                { n: 2, label: "ADA Gateway", sub: "Control plane", icon: "◈", color: "#5B52D5", detail: "Recibe el prompt · autentica SSO · clasifica contenido · aplica policy del rol" },
+                { n: 3, label: "Masking", sub: "PII → tokens", icon: "◆", color: "#D4AF4C", detail: "Cédula 79.xxx.xxx → [PII_CC_A7] · Cliente Juan → [CLIENTE_001] · AUM cifra → rangos" },
+                { n: 4, label: "LLM", sub: "Claude / GPT / Gemini", icon: "★", color: "#00E5A0", detail: "Procesa el prompt enmascarado · NUNCA ve data real · genera respuesta con tokens" },
+                { n: 5, label: "Desenmascarar + log", sub: "Audit trail", icon: "◉", color: "#E85A1F", detail: "Tokens de vuelta a data real · respuesta al usuario · log inmutable con hash para audit" },
+              ].map((step, i) => {
+                const active = flowStep === i;
+                return (
+                  <div key={step.n} className="relative">
+                    {/* Conector */}
+                    {i < 4 && (
+                      <div
+                        className="hidden md:block absolute left-full top-1/2 -translate-y-1/2 w-4 h-0.5 z-0"
+                        style={{ background: flowStep >= i + 1 ? step.color : "rgba(255,255,255,0.08)", transition: "all 0.4s" }}
+                      />
+                    )}
+                    {/* Nodo */}
+                    <div
+                      className="relative rounded-xl p-3 md:p-4 border text-center transition-all z-10"
+                      style={{
+                        background: active ? `linear-gradient(135deg, ${step.color}25, ${step.color}08)` : "#080C1F",
+                        borderColor: active ? step.color : `${step.color}30`,
+                        transform: active ? "scale(1.04)" : "scale(1)",
+                        boxShadow: active ? `0 0 30px ${step.color}50` : "none",
+                      }}
+                    >
+                      <div
+                        className="w-10 h-10 md:w-12 md:h-12 rounded-lg grid place-items-center mx-auto mb-2 text-xl md:text-2xl"
+                        style={{ background: `${step.color}22`, color: step.color, border: `1px solid ${step.color}50` }}
+                      >
+                        {step.icon}
+                      </div>
+                      <p className="text-[0.7rem] md:text-sm font-bold text-white-f leading-tight">{step.label}</p>
+                      <p className="font-mono text-[0.48rem] md:text-[0.55rem] uppercase tracking-widest mt-1" style={{ color: step.color }}>{step.sub}</p>
+                    </div>
+                    {/* Token flow animated */}
+                    {active && i < 4 && (
+                      <div
+                        className="hidden md:block absolute left-full top-1/2 -translate-y-1/2 w-2 h-2 rounded-full z-20 animate-pulse"
+                        style={{ background: step.color, boxShadow: `0 0 12px ${step.color}` }}
+                      />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Detalle del paso activo */}
+            <div className="mt-8">
+              {[
+                { n: 1, label: "Usuario", detail: "Escribe: 'Resume el AUM de Cliente Juan Pérez...' con data P-III", color: "#3A7BD5" },
+                { n: 2, label: "ADA Gateway", detail: "Recibe el prompt · autentica SSO · clasifica contenido · aplica policy del rol", color: "#5B52D5" },
+                { n: 3, label: "Masking", detail: "Cédula 79.xxx.xxx → [PII_CC_A7] · Cliente Juan → [CLIENTE_001] · AUM cifra → rangos", color: "#D4AF4C" },
+                { n: 4, label: "LLM", detail: "Procesa el prompt enmascarado · NUNCA ve data real · genera respuesta con tokens", color: "#00E5A0" },
+                { n: 5, label: "Desenmascarar + log", detail: "Tokens de vuelta a data real · respuesta al usuario · log inmutable con hash para audit", color: "#E85A1F" },
+              ].map((step, i) => (
+                <div
+                  key={step.n}
+                  className={`transition-all overflow-hidden ${flowStep === i ? "max-h-40 opacity-100" : "max-h-0 opacity-0"}`}
+                >
+                  <div className="rounded-xl p-4 border mt-2" style={{ background: `${step.color}08`, borderColor: `${step.color}30` }}>
+                    <p className="font-mono text-[0.6rem] uppercase tracking-widest mb-1" style={{ color: step.color }}>
+                      Paso {step.n} · {step.label}
+                    </p>
+                    <p className="text-[0.85rem] text-white-f/90 leading-relaxed">{step.detail}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Controles */}
+            <div className="flex items-center gap-2 mt-4">
+              {[0, 1, 2, 3, 4].map((i) => (
+                <button
+                  key={i}
+                  onClick={() => setFlowStep(i)}
+                  className="h-1.5 rounded-full transition-all"
+                  style={{
+                    width: flowStep === i ? "32px" : "16px",
+                    background: flowStep === i ? "#5B52D5" : "rgba(255,255,255,0.15)",
+                  }}
+                />
+              ))}
+              <span className="font-mono text-[0.6rem] text-muted ml-auto">Auto-play · click para saltar</span>
+            </div>
+          </div>
+
+          {/* Nota técnica */}
+          <div className="mt-5 bg-gradient-to-br from-[#0F1438] via-[#0D1229] to-[#080C1F] border border-white/[0.06] rounded-xl p-5">
+            <p className="font-mono text-[0.6rem] uppercase tracking-widest text-cyan mb-2">▸ Por qué funciona</p>
+            <p className="text-[0.85rem] text-white-f/85 leading-relaxed">
+              El modelo nunca ve PII real. Al ser un token opaco, <span className="font-mono text-cyan">[PII_CC_A7]</span> no es identificable — ni para OpenAI, ni para un atacante que accediera a logs del proveedor, ni para un training accidental. Para Ley 1581, la data tratada es pseudoanonimizada (art. 2° decreto 1377). Para GDPR/DORA, el procesamiento se mantiene en jurisdicción BTG porque ADA vive on-prem. Y cada paso queda en audit log — trazabilidad total.
+            </p>
+          </div>
+        </section>
+      </RevealSection>
+
+      {/* ═══════════════ 9H. SIMULADOR DE COSTO DE INCIDENTE ═══════════════ */}
+      <RevealSection>
+        <section className="max-w-6xl mx-auto px-6 py-20">
+          <p className="font-mono text-[0.72rem] text-[#DC2626] uppercase tracking-widest mb-3">Simulador de costo · cuánto duele un incidente</p>
+          <h2 className="text-3xl md:text-5xl font-bold text-white-f leading-tight mb-5">
+            Pon tus cifras · <span className="bg-gradient-to-r from-[#DC2626] to-[#F59E0B] bg-clip-text text-transparent">ve la multa proyectada</span>
+          </h2>
+          <p className="text-lg text-muted max-w-3xl mb-10 leading-relaxed">
+            Calculadora con rangos legales reales: multas máximas de Ley 1581, SFC, GDPR, EU AI Act y DORA, más costos indirectos (remediación por cliente, legal, reputacional). Juega con los sliders para ver el escenario proyectado.
+          </p>
+
+          <div className="grid md:grid-cols-[1fr_1fr] gap-5">
+            {/* Controles */}
+            <div className="bg-[#0D1229] border border-white/[0.08] rounded-2xl p-6 space-y-5">
+              <div>
+                <label className="flex justify-between text-[0.78rem] text-white-f/85 mb-2">
+                  <span>Clientes afectados</span>
+                  <span className="font-mono font-bold text-[#DC2626]">{simUsers.toLocaleString()}</span>
+                </label>
+                <input type="range" min="50" max="500000" step="50" value={simUsers} onChange={(e) => setSimUsers(Number(e.target.value))} className="w-full" />
+                <p className="font-mono text-[0.55rem] text-muted mt-1">50 → 500.000 personas</p>
+              </div>
+
+              <div>
+                <label className="flex justify-between text-[0.78rem] text-white-f/85 mb-2">
+                  <span>Revenue anual entidad (USD M)</span>
+                  <span className="font-mono font-bold text-[#DC2626]">USD {simRevenue.toLocaleString()} M</span>
+                </label>
+                <input type="range" min="10" max="5000" step="10" value={simRevenue} onChange={(e) => setSimRevenue(Number(e.target.value))} className="w-full" />
+                <p className="font-mono text-[0.55rem] text-muted mt-1">Para % revenue (EU AI Act 7%, GDPR 4%, DORA 2%)</p>
+              </div>
+
+              <div>
+                <label className="text-[0.78rem] text-white-f/85 mb-2 block">Nivel de datos expuestos</label>
+                <div className="grid grid-cols-3 gap-2">
+                  {([
+                    { id: "p2", label: "P-II", color: "#3B82F6" },
+                    { id: "p3", label: "P-III", color: "#F59E0B" },
+                    { id: "p4", label: "P-IV", color: "#DC2626" },
+                  ] as const).map((d) => (
+                    <button
+                      key={d.id}
+                      onClick={() => setSimDataLevel(d.id)}
+                      className="font-mono text-[0.65rem] uppercase py-2 rounded border"
+                      style={{
+                        background: simDataLevel === d.id ? `${d.color}20` : "transparent",
+                        borderColor: simDataLevel === d.id ? d.color : "rgba(255,255,255,0.1)",
+                        color: simDataLevel === d.id ? d.color : "#8892B0",
+                      }}
+                    >
+                      {d.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="text-[0.78rem] text-white-f/85 mb-2 block">Marco legal aplicable</label>
+                <div className="space-y-1.5">
+                  {(Object.keys(COSTOS_INCIDENTE) as Array<keyof typeof COSTOS_INCIDENTE>).map((k) => {
+                    const c = COSTOS_INCIDENTE[k];
+                    const active = simJuris === k;
+                    return (
+                      <button
+                        key={k}
+                        onClick={() => setSimJuris(k)}
+                        className="w-full text-left rounded-lg p-2.5 border transition-all"
+                        style={{
+                          background: active ? "rgba(220,38,38,0.1)" : "rgba(255,255,255,0.02)",
+                          borderColor: active ? "#DC2626" : "rgba(255,255,255,0.08)",
+                        }}
+                      >
+                        <div className="flex justify-between items-center">
+                          <p className="text-[0.75rem] font-semibold text-white-f">{c.label}</p>
+                          <span className="font-mono text-[0.6rem] text-muted">{c.ref}</span>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+
+            {/* Resultado */}
+            <div className="bg-gradient-to-br from-[#1a0a0a] via-[#0D1229] to-[#080C1F] border border-[#DC2626]/35 rounded-2xl p-6 relative overflow-hidden">
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,rgba(220,38,38,0.12),transparent)] pointer-events-none" />
+
+              <div className="relative">
+                <p className="font-mono text-[0.62rem] uppercase tracking-widest text-[#DC2626] mb-2">⚠ Estimación del incidente</p>
+
+                <div className="mb-6">
+                  <p className="font-mono text-[0.58rem] uppercase tracking-widest text-muted mb-1">Costo total proyectado</p>
+                  <p className="text-4xl md:text-5xl font-bold text-white-f font-mono leading-none">
+                    USD <span style={{ color: "#DC2626" }}>{(simCost.total / 1_000_000).toFixed(2)}M</span>
+                  </p>
+                  <p className="font-mono text-[0.6rem] text-muted mt-1">
+                    Multa máxima legal: USD {(simCost.max / 1_000_000).toFixed(1)}M · {simCost.ref}
+                  </p>
+                </div>
+
+                <div className="space-y-2.5">
+                  {[
+                    { label: "Multa proyectada", value: simCost.expected, color: "#DC2626", note: "Ponderada por severidad y volumen" },
+                    { label: "Remediación (USD 45/cliente)", value: simCost.remediacion, color: "#E85A1F", note: "Notificaciones + monitoring + reemplazo cred." },
+                    { label: "Legal + litigation", value: simCost.legal, color: "#F59E0B", note: "Firma externa + horas internas + peritajes" },
+                    { label: "Daño reputacional", value: simCost.reputacion, color: "#7C3AED", note: "~80% del valor de multa según industria" },
+                  ].map((item) => {
+                    const pct = (item.value / simCost.total) * 100;
+                    return (
+                      <div key={item.label} className="bg-white/[0.03] border border-white/[0.06] rounded-lg p-3">
+                        <div className="flex justify-between items-baseline mb-1.5">
+                          <p className="text-[0.75rem] font-semibold text-white-f/90">{item.label}</p>
+                          <p className="font-mono text-sm font-bold" style={{ color: item.color }}>
+                            USD {(item.value / 1_000_000).toFixed(2)}M
+                          </p>
+                        </div>
+                        <div className="h-1.5 bg-white/[0.05] rounded-full overflow-hidden mb-1">
+                          <div className="h-full transition-all" style={{ width: `${pct}%`, background: item.color }} />
+                        </div>
+                        <p className="text-[0.62rem] text-muted">{item.note}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <div className="mt-5 pt-4 border-t border-white/[0.06]">
+                  <p className="font-mono text-[0.55rem] uppercase tracking-widest text-gold mb-1">▸ Lo que esto significa</p>
+                  <p className="text-[0.75rem] text-white-f/85 leading-relaxed">
+                    El costo de un incidente escala con volumen, nivel de datos y jurisdicción aplicable. Los costos indirectos (remediación + reputacional + legal) típicamente duplican o triplican la multa base. Un solo incidente con P-IV y {simUsers.toLocaleString()} clientes puede exceder varios años de presupuesto de ciberseguridad.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p className="text-[0.65rem] text-muted mt-4 italic text-center">* Estimaciones con base en multas máximas publicadas y rangos de industria IBM Cost of a Data Breach 2024 (LatAm avg USD 45/record). No constituye asesoría legal.</p>
+        </section>
+      </RevealSection>
+
       {/* ═══════════════ 10. MARCO REGULATORIO ═══════════════ */}
       <RevealSection>
         <section className="max-w-6xl mx-auto px-6 py-20">
-          <p className="font-mono text-[0.72rem] text-[#D4AF4C] uppercase tracking-widest mb-3">Marco regulatorio · Colombia 2026</p>
+          <p className="font-mono text-[0.72rem] text-[#D4AF4C] uppercase tracking-widest mb-3">Marco regulatorio · datos verificados abril 2026</p>
           <h2 className="text-3xl md:text-5xl font-bold text-white-f leading-tight mb-5">
-            6 normas que <span className="bg-gradient-to-r from-[#D4AF4C] to-[#E85A1F] bg-clip-text text-transparent">aplican al mismo tiempo</span>
+            8 normas que <span className="bg-gradient-to-r from-[#D4AF4C] to-[#E85A1F] bg-clip-text text-transparent">aplican al mismo tiempo</span>
           </h2>
           <p className="text-lg text-muted max-w-3xl mb-10 leading-relaxed">
-            No son checklist teórico — cada una tiene casos donde bloquea o habilita un flujo de IA concreto. Conocerlas a este nivel te ahorra meses de re-trabajo con Legal y Compliance.
+            No son checklist teórico — cada una bloquea o habilita un flujo de IA concreto. Incluye 5 vigentes (EU AI Act · DORA · Ley 1581 · CONPES 4144 · SFC CBJ 029 + CBCF 100 · Ley 1266), 1 referencia global (NIST AI RMF) y 1 en trámite que llega fuerte (Proyecto de Ley 043/2025 Colombia).
           </p>
+
+          {/* Filtro por jurisdicción */}
+          <div className="flex flex-wrap items-center gap-2 mb-6">
+            <span className="font-mono text-[0.58rem] uppercase tracking-widest text-muted">Filtrar jurisdicción:</span>
+            {[
+              { id: "CO", label: "🇨🇴 Colombia", color: "#D4AF4C" },
+              { id: "EU", label: "🇪🇺 Unión Europea", color: "#3A7BD5" },
+              { id: "US", label: "🇺🇸 EE.UU.", color: "#0EA5E9" },
+            ].map((f) => {
+              const count = REGULACION.filter((r) => r.jurisdiction === f.id).length;
+              return (
+                <span key={f.id} className="font-mono text-[0.6rem] uppercase tracking-widest px-2.5 py-1 rounded-full" style={{ background: `${f.color}15`, color: f.color, border: `1px solid ${f.color}30` }}>
+                  {f.label} · {count}
+                </span>
+              );
+            })}
+          </div>
 
           <div className="grid md:grid-cols-2 gap-4">
             {REGULACION.map((r) => (
-              <div key={r.code} className="bg-[#0D1229] border rounded-2xl p-5 flex flex-col" style={{ borderColor: `${r.color}28` }}>
-                <div className="mb-3">
-                  <div className="flex items-center gap-2 mb-1">
+              <div key={r.code} className="relative bg-[#0D1229] border rounded-2xl p-5 flex flex-col" style={{ borderColor: `${r.color}28` }}>
+                {/* Badge de estado */}
+                <div className="absolute top-4 right-4">
+                  {r.active ? (
+                    <span className="font-mono text-[0.5rem] uppercase tracking-widest px-2 py-1 rounded flex items-center gap-1" style={{ background: "rgba(34,197,94,0.12)", color: "#22C55E", border: "1px solid rgba(34,197,94,0.3)" }}>
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse-dot" />
+                      Vigente
+                    </span>
+                  ) : (
+                    <span className="font-mono text-[0.5rem] uppercase tracking-widest px-2 py-1 rounded" style={{ background: "rgba(245,158,11,0.12)", color: "#F59E0B", border: "1px solid rgba(245,158,11,0.3)" }}>
+                      En trámite
+                    </span>
+                  )}
+                </div>
+
+                <div className="mb-3 pr-16">
+                  <div className="flex items-center gap-2 mb-2 flex-wrap">
                     <span className="font-mono text-[0.65rem] uppercase tracking-widest px-2 py-0.5 rounded" style={{ background: `${r.color}18`, color: r.color, border: `1px solid ${r.color}35` }}>
                       {r.code}
                     </span>
-                    <span className="font-mono text-[0.58rem] uppercase tracking-widest text-muted">{r.whenApplies}</span>
+                    <span className="font-mono text-[0.55rem] uppercase tracking-widest px-1.5 py-0.5 rounded bg-white/[0.04] text-white-f/60">
+                      {r.jurisdiction === "EU" ? "🇪🇺 EU" : r.jurisdiction === "US" ? "🇺🇸 US" : "🇨🇴 CO"}
+                    </span>
                   </div>
-                  <p className="text-[0.72rem] text-muted mt-1">{r.issuer}</p>
+                  <p className="text-[0.7rem] text-white-f/70 leading-snug">
+                    <span className="font-mono text-muted">Emisor · </span>{r.issuer}
+                  </p>
+                  <p className="text-[0.68rem] text-white-f/65 mt-0.5 italic">{r.whenApplies}</p>
                 </div>
-                <p className="text-[0.8rem] text-white-f/90 italic leading-snug mb-3">&ldquo;{r.scope}&rdquo;</p>
+                <p className="text-[0.8rem] text-white-f/90 italic leading-snug mb-3 border-l-2 pl-3" style={{ borderColor: `${r.color}50` }}>
+                  &ldquo;{r.scope}&rdquo;
+                </p>
                 <div>
                   <p className="font-mono text-[0.55rem] uppercase tracking-widest mb-1.5" style={{ color: r.color }}>▸ Obligaciones clave</p>
                   <ul className="space-y-1">
                     {r.key.map((k, i) => (
-                      <li key={i} className="flex gap-2 text-[0.73rem] text-white-f/85 leading-snug">
+                      <li key={i} className="flex gap-2 text-[0.72rem] text-white-f/85 leading-snug">
                         <span style={{ color: r.color }}>▸</span><span>{k}</span>
                       </li>
                     ))}
