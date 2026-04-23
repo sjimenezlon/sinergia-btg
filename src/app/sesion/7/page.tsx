@@ -247,6 +247,316 @@ const DAMA_AREAS = [
   { n: 11, name: "Data Quality", ai: "Evaluaciones continuas: hallucination rate, citación válida, precisión en benchmarks propios. Promptfoo/Langfuse.", color: "#14B8A6" },
 ];
 
+/* Timeline de incidentes reales públicos — historia que TODA organización debería conocer */
+const TIMELINE_INCIDENTES = [
+  {
+    date: "Feb 2023",
+    who: "JPMorgan Chase",
+    vector: "data exfiltration",
+    severity: 3,
+    color: "#E85A1F",
+    story: "JPMorgan bloquea ChatGPT internamente. Razón: empleados pegando data financiera en la herramienta pública. Primer gran banco en hacerlo — luego le siguen Citi, Goldman, Bank of America, Wells Fargo en las semanas siguientes.",
+    learn: "Si tu respuesta es 'bloqueemos todo', el problema apenas empieza — Shadow AI se va a casa con ellos.",
+    public: true,
+  },
+  {
+    date: "Abr 2023",
+    who: "Samsung Semiconductor",
+    vector: "data exfiltration + excessive trust",
+    severity: 3,
+    color: "#DC2626",
+    story: "Ingenieros pegan código propietario de chip y notas de reunión confidenciales en ChatGPT 'solo para revisar'. El contenido entra al training set de OpenAI. Samsung descubre el incidente, prohíbe IA generativa en toda la empresa y desarrolla modelo propio interno. Impacto: ~1 mes de productividad global.",
+    learn: "La frase 'solo voy a pegar esto rápido para revisar' ha causado más leaks que cualquier APT.",
+    public: true,
+  },
+  {
+    date: "Mar 2023",
+    who: "OpenAI · bug de historial",
+    vector: "cross-tenant leak",
+    severity: 3,
+    color: "#BE123C",
+    story: "Por un bug en Redis, usuarios de ChatGPT Plus ven conversaciones de OTROS usuarios en su historial por ~9 horas. Incluye títulos y primer mensaje. También expone nombres, emails y últimos 4 dígitos de tarjetas de 1.2% de suscriptores.",
+    learn: "El proveedor es un componente de riesgo — evaluar SLA, certificaciones (SOC2, ISO27001), track de incidentes y arquitectura multi-tenant.",
+    public: true,
+  },
+  {
+    date: "May 2023",
+    who: "Abogado Steven Schwartz · NY",
+    vector: "hallucination · no-verificación",
+    severity: 2,
+    color: "#F59E0B",
+    story: "Abogado presenta en corte federal (Mata v. Avianca) 6 casos jurisprudenciales que ChatGPT inventó — nombres plausibles, cortes reales, citas convincentes. La jueza los detecta al no encontrarlos. Sanción USD 5,000 + suspensión. Viralización mundial del concepto 'hallucination'.",
+    learn: "En profesiones regulated (legal, médico, financiero), la IA que da citas sin verificación no es asistente, es liability.",
+    public: true,
+  },
+  {
+    date: "Feb 2024",
+    who: "Arup · ingeniería global",
+    vector: "deepfake + social engineering",
+    severity: 3,
+    color: "#7C3AED",
+    story: "Empleado financiero en Hong Kong asiste a video call con el 'CFO' y otros colegas generados por deepfake. Autoriza transferencia de USD 25.6M a 15 cuentas antes de descubrir el fraude. Caso documentado por policía de HK.",
+    learn: "El 'video' no es prueba. Procesos de autorización financiera requieren verificación fuera de banda (llamada al número conocido, código secundario, aprobación dual).",
+    public: true,
+  },
+  {
+    date: "Feb 2024",
+    who: "Air Canada",
+    vector: "chatbot hallucination · responsabilidad legal",
+    severity: 2,
+    color: "#EA580C",
+    story: "Chatbot inventa una política de reembolso por duelo. Cliente confía, no la obtiene, demanda. Tribunal Civil de BC falla: Air Canada es responsable de lo que diga su chatbot, aunque sea un 'agente autónomo'. Precedente global.",
+    learn: "Lo que tu IA le dice al cliente es tu responsabilidad legal. Prompts con disclaimer no te protegen si el modelo comete errores materiales.",
+    public: true,
+  },
+  {
+    date: "May 2024",
+    who: "Slack · training silencioso",
+    vector: "consentimiento + tratamiento de datos",
+    severity: 2,
+    color: "#F59E0B",
+    story: "Slack revela en TOS actualizados que data de usuarios (mensajes, archivos) se usa para entrenar IA internal 'Slack AI'. Opt-out requiere email al admin workspace. Indignación pública. Slack da marcha atrás en días.",
+    learn: "La 'letra chica' de SaaS es ahora tema de CISO. Revisar cláusulas de data training en CADA herramienta del stack. El default opt-in sigue siendo común.",
+    public: true,
+  },
+  {
+    date: "Feb 2026",
+    who: "Anónimo · fintech LatAm",
+    vector: "prompt injection + excessive agency",
+    severity: 3,
+    color: "#DC2626",
+    story: "Analista sube a Claude Code un PDF descargado de portal de proveedor. PDF contiene instrucciones ocultas (blanco sobre blanco) que ordenan al agente listar variables de entorno y POST a endpoint externo. Agente tenía acceso bash con credenciales productivas — 14 servicios expuestos, 2 días de downtime para rotar.",
+    learn: "Principio de mínimo privilegio para agentes. Sandbox sin credenciales productivas. Hooks que bloquean comandos peligrosos. Revisión humana obligatoria en destrucción.",
+    public: false,
+  },
+  {
+    date: "Mar 2026",
+    who: "Anónimo · consultora global",
+    vector: "MCP malicioso (supply chain)",
+    severity: 3,
+    color: "#7C3AED",
+    story: "'slack-context-enhancer' en npm con 47⭐ se instala por 40 devs. El código forwardea cada prompt a un bot de Telegram con el hostname. 3 meses de roadmaps, credenciales debatidas en prompts y pricing strategy expuestos.",
+    learn: "Allowlist estricta de MCP servers. Revisión de código antes de `npm install`. Aislar MCPs en contenedores con egress a dominios allowlisted.",
+    public: false,
+  },
+  {
+    date: "Abr 2026",
+    who: "Anónimo · banco mediano Colombia",
+    vector: "shadow AI + habeas data",
+    severity: 3,
+    color: "#E85A1F",
+    story: "Empleado pega en ChatGPT Plus personal la tabla de AUM por cliente para generar un memo. Bug temporal de OpenAI deja conversaciones visibles 12h; la tabla queda en Internet Archive. ~30k clientes expuestos. Reporte a SIC + SFC, multa por Ley 1581, daño reputacional en prensa regional.",
+    learn: "Bloquear chat.openai.com en proxy. Forzar ChatGPT Enterprise con opt-out. Entrenar al equipo: la cuenta personal NO es herramienta de trabajo.",
+    public: false,
+  },
+];
+
+/* Clasificador interactivo — quiz de 8 items */
+const CLASIFICADOR = [
+  { id: 1, ejemplo: "Link al último press release publicado en tu página institucional", correcto: "p1", hint: "Es info ya pública por definición." },
+  { id: 2, ejemplo: "Presentación de estrategia trimestral que circula entre las VP (sin nombres de clientes)", correcto: "p2", hint: "Interna pero sin data nominativa crítica." },
+  { id: 3, ejemplo: "Excel con AUM por cliente + rentabilidades del último mes", correcto: "p3", hint: "Confidencial: divulgación genera daño competitivo directo." },
+  { id: 4, ejemplo: "Base de datos con cédulas, teléfonos y emails de 500 clientes", correcto: "p4", hint: "PII identificable → Ley 1581 habeas data." },
+  { id: 5, ejemplo: "Informe de una misión M&A en curso con nombres del target y múltiplos", correcto: "p4", hint: "Información privilegiada → obligación legal de proteger." },
+  { id: 6, ejemplo: "Código fuente de un microservicio de cálculo de VaR (propio de BTG)", correcto: "p3", hint: "Tecnología propietaria: daño competitivo si se filtra." },
+  { id: 7, ejemplo: "Procedimiento operativo estándar de mesa de trading (sin data de clientes)", correcto: "p2", hint: "Interno, útil al equipo, sin PII." },
+  { id: 8, ejemplo: "Reporte anual de sostenibilidad publicado en la página de IR", correcto: "p1", hint: "Ya publicado: cualquier persona puede leerlo." },
+];
+
+/* Red flags — checklist que la gente reconoce en sus hábitos */
+const RED_FLAGS = [
+  { id: "rf1", text: "He pegado datos reales de clientes o AUM en ChatGPT / Gemini / DeepSeek públicos aunque sea una sola vez.", weight: 3 },
+  { id: "rf2", text: "Uso mi cuenta personal de ChatGPT/Gemini/Claude para tareas del trabajo porque 'es lo mismo'.", weight: 3 },
+  { id: "rf3", text: "He subido un PDF que llegó por correo a un LLM sin abrirlo manualmente primero.", weight: 2 },
+  { id: "rf4", text: "Tengo API keys (OpenAI, Anthropic, etc.) en un archivo .env o en la app de Notas.", weight: 3 },
+  { id: "rf5", text: "Nunca he leído la política de data retention del modelo que más uso.", weight: 2 },
+  { id: "rf6", text: "Instalé un MCP server de npm/GitHub porque un tutorial lo recomendó — sin revisar código.", weight: 3 },
+  { id: "rf7", text: "Mi agente (Claude Code / Cursor Agent / Devin) tiene acceso a credenciales productivas.", weight: 3 },
+  { id: "rf8", text: "He confiado en una cifra que un LLM extrajo de un PDF sin abrir el doc original a verificar.", weight: 2 },
+  { id: "rf9", text: "No sabría a quién exactamente reportar si descubriera que hice leak de data sensible.", weight: 3 },
+  { id: "rf10", text: "Uso ≥ 3 herramientas IA que no están en el inventario aprobado (o no sé cuál es).", weight: 2 },
+];
+
+/* Autodiagnóstico personal — 10 preguntas con 4 opciones cada una */
+type QOption = { text: string; score: number };
+type Question = { id: string; area: string; q: string; options: QOption[] };
+
+const DIAGNOSTICO_PREGUNTAS: Question[] = [
+  {
+    id: "q1",
+    area: "Higiene de data",
+    q: "En la última semana, ¿cuántas veces pegaste información de clientes, AUM o posiciones en una IA pública (ChatGPT, Gemini, DeepSeek web)?",
+    options: [
+      { text: "Ninguna — solo uso ADA o herramientas corporativas para eso", score: 0 },
+      { text: "1–2 veces, pero siempre anonimizando manualmente", score: 1 },
+      { text: "3–5 veces, pegué lo que tenía a la mano", score: 2 },
+      { text: "6+ o no llevo la cuenta", score: 3 },
+    ],
+  },
+  {
+    id: "q2",
+    area: "Cuentas y perímetro",
+    q: "¿Desde qué cuenta usas IA para trabajo hoy?",
+    options: [
+      { text: "Corporativa con SSO y data opt-out confirmado", score: 0 },
+      { text: "Corporativa pero sin SSO o no sé si opt-out", score: 1 },
+      { text: "Personal, pero solo para cosas 'genéricas' (yo decido qué es genérico)", score: 2 },
+      { text: "Personal para todo — es la que tengo a mano", score: 3 },
+    ],
+  },
+  {
+    id: "q3",
+    area: "Conocimiento de política",
+    q: "¿Sabes qué hace tu modelo principal con tus prompts (retención, training, jurisdicción)?",
+    options: [
+      { text: "Sí, leí la política y puedo explicarla", score: 0 },
+      { text: "Tengo idea general · confío en que está bien", score: 1 },
+      { text: "No sé, pero asumo que está bien", score: 2 },
+      { text: "Nunca lo había pensado", score: 3 },
+    ],
+  },
+  {
+    id: "q4",
+    area: "Ingesta de documentos",
+    q: "Llega un PDF de un remitente externo que no conoces. Antes de subirlo a Claude Code/Cursor/ChatGPT, ¿qué haces?",
+    options: [
+      { text: "Lo paso por Docling/antivirus local y reviso primero el contenido visible", score: 0 },
+      { text: "Lo abro en Acrobat y lo ojeo antes", score: 1 },
+      { text: "Lo subo directo, el LLM resume más rápido", score: 2 },
+      { text: "¿Por qué? ¿Los PDFs pueden tener algo malo?", score: 3 },
+    ],
+  },
+  {
+    id: "q5",
+    area: "Supply chain (MCP / extensiones)",
+    q: "¿Cuántos MCP servers o extensiones de IA tienes habilitados en tu Cursor/Claude Code/VS Code?",
+    options: [
+      { text: "Solo los de la allowlist corporativa (0–2)", score: 0 },
+      { text: "3–5, instalados con revisión propia del código", score: 1 },
+      { text: "6–10, instalé lo que me pareció útil", score: 2 },
+      { text: "No llevo la cuenta / instalo cuando veo tutorial", score: 3 },
+    ],
+  },
+  {
+    id: "q6",
+    area: "Privilegios del agente",
+    q: "Tu agente autónomo (Claude Code, Cursor Agent, Devin) tiene acceso a:",
+    options: [
+      { text: "Sandbox aislado sin credenciales productivas", score: 0 },
+      { text: "Repo local + creds de staging con permisos limitados", score: 1 },
+      { text: "Mis creds personales de staging y algún servicio productivo", score: 2 },
+      { text: "Mis credenciales productivas completas", score: 3 },
+    ],
+  },
+  {
+    id: "q7",
+    area: "Verificación de salidas",
+    q: "Cuando un LLM te da una cifra específica extraída de un documento (D/EBITDA, cupón, monto):",
+    options: [
+      { text: "Siempre abro el doc original y verifico antes de usarla", score: 0 },
+      { text: "Verifico si es para un documento externo o crítico", score: 1 },
+      { text: "Confío si la cifra 'se ve razonable'", score: 2 },
+      { text: "Uso la cifra tal cual — para eso está la IA", score: 3 },
+    ],
+  },
+  {
+    id: "q8",
+    area: "Gestión de secretos",
+    q: "¿Dónde guardas tus API keys de modelos IA (OpenAI, Anthropic, etc.)?",
+    options: [
+      { text: "Vault corporativo o password manager empresarial", score: 0 },
+      { text: "Password manager personal (1Password, Bitwarden)", score: 1 },
+      { text: "Archivo .env en mi máquina sin cifrado extra", score: 2 },
+      { text: "Notas, Slack, email, memorizadas o en varios lados", score: 3 },
+    ],
+  },
+  {
+    id: "q9",
+    area: "Respuesta a incidentes",
+    q: "Descubres que leak-easte data de un cliente a ChatGPT por error. ¿Qué haces?",
+    options: [
+      { text: "Sé el proceso: contacto al CISO/equipo de seguridad, timeline claro", score: 0 },
+      { text: "Le aviso a mi jefe y que él decida", score: 1 },
+      { text: "Borro el chat y evalúo si realmente pasó algo grave", score: 2 },
+      { text: "No lo reporto — es mejor no llamar la atención", score: 3 },
+    ],
+  },
+  {
+    id: "q10",
+    area: "Shadow AI personal",
+    q: "¿Cuántas herramientas IA usas fuera del inventario aprobado (o sin saber cuál es)?",
+    options: [
+      { text: "Solo las aprobadas · conozco el inventario", score: 0 },
+      { text: "1–2 herramientas extra para cosas no críticas", score: 1 },
+      { text: "3–5 herramientas, siempre evaluando caso por caso", score: 2 },
+      { text: "6+ o no sé cuál es el inventario aprobado", score: 3 },
+    ],
+  },
+];
+
+/* Perfiles según score total (0-30) */
+const DIAGNOSTICO_PERFILES = [
+  {
+    min: 0,
+    max: 6,
+    name: "Operador Veterano",
+    icon: "✦",
+    color: "#22C55E",
+    headline: "Sabes lo que haces. Ayuda a tu equipo a subir de nivel.",
+    desc: "Tus hábitos están alineados con las mejores prácticas. Usas IA con gobernanza, verificas salidas, conoces las políticas y tienes plan de respuesta. Probablemente ya eres un referente no oficial.",
+    actions: [
+      "Documenta tu propio flujo y compártelo con 3 colegas que lo necesiten",
+      "Propón a tu gerente una sesión interna de 15 min sobre uso responsable",
+      "Ofrécete como red teamer informal en los próximos simulacros",
+    ],
+  },
+  {
+    min: 7,
+    max: 14,
+    name: "Profesional Cauto",
+    icon: "◎",
+    color: "#3A7BD5",
+    headline: "Buen nivel. Un par de puntos ciegos que vale la pena tapar.",
+    desc: "Tienes conciencia de riesgo pero hay áreas donde operas 'por costumbre' sin revisar. Un incidente te puede pillar no por descuido sino por un hábito que no has refinado.",
+    actions: [
+      "Identifica las 2 preguntas donde puntuaste peor y construye un hábito correctivo esta semana",
+      "Revisa la política de data retention de tu herramienta más usada · anótate 3 cosas clave",
+      "Rota tus API keys y muévelas a password manager o vault corporativo si no están ahí",
+    ],
+  },
+  {
+    min: 15,
+    max: 22,
+    name: "Aprendiz Consciente",
+    icon: "◈",
+    color: "#F59E0B",
+    headline: "Conoces parte del mapa, pero te falta estructura.",
+    desc: "Estás en la zona donde la mayoría de los profesionales viven — hay intuición correcta pero también shortcuts peligrosos. La buena noticia: pequeños cambios mueven mucho.",
+    actions: [
+      "Define tu matriz personal: 5 herramientas que usas × 4 niveles de data P-I/II/III/IV",
+      "Separa cuentas personales de las corporativas — hoy mismo, antes de que se olvide",
+      "Aprende quién es el responsable de seguridad en tu área — tenlo en contactos",
+      "Instala un password manager si no lo tienes — gratis con 1Password o Bitwarden",
+    ],
+  },
+  {
+    min: 23,
+    max: 30,
+    name: "Zona Roja · Probable Incidente",
+    icon: "◉",
+    color: "#DC2626",
+    headline: "Estadísticamente, ya generaste uno o más incidentes sin saberlo.",
+    desc: "No es juicio — es ingeniería de probabilidades. Con los hábitos reportados, la superficie de exposición es alta. La buena noticia: los primeros 3 cambios reducen el 70% del riesgo.",
+    actions: [
+      "Detén hoy: cualquier pegado de data con PII o AUM real en IA pública",
+      "Separa: cuentas personales vs corporativas, con contraseñas distintas, ya",
+      "Reporta: si recuerdas un caso específico donde leak-easte data, contacta a seguridad · es mejor que lo descubran ellos primero",
+      "Audita: haz el ejercicio #2 de esta sesión (inventario de 5 flujos) este fin de semana",
+      "Aprende: lee la política de data retention de tu modelo principal · toma apuntes",
+    ],
+  },
+];
+
 /* Ataques reales abril 2026 */
 const ATAQUES = [
   {
@@ -490,6 +800,37 @@ export default function Sesion7() {
   const [activeAtaque, setActiveAtaque] = useState<number>(1);
   const currentAtaque = useMemo(() => ATAQUES.find((a) => a.n === activeAtaque)!, [activeAtaque]);
 
+  /* Clasificador interactivo */
+  const [quizAnswers, setQuizAnswers] = useState<Record<number, string>>({});
+  const [quizRevealed, setQuizRevealed] = useState(false);
+  const quizScore = useMemo(() =>
+    CLASIFICADOR.reduce((acc, q) => acc + (quizAnswers[q.id] === q.correcto ? 1 : 0), 0),
+    [quizAnswers]
+  );
+  const resetQuiz = () => { setQuizAnswers({}); setQuizRevealed(false); };
+
+  /* Red flags checkboxes */
+  const [redFlags, setRedFlags] = useState<Record<string, boolean>>({});
+  const redFlagsHit = useMemo(() => Object.values(redFlags).filter(Boolean).length, [redFlags]);
+  const redFlagsWeight = useMemo(
+    () => RED_FLAGS.reduce((acc, rf) => acc + (redFlags[rf.id] ? rf.weight : 0), 0),
+    [redFlags]
+  );
+
+  /* Autodiagnóstico personal */
+  const [diagAnswers, setDiagAnswers] = useState<Record<string, number>>({});
+  const diagScore = useMemo(
+    () => Object.values(diagAnswers).reduce((a, b) => a + b, 0),
+    [diagAnswers]
+  );
+  const diagProgress = (Object.keys(diagAnswers).length / DIAGNOSTICO_PREGUNTAS.length) * 100;
+  const diagComplete = Object.keys(diagAnswers).length === DIAGNOSTICO_PREGUNTAS.length;
+  const diagPerfil = useMemo(
+    () => DIAGNOSTICO_PERFILES.find((p) => diagScore >= p.min && diagScore <= p.max) ?? DIAGNOSTICO_PERFILES[0],
+    [diagScore]
+  );
+  const resetDiag = () => setDiagAnswers({});
+
   /* Hero counter */
   const [heroN, setHeroN] = useState(0);
   useEffect(() => {
@@ -528,11 +869,11 @@ export default function Sesion7() {
 
           <div className="flex flex-wrap justify-center gap-4 animate-fadeUp-3">
             {[
-              { val: heroN >= 1 ? "8" : "—", label: "Vectores de ataque", icon: "🛡", color: "#DC2626" },
-              { val: heroN >= 2 ? "4" : "—", label: "Niveles P-I/II/III/IV", icon: "◩", color: "#5B52D5" },
+              { val: heroN >= 1 ? "10" : "—", label: "Incidentes reales", icon: "📜", color: "#DC2626" },
+              { val: heroN >= 2 ? "8" : "—", label: "Vectores de ataque", icon: "🛡", color: "#E85A1F" },
               { val: heroN >= 3 ? "21×4" : "—", label: "Matriz tool × data", icon: "◉", color: "#00E5A0" },
-              { val: heroN >= 4 ? "11" : "—", label: "Áreas DAMA-DMBOK", icon: "◎", color: "#D4AF4C" },
-              { val: heroN >= 5 ? "5" : "—", label: "Pilares framework BTG", icon: "⚖", color: "#E85A1F" },
+              { val: heroN >= 4 ? "10" : "—", label: "Autodiagnóstico", icon: "◈", color: "#7B73E8" },
+              { val: heroN >= 5 ? "5" : "—", label: "Pilares framework BTG", icon: "⚖", color: "#D4AF4C" },
             ].map((s) => (
               <div key={s.label} className="bg-[#151A3A] border rounded-2xl px-5 py-3 min-w-[120px] transition-all hover:scale-105" style={{ borderColor: `${s.color}25` }}>
                 <span className="text-lg" style={{ color: s.color }}>{s.icon}</span>
@@ -934,6 +1275,471 @@ export default function Sesion7() {
                 <p className="text-[0.82rem] text-white-f/90 leading-relaxed">{currentAtaque.learn}</p>
               </div>
             </div>
+          </div>
+        </section>
+      </RevealSection>
+
+      {/* ═══════════════ 9B. TIMELINE · INCIDENTES PÚBLICOS ═══════════════ */}
+      <RevealSection>
+        <section className="max-w-6xl mx-auto px-6 py-20">
+          <p className="font-mono text-[0.72rem] text-[#DC2626] uppercase tracking-widest mb-3">Timeline · incidentes documentados</p>
+          <h2 className="text-3xl md:text-5xl font-bold text-white-f leading-tight mb-5">
+            10 casos reales entre <span className="bg-gradient-to-r from-[#DC2626] to-[#F59E0B] bg-clip-text text-transparent">feb 2023 y abr 2026</span>
+          </h2>
+          <p className="text-lg text-muted max-w-3xl mb-10 leading-relaxed">
+            No es literatura: cada uno con empresa (pública o anonimizada), fecha, vector, impacto y aprendizaje. La historia reciente de la IA en banca y finanzas — para dejar de discutir si el riesgo es real.
+          </p>
+
+          <div className="relative">
+            {/* Línea central */}
+            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-[#DC2626]/40 via-[#F59E0B]/40 to-[#22C55E]/40 -translate-x-1/2" />
+
+            <div className="space-y-6">
+              {TIMELINE_INCIDENTES.map((inc, i) => {
+                const side = i % 2 === 0;
+                return (
+                  <div key={i} className={`relative flex ${side ? "md:justify-start" : "md:justify-end"} pl-10 md:pl-0`}>
+                    {/* Dot */}
+                    <div
+                      className="absolute left-4 md:left-1/2 w-3 h-3 rounded-full -translate-x-1/2 top-5 ring-4"
+                      style={{ background: inc.color, boxShadow: `0 0 16px ${inc.color}80`, "--tw-ring-color": `${inc.color}20` } as React.CSSProperties}
+                    />
+                    {/* Card */}
+                    <div
+                      className="w-full md:w-[47%] rounded-2xl border p-5 bg-[#0D1229]"
+                      style={{ borderColor: `${inc.color}30` }}
+                    >
+                      <div className="flex items-center gap-2 flex-wrap mb-2">
+                        <span className="font-mono text-[0.6rem] uppercase tracking-widest font-bold" style={{ color: inc.color }}>{inc.date}</span>
+                        <span className="font-mono text-[0.55rem] uppercase tracking-widest px-1.5 py-0.5 rounded" style={{ background: `${inc.color}18`, color: inc.color, border: `1px solid ${inc.color}35` }}>
+                          {inc.vector}
+                        </span>
+                        <span className="font-mono text-[0.55rem] uppercase tracking-widest text-muted">
+                          {inc.public ? "público" : "anonimizado"}
+                        </span>
+                        <div className="ml-auto flex gap-0.5">
+                          {[1, 2, 3].map((s) => (
+                            <span key={s} className={`w-1.5 h-3 rounded-sm`} style={{ background: s <= inc.severity ? inc.color : "rgba(255,255,255,0.08)" }} />
+                          ))}
+                        </div>
+                      </div>
+                      <p className="text-base font-bold text-white-f leading-tight mb-2">{inc.who}</p>
+                      <p className="text-[0.78rem] text-white-f/85 leading-relaxed mb-3">{inc.story}</p>
+                      <div className="bg-gold/8 border border-gold/25 rounded-lg p-2.5">
+                        <p className="font-mono text-[0.55rem] uppercase tracking-widest text-gold mb-1">✓ Aprendizaje</p>
+                        <p className="text-[0.72rem] text-white-f/90 leading-snug">{inc.learn}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <p className="text-[0.7rem] text-muted mt-6 italic text-center">Los 7 casos públicos son documentados por prensa, cortes o reportes oficiales. Los 3 anonimizados son LatAm reciente, detalles cambiados para proteger a las organizaciones.</p>
+        </section>
+      </RevealSection>
+
+      {/* ═══════════════ 9C. CLASIFICADOR · QUIZ ═══════════════ */}
+      <RevealSection>
+        <section className="max-w-6xl mx-auto px-6 py-20">
+          <p className="font-mono text-[0.72rem] text-[#5B52D5] uppercase tracking-widest mb-3">Clasificador interactivo · 8 items</p>
+          <h2 className="text-3xl md:text-5xl font-bold text-white-f leading-tight mb-5">
+            ¿Sabes clasificar <span className="bg-gradient-to-r from-[#22C55E] via-[#3B82F6] to-[#DC2626] bg-clip-text text-transparent">antes de pegar?</span>
+          </h2>
+          <p className="text-lg text-muted max-w-3xl mb-8 leading-relaxed">
+            Asigna el nivel P-I / P-II / P-III / P-IV a cada ejemplo. Al terminar, revela respuestas y compara. La mayoría acierta 5 de 8 en su primer intento — aquí es donde están los puntos ciegos típicos.
+          </p>
+
+          {/* Progreso */}
+          <div className="flex items-center gap-3 mb-6">
+            <div className="flex-1 h-2 bg-white/[0.05] rounded-full overflow-hidden">
+              <div className="h-full bg-gradient-to-r from-[#5B52D5] to-[#00E5A0] transition-all" style={{ width: `${(Object.keys(quizAnswers).length / CLASIFICADOR.length) * 100}%` }} />
+            </div>
+            <span className="font-mono text-[0.7rem] text-muted">{Object.keys(quizAnswers).length} / {CLASIFICADOR.length}</span>
+          </div>
+
+          <div className="space-y-3 mb-6">
+            {CLASIFICADOR.map((item) => {
+              const picked = quizAnswers[item.id];
+              const isCorrect = picked === item.correcto;
+              return (
+                <div key={item.id} className="bg-[#0D1229] border border-white/[0.08] rounded-xl p-4 md:p-5">
+                  <div className="flex items-start gap-3 mb-3">
+                    <span className="font-mono text-[0.7rem] font-bold px-2 py-1 rounded bg-white/[0.05] text-muted shrink-0">{String(item.id).padStart(2, "0")}</span>
+                    <p className="text-[0.85rem] text-white-f/90 flex-1 leading-relaxed">{item.ejemplo}</p>
+                  </div>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                    {DATA_LEVELS.map((l) => {
+                      const thisPicked = picked === l.id;
+                      const showAsCorrect = quizRevealed && l.id === item.correcto;
+                      const showAsWrong = quizRevealed && thisPicked && !isCorrect;
+                      return (
+                        <button
+                          key={l.id}
+                          disabled={quizRevealed}
+                          onClick={() => setQuizAnswers((prev) => ({ ...prev, [item.id]: l.id }))}
+                          className="rounded-lg p-2.5 border transition-all text-center disabled:cursor-default"
+                          style={{
+                            background: showAsCorrect ? `${l.color}22` : showAsWrong ? "rgba(220,38,38,0.15)" : thisPicked ? `${l.color}15` : "transparent",
+                            borderColor: showAsCorrect ? l.color : showAsWrong ? "#DC2626" : thisPicked ? l.color : "rgba(255,255,255,0.1)",
+                          }}
+                        >
+                          <p className="font-mono text-[0.75rem] font-bold" style={{ color: l.color }}>{l.label}</p>
+                          <p className="text-[0.62rem] text-white-f/70">{l.name}</p>
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {quizRevealed && (
+                    <div className="mt-3 flex gap-2 items-start rounded-lg p-2.5" style={{ background: isCorrect ? "rgba(34,197,94,0.08)" : "rgba(220,38,38,0.08)", border: `1px solid ${isCorrect ? "#22C55E40" : "#DC262640"}` }}>
+                      <span className="text-sm">{isCorrect ? "✓" : "✗"}</span>
+                      <p className="text-[0.72rem] text-white-f/85 leading-snug">
+                        <span className="font-bold" style={{ color: isCorrect ? "#22C55E" : "#DC2626" }}>
+                          {isCorrect ? "Correcto · " : `Respuesta: ${DATA_LEVELS.find((d) => d.id === item.correcto)?.label}. `}
+                        </span>
+                        {item.hint}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="flex flex-wrap gap-3 items-center justify-between bg-[#0D1229] border border-white/[0.08] rounded-2xl p-5">
+            <div>
+              {quizRevealed ? (
+                <>
+                  <p className="font-mono text-[0.6rem] uppercase tracking-widest text-[#5B52D5] mb-1">Tu score</p>
+                  <p className="text-3xl font-bold text-white-f">
+                    {quizScore} <span className="text-base text-muted font-normal">/ {CLASIFICADOR.length}</span>
+                  </p>
+                  <p className="text-[0.78rem] text-white-f/80 mt-1">
+                    {quizScore === CLASIFICADOR.length ? "Perfecto · sabes clasificar con criterio." :
+                     quizScore >= 6 ? "Sólido · revisa los items donde fallaste." :
+                     quizScore >= 4 ? "Zona de mejora · los errores típicos te dicen dónde entrenar." :
+                     "Prioridad alta · clasificación es el primer filtro de la gobernanza."}
+                  </p>
+                </>
+              ) : (
+                <p className="text-[0.85rem] text-white-f/85">
+                  Responde los {CLASIFICADOR.length} items antes de revelar.
+                </p>
+              )}
+            </div>
+            <div className="flex gap-2">
+              {!quizRevealed ? (
+                <button
+                  disabled={Object.keys(quizAnswers).length < CLASIFICADOR.length}
+                  onClick={() => setQuizRevealed(true)}
+                  className="px-5 py-2.5 rounded-lg font-mono text-[0.72rem] uppercase tracking-widest font-bold transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                  style={{ background: "linear-gradient(135deg, #5B52D5, #00E5A0)", color: "#F0F2F8" }}
+                >
+                  Revelar respuestas
+                </button>
+              ) : (
+                <button
+                  onClick={resetQuiz}
+                  className="px-5 py-2.5 rounded-lg font-mono text-[0.72rem] uppercase tracking-widest text-white-f border border-white/[0.15] hover:bg-white/[0.05] transition-all"
+                >
+                  Reintentar
+                </button>
+              )}
+            </div>
+          </div>
+        </section>
+      </RevealSection>
+
+      {/* ═══════════════ 9D. RED FLAGS PERSONALES ═══════════════ */}
+      <RevealSection>
+        <section className="max-w-6xl mx-auto px-6 py-20">
+          <div className="mb-10">
+            <p className="font-mono text-[0.72rem] text-[#F59E0B] uppercase tracking-widest mb-3">Red flags · háblate a ti mismo</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-white-f leading-tight mb-5">
+              10 hábitos que <span className="bg-gradient-to-r from-[#F59E0B] to-[#DC2626] bg-clip-text text-transparent">probablemente reconoces</span>
+            </h2>
+            <p className="text-lg text-muted max-w-3xl leading-relaxed">
+              Marca los que se aplican a ti en la última semana. Esto no va al servidor — es solo para ti. La honestidad aquí es donde empieza la mejora real.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-3 mb-6">
+            {RED_FLAGS.map((rf) => {
+              const checked = !!redFlags[rf.id];
+              return (
+                <button
+                  key={rf.id}
+                  onClick={() => setRedFlags((prev) => ({ ...prev, [rf.id]: !prev[rf.id] }))}
+                  className="text-left rounded-xl p-4 border transition-all flex items-start gap-3"
+                  style={{
+                    background: checked ? "rgba(245,158,11,0.08)" : "#0D1229",
+                    borderColor: checked ? "#F59E0B" : "rgba(255,255,255,0.08)",
+                  }}
+                >
+                  <div
+                    className="w-5 h-5 rounded border-2 grid place-items-center shrink-0 mt-0.5 transition-all"
+                    style={{
+                      background: checked ? "#F59E0B" : "transparent",
+                      borderColor: checked ? "#F59E0B" : "rgba(255,255,255,0.2)",
+                    }}
+                  >
+                    {checked && <span className="text-[#0D1229] text-sm font-bold leading-none">✓</span>}
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-[0.82rem] text-white-f/90 leading-snug">{rf.text}</p>
+                    {checked && (
+                      <p className="font-mono text-[0.55rem] uppercase tracking-widest mt-1.5 text-[#F59E0B]">
+                        Peso · {rf.weight} {rf.weight === 3 ? "(alto)" : rf.weight === 2 ? "(medio)" : "(bajo)"}
+                      </p>
+                    )}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Resumen / meter */}
+          <div className="bg-gradient-to-br from-[#0F1438] via-[#0D1229] to-[#080C1F] border border-white/[0.08] rounded-2xl p-6">
+            <div className="grid md:grid-cols-[auto_1fr] gap-6 items-center">
+              {/* Gauge */}
+              <div className="relative w-32 h-32 shrink-0 mx-auto md:mx-0">
+                <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
+                  <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="8" />
+                  <circle
+                    cx="50" cy="50" r="45" fill="none"
+                    stroke={redFlagsWeight >= 12 ? "#DC2626" : redFlagsWeight >= 7 ? "#F59E0B" : redFlagsWeight >= 3 ? "#3B82F6" : "#22C55E"}
+                    strokeWidth="8"
+                    strokeDasharray={`${(Math.min(redFlagsWeight, 25) / 25) * 283} 283`}
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <div className="absolute inset-0 grid place-items-center flex-col">
+                  <p className="text-2xl font-bold text-white-f leading-none">{redFlagsWeight}</p>
+                  <p className="font-mono text-[0.55rem] uppercase tracking-widest text-muted mt-1">peso total</p>
+                </div>
+              </div>
+
+              <div>
+                <p className="font-mono text-[0.6rem] uppercase tracking-widest mb-1" style={{
+                  color: redFlagsWeight >= 12 ? "#DC2626" : redFlagsWeight >= 7 ? "#F59E0B" : redFlagsWeight >= 3 ? "#3B82F6" : "#22C55E",
+                }}>
+                  Diagnóstico rápido
+                </p>
+                <p className="text-lg font-bold text-white-f leading-tight mb-2">
+                  {redFlagsHit === 0
+                    ? "Ninguna marcada. Buen inicio — ahora el autodiagnóstico completo abajo."
+                    : redFlagsWeight >= 12
+                    ? "Zona roja · Empieza con los 3 hábitos de peso alto."
+                    : redFlagsWeight >= 7
+                    ? "Zona amarilla · Algunos hábitos clave para corregir."
+                    : redFlagsWeight >= 3
+                    ? "Zona azul · Buen nivel con puntos puntuales por pulir."
+                    : "Zona verde · Sigue así y ayuda a otros."}
+                </p>
+                <p className="text-[0.82rem] text-white-f/85 leading-relaxed">
+                  {redFlagsHit} hábitos marcados · suma ponderada {redFlagsWeight}/25. Pesos: alto (3) = corrección urgente, medio (2) = revisar en los próximos 15 días, bajo (1) = incorporar gradualmente.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </RevealSection>
+
+      {/* ═══════════════ 9E. AUTODIAGNÓSTICO PERSONAL ═══════════════ */}
+      <RevealSection>
+        <section className="relative max-w-6xl mx-auto px-6 py-24">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_30%,rgba(91,82,213,0.08),transparent),radial-gradient(ellipse_40%_40%_at_80%_80%,rgba(220,38,38,0.06),transparent)] pointer-events-none" />
+
+          <div className="relative">
+            <p className="font-mono text-[0.72rem] text-[#7B73E8] uppercase tracking-widest mb-3">Autodiagnóstico personal · 10 preguntas</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-white-f leading-tight mb-5">
+              ¿Qué tipo de usuario de IA <span className="bg-gradient-to-r from-[#7B73E8] via-[#DC2626] to-[#22C55E] bg-clip-text text-transparent">eres tú</span> hoy?
+            </h2>
+            <p className="text-lg text-muted max-w-3xl mb-8 leading-relaxed">
+              Esto no evalúa al banco — te evalúa a ti como empleado. 10 preguntas sobre tus hábitos reales con IA en el trabajo. El resultado es tuyo, privado, y viene con un plan accionable según el perfil en el que caes.
+            </p>
+
+            {/* Barra de progreso */}
+            <div className="mb-8 bg-[#0D1229] border border-white/[0.08] rounded-xl p-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="font-mono text-[0.6rem] uppercase tracking-widest text-muted">Progreso</span>
+                <span className="font-mono text-[0.7rem] text-white-f font-bold">
+                  {Object.keys(diagAnswers).length} / {DIAGNOSTICO_PREGUNTAS.length}
+                  {diagComplete && " · Completo ✓"}
+                </span>
+              </div>
+              <div className="h-2 bg-white/[0.05] rounded-full overflow-hidden">
+                <div
+                  className="h-full transition-all"
+                  style={{
+                    width: `${diagProgress}%`,
+                    background: diagComplete
+                      ? `linear-gradient(90deg, ${diagPerfil.color}, ${diagPerfil.color})`
+                      : "linear-gradient(90deg, #7B73E8, #00E5A0)",
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* Preguntas */}
+            <div className="space-y-5 mb-8">
+              {DIAGNOSTICO_PREGUNTAS.map((qq, qi) => {
+                const answered = qq.id in diagAnswers;
+                const pickedScore = diagAnswers[qq.id];
+                return (
+                  <div
+                    key={qq.id}
+                    className="bg-[#0D1229] border rounded-2xl p-5 transition-all"
+                    style={{ borderColor: answered ? "rgba(91,82,213,0.35)" : "rgba(255,255,255,0.08)" }}
+                  >
+                    <div className="flex items-start gap-3 mb-4">
+                      <div
+                        className="w-9 h-9 rounded-lg grid place-items-center shrink-0 font-mono text-sm font-bold"
+                        style={{ background: "rgba(91,82,213,0.2)", color: "#7B73E8", border: "1px solid rgba(91,82,213,0.4)" }}
+                      >
+                        {String(qi + 1).padStart(2, "0")}
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-mono text-[0.55rem] uppercase tracking-widest text-[#7B73E8] mb-1">{qq.area}</p>
+                        <p className="text-[0.92rem] font-semibold text-white-f leading-snug">{qq.q}</p>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                      {qq.options.map((op, oi) => {
+                        const picked = pickedScore === op.score && answered;
+                        const riskColor = op.score === 0 ? "#22C55E" : op.score === 1 ? "#3B82F6" : op.score === 2 ? "#F59E0B" : "#DC2626";
+                        return (
+                          <button
+                            key={oi}
+                            onClick={() => setDiagAnswers((prev) => ({ ...prev, [qq.id]: op.score }))}
+                            className="text-left rounded-lg p-3 border transition-all flex items-start gap-2.5"
+                            style={{
+                              background: picked ? `${riskColor}15` : "rgba(255,255,255,0.02)",
+                              borderColor: picked ? riskColor : "rgba(255,255,255,0.08)",
+                            }}
+                          >
+                            <div
+                              className="w-4 h-4 rounded-full border-2 shrink-0 mt-0.5 grid place-items-center"
+                              style={{
+                                background: picked ? riskColor : "transparent",
+                                borderColor: picked ? riskColor : "rgba(255,255,255,0.25)",
+                              }}
+                            >
+                              {picked && <span className="w-1.5 h-1.5 rounded-full bg-[#0D1229]" />}
+                            </div>
+                            <p className="text-[0.76rem] text-white-f/85 flex-1 leading-snug">{op.text}</p>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Reset cuando hay respuestas */}
+            {Object.keys(diagAnswers).length > 0 && !diagComplete && (
+              <div className="flex justify-center mb-8">
+                <button
+                  onClick={resetDiag}
+                  className="font-mono text-[0.65rem] uppercase tracking-widest text-muted hover:text-white-f transition-all px-4 py-1.5"
+                >
+                  ↺ Reiniciar
+                </button>
+              </div>
+            )}
+
+            {/* Resultado */}
+            {diagComplete && (
+              <div
+                className="relative overflow-hidden rounded-3xl border p-7 md:p-10 bg-gradient-to-br from-[#0F1438] via-[#0D1229] to-[#080C1F]"
+                style={{ borderColor: `${diagPerfil.color}50`, boxShadow: `0 0 40px ${diagPerfil.color}22 inset` }}
+              >
+                <div
+                  className="absolute inset-0 opacity-[0.08] pointer-events-none"
+                  style={{ background: `radial-gradient(ellipse 50% 50% at 50% 0%, ${diagPerfil.color}, transparent)` }}
+                />
+
+                <div className="relative">
+                  <div className="grid md:grid-cols-[auto_1fr_auto] gap-6 items-start mb-6">
+                    {/* Icono / score */}
+                    <div
+                      className="w-24 h-24 rounded-2xl grid place-items-center shrink-0 mx-auto md:mx-0"
+                      style={{ background: `${diagPerfil.color}20`, border: `1px solid ${diagPerfil.color}50` }}
+                    >
+                      <span className="text-5xl" style={{ color: diagPerfil.color }}>{diagPerfil.icon}</span>
+                    </div>
+
+                    <div>
+                      <p className="font-mono text-[0.65rem] uppercase tracking-widest mb-1" style={{ color: diagPerfil.color }}>Tu perfil</p>
+                      <h3 className="text-2xl md:text-3xl font-bold text-white-f leading-tight mb-2">{diagPerfil.name}</h3>
+                      <p className="text-base md:text-lg text-white-f/90 leading-snug italic">&ldquo;{diagPerfil.headline}&rdquo;</p>
+                    </div>
+
+                    <div className="text-right">
+                      <p className="font-mono text-[0.6rem] uppercase tracking-widest text-muted mb-1">Score</p>
+                      <p className="text-5xl font-bold font-mono" style={{ color: diagPerfil.color }}>{diagScore}</p>
+                      <p className="font-mono text-[0.6rem] text-muted">de 30</p>
+                    </div>
+                  </div>
+
+                  <p className="text-[0.92rem] text-white-f/85 leading-relaxed mb-6">{diagPerfil.desc}</p>
+
+                  {/* Visualización por área */}
+                  <div className="mb-7">
+                    <p className="font-mono text-[0.6rem] uppercase tracking-widest mb-3" style={{ color: diagPerfil.color }}>Desglose por área</p>
+                    <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
+                      {DIAGNOSTICO_PREGUNTAS.map((qq) => {
+                        const s = diagAnswers[qq.id];
+                        const c = s === 0 ? "#22C55E" : s === 1 ? "#3B82F6" : s === 2 ? "#F59E0B" : "#DC2626";
+                        return (
+                          <div key={qq.id} className="bg-white/[0.03] border border-white/[0.06] rounded-lg p-2.5">
+                            <p className="font-mono text-[0.55rem] uppercase tracking-widest text-muted leading-tight mb-1.5">{qq.area}</p>
+                            <div className="flex items-center gap-1.5">
+                              <div className="flex gap-0.5">
+                                {[0, 1, 2, 3].map((lvl) => (
+                                  <span key={lvl} className="w-1.5 h-4 rounded-sm" style={{ background: lvl <= s ? c : "rgba(255,255,255,0.06)" }} />
+                                ))}
+                              </div>
+                              <span className="font-mono text-[0.6rem] font-bold ml-auto" style={{ color: c }}>{s}/3</span>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Plan accionable */}
+                  <div>
+                    <p className="font-mono text-[0.6rem] uppercase tracking-widest mb-3" style={{ color: diagPerfil.color }}>▸ Tu plan accionable</p>
+                    <div className="space-y-2">
+                      {diagPerfil.actions.map((a, i) => (
+                        <div key={i} className="flex gap-3 items-start bg-white/[0.03] border border-white/[0.06] rounded-lg p-3">
+                          <div
+                            className="w-6 h-6 rounded-full grid place-items-center shrink-0 font-mono text-[0.65rem] font-bold"
+                            style={{ background: `${diagPerfil.color}25`, color: diagPerfil.color }}
+                          >
+                            {i + 1}
+                          </div>
+                          <p className="text-[0.82rem] text-white-f/90 leading-relaxed flex-1">{a}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2 mt-6 pt-6 border-t border-white/[0.06]">
+                    <button
+                      onClick={resetDiag}
+                      className="font-mono text-[0.65rem] uppercase tracking-widest text-muted hover:text-white-f transition-all px-4 py-1.5 border border-white/[0.1] rounded-lg"
+                    >
+                      ↺ Rehacer
+                    </button>
+                    <span className="font-mono text-[0.6rem] text-muted self-center italic">Este diagnóstico es privado · nada se envía a servidor</span>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </section>
       </RevealSection>
