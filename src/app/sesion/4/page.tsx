@@ -342,14 +342,556 @@ const SCORE_LABELS: Record<keyof typeof TOOL_COMPARE[0]["scores"], string> = {
   cost: "Costo",
 };
 
-const TALLER_STEPS = [
-  { n: 1, title: "Elige el target", desc: "Usa un caso real o ficticio: LatAm retail, fintech, o sector que conozcas." },
-  { n: 2, title: "Crea Project o GPT", desc: "Claude Projects si tienes Pro, o Custom GPT en ChatGPT." },
-  { n: 3, title: "Sube 3–5 documentos", desc: "Data room simulado: CIM, estados financieros, comps sector." },
-  { n: 4, title: "Instrucciones DD", desc: "System prompt estilo analista senior BTG con formato IC memo." },
-  { n: 5, title: "Genera red flags", desc: "Pide los 5 top riesgos con cita al documento fuente." },
-  { n: 6, title: "IC memo Artifact", desc: "Genera memo de 6 páginas como Artifact editable." },
-  { n: 7, title: "Pitch 90 seg", desc: "Presenta al equipo: tesis + cómo el asistente aceleró el proceso." },
+/* ═════════ Plataformas IA · estado mayo 2026 ═════════ */
+
+const TOOLS: Record<string, {
+  name: string; short: string; mark: string; color: string; url: string; tier: string; ctx: string; fit: string;
+}> = {
+  claude: {
+    name: "Claude (Anthropic)",
+    short: "Claude",
+    mark: "C",
+    color: "#D97757",
+    url: "https://claude.ai/new",
+    tier: "Free · Pro $20",
+    ctx: "200K (1M en Pro)",
+    fit: "Documentos largos · Projects · Artifacts · análisis confiable con citas.",
+  },
+  chatgpt: {
+    name: "ChatGPT (OpenAI)",
+    short: "ChatGPT",
+    mark: "G",
+    color: "#10A37F",
+    url: "https://chatgpt.com/",
+    tier: "Free · Plus $20",
+    ctx: "128K",
+    fit: "Code Interpreter (Excel + Python) · Custom GPTs · ecosistema más amplio.",
+  },
+  gemini: {
+    name: "Gemini (Google)",
+    short: "Gemini",
+    mark: "✦",
+    color: "#4285F4",
+    url: "https://gemini.google.com/app",
+    tier: "Free · Advanced $20",
+    ctx: "1M",
+    fit: "Deep Research · integración Workspace · multimodalidad nativa.",
+  },
+  notebooklm: {
+    name: "NotebookLM (Google)",
+    short: "NotebookLM",
+    mark: "N",
+    color: "#7B61FF",
+    url: "https://notebooklm.google.com/",
+    tier: "Free",
+    ctx: "Hasta 50 fuentes",
+    fit: "Research multi-fuente con citas literales · genera Audio Overview en podcast.",
+  },
+  deepseek: {
+    name: "DeepSeek",
+    short: "DeepSeek",
+    mark: "◆",
+    color: "#4D6BFE",
+    url: "https://chat.deepseek.com/",
+    tier: "Free",
+    ctx: "128K",
+    fit: "Razonamiento matemático sólido · respuesta rápida · útil para segunda opinión.",
+  },
+  mistral: {
+    name: "Mistral · Le Chat",
+    short: "Le Chat",
+    mark: "▲",
+    color: "#FF7000",
+    url: "https://chat.mistral.ai/chat",
+    tier: "Free · Pro €15",
+    ctx: "128K",
+    fit: "Modelo europeo · respuesta veloz · interfaz limpia · code execution incluido.",
+  },
+  kimi: {
+    name: "Kimi (Moonshot AI)",
+    short: "Kimi",
+    mark: "✶",
+    color: "#1D8278",
+    url: "https://www.kimi.com/",
+    tier: "Free",
+    ctx: "2M",
+    fit: "El más generoso en contexto · ideal para libros enteros, transcripts largos, data rooms voluminosos.",
+  },
+};
+
+/* ═════════ Galería: 6 flujos en finanzas ═════════ */
+
+const FINANCE_CASES = [
+  {
+    id: "dd",
+    num: "01",
+    title: "Análisis express de un data room M&A",
+    line: "Banca de inversión",
+    icon: "◉",
+    color: "#E85A1F",
+    primary: "claude",
+    alt: ["gemini", "kimi"],
+    files: [
+      { name: "Cementos Portales · CIM", file: "01-cementos-portales-cim.docx", kind: "Word", size: "38 KB" },
+    ],
+    problem: "Recibes el data room de un target el viernes y el MD pide un memo preliminar el lunes.",
+    workflow: [
+      "Descarga el CIM en Word de la galería.",
+      "Abre Claude (Free funciona; Pro habilita Projects con memoria).",
+      "Sube el archivo + pega el prompt orientador.",
+      "Pídele que genere el memo como Artifact, exportable a Word.",
+    ],
+    output: "IC memo preliminar con tesis, riesgos, comparables y citas a página · listo para revisar con el MD.",
+    why: "Claude tiene el mejor desempeño en docs largos y devuelve respuestas con citas verificables. Kimi 2M resuelve cuando el data room pesa decenas de archivos.",
+    prompt: `Eres un analista senior de banca de inversión LatAm. Analiza el documento adjunto (CIM de Cementos Portales) y entrega un memo de inversión preliminar con esta estructura:
+
+1) TESIS DE INVERSIÓN (3 bullets)
+2) TOP 5 RED FLAGS (cada uno con cita a sección o página)
+3) RANGOS DE VALORACIÓN implícitos según múltiplos sectoriales
+4) PREGUNTAS PARA EL MANAGEMENT
+5) RECOMENDACIÓN: avanzar a Round 2 / pedir información / declinar
+
+Reglas:
+- No inventes cifras. Si un dato no está en el documento, escribe "no disponible en el data room".
+- Cita siempre la sección o número del CIM.
+- Devuelve el memo como Artifact editable.`,
+    metric: { v: "−83%", k: "tiempo DD" },
+  },
+  {
+    id: "dcf",
+    num: "02",
+    title: "Valoración DCF con sensibilidades",
+    line: "Equity research / Valoración",
+    icon: "📊",
+    color: "#3A7BD5",
+    primary: "chatgpt",
+    alt: ["claude", "gemini", "mistral"],
+    files: [
+      { name: "DCF · 5 emisores Colcap", file: "02-dcf-emisores-colcap.xlsx", kind: "Excel", size: "7 KB" },
+    ],
+    problem: "Equity research necesita refrescar valoración de 5 emisores con matriz de sensibilidad y tornado de drivers.",
+    workflow: [
+      "Descarga el Excel con assumptions de los 5 emisores.",
+      "Abre ChatGPT (Free ya incluye Code Interpreter limitado; Plus libera el límite).",
+      "Sube el Excel + pega el prompt.",
+      "El modelo corre Python → tabla resumen + matriz 5×5 + tornado chart.",
+    ],
+    output: "Excel limpio con valoración implícita por emisor, matriz de sensibilidad y gráfico tornado descargable.",
+    why: "ChatGPT y Mistral Le Chat ejecutan código en sandbox sin que tengas que salir del chat. Devuelven el archivo procesado listo para pegar al deck.",
+    prompt: `Tienes adjunto un Excel con assumptions de 5 emisores del Colcap. Para cada uno:
+
+1) Proyecta EBITDA a 5 años usando un CAGR razonable por sector (justifica brevemente).
+2) Calcula Free Cash Flow asumiendo Capex = 60% de la depreciación y working capital constante.
+3) Construye una matriz 5x5 de Enterprise Value variando WACC (−200 a +200 bps) y g terminal (2% a 4%).
+4) Identifica el emisor con MAYOR sensibilidad al WACC.
+5) Genera un tornado chart con los 5 drivers más relevantes para ese emisor.
+6) Devuelve un Excel descargable con: hoja "Resumen" (EV implícito por emisor), hoja "Sensibilidad" (matriz), hoja "Tornado" (datos del gráfico).
+
+Sé explícito con los supuestos. Si necesitas asumir algo, indícalo en una columna "Notas".`,
+    metric: { v: "−91%", k: "vs Excel manual" },
+  },
+  {
+    id: "podcast",
+    num: "03",
+    title: "Briefing sectorial en formato podcast",
+    line: "Macro / Equity research",
+    icon: "🎧",
+    color: "#7B61FF",
+    primary: "notebooklm",
+    alt: ["gemini"],
+    files: [
+      { name: "Pack de fuentes · Telco LatAm", file: "03-fuentes-telco-latam.docx", kind: "Word", size: "38 KB" },
+    ],
+    problem: "El head de research pide un briefing del sector telco LatAm para mañana — y otro analista ya tomó el slot del taxi al aeropuerto.",
+    workflow: [
+      "Descarga el pack de 18 fuentes telco.",
+      "Abre NotebookLM (gratis con cuenta Google), crea un Notebook nuevo.",
+      "Sube el documento como fuente · agrega 5 PDFs propios si quieres.",
+      "Pídele briefing escrito + Audio Overview de 12-15 minutos.",
+    ],
+    output: "Briefing de 1 página con citas literales + podcast personalizado de 12-15 min para escuchar camino al cliente.",
+    why: "NotebookLM cita la fuente literal — no alucina. Audio Overview convierte el research en formato consumible mientras manejas. Único en su clase y gratis.",
+    prompt: `Sobre las fuentes de este Notebook (sector telco LatAm Q1 2026):
+
+1) Brief de 1 página con la tesis sectorial dominante.
+2) Mapa de tesis CONVERGENTES vs. DIVERGENTES entre los analistas (Itaú, BTG, JP Morgan, BNP).
+3) Identifica 3 catalysts que podrían mover precios en H2 2026.
+4) Lista 5 contradicciones que vale la pena verificar con management.
+5) Cita la fuente literal en cada afirmación.
+
+Después, generar Audio Overview enfocado en lo accionable para un PM (no en explicar el sector desde cero).`,
+    metric: { v: "30 fuentes", k: "→ 1 podcast" },
+  },
+  {
+    id: "long",
+    num: "04",
+    title: "Lectura de earnings call de 18.000 palabras",
+    line: "Equity / Risk",
+    icon: "✶",
+    color: "#1D8278",
+    primary: "kimi",
+    alt: ["claude", "gemini"],
+    files: [
+      { name: "Earnings call · Banco Andino Q1-26", file: "04-banco-andino-earnings-call.docx", kind: "Word", size: "41 KB" },
+    ],
+    problem: "Tienes 90 minutos antes del comité de inversiones para extraer todo lo material de un transcript que tarda 2 horas en leerse.",
+    workflow: [
+      "Descarga el transcript completo en Word.",
+      "Abre Kimi (gratis · soporta hasta 2M tokens).",
+      "Sube el documento + pega el prompt.",
+      "Pide tabla estructurada con KPIs + tesis + cambios vs. trimestre anterior.",
+    ],
+    output: "Tabla de 12 KPIs · top 5 frases del CEO · 3 contradicciones detectadas · 4 preguntas no respondidas en Q&A.",
+    why: "Kimi K2 maneja 2M tokens de contexto y es gratis — supera a Claude (1M Pro) y Gemini en puro tamaño. Cuando el documento pasa de 80 páginas, Kimi es la opción más económica.",
+    prompt: `Adjunto el transcript del earnings call Q1-2026 de Banco Andino. Necesito en formato tabla:
+
+A) KPIs FINANCIEROS: utilidad neta, ROE, NIM, eficiencia, mora 90+, costo de riesgo, LCR, CET1. Valor + variación YoY + comentario textual del CFO.
+
+B) GUIDANCE 2026: rangos provistos para cartera, ROE, costo de riesgo, eficiencia.
+
+C) CALIDAD DE LA RESPUESTA: identifica 3 preguntas en el Q&A donde el CEO/CFO esquivó la respuesta o dio answer poco satisfactoria.
+
+D) RIESGOS: lista las 5 cosas que más me preocuparían como inversor.
+
+E) CONTRADICCIONES: pares de afirmaciones que no cuadran entre sí dentro del mismo documento (ej: CEO dice X, CFO dice Y).
+
+Cita la sección o párrafo del cual extraes cada afirmación.`,
+    metric: { v: "2 min", k: "vs 2 horas leyendo" },
+  },
+  {
+    id: "compare",
+    num: "05",
+    title: "Triangular respuesta con 3 modelos distintos",
+    line: "Risk / Equity research",
+    icon: "▲",
+    color: "#FF7000",
+    primary: "mistral",
+    alt: ["deepseek", "claude", "chatgpt"],
+    files: [
+      { name: "Comps · Cementeras LatAm", file: "05-comps-cementeras-latam.xlsx", kind: "Excel", size: "6 KB" },
+    ],
+    problem: "Una sola IA puede equivocarse y nadie lo nota. Cuando la decisión vale millones, el costo de cruzar 3 modelos es cero.",
+    workflow: [
+      "Descarga el Excel con 8 cementeras LatAm.",
+      "Abre 3 pestañas: Mistral Le Chat, DeepSeek, Claude (todos free).",
+      "Pega el MISMO prompt en las 3 + sube el archivo.",
+      "Compara: ¿coinciden en mediana, mín y máx? ¿alguno alucina cifras?",
+    ],
+    output: "Tabla con 3 valoraciones lado a lado + análisis de divergencias + recomendación final fundamentada.",
+    why: "Mistral Le Chat es europeo y veloz; DeepSeek razona muy bien en cuantitativo; Claude es conservador y cita fuente. Si los 3 convergen, alta confianza. Si divergen, tienes que profundizar.",
+    prompt: `Adjunto Excel con comparables del sector cemento LatAm (8 empresas). Tarea:
+
+1) Calcula múltiplos normalizados (EV/EBITDA, P/E, EV/Sales) descartando outliers con regla IQR 1.5×.
+2) Reporta mediana, promedio y rango por múltiplo.
+3) Aplica los múltiplos a Cementos Portales (target sintético): Revenue 2025 USD 175M, EBITDA 2025 USD 26M, Net Debt USD 89M.
+4) Devuelve rango de Enterprise Value y Equity Value implícito.
+5) Indica QUÉ múltiplo deberíamos usar y por qué (tu opinión, justificada).
+
+Después responde: ¿qué tan seguro estás de tu respuesta del 1 al 10? ¿Qué información adicional pediría un MD para validarla?`,
+    metric: { v: "3 modelos", k: "1 prompt" },
+  },
+  {
+    id: "assistant",
+    num: "06",
+    title: "Asistente reusable de Wealth Management",
+    line: "Wealth Management",
+    icon: "✦",
+    color: "#9B59B6",
+    primary: "gemini",
+    alt: ["claude", "chatgpt"],
+    files: [
+      { name: "Portafolio modelo · 80 posiciones", file: "06-portafolio-wealth-modelo.xlsx", kind: "Excel", size: "9 KB" },
+    ],
+    problem: "Cada asesor explica el portafolio a sus clientes con palabras distintas. Quieres un asistente que dé respuestas consistentes con la voz BTG.",
+    workflow: [
+      "Descarga el portafolio modelo de WM.",
+      "Abre Gemini (free) y crea un Gem dedicado · o usa un Project en Claude / Custom GPT.",
+      "Pega las instrucciones de sistema + sube el portafolio como knowledge.",
+      "Cualquier asesor puede preguntar: \"¿qué le digo a un cliente conservador sobre Ecopetrol?\"",
+    ],
+    output: "Asistente compartible con voz consistente · disponible 24/7 · consulta el portafolio modelo en cada respuesta.",
+    why: "Gemini Gems son gratis y se comparten con un link. Custom GPTs son más potentes pero requieren Plus. Claude Projects es la opción premium con mejor manejo de docs largos.",
+    prompt: `Eres "BTG Wealth Companion", un asistente para asesores patrimoniales BTG.
+
+Reglas duras:
+- Nunca des recomendaciones de compra/venta personalizadas. Eres explicativo, no transaccional.
+- Cada respuesta debe ser apta para que un asesor la use frente a un cliente: clara, en español, sin jerga innecesaria.
+- Cuando te pregunten sobre un activo del portafolio adjunto, basa la respuesta en sus datos reales (peso, retorno, volatilidad, rating).
+- Si la pregunta es sobre un activo que NO está en el portafolio, dilo explícitamente.
+- Cierra siempre con un disclaimer de 1 línea: "Esta información es educativa; toda decisión debe pasar por su asesor BTG y por análisis de perfil de riesgo."
+
+Formato de salida sugerido:
+- Tres frases simples del activo.
+- Una métrica clave.
+- Un riesgo a mencionar.
+- El disclaimer.`,
+    metric: { v: "1 asistente", k: "todo el equipo WM" },
+  },
+];
+
+/* ═════════ Preguntas orientadoras ═════════ */
+
+const ORIENTING_QUESTIONS = [
+  {
+    n: "01",
+    q: "¿Qué decisión específica quiero acelerar?",
+    hint: "No es \"usar IA\". Es \"reducir el tiempo del primer draft del IC memo de 8h a 2h\".",
+    color: "#E85A1F",
+  },
+  {
+    n: "02",
+    q: "¿Quién es el usuario final y qué le falta hoy?",
+    hint: "Asesor WM, analyst IB, MD, compliance officer. Cada uno tiene un cuello de botella distinto.",
+    color: "#3A7BD5",
+  },
+  {
+    n: "03",
+    q: "¿Cuántos documentos voy a manejar y de qué tamaño?",
+    hint: "Si pasa de 80 páginas → Kimi (2M). 30-80 → Claude o Gemini (1M). Menos de 30 → cualquiera.",
+    color: "#7B61FF",
+  },
+  {
+    n: "04",
+    q: "¿Necesito ejecutar código (Excel, Python, gráficos)?",
+    hint: "Si sí → ChatGPT (Code Interpreter) o Mistral Le Chat. Si solo es texto → cualquiera vale.",
+    color: "#10A37F",
+  },
+  {
+    n: "05",
+    q: "¿La salida debe ser un archivo descargable?",
+    hint: "Define formato: Word, Excel, PDF, audio. Eso filtra qué herramienta sirve.",
+    color: "#D4AF4C",
+  },
+  {
+    n: "06",
+    q: "¿Cómo voy a verificar que el output es confiable?",
+    hint: "Pídele citas a fuente. Cruza con un segundo modelo (DeepSeek, Mistral). Compara con un colega.",
+    color: "#22C55E",
+  },
+  {
+    n: "07",
+    q: "¿Qué información NO puedo subir bajo ninguna circunstancia?",
+    hint: "Datos de clientes reales, cédulas, montos individuales, secreto bancario. Cero. Solo data sintética.",
+    color: "#FF5F57",
+  },
+  {
+    n: "08",
+    q: "¿Cómo se ve un demo exitoso en 5 minutos?",
+    hint: "Si no lo puedes mostrar funcionando en vivo, no está listo. Define el guion del demo antes de construir.",
+    color: "#9B59B6",
+  },
+];
+
+/* ═════════ Sesión práctica · 2 a 4 horas ═════════ */
+
+const MVP_AGENDA = [
+  { time: "0:00–0:15", phase: "Kickoff", what: "Equipos de 2-3 · responder las 8 preguntas orientadoras", color: "#22C55E" },
+  { time: "0:15–0:35", phase: "Elegir caso", what: "Seleccionar 1 de los 6 flujos · descargar archivos · abrir plataforma", color: "#3A7BD5" },
+  { time: "0:35–2:05", phase: "Build sprint", what: "90 min iterando con la herramienta · ajustar prompts · refinar output", color: "#E85A1F" },
+  { time: "2:05–2:35", phase: "Cruzar respuestas", what: "Llevar el mismo input a un segundo modelo · comparar · documentar diferencias", color: "#D4AF4C" },
+  { time: "2:35–3:30", phase: "Pitch round", what: "5 min por equipo · demo en vivo · Q&A de pares", color: "#5B52D5" },
+  { time: "3:30–4:00", phase: "Cierre", what: "Lecciones aprendidas · qué cambia el lunes · backlog del MVP", color: "#9B59B6" },
+];
+
+const MVP_TRACKS = [
+  {
+    id: "A",
+    name: "Asistente DD M&A",
+    line: "Investment Banking",
+    color: "#E85A1F",
+    icon: "◉",
+    desafio: "Convierte el CIM de Cementos Portales en un memo preliminar listo para review del MD.",
+    must: [
+      "Subir el CIM (Word) a Claude · ChatGPT · Gemini · Kimi (la que prefieran)",
+      "System prompt con rol, formato IC memo y restricciones de privacidad",
+      "Identificar al menos 5 red flags con cita al documento",
+      "Devolver memo de 2 páginas en formato Word descargable",
+    ],
+    nice: ["Tabla de comparables vía Code Interpreter", "Versión bilingüe (ES/EN)", "Lista de preguntas para management"],
+    file: "01-cementos-portales-cim.docx",
+    primaryTool: "claude",
+    pitch: "Demo en vivo: pregunta del MD → asistente responde con citas → entregar memo en Word.",
+  },
+  {
+    id: "B",
+    name: "Valuation Bot DCF",
+    line: "Equity Research",
+    color: "#3A7BD5",
+    icon: "📊",
+    desafio: "Refresca la valoración de 5 emisores Colcap con matriz de sensibilidad y tornado chart.",
+    must: [
+      "Subir el Excel a ChatGPT, Mistral Le Chat o Gemini (las que tengan code execution)",
+      "Construir matriz 5×5 de EV (WACC × g)",
+      "Generar al menos 1 visualización (tornado, heatmap o waterfall)",
+      "Descargar el Excel procesado con resultados",
+    ],
+    nice: ["Comparar resultado contra DeepSeek", "Slide HTML con la tesis", "Pequeño memo explicativo"],
+    file: "02-dcf-emisores-colcap.xlsx",
+    primaryTool: "chatgpt",
+    pitch: "Cargar Excel real → mostrar matriz + tornado en menos de 2 minutos · descargar archivo.",
+  },
+  {
+    id: "C",
+    name: "Research con Audio Overview",
+    line: "Macro / Sectorial",
+    color: "#7B61FF",
+    icon: "🎧",
+    desafio: "Construye un briefing del sector telco LatAm con podcast personalizado para escuchar en el viaje.",
+    must: [
+      "Cargar el pack de 18 fuentes a NotebookLM",
+      "Briefing escrito de 1 página con citas literales",
+      "Audio Overview generado (mínimo 5 minutos)",
+      "Mapa de tesis convergentes vs. divergentes",
+    ],
+    nice: ["Cruzar con Gemini Deep Research", "Detección de quotes contradictorios", "Mini deck de 3 slides"],
+    file: "03-fuentes-telco-latam.docx",
+    primaryTool: "notebooklm",
+    pitch: "Reproducir 30 segundos del podcast + mostrar mapa consenso/disenso.",
+  },
+  {
+    id: "D",
+    name: "Asesor Earnings Calls",
+    line: "Equity / Risk",
+    color: "#1D8278",
+    icon: "✶",
+    desafio: "Convierte el transcript del earnings de Banco Andino en una página de KPIs y red flags.",
+    must: [
+      "Subir el transcript a Kimi, Claude o Gemini",
+      "Tabla de 8+ KPIs con valor, variación YoY y comentario textual",
+      "3 preguntas del Q&A donde la respuesta fue evasiva",
+      "5 riesgos materiales con cita al transcript",
+    ],
+    nice: ["Comparar guidance con cierre del trimestre anterior", "Audio Overview en NotebookLM como bonus", "Detección de contradicciones entre CEO y CFO"],
+    file: "04-banco-andino-earnings-call.docx",
+    primaryTool: "kimi",
+    pitch: "Mostrar la tabla + leer 1 cita textual del CEO + el riesgo más material.",
+  },
+  {
+    id: "E",
+    name: "Triangulación de Comps",
+    line: "Valoración / Risk",
+    color: "#FF7000",
+    icon: "▲",
+    desafio: "Llevar la misma pregunta de valoración a 3 modelos distintos y reportar acuerdos vs. desacuerdos.",
+    must: [
+      "Subir el Excel de comps a 3 plataformas (Mistral, DeepSeek, Claude/ChatGPT)",
+      "Mismo prompt en las 3",
+      "Tabla comparativa con sus rangos de valoración",
+      "Análisis de en qué coinciden y en qué divergen",
+    ],
+    nice: ["Identificar qué modelo alucinó cifras", "Sumar Gemini como cuarta opinión", "Recomendación final fundamentada"],
+    file: "05-comps-cementeras-latam.xlsx",
+    primaryTool: "mistral",
+    pitch: "Mostrar las 3 respuestas lado a lado · explicar la divergencia · cuál confiarías al MD.",
+  },
+];
+
+/* ═════════ Ejemplo guiado · Cementos Portales en 4 plataformas ═════════ */
+
+const GUIDED_PROMPT = `Eres "BTG DD Analyst", un analista senior de banca de inversión LatAm con 10 años de experiencia.
+
+Trabajas en una transacción real: la Familia Portales mandató la venta del 100% de Cementos Portales S.A., productor regional de cemento con plantas en Colombia, Perú y Ecuador. Tienes el CIM completo cargado como contexto.
+
+Tu trabajo: ayudar al MD a decidir si BTG Pactual avanza a Round 2 o declina la oportunidad.
+
+Reglas duras:
+1. NUNCA inventes cifras. Si un dato no aparece en el CIM, responde "no disponible en el data room".
+2. CITA siempre la sección o tabla del CIM de donde extraes cada afirmación.
+3. Estructura cada respuesta en 4 partes: TESIS · RIESGOS · COMPARABLES · NEXT STEPS.
+4. Sé crítico. El MD prefiere un escéptico bien fundamentado que un cheerleader optimista.
+5. Responde como analista senior, no como IA. Sin disclaimers innecesarios.
+
+Al final de cada respuesta agrega: "Confianza (1–10): X. Una razón."`;
+
+const GUIDED_QUESTIONS = [
+  { n: "Q1", q: "¿Cuáles son los top 3 red flags materiales del target? Cita la sección del CIM en cada uno." },
+  { n: "Q2", q: "El covenant Net Debt/EBITDA con Bancolombia es 3.50x y al cierre 2025 está en 3.42x. ¿Qué pasa si el EBITDA cae 10% en 2026? ¿Cuánto margen queda?" },
+  { n: "Q3", q: "Usando múltiplos sectoriales típicos (EV/EBITDA 5x–9x para cementeras LatAm), estima el rango de Enterprise Value para Cementos Portales con su EBITDA 2025." },
+  { n: "Q4", q: "Genera 5 preguntas precisas que el MD debe hacerle al CEO en la management presentation. Que cada una sea incómoda de responder." },
+  { n: "Q5", q: "Recomendación binaria: ¿AVANZAMOS a Round 2 o DECLINAMOS? Justifica en 3 bullets. Si dudas, di que dudas — no hagas el político." },
+];
+
+const PLATFORM_GUIDE: Record<string, { free: string; pro: string; tip: string; flow: string[] }> = {
+  chatgpt: {
+    free: "Abre un chat nuevo · pega el system prompt · adjunta el .docx con el clip · empieza a preguntar.",
+    pro: "Plus: My GPTs → Create. Pega el prompt en \"Instructions\" · sube el CIM en \"Knowledge\" · le pones nombre \"BTG DD Analyst v1\" · obtienes un GPT reusable que compartes con tu equipo.",
+    tip: "Si subes el .docx en el chat se activa Advanced Data Analysis. Después de Q3 dile: \"corre el cálculo en Python y muéstralo paso a paso\". Devuelve el código ejecutado y verificable.",
+    flow: [
+      "chatgpt.com → New chat",
+      "Pega el system prompt arriba",
+      "Adjunta 01-cementos-portales-cim.docx",
+      "Pega Q1 → revisa la respuesta",
+      "Pega Q2 a Q5 una por una",
+    ],
+  },
+  claude: {
+    free: "Abre un chat nuevo · pega el system prompt · adjunta el .docx · empieza a preguntar. Funciona; pierdes contexto al cerrar.",
+    pro: "Projects → New Project → en \"Custom instructions\" pega el prompt · sube el CIM como knowledge permanente · cada conversación nueva dentro del Project hereda el contexto sin re-cargar.",
+    tip: "Después de Q5 dile: \"Genera el memo IC final como Artifact\". Lo abre en panel lateral, editable, con versiones, exportable a Word con un click.",
+    flow: [
+      "claude.ai → New chat (o Projects → New)",
+      "Pega el system prompt",
+      "Adjunta 01-cementos-portales-cim.docx",
+      "Pega Q1 a Q5 una por una",
+      "Cierra con: \"genera el memo IC como Artifact\"",
+    ],
+  },
+  gemini: {
+    free: "Gems es la opción correcta: Gemini → Gems → Create new Gem. Pega el system prompt en \"Instructions\" · sube el CIM como referencia. El Gem queda compartible con tu equipo.",
+    pro: "Gemini Advanced: mismo flujo pero con ventana de 1M de tokens. Puedes sumar 5 PDFs adicionales (research sectorial, comps, regulación) sin temer al límite.",
+    tip: "Después de Q4 di: \"abre Deep Research sobre las 5 preguntas y dame las respuestas verificadas con fuentes web\". Gemini cruza la información del CIM con datos públicos.",
+    flow: [
+      "gemini.google.com → Gems → Create",
+      "Nombre: BTG DD Analyst",
+      "Instructions: pega el system prompt",
+      "Add files: sube el CIM",
+      "Save y empieza a preguntar Q1 a Q5",
+    ],
+  },
+  deepseek: {
+    free: "chat.deepseek.com · pega el system prompt al inicio del chat · adjunta el .docx con el ícono de clip. No hay \"projects\" — el contexto vive en la conversación.",
+    pro: "DeepSeek no tiene tier Pro de pago. Lo bueno: ningún paywall. Lo malo: si cierras el tab, pierdes el setup. Mantén la conversación abierta durante todo el ejercicio.",
+    tip: "DeepSeek razona muy bien cuantitativo. En Q2 (estrés del covenant) y Q3 (valoración) suele ser el más detallado. Pídele que muestre los cálculos en pasos numerados.",
+    flow: [
+      "chat.deepseek.com → New chat",
+      "Activa \"Deep Think\" si está disponible",
+      "Pega el system prompt",
+      "Adjunta el CIM",
+      "Pega Q1 a Q5",
+    ],
+  },
+};
+
+const COMPARE_DIMENSIONS = [
+  { d: "Citas a fuente", w: "¿Cita sección o tabla del CIM o se inventa?", color: "#E85A1F" },
+  { d: "Detección de red flags", w: "¿Encontró los 3 que vimos en clase (DSO, covenant, DIAN)?", color: "#3A7BD5" },
+  { d: "Cuantitativo", w: "¿Hace bien las matemáticas del estrés y la valoración?", color: "#22C55E" },
+  { d: "Honestidad", w: "¿Dice \"no sé\" cuando corresponde o llena el vacío con humo?", color: "#D4AF4C" },
+  { d: "UX del output", w: "¿Está estructurado, citable, listo para llevar al MD?", color: "#9B59B6" },
+];
+
+const LOVABLE_PROMPT = `Construye una landing page minimalista en Next.js + Tailwind para presentar los resultados de un análisis de Due Diligence comparando 4 plataformas de IA.
+
+Contenido:
+1) Header con nombre del target ("Cementos Portales S.A.") y badge de sector ("Cemento · LatAm").
+2) Una grid responsive de 4 cards (una por plataforma: ChatGPT, Claude, Gemini, DeepSeek). Cada card muestra:
+   - Marca de la plataforma con su color identitario
+   - Top 3 red flags identificados (texto editable)
+   - Rango de Enterprise Value estimado en USD
+   - Score de confianza 1-10 con barra visual
+3) Sección "Recomendación final BTG" con un badge grande (AVANZAR A R2 / DECLINAR) y 3 bullets de justificación.
+4) Footer con la fecha del análisis y un disclaimer de "datos sintéticos · ejercicio educativo".
+5) Tema dark con acento naranja #E85A1F y texto blanco.
+
+Responsive, código limpio, listo para deploy en Vercel con un click.`;
+
+const MVP_KIT = [
+  { t: "Archivos sintéticos", d: "6 archivos (Excel y Word) listos para descargar desde la galería · sin PII.", icon: "📦" },
+  { t: "Prompts probados", d: "Cada caso trae prompt copiable que ya funciona · ajusta solo los detalles del usuario.", icon: "✍" },
+  { t: "Plataformas free", d: "Claude · ChatGPT · Gemini · NotebookLM · DeepSeek · Mistral · Kimi · acceso gratuito a todas.", icon: "🌐" },
+  { t: "Cuentas Pro pool", d: "Para los equipos que quieran probar Projects (Claude Pro) o Code Interpreter sin límite (ChatGPT Plus).", icon: "🔑" },
+  { t: "Mentoría on-demand", d: "2 facilitadores rotando entre equipos · resuelven bloqueos en menos de 5 min.", icon: "🧭" },
+  { t: "Plantilla pitch", d: "Estructura simple para presentar en 5 min: problema · demo · qué cambió · siguiente paso.", icon: "🎯" },
 ];
 
 /* Live chat demo — DD de M&A en tiempo real */
@@ -412,6 +954,16 @@ export default function Sesion4() {
   const [gptStep, setGptStep] = useState<number>(0);
   const [activeCase, setActiveCase] = useState<number>(0);
   const [activeCompare, setActiveCompare] = useState<number>(0);
+  const [activeFinanceCase, setActiveFinanceCase] = useState<string>("dd");
+  const [activeTrack, setActiveTrack] = useState<string>("A");
+  const [copiedPrompt, setCopiedPrompt] = useState<string | null>(null);
+  const [guidedPlatform, setGuidedPlatform] = useState<string>("chatgpt");
+
+  const copyToClipboard = (text: string, key: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedPrompt(key);
+    setTimeout(() => setCopiedPrompt(null), 2000);
+  };
 
   /* Hero counter */
   const [heroCount, setHeroCount] = useState(0);
@@ -452,6 +1004,8 @@ export default function Sesion4() {
   }, []);
 
   const activeLayerData = useMemo(() => ASSISTANT_LAYERS.find((l) => l.id === activeLayer)!, [activeLayer]);
+  const activeFinanceCaseData = useMemo(() => FINANCE_CASES.find((c) => c.id === activeFinanceCase)!, [activeFinanceCase]);
+  const activeTrackData = useMemo(() => MVP_TRACKS.find((t) => t.id === activeTrack)!, [activeTrack]);
 
   return (
     <div className="min-h-screen bg-[#080C1F]">
@@ -1838,39 +2392,1020 @@ export default function Sesion4() {
         </section>
       </RevealSection>
 
-      {/* ═══════════════ 11. TALLER ═══════════════ */}
+      {/* ═══════════════ 10B. PLATAFORMAS DISPONIBLES ═══════════════ */}
+      <RevealSection>
+        <section className="max-w-6xl mx-auto px-6 py-16">
+          <p className="font-mono text-[0.72rem] uppercase tracking-widest text-cyan mb-3">Estado mayo 2026 · plataformas free / freemium</p>
+          <h2 className="text-3xl md:text-5xl font-bold text-white-f leading-tight mb-4">
+            7 asistentes <span className="bg-gradient-to-r from-cyan to-orange bg-clip-text text-transparent">que abrimos en clase</span>
+          </h2>
+          <p className="text-muted text-base max-w-3xl mb-10 leading-relaxed">
+            Cada uno con su sweet spot. Todos accesibles con cuenta gratuita o tier de prueba. Sin instalaciones locales, sin servidores, sin tarjeta de crédito para arrancar.
+          </p>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-2">
+            {Object.entries(TOOLS).map(([k, t]) => (
+              <a
+                key={k}
+                href={t.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group bg-[#0F1438] border rounded-xl p-3 transition-all hover:-translate-y-1"
+                style={{ borderColor: `${t.color}25` }}
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <div
+                    className="w-8 h-8 rounded-lg grid place-items-center font-bold text-base"
+                    style={{ background: `${t.color}25`, color: t.color }}
+                  >
+                    {t.mark}
+                  </div>
+                  <span className="font-mono text-[0.5rem] tracking-widest text-muted/60 group-hover:text-white-f">↗</span>
+                </div>
+                <p className="text-[0.78rem] font-semibold text-white-f mb-0.5 leading-tight">{t.short}</p>
+                <p className="font-mono text-[0.55rem] text-muted/70 mb-1.5">{t.tier}</p>
+                <p className="font-mono text-[0.55rem]" style={{ color: t.color }}>ctx {t.ctx}</p>
+              </a>
+            ))}
+          </div>
+
+          <div className="mt-6 grid sm:grid-cols-3 gap-3">
+            <div className="bg-[#0D1229] border border-cyan/20 rounded-xl p-4">
+              <p className="font-mono text-[0.6rem] uppercase tracking-widest text-cyan mb-1.5">Regla simple</p>
+              <p className="text-[0.78rem] text-white-f/85 leading-relaxed">Si el documento pasa de 80 páginas, ve a <span className="font-bold">Kimi</span>. Si necesitas correr código en Excel, ve a <span className="font-bold">ChatGPT</span> o <span className="font-bold">Mistral</span>.</p>
+            </div>
+            <div className="bg-[#0D1229] border border-orange/20 rounded-xl p-4">
+              <p className="font-mono text-[0.6rem] uppercase tracking-widest text-orange mb-1.5">Para citas verificables</p>
+              <p className="text-[0.78rem] text-white-f/85 leading-relaxed"><span className="font-bold">NotebookLM</span> cita la fuente literal. <span className="font-bold">Claude</span> también lo hace bien con docs largos.</p>
+            </div>
+            <div className="bg-[#0D1229] border border-purple/20 rounded-xl p-4">
+              <p className="font-mono text-[0.6rem] uppercase tracking-widest text-purple-light mb-1.5">Segunda opinión</p>
+              <p className="text-[0.78rem] text-white-f/85 leading-relaxed">Cuando la decisión es material, corre el mismo prompt en <span className="font-bold">DeepSeek</span> + <span className="font-bold">Mistral</span> + <span className="font-bold">Claude</span> y compara.</p>
+            </div>
+          </div>
+        </section>
+      </RevealSection>
+
+      {/* ═══════════════ 10C. GALERÍA · 6 FLUJOS EN FINANZAS ═══════════════ */}
       <RevealSection>
         <section className="max-w-6xl mx-auto px-6 py-20">
-          <div className="grid md:grid-cols-[1.2fr_1fr] gap-10">
-            <div>
-              <p className="font-mono text-[0.72rem] text-orange uppercase tracking-widest mb-3">Taller final · 20 min</p>
-              <h2 className="text-3xl md:text-4xl font-bold text-white-f leading-tight mb-4">
-                Construye <span className="bg-gradient-to-r from-orange to-cyan bg-clip-text text-transparent">tu asistente DD M&A</span>
-              </h2>
-              <p className="text-muted mb-6 leading-relaxed">
-                Siguiendo los 7 pasos, dejas la sesión con un asistente funcional al que puedes subirle tu próximo data room el lunes.
+          <p className="font-mono text-[0.72rem] uppercase tracking-widest text-cyan mb-3">Galería · 6 flujos con archivos descargables</p>
+          <h2 className="text-3xl md:text-5xl font-bold text-white-f leading-tight mb-4">
+            Cada caso trae <span className="bg-gradient-to-r from-cyan to-orange bg-clip-text text-transparent">archivo + prompt + plataforma</span>
+          </h2>
+          <p className="text-muted text-base max-w-3xl mb-10 leading-relaxed">
+            Descarga el Excel o Word, copia el prompt, abre la plataforma y sube el archivo. En menos de 5 minutos tienes un demo funcionando con datos sintéticos pensados para banca.
+          </p>
+
+          {/* Selector de casos */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 mb-8">
+            {FINANCE_CASES.map((c) => (
+              <button
+                key={c.id}
+                onClick={() => setActiveFinanceCase(c.id)}
+                className="rounded-xl p-3 border transition-all text-left"
+                style={{
+                  background: activeFinanceCase === c.id ? `${c.color}18` : "#151A3A",
+                  borderColor: activeFinanceCase === c.id ? `${c.color}70` : "rgba(255,255,255,0.06)",
+                }}
+              >
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="font-mono text-[0.55rem] tracking-widest text-muted/70">{c.num}</span>
+                  <span className="text-lg" style={{ color: c.color }}>{c.icon}</span>
+                </div>
+                <p className="text-[0.7rem] font-semibold text-white-f leading-tight">{c.title.split(" ").slice(0, 4).join(" ")}…</p>
+                <p className="font-mono text-[0.55rem] text-muted/70 mt-1">{c.line}</p>
+              </button>
+            ))}
+          </div>
+
+          {/* Detalle del caso activo */}
+          <div className="grid md:grid-cols-[1.4fr_1fr] gap-6">
+            {/* Workflow + descarga + prompt */}
+            <div className="bg-[#0D1229] border rounded-2xl p-6 md:p-8" style={{ borderColor: `${activeFinanceCaseData.color}30` }}>
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <p className="font-mono text-[0.6rem] uppercase tracking-widest" style={{ color: activeFinanceCaseData.color }}>
+                    Caso {activeFinanceCaseData.num} · {activeFinanceCaseData.line}
+                  </p>
+                  <h3 className="text-2xl font-bold text-white-f mt-2 leading-tight">{activeFinanceCaseData.title}</h3>
+                </div>
+                <span className="text-3xl flex-shrink-0 ml-4" style={{ color: activeFinanceCaseData.color }}>{activeFinanceCaseData.icon}</span>
+              </div>
+
+              {/* Problem */}
+              <p className="text-[0.85rem] text-white-f/85 leading-relaxed italic mb-5 pl-3 border-l-2" style={{ borderColor: activeFinanceCaseData.color }}>
+                &ldquo;{activeFinanceCaseData.problem}&rdquo;
               </p>
 
-              <div className="bg-gradient-to-br from-orange/10 to-purple/10 border border-orange/30 rounded-2xl p-5">
-                <p className="font-mono text-[0.6rem] uppercase tracking-widest text-orange mb-2">Entregable</p>
-                <p className="text-white-f leading-relaxed">
-                  Un Project (Claude) o Custom GPT (ChatGPT) funcional + 1 IC memo generado + pitch de 90 segundos al equipo.
+              {/* Plataformas sugeridas */}
+              <div className="mb-5">
+                <p className="font-mono text-[0.55rem] uppercase tracking-widest text-muted/70 mb-2">Plataforma recomendada · alternativas</p>
+                <div className="flex flex-wrap gap-2">
+                  {[activeFinanceCaseData.primary, ...activeFinanceCaseData.alt].map((tk, idx) => {
+                    const tool = TOOLS[tk];
+                    if (!tool) return null;
+                    const primary = idx === 0;
+                    return (
+                      <a
+                        key={tk}
+                        href={tool.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-all hover:scale-105"
+                        style={{
+                          background: primary ? `${tool.color}25` : `${tool.color}10`,
+                          borderColor: primary ? `${tool.color}70` : `${tool.color}30`,
+                        }}
+                      >
+                        <span
+                          className="w-5 h-5 rounded grid place-items-center text-[0.7rem] font-bold"
+                          style={{ background: tool.color, color: "#fff" }}
+                        >
+                          {tool.mark}
+                        </span>
+                        <span className="text-[0.75rem] font-semibold" style={{ color: tool.color }}>{tool.short}</span>
+                        {primary && <span className="font-mono text-[0.55rem] text-white-f/60">★</span>}
+                        <span className="text-[0.6rem] text-muted/60 group-hover:text-white-f">↗</span>
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Descarga */}
+              <div className="mb-5">
+                <p className="font-mono text-[0.55rem] uppercase tracking-widest text-muted/70 mb-2">Archivo para descargar</p>
+                <div className="space-y-2">
+                  {activeFinanceCaseData.files.map((f) => (
+                    <a
+                      key={f.file}
+                      href={`/sesion-4/${f.file}`}
+                      download
+                      className="group flex items-center gap-3 px-4 py-3 rounded-lg border transition-all hover:scale-[1.01]"
+                      style={{
+                        background: `${activeFinanceCaseData.color}10`,
+                        borderColor: `${activeFinanceCaseData.color}40`,
+                      }}
+                    >
+                      <span
+                        className="w-10 h-10 rounded-lg grid place-items-center text-base font-bold"
+                        style={{ background: `${activeFinanceCaseData.color}25`, color: activeFinanceCaseData.color }}
+                      >
+                        {f.kind === "Excel" ? "📊" : "📄"}
+                      </span>
+                      <div className="flex-1">
+                        <p className="text-[0.85rem] font-semibold text-white-f">{f.name}</p>
+                        <p className="font-mono text-[0.6rem] text-muted/70">{f.kind} · {f.size} · {f.file}</p>
+                      </div>
+                      <span
+                        className="font-mono text-[0.65rem] px-2 py-1 rounded uppercase tracking-widest font-bold group-hover:scale-110 transition-transform"
+                        style={{ background: activeFinanceCaseData.color, color: "#000" }}
+                      >
+                        ↓ descargar
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              {/* Workflow steps */}
+              <div className="mb-5">
+                <p className="font-mono text-[0.55rem] uppercase tracking-widest text-muted/70 mb-2">Cómo seguirlo · 4 pasos</p>
+                <ol className="space-y-2">
+                  {activeFinanceCaseData.workflow.map((step, i) => (
+                    <li key={i} className="flex gap-3 text-[0.82rem] text-white-f/85 leading-relaxed">
+                      <span
+                        className="flex-shrink-0 w-5 h-5 rounded-full grid place-items-center text-[0.6rem] font-mono font-bold"
+                        style={{ background: `${activeFinanceCaseData.color}20`, color: activeFinanceCaseData.color }}
+                      >
+                        {i + 1}
+                      </span>
+                      <span>{step}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+
+              {/* Prompt copiable */}
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <p className="font-mono text-[0.55rem] uppercase tracking-widest text-muted/70">Prompt listo · copia y pega</p>
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText(activeFinanceCaseData.prompt);
+                      setCopiedPrompt(activeFinanceCaseData.id);
+                      setTimeout(() => setCopiedPrompt(null), 2000);
+                    }}
+                    className="font-mono text-[0.6rem] tracking-widest uppercase px-3 py-1 rounded-md font-bold transition-all"
+                    style={{
+                      background: copiedPrompt === activeFinanceCaseData.id ? "#22C55E" : activeFinanceCaseData.color,
+                      color: copiedPrompt === activeFinanceCaseData.id ? "#000" : "#000",
+                    }}
+                  >
+                    {copiedPrompt === activeFinanceCaseData.id ? "✓ copiado" : "⎘ copiar"}
+                  </button>
+                </div>
+                <pre
+                  className="bg-[#080C1F] border rounded-lg p-4 font-mono text-[0.7rem] text-white-f/85 leading-relaxed whitespace-pre-wrap max-h-72 overflow-y-auto"
+                  style={{ borderColor: `${activeFinanceCaseData.color}30` }}
+                >
+                  {activeFinanceCaseData.prompt}
+                </pre>
+              </div>
+            </div>
+
+            {/* Sidebar: por qué + métrica + output */}
+            <div className="space-y-4">
+              <div
+                className="rounded-2xl p-6 text-center"
+                style={{
+                  background: `linear-gradient(135deg, ${activeFinanceCaseData.color}25, ${activeFinanceCaseData.color}08)`,
+                  border: `1px solid ${activeFinanceCaseData.color}40`,
+                }}
+              >
+                <p className="font-mono text-[0.55rem] uppercase tracking-widest text-muted mb-2">Impacto</p>
+                <p className="text-5xl font-bold leading-none mb-2" style={{ color: activeFinanceCaseData.color }}>
+                  {activeFinanceCaseData.metric.v}
+                </p>
+                <p className="font-mono text-[0.65rem] text-white-f/80 uppercase tracking-wider">
+                  {activeFinanceCaseData.metric.k}
+                </p>
+              </div>
+
+              <div className="bg-[#0D1229] border border-white/[0.06] rounded-2xl p-5">
+                <p className="font-mono text-[0.55rem] uppercase tracking-widest text-muted/70 mb-2">Output esperado</p>
+                <p className="text-[0.82rem] text-white-f/90 leading-relaxed">{activeFinanceCaseData.output}</p>
+              </div>
+
+              <div className="bg-[#0D1229] border border-white/[0.06] rounded-2xl p-5">
+                <p className="font-mono text-[0.55rem] uppercase tracking-widest text-muted/70 mb-2">¿Por qué esa plataforma?</p>
+                <p className="text-[0.82rem] text-white-f/85 leading-relaxed italic">{activeFinanceCaseData.why}</p>
+              </div>
+
+              {/* Plataforma primaria card */}
+              {(() => {
+                const primary = TOOLS[activeFinanceCaseData.primary];
+                if (!primary) return null;
+                return (
+                  <a
+                    href={primary.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block rounded-2xl p-5 border transition-all hover:-translate-y-1"
+                    style={{
+                      background: `linear-gradient(135deg, ${primary.color}20, ${primary.color}05)`,
+                      borderColor: `${primary.color}40`,
+                    }}
+                  >
+                    <div className="flex items-center gap-3 mb-2">
+                      <span
+                        className="w-10 h-10 rounded-lg grid place-items-center text-lg font-bold"
+                        style={{ background: primary.color, color: "#fff" }}
+                      >
+                        {primary.mark}
+                      </span>
+                      <div className="flex-1">
+                        <p className="text-sm font-bold text-white-f">{primary.name}</p>
+                        <p className="font-mono text-[0.6rem] text-muted/80">{primary.tier} · ctx {primary.ctx}</p>
+                      </div>
+                      <span className="font-mono text-[0.65rem] text-white-f/60">abrir ↗</span>
+                    </div>
+                    <p className="text-[0.72rem] text-white-f/80 leading-relaxed">{primary.fit}</p>
+                  </a>
+                );
+              })()}
+            </div>
+          </div>
+
+          {/* Mini cards de los otros casos */}
+          <div className="mt-10">
+            <p className="font-mono text-[0.6rem] uppercase tracking-widest text-muted mb-4">Resumen de los 6 flujos</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+              {FINANCE_CASES.map((c) => {
+                const tool = TOOLS[c.primary];
+                return (
+                  <button
+                    key={c.id}
+                    onClick={() => setActiveFinanceCase(c.id)}
+                    className="text-left bg-[#0F1438] border rounded-xl p-4 transition-all hover:-translate-y-0.5"
+                    style={{ borderColor: activeFinanceCase === c.id ? `${c.color}50` : "rgba(255,255,255,0.06)" }}
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xl" style={{ color: c.color }}>{c.icon}</span>
+                        <span className="font-mono text-[0.55rem] tracking-widest text-muted/70">{c.num}</span>
+                      </div>
+                      {tool && (
+                        <span
+                          className="w-5 h-5 rounded grid place-items-center text-[0.65rem] font-bold"
+                          style={{ background: `${tool.color}25`, color: tool.color }}
+                        >
+                          {tool.mark}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-[0.78rem] font-semibold text-white-f leading-snug mb-2">{c.title}</p>
+                    <p className="font-mono text-[0.55rem] text-muted/70">{c.line}</p>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      </RevealSection>
+
+      {/* ═══════════════ 10D. EJEMPLO GUIADO · 4 PLATAFORMAS ═══════════════ */}
+      <RevealSection>
+        <section className="relative max-w-6xl mx-auto px-6 py-24">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_30%,rgba(232,90,31,0.06),transparent),radial-gradient(ellipse_40%_40%_at_30%_70%,rgba(0,229,160,0.05),transparent)] pointer-events-none" />
+
+          <div className="relative z-10">
+            <div className="flex items-center gap-2 mb-4 flex-wrap">
+              <span className="font-mono text-[0.6rem] tracking-widest uppercase px-2.5 py-1 rounded-full bg-orange/15 text-orange border border-orange/30">
+                ✦ Ejemplo guiado en clase
+              </span>
+              <span className="font-mono text-[0.6rem] tracking-widest uppercase text-cyan">mismo target · mismo prompt · 4 plataformas</span>
+            </div>
+
+            <h2 className="text-3xl md:text-5xl font-bold text-white-f leading-tight mb-4">
+              Construye el mismo asistente DD en{" "}
+              <span className="bg-gradient-to-r from-orange via-cyan to-purple-light bg-clip-text text-transparent">
+                ChatGPT, Claude, Gemini y DeepSeek
+              </span>
+            </h2>
+            <p className="text-lg text-muted max-w-3xl leading-relaxed mb-10">
+              El target: <span className="text-white-f font-semibold">Cementos Portales S.A.</span> El input: el CIM completo. El prompt: el mismo. Las preguntas: las mismas. Lo único que cambia es la plataforma — y eso es lo que vamos a comparar.
+            </p>
+
+            {/* Three-step header: archivo + prompt + 4 plataformas */}
+            <div className="grid md:grid-cols-3 gap-3 mb-10">
+              <div className="bg-[#0D1229] border border-orange/30 rounded-2xl p-5">
+                <p className="font-mono text-[0.55rem] uppercase tracking-widest text-orange mb-3">Paso 1 · El input</p>
+                <a
+                  href="/sesion-4/01-cementos-portales-cim.docx"
+                  download
+                  className="flex items-center gap-3 group"
+                >
+                  <span className="w-10 h-10 rounded-lg bg-orange/25 grid place-items-center text-base">📄</span>
+                  <div className="flex-1">
+                    <p className="text-[0.85rem] font-semibold text-white-f group-hover:text-orange transition-colors">Cementos Portales · CIM</p>
+                    <p className="font-mono text-[0.6rem] text-muted/70">Word · 38 KB · descargar</p>
+                  </div>
+                </a>
+              </div>
+
+              <div className="bg-[#0D1229] border border-cyan/30 rounded-2xl p-5">
+                <p className="font-mono text-[0.55rem] uppercase tracking-widest text-cyan mb-3">Paso 2 · El prompt</p>
+                <button
+                  onClick={() => copyToClipboard(GUIDED_PROMPT, "guided-prompt")}
+                  className="flex items-center gap-3 w-full group"
+                >
+                  <span className="w-10 h-10 rounded-lg bg-cyan/25 grid place-items-center text-base">✍</span>
+                  <div className="flex-1 text-left">
+                    <p className="text-[0.85rem] font-semibold text-white-f group-hover:text-cyan transition-colors">
+                      {copiedPrompt === "guided-prompt" ? "✓ copiado" : "Copiar system prompt"}
+                    </p>
+                    <p className="font-mono text-[0.6rem] text-muted/70">~480 palabras · 5 reglas duras</p>
+                  </div>
+                </button>
+              </div>
+
+              <div className="bg-[#0D1229] border border-purple/30 rounded-2xl p-5">
+                <p className="font-mono text-[0.55rem] uppercase tracking-widest text-purple-light mb-3">Paso 3 · Las plataformas</p>
+                <div className="flex items-center gap-2">
+                  {["chatgpt", "claude", "gemini", "deepseek"].map((tk) => {
+                    const tool = TOOLS[tk];
+                    return (
+                      <a
+                        key={tk}
+                        href={tool.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-9 h-9 rounded-lg grid place-items-center font-bold text-sm hover:scale-110 transition-transform"
+                        style={{ background: tool.color, color: "#fff" }}
+                        title={tool.name}
+                      >
+                        {tool.mark}
+                      </a>
+                    );
+                  })}
+                </div>
+                <p className="font-mono text-[0.6rem] text-muted/70 mt-2">4 pestañas · 4 setups · 1 tarde</p>
+              </div>
+            </div>
+
+            {/* System prompt expandible */}
+            <div className="mb-10">
+              <div className="flex items-center justify-between mb-3">
+                <p className="font-mono text-[0.6rem] uppercase tracking-widest text-orange">El system prompt único</p>
+                <button
+                  onClick={() => copyToClipboard(GUIDED_PROMPT, "prompt-block")}
+                  className="font-mono text-[0.6rem] tracking-widest uppercase px-3 py-1 rounded-md font-bold transition-all"
+                  style={{
+                    background: copiedPrompt === "prompt-block" ? "#22C55E" : "#E85A1F",
+                    color: "#000",
+                  }}
+                >
+                  {copiedPrompt === "prompt-block" ? "✓ copiado" : "⎘ copiar"}
+                </button>
+              </div>
+              <pre className="bg-[#080C1F] border border-orange/30 rounded-xl p-5 font-mono text-[0.72rem] text-white-f/90 leading-relaxed whitespace-pre-wrap max-h-80 overflow-y-auto">
+                {GUIDED_PROMPT}
+              </pre>
+            </div>
+
+            {/* 5 preguntas estandarizadas */}
+            <div className="mb-10">
+              <p className="font-mono text-[0.6rem] uppercase tracking-widest text-cyan mb-3">Las 5 preguntas que todos hacen · en este orden</p>
+              <div className="space-y-2">
+                {GUIDED_QUESTIONS.map((q) => (
+                  <div key={q.n} className="bg-[#0F1438] border border-white/[0.06] rounded-xl p-4 flex items-start gap-4 hover:border-cyan/25 transition-all group">
+                    <span className="flex-shrink-0 w-10 h-10 rounded-lg bg-cyan/15 text-cyan grid place-items-center font-mono font-bold text-sm">
+                      {q.n}
+                    </span>
+                    <p className="flex-1 text-[0.85rem] text-white-f/90 leading-relaxed">{q.q}</p>
+                    <button
+                      onClick={() => copyToClipboard(q.q, `q-${q.n}`)}
+                      className="font-mono text-[0.55rem] tracking-widest uppercase px-2 py-1 rounded font-bold transition-all opacity-50 group-hover:opacity-100"
+                      style={{
+                        background: copiedPrompt === `q-${q.n}` ? "#22C55E" : "rgba(255,255,255,0.06)",
+                        color: copiedPrompt === `q-${q.n}` ? "#000" : "#fff",
+                      }}
+                    >
+                      {copiedPrompt === `q-${q.n}` ? "✓" : "⎘"}
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Selector de plataforma + setup detallado */}
+            <div className="mb-10">
+              <p className="font-mono text-[0.6rem] uppercase tracking-widest text-muted mb-3">Setup específico por plataforma</p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-6">
+                {["chatgpt", "claude", "gemini", "deepseek"].map((tk) => {
+                  const tool = TOOLS[tk];
+                  const active = guidedPlatform === tk;
+                  return (
+                    <button
+                      key={tk}
+                      onClick={() => setGuidedPlatform(tk)}
+                      className="rounded-xl p-4 border transition-all text-left"
+                      style={{
+                        background: active ? `${tool.color}20` : "#151A3A",
+                        borderColor: active ? `${tool.color}80` : "rgba(255,255,255,0.06)",
+                      }}
+                    >
+                      <div className="flex items-center gap-3 mb-2">
+                        <span
+                          className="w-9 h-9 rounded-lg grid place-items-center font-bold text-base"
+                          style={{ background: tool.color, color: "#fff" }}
+                        >
+                          {tool.mark}
+                        </span>
+                        <div className="flex-1">
+                          <p className="text-[0.85rem] font-bold text-white-f">{tool.short}</p>
+                          <p className="font-mono text-[0.55rem] text-muted/70">{tool.tier}</p>
+                        </div>
+                      </div>
+                      <p className="font-mono text-[0.55rem] text-muted/70">ctx {tool.ctx}</p>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {(() => {
+                const tool = TOOLS[guidedPlatform];
+                const guide = PLATFORM_GUIDE[guidedPlatform];
+                if (!tool || !guide) return null;
+                return (
+                  <div
+                    className="rounded-2xl p-6 md:p-8 border"
+                    style={{
+                      background: `linear-gradient(135deg, ${tool.color}10, transparent 70%)`,
+                      borderColor: `${tool.color}40`,
+                    }}
+                  >
+                    <div className="flex items-center gap-3 mb-6">
+                      <span
+                        className="w-12 h-12 rounded-xl grid place-items-center font-bold text-lg"
+                        style={{ background: tool.color, color: "#fff" }}
+                      >
+                        {tool.mark}
+                      </span>
+                      <div className="flex-1">
+                        <h3 className="text-xl font-bold text-white-f">{tool.name}</h3>
+                        <p className="text-[0.75rem] text-muted">{tool.fit}</p>
+                      </div>
+                      <a
+                        href={tool.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-mono text-[0.65rem] tracking-widest uppercase px-3 py-2 rounded-lg font-bold"
+                        style={{ background: tool.color, color: "#fff" }}
+                      >
+                        abrir ↗
+                      </a>
+                    </div>
+
+                    <div className="grid md:grid-cols-[1fr_1fr] gap-4 mb-5">
+                      <div className="bg-[#0D1229] border border-white/[0.06] rounded-xl p-4">
+                        <p className="font-mono text-[0.55rem] uppercase tracking-widest text-cyan mb-2">Setup · plan FREE</p>
+                        <p className="text-[0.8rem] text-white-f/85 leading-relaxed">{guide.free}</p>
+                      </div>
+                      <div className="bg-[#0D1229] border border-white/[0.06] rounded-xl p-4">
+                        <p className="font-mono text-[0.55rem] uppercase tracking-widest text-orange mb-2">Setup · plan PRO</p>
+                        <p className="text-[0.8rem] text-white-f/85 leading-relaxed">{guide.pro}</p>
+                      </div>
+                    </div>
+
+                    <div className="bg-[#0D1229] border rounded-xl p-4 mb-5" style={{ borderColor: `${tool.color}30` }}>
+                      <p className="font-mono text-[0.55rem] uppercase tracking-widest mb-2" style={{ color: tool.color }}>Tip que aprovecha la plataforma</p>
+                      <p className="text-[0.8rem] text-white-f/90 leading-relaxed italic">{guide.tip}</p>
+                    </div>
+
+                    <div>
+                      <p className="font-mono text-[0.55rem] uppercase tracking-widest text-muted mb-2">Flujo en 5 pasos</p>
+                      <div className="grid grid-cols-1 sm:grid-cols-5 gap-2">
+                        {guide.flow.map((step, i) => (
+                          <div key={i} className="bg-[#151A3A] border border-white/[0.06] rounded-lg p-3">
+                            <span
+                              className="font-mono text-[0.6rem] font-bold mb-1.5 inline-block px-1.5 py-0.5 rounded"
+                              style={{ background: `${tool.color}25`, color: tool.color }}
+                            >
+                              {i + 1}
+                            </span>
+                            <p className="text-[0.7rem] text-white-f/85 leading-snug">{step}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
+            </div>
+
+            {/* Tabla de comparación */}
+            <div className="mb-10">
+              <p className="font-mono text-[0.6rem] uppercase tracking-widest text-purple-light mb-3">Cómo comparar las 4 respuestas</p>
+              <div className="bg-[#0D1229] border border-purple/25 rounded-2xl p-6">
+                <p className="text-[0.85rem] text-white-f/85 leading-relaxed mb-5">
+                  Después de correr las 5 preguntas en las 4 plataformas, cada equipo llena una tabla comparativa con estas 5 dimensiones. La idea no es elegir &ldquo;la mejor&rdquo; en abstracto, sino entender qué plataforma sirve para qué decisión.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-5">
+                  {COMPARE_DIMENSIONS.map((c, i) => (
+                    <div
+                      key={c.d}
+                      className="flex items-start gap-3 bg-[#080C1F] border border-white/[0.06] rounded-xl p-4"
+                    >
+                      <span
+                        className="flex-shrink-0 w-8 h-8 rounded-lg grid place-items-center font-mono font-bold text-xs"
+                        style={{ background: `${c.color}20`, color: c.color }}
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <div>
+                        <p className="text-[0.85rem] font-semibold text-white-f mb-1">{c.d}</p>
+                        <p className="text-[0.72rem] text-muted leading-snug">{c.w}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Mini tabla visual */}
+                <div className="overflow-x-auto">
+                  <table className="w-full text-[0.7rem]">
+                    <thead>
+                      <tr className="border-b border-white/[0.08]">
+                        <th className="text-left py-2 pr-3 text-muted font-mono text-[0.55rem] uppercase tracking-widest">Dimensión</th>
+                        {["chatgpt", "claude", "gemini", "deepseek"].map((tk) => {
+                          const t = TOOLS[tk];
+                          return (
+                            <th key={tk} className="text-center py-2 px-2 font-mono text-[0.55rem] uppercase tracking-widest" style={{ color: t.color }}>
+                              {t.short}
+                            </th>
+                          );
+                        })}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {COMPARE_DIMENSIONS.map((c) => (
+                        <tr key={c.d} className="border-b border-white/[0.04]">
+                          <td className="py-3 pr-3 text-white-f/90">{c.d}</td>
+                          {["chatgpt", "claude", "gemini", "deepseek"].map((tk) => (
+                            <td key={tk} className="py-3 px-2 text-center">
+                              <div className="inline-flex gap-0.5">
+                                {[1, 2, 3, 4, 5].map((n) => (
+                                  <span key={n} className="w-2 h-3 rounded-sm bg-white/[0.08]" />
+                                ))}
+                              </div>
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <p className="font-mono text-[0.55rem] text-muted/60 italic mt-3">
+                    Plantilla en blanco · cada equipo la llena con su evaluación 1–5 por dimensión.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Bonus Lovable / Vercel */}
+            <div className="bg-gradient-to-br from-[#080C1F] via-[#0D1229] to-[#080C1F] border border-orange/40 rounded-2xl p-6 md:p-8">
+              <div className="flex items-center gap-2 mb-4 flex-wrap">
+                <span className="font-mono text-[0.6rem] tracking-widest uppercase px-2.5 py-1 rounded-full bg-orange/20 text-orange border border-orange/40">
+                  ★ Bonus
+                </span>
+                <span className="font-mono text-[0.6rem] tracking-widest uppercase text-muted">solo si terminan a tiempo</span>
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-white-f leading-tight mb-3">
+                Empaqueta el resultado en una <span className="text-orange">página web pública</span>
+              </h3>
+              <p className="text-muted text-[0.95rem] leading-relaxed max-w-3xl mb-6">
+                Una vez tengan las 4 respuestas y la tabla comparativa, copien el siguiente prompt en <a href="https://lovable.dev/" target="_blank" rel="noopener noreferrer" className="text-orange font-semibold hover:underline">Lovable.dev</a> o <a href="https://v0.dev/" target="_blank" rel="noopener noreferrer" className="text-orange font-semibold hover:underline">v0.dev</a>. Genera una landing en menos de 2 minutos · click en &ldquo;Publish&rdquo; · queda live en Vercel para presentar al MD.
+              </p>
+
+              <div className="grid md:grid-cols-[2fr_1fr] gap-4 mb-6">
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <p className="font-mono text-[0.55rem] uppercase tracking-widest text-orange">Prompt para Lovable / v0.dev</p>
+                    <button
+                      onClick={() => copyToClipboard(LOVABLE_PROMPT, "lovable")}
+                      className="font-mono text-[0.6rem] tracking-widest uppercase px-3 py-1 rounded-md font-bold transition-all"
+                      style={{
+                        background: copiedPrompt === "lovable" ? "#22C55E" : "#E85A1F",
+                        color: "#000",
+                      }}
+                    >
+                      {copiedPrompt === "lovable" ? "✓ copiado" : "⎘ copiar"}
+                    </button>
+                  </div>
+                  <pre className="bg-[#080C1F] border border-orange/30 rounded-xl p-4 font-mono text-[0.7rem] text-white-f/85 leading-relaxed whitespace-pre-wrap max-h-64 overflow-y-auto">
+                    {LOVABLE_PROMPT}
+                  </pre>
+                </div>
+
+                <div className="space-y-3">
+                  <a
+                    href="https://lovable.dev/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 bg-[#151A3A] border border-orange/30 rounded-xl p-4 hover:border-orange/60 transition-all"
+                  >
+                    <span className="w-10 h-10 rounded-lg bg-orange/25 grid place-items-center text-orange font-bold">L</span>
+                    <div className="flex-1">
+                      <p className="text-[0.85rem] font-bold text-white-f">Lovable.dev</p>
+                      <p className="font-mono text-[0.6rem] text-muted/70">free · prompt → app web</p>
+                    </div>
+                    <span className="text-muted/60">↗</span>
+                  </a>
+                  <a
+                    href="https://v0.dev/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 bg-[#151A3A] border border-cyan/30 rounded-xl p-4 hover:border-cyan/60 transition-all"
+                  >
+                    <span className="w-10 h-10 rounded-lg bg-cyan/25 grid place-items-center text-cyan font-bold">v0</span>
+                    <div className="flex-1">
+                      <p className="text-[0.85rem] font-bold text-white-f">v0.dev (Vercel)</p>
+                      <p className="font-mono text-[0.6rem] text-muted/70">free · genera Next.js + deploy</p>
+                    </div>
+                    <span className="text-muted/60">↗</span>
+                  </a>
+                  <div className="bg-[#0F1438] border border-cyan/20 rounded-xl p-3">
+                    <p className="font-mono text-[0.55rem] uppercase tracking-widest text-cyan mb-1">Tip</p>
+                    <p className="text-[0.7rem] text-white-f/80 leading-snug">Después de publicar en Lovable, conecta el repo a Vercel para que cada cambio quede live automáticamente.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </RevealSection>
+
+      {/* ═══════════════ 11A. PREGUNTAS ORIENTADORAS ═══════════════ */}
+      <RevealSection>
+        <section className="max-w-6xl mx-auto px-6 py-20">
+          <p className="font-mono text-[0.72rem] uppercase tracking-widest text-orange mb-3">Antes de tocar la primera plataforma</p>
+          <h2 className="text-3xl md:text-5xl font-bold text-white-f leading-tight mb-4">
+            8 preguntas que <span className="bg-gradient-to-r from-orange to-cyan bg-clip-text text-transparent">deciden el éxito</span> del MVP
+          </h2>
+          <p className="text-muted text-base max-w-3xl mb-10 leading-relaxed">
+            Antes de elegir el caso, antes de copiar el prompt, antes de subir el archivo — siéntate 10 minutos con tu equipo y respondan estas preguntas. Lo que pasa después es radicalmente más rápido.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {ORIENTING_QUESTIONS.map((q) => (
+              <div
+                key={q.n}
+                className="group relative bg-[#0D1229] border rounded-2xl p-5 transition-all hover:-translate-y-0.5"
+                style={{ borderColor: `${q.color}25` }}
+              >
+                <div className="flex items-start gap-4">
+                  <div
+                    className="flex-shrink-0 w-12 h-12 rounded-xl grid place-items-center font-mono font-bold text-base"
+                    style={{ background: `${q.color}25`, color: q.color }}
+                  >
+                    {q.n}
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-[0.95rem] font-semibold text-white-f leading-snug mb-2">
+                      {q.q}
+                    </p>
+                    <p className="text-[0.75rem] text-muted leading-relaxed italic">
+                      {q.hint}
+                    </p>
+                  </div>
+                </div>
+                <div
+                  className="absolute top-0 left-0 right-0 h-[3px] rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{ background: q.color }}
+                />
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 text-center">
+            <p className="text-muted text-sm italic max-w-2xl mx-auto">
+              Si no puedes responder al menos 6 de las 8 con claridad, todavía no estás listo para construir. Vuelve a la pregunta 1.
+            </p>
+          </div>
+        </section>
+      </RevealSection>
+
+      {/* ═══════════════ 11B. SESIÓN PRÁCTICA · MVP 2-4 H ═══════════════ */}
+      <RevealSection>
+        <section className="relative max-w-6xl mx-auto px-6 py-24">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_50%_30%,rgba(232,90,31,0.08),transparent),radial-gradient(ellipse_40%_50%_at_30%_70%,rgba(91,82,213,0.06),transparent)] pointer-events-none" />
+
+          <div className="relative z-10">
+            <div className="flex items-center gap-2 mb-4 flex-wrap">
+              <span className="font-mono text-[0.6rem] tracking-widest uppercase px-2.5 py-1 rounded-full bg-orange/15 text-orange border border-orange/30">
+                ✦ Sesión práctica
+              </span>
+              <span className="font-mono text-[0.6rem] tracking-widest uppercase text-muted">2–4 horas · equipos de 2 a 3</span>
+              <span className="font-mono text-[0.6rem] tracking-widest uppercase text-cyan">sin instalaciones · todo desde el navegador</span>
+            </div>
+
+            <h2 className="text-3xl md:text-5xl font-bold text-white-f leading-tight mb-4">
+              Construye un <span className="bg-gradient-to-r from-orange via-purple-light to-cyan bg-clip-text text-transparent">MVP funcional</span> antes del cierre
+            </h2>
+            <p className="text-lg text-muted max-w-3xl leading-relaxed mb-10">
+              Cada equipo elige uno de los 5 tracks, descarga el archivo de la galería, abre la plataforma recomendada y construye un demo en vivo. La sesión cierra con pitches de 5 minutos por equipo.
+            </p>
+
+            {/* Cronograma extendido */}
+            <div className="mb-10">
+              <p className="font-mono text-[0.6rem] uppercase tracking-widest text-muted mb-3">Cronograma · 4 horas</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-2">
+                {MVP_AGENDA.map((a) => (
+                  <div
+                    key={a.phase}
+                    className="rounded-xl p-3 border"
+                    style={{
+                      background: `linear-gradient(135deg, ${a.color}12, ${a.color}06)`,
+                      borderColor: `${a.color}30`,
+                    }}
+                  >
+                    <p className="font-mono text-[0.6rem] font-semibold mb-1" style={{ color: a.color }}>{a.time}</p>
+                    <p className="text-xs font-bold text-white-f mb-1">{a.phase}</p>
+                    <p className="text-[0.65rem] text-muted leading-snug">{a.what}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="font-mono text-[0.6rem] text-muted mt-3 italic">
+                Versión corta de 2h: comprimir &quot;Cruzar respuestas&quot; a 10 min y reducir build a 60 min.
+              </p>
+            </div>
+
+            {/* Selector de tracks */}
+            <div className="mb-6">
+              <p className="font-mono text-[0.6rem] uppercase tracking-widest text-orange mb-3">Elige tu track</p>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
+                {MVP_TRACKS.map((t) => {
+                  const tool = TOOLS[t.primaryTool];
+                  return (
+                    <button
+                      key={t.id}
+                      onClick={() => setActiveTrack(t.id)}
+                      className="rounded-xl p-3 border transition-all text-left"
+                      style={{
+                        background: activeTrack === t.id ? `${t.color}18` : "#151A3A",
+                        borderColor: activeTrack === t.id ? `${t.color}70` : "rgba(255,255,255,0.06)",
+                      }}
+                    >
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="font-mono text-[0.6rem] font-bold" style={{ color: t.color }}>Track {t.id}</span>
+                        <span className="text-base" style={{ color: t.color }}>{t.icon}</span>
+                      </div>
+                      <p className="text-[0.72rem] font-semibold text-white-f leading-tight">{t.name}</p>
+                      <p className="font-mono text-[0.55rem] text-muted/70 mt-1">{t.line}</p>
+                      {tool && (
+                        <div className="flex items-center gap-1 mt-2">
+                          <span
+                            className="w-3.5 h-3.5 rounded grid place-items-center text-[0.55rem] font-bold"
+                            style={{ background: tool.color, color: "#fff" }}
+                          >
+                            {tool.mark}
+                          </span>
+                          <span className="font-mono text-[0.55rem] text-muted/80">{tool.short}</span>
+                        </div>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Detalle del track activo */}
+            <div
+              className="rounded-2xl p-6 md:p-8 border mb-10"
+              style={{
+                background: `linear-gradient(135deg, ${activeTrackData.color}10, transparent 70%)`,
+                borderColor: `${activeTrackData.color}40`,
+              }}
+            >
+              <div className="grid md:grid-cols-[1fr_1.4fr] gap-8">
+                {/* Header + desafío */}
+                <div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="text-4xl" style={{ color: activeTrackData.color }}>{activeTrackData.icon}</span>
+                    <div>
+                      <p className="font-mono text-[0.55rem] tracking-widest uppercase" style={{ color: activeTrackData.color }}>
+                        Track {activeTrackData.id} · {activeTrackData.line}
+                      </p>
+                      <h3 className="text-2xl font-bold text-white-f leading-tight">{activeTrackData.name}</h3>
+                    </div>
+                  </div>
+
+                  <p className="font-mono text-[0.55rem] uppercase tracking-widest text-muted/70 mb-1.5">El desafío</p>
+                  <p className="text-[0.95rem] text-white-f/90 leading-relaxed mb-5 italic">&quot;{activeTrackData.desafio}&quot;</p>
+
+                  {/* Archivo + plataforma · acciones rápidas */}
+                  <div className="space-y-2 mb-3">
+                    <a
+                      href={`/sesion-4/${activeTrackData.file}`}
+                      download
+                      className="flex items-center gap-3 px-4 py-3 rounded-xl border transition-all hover:scale-[1.01]"
+                      style={{
+                        background: `${activeTrackData.color}10`,
+                        borderColor: `${activeTrackData.color}40`,
+                      }}
+                    >
+                      <span
+                        className="w-9 h-9 rounded-lg grid place-items-center text-base"
+                        style={{ background: `${activeTrackData.color}25`, color: activeTrackData.color }}
+                      >
+                        {activeTrackData.file.endsWith(".xlsx") ? "📊" : "📄"}
+                      </span>
+                      <div className="flex-1">
+                        <p className="text-[0.78rem] font-semibold text-white-f">Archivo del track</p>
+                        <p className="font-mono text-[0.6rem] text-muted/70">{activeTrackData.file}</p>
+                      </div>
+                      <span
+                        className="font-mono text-[0.6rem] px-2 py-1 rounded uppercase font-bold"
+                        style={{ background: activeTrackData.color, color: "#000" }}
+                      >
+                        ↓
+                      </span>
+                    </a>
+
+                    {(() => {
+                      const tool = TOOLS[activeTrackData.primaryTool];
+                      if (!tool) return null;
+                      return (
+                        <a
+                          href={tool.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-3 px-4 py-3 rounded-xl border transition-all hover:scale-[1.01]"
+                          style={{
+                            background: `${tool.color}10`,
+                            borderColor: `${tool.color}40`,
+                          }}
+                        >
+                          <span
+                            className="w-9 h-9 rounded-lg grid place-items-center text-sm font-bold"
+                            style={{ background: tool.color, color: "#fff" }}
+                          >
+                            {tool.mark}
+                          </span>
+                          <div className="flex-1">
+                            <p className="text-[0.78rem] font-semibold text-white-f">Plataforma sugerida</p>
+                            <p className="font-mono text-[0.6rem] text-muted/70">{tool.name} · {tool.tier}</p>
+                          </div>
+                          <span
+                            className="font-mono text-[0.6rem] px-2 py-1 rounded uppercase font-bold"
+                            style={{ background: tool.color, color: "#fff" }}
+                          >
+                            ↗
+                          </span>
+                        </a>
+                      );
+                    })()}
+                  </div>
+
+                  <div
+                    className="rounded-xl p-4"
+                    style={{ background: `${activeTrackData.color}10`, border: `1px solid ${activeTrackData.color}30` }}
+                  >
+                    <p className="font-mono text-[0.55rem] uppercase tracking-widest mb-1.5" style={{ color: activeTrackData.color }}>Pitch en 5 minutos</p>
+                    <p className="text-[0.78rem] text-white-f/90">{activeTrackData.pitch}</p>
+                  </div>
+                </div>
+
+                {/* Must-haves & Nice-to-haves */}
+                <div className="space-y-5">
+                  <div>
+                    <p className="font-mono text-[0.6rem] uppercase tracking-widest text-orange mb-3 flex items-center gap-2">
+                      <span className="w-4 h-px bg-orange" />
+                      Must-haves del MVP
+                    </p>
+                    <ul className="space-y-2">
+                      {activeTrackData.must.map((m, i) => (
+                        <li key={i} className="flex gap-3 items-start">
+                          <span
+                            className="flex-shrink-0 w-5 h-5 rounded-full grid place-items-center text-[0.65rem] mt-0.5"
+                            style={{ background: `${activeTrackData.color}20`, color: activeTrackData.color }}
+                          >
+                            ✓
+                          </span>
+                          <span className="text-[0.85rem] text-white-f/90 leading-relaxed">{m}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div>
+                    <p className="font-mono text-[0.6rem] uppercase tracking-widest text-cyan mb-3 flex items-center gap-2">
+                      <span className="w-4 h-px bg-cyan" />
+                      Nice-to-haves (bonus)
+                    </p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {activeTrackData.nice.map((n) => (
+                        <span
+                          key={n}
+                          className="text-[0.7rem] px-2.5 py-1 rounded-md bg-cyan/10 border border-cyan/20 text-cyan"
+                        >
+                          {n}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Kit del participante */}
+            <div className="mb-10">
+              <p className="font-mono text-[0.6rem] uppercase tracking-widest text-purple-light mb-3">Kit de arranque</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {MVP_KIT.map((k) => (
+                  <div key={k.t} className="bg-[#151A3A] border border-white/[0.06] rounded-xl p-4 hover:border-purple/30 transition-all">
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className="text-2xl">{k.icon}</span>
+                      <p className="text-sm font-semibold text-white-f">{k.t}</p>
+                    </div>
+                    <p className="text-[0.75rem] text-muted leading-relaxed">{k.d}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Reglas de la dinámica (sin rúbrica) */}
+            <div className="grid md:grid-cols-3 gap-4 mb-10">
+              <div className="bg-[#0D1229] border border-cyan/20 rounded-xl p-5">
+                <p className="font-mono text-[0.6rem] uppercase tracking-widest text-cyan mb-2">Regla 1 · Equipo mixto</p>
+                <p className="text-[0.85rem] text-white-f/90 leading-relaxed">
+                  2 a 3 personas de áreas distintas. Mezclar IB + Tech + Compliance da los mejores MVPs.
+                </p>
+              </div>
+              <div className="bg-[#0D1229] border border-orange/20 rounded-xl p-5">
+                <p className="font-mono text-[0.6rem] uppercase tracking-widest text-orange mb-2">Regla 2 · Solo data sintética</p>
+                <p className="text-[0.85rem] text-white-f/90 leading-relaxed">
+                  Usar solo los archivos descargados. Nada de data real BTG, clientes, cédulas o montos individuales.
+                </p>
+              </div>
+              <div className="bg-[#0D1229] border border-purple/20 rounded-xl p-5">
+                <p className="font-mono text-[0.6rem] uppercase tracking-widest text-purple-light mb-2">Regla 3 · Demo en vivo</p>
+                <p className="text-[0.85rem] text-white-f/90 leading-relaxed">
+                  Pitch de 5 min mostrando la plataforma funcionando. Si no se puede demostrar, no se cuenta.
                 </p>
               </div>
             </div>
 
-            <div className="space-y-3">
-              {TALLER_STEPS.map((s) => (
-                <div key={s.n} className="flex gap-4 bg-[#151A3A] border border-white/[0.06] rounded-2xl p-4">
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-orange to-purple flex items-center justify-center shrink-0">
-                    <span className="text-white-f font-bold text-sm">{s.n}</span>
-                  </div>
-                  <div>
-                    <p className="text-white-f font-semibold text-sm">{s.title}</p>
-                    <p className="text-xs text-muted mt-1">{s.desc}</p>
-                  </div>
-                </div>
-              ))}
+            {/* CTA cierre */}
+            <div className="text-center bg-gradient-to-br from-orange/15 via-purple/10 to-cyan/15 border border-orange/30 rounded-2xl p-8">
+              <p className="font-mono text-[0.6rem] uppercase tracking-widest text-orange mb-3">Entregable final</p>
+              <p className="text-xl md:text-2xl font-bold text-white-f leading-snug max-w-3xl mx-auto">
+                Cada equipo cierra con un <span className="text-orange">demo en vivo</span>, el <span className="text-cyan">prompt refinado</span> y un <span className="text-purple-light">plan de adopción a 30 días</span>.
+              </p>
+              <p className="text-muted text-sm mt-3">
+                Los mejores MVPs avanzan al Demo Day del Bloque 5 · Aprender haciendo.
+              </p>
             </div>
           </div>
         </section>
