@@ -467,7 +467,7 @@ const ECOSISTEMA_TOOLS: EcoTool[] = [
   {
     id: "cursor", name: "Cursor", vendor: "Anysphere (USA)", cat: "ide_ai", logo: "▲",
     tagline: "Fork de VS Code con IA en cada capa.",
-    detail: "Tab completion con todo el repo como contexto, Composer multi-archivo y Agent mode autónomo. Mezcla Claude 4.7, GPT-5.3-Codex, Gemini 3 Pro. Desde junio 2025 usa modelo de créditos: cada plan trae un pool mensual en USD equivalente al precio.",
+    detail: "Tab completion con todo el repo como contexto, Composer multi-archivo y Agent mode autónomo. Mezcla Claude Opus 4.7, GPT-5.5 (lanzado 23-abr-2026 · absorbe Codex), Gemini 3 Pro. Desde junio 2025 usa modelo de créditos: cada plan trae un pool mensual en USD equivalente al precio.",
     btg: "Feature nuevo desde cero · refactor de repos legacy · onboarding rápido de analistas nuevos.",
     example: "Abril 2026 · un analista de renta fija pide: 'añade optimización Markowitz al módulo portafolio.py y escribe tests'. Composer planea, edita 4 archivos y corre pytest en 6 min.",
     price: "Hobby gratis · Pro USD 20 · Pro+ USD 60 · Ultra USD 200 · Teams USD 40/user",
@@ -514,7 +514,7 @@ const ECOSISTEMA_TOOLS: EcoTool[] = [
   {
     id: "copilot-cli", name: "GitHub Copilot (IDE + CLI + coding agent)", vendor: "GitHub · Microsoft", cat: "ide_plugin", logo: "✦",
     tagline: "El default corporativo. Coding agent autónomo desde mar 2026.",
-    detail: "Copilot en VS Code y JetBrains + `gh copilot suggest/explain` + Copilot Workspace + coding agent autónomo (determina qué archivos editar, corre terminal, itera sobre errores). Modelos seleccionables: GPT-5.3, Claude Opus 4.7, Gemini 3. Premium requests por plan.",
+    detail: "Copilot en VS Code y JetBrains + `gh copilot suggest/explain` + Copilot Workspace + coding agent autónomo (determina qué archivos editar, corre terminal, itera sobre errores). Modelos seleccionables: GPT-5.5, Claude Opus 4.7, Gemini 3. Premium requests por plan.",
     btg: "Estándar del equipo · PRs con Copilot Code Review · audit trail empresarial · fixes de tests sin supervisión.",
     example: "Abril 2026 · abres un PR en GitHub Enterprise, Copilot Code Review comenta 12 líneas con sugerencias accionables y el coding agent corrige los tests rotos antes del merge.",
     price: "Free · Pro USD 10 · Pro+ USD 39 (1.500 premium reqs) · Business USD 19/user · Enterprise USD 39/user",
@@ -560,10 +560,10 @@ const ECOSISTEMA_TOOLS: EcoTool[] = [
   /* Chats & agentes */
   {
     id: "chatgpt", name: "ChatGPT", vendor: "OpenAI", cat: "chat", logo: "◉",
-    tagline: "Chat universal. Nuevo tier Pro USD 100/mes desde 9-abr-2026.",
-    detail: "GPT-5.2 para general y GPT-5.3-Codex para coding/agentic. Canvas (edición de docs y código), Code Interpreter, Deep Research, conectores a Drive/SharePoint, ChatGPT Agent (tareas con navegador). Tier Pro USD 100 anunciado el 9-abr-2026 con 5× límites vs Plus y 10× Codex vs Plus hasta 31-may.",
-    btg: "Análisis ad-hoc · memos financieros · presentaciones · drafts rápidos · agentes con navegador para investigación web.",
-    example: "Abril 2026 · un AVP sube el Excel de comisiones a Code Interpreter: 'compara vs mes anterior, grafica outliers y dame memo de 1 página'. GPT-5.2 entrega en 90 s.",
+    tagline: "Chat universal. GPT-5.5 lanzado 23-abr-2026 · absorbe Codex.",
+    detail: "GPT-5.5 (release 23-abr-2026, API 24-abr) unifica general + coding/agentic — antes eran GPT-5.2 + GPT-5.3-Codex. Mejora notable en planeación multi-paso, uso de tools y tareas largas sin supervisión. Canvas, Code Interpreter, Deep Research, conectores a Drive/SharePoint, ChatGPT Agent. También está GPT-5.5 Pro (USD 30/180 por 1M tokens) para razonamiento más profundo.",
+    btg: "Análisis ad-hoc · memos financieros · presentaciones · drafts rápidos · agentes con navegador y tools para investigación web extendida.",
+    example: "Abril 2026 · un AVP sube el Excel de comisiones a Code Interpreter: 'compara vs mes anterior, grafica outliers y dame memo de 1 página'. GPT-5.5 entrega en 90 s.",
     price: "Free (con ads) · Go USD 8 · Plus USD 20 · Pro USD 100 (nuevo abr 2026) · Pro USD 200",
     status: "core",
   },
@@ -696,6 +696,7 @@ const ECO_EJERCICIOS = [
     deliverable: "Link compartible al notebook + 1 captura del mindmap + una frase de 2 líneas que vas a decir en la reunión.",
     cost: "USD 0 (tier gratis NotebookLM)",
     color: "#00D4E5",
+    file: { name: "Utilities Colombia · Research brief", file: "01-utilities-colombia-brief.docx", kind: "Word", size: "38 KB" },
   },
   {
     n: 2,
@@ -718,6 +719,7 @@ const ECO_EJERCICIOS = [
     deliverable: "dashboard.html funcional + 1 párrafo de 3 líneas identificando qué corregiste en el prompt hasta cuadrar los números.",
     cost: "USD 20/mes ChatGPT Plus (o Pro $100)",
     color: "#5B52D5",
+    file: { name: "Portafolio Abril 2026 · 120 posiciones", file: "02-portafolio-abril.xlsx", kind: "Excel", size: "13 KB" },
   },
   {
     n: 3,
@@ -740,6 +742,7 @@ const ECO_EJERCICIOS = [
     deliverable: "Ficha.md de 1 página + tabla comparativa vs peer + los 3 riesgos listados con página del prospecto como evidencia.",
     cost: "USD 0 si cabes en tier gratis · ~USD 13 en premium · + API de Claude/ChatGPT",
     color: "#D4AF4C",
+    file: { name: "Prospecto Hidroeléctrica del Caribe", file: "03-prospecto-hidrocaribe.docx", kind: "Word", size: "38 KB" },
   },
 ];
 
@@ -766,6 +769,7 @@ const ECO_EJERCICIOS_DEEPSEEK = [
     deliverable: "Tabla comparativa 2 columnas × 3 filas + un veredicto de 3 líneas de qué tarea asignar a cada modelo en tu día a día.",
     cost: "USD 0",
     color: "#22C55E",
+    file: { name: "KIID paragraphs · EN para traducir", file: "04-kiid-en-paragraphs.docx", kind: "Word", size: "37 KB" },
   },
   {
     n: 5,
@@ -789,6 +793,7 @@ const ECO_EJERCICIOS_DEEPSEEK = [
     deliverable: "Screenshot de la terminal con WiFi apagado respondiendo + el snippet Python de VaR copiado a un archivo .py.",
     cost: "USD 0 · ~5 GB de disco",
     color: "#16A34A",
+    file: { name: "Serie retornos diarios · VaR histórico", file: "05-serie-retornos-var.xlsx", kind: "Excel", size: "14 KB" },
   },
   {
     n: 6,
@@ -810,6 +815,7 @@ const ECO_EJERCICIOS_DEEPSEEK = [
     deliverable: "5 bullets + mensaje Slack + email comité en un solo archivo md listo para compartir.",
     cost: "USD 0",
     color: "#15803D",
+    file: { name: "Circular Externa SFC 008 de 2026", file: "06-circular-sfc-008-2026.docx", kind: "Word", size: "37 KB" },
   },
 ];
 
@@ -838,6 +844,7 @@ const ECO_EJERCICIOS_ONLINE = [
     deliverable: "Matriz 3×3 + una recomendación de 3 líneas: qué tarea asignar a cada modelo en tu día a día.",
     cost: "USD 0 en los 3",
     color: "#10A37F",
+    file: { name: "TES B 2032 · datos y glosario", file: "07-tes-b-2032-benchmark.xlsx", kind: "Excel", size: "6 KB" },
   },
   {
     n: 8,
@@ -861,6 +868,7 @@ const ECO_EJERCICIOS_ONLINE = [
     deliverable: "Tabla con 10 riesgos + diff 2024→2025 + 3 preguntas para la llamada. Todo sobre una sola conversación de Kimi.",
     cost: "USD 0",
     color: "#16A34A",
+    file: { name: "Memoria Anual 2025 · Ecocemento Andino", file: "08-memoria-ecocemento-2025.docx", kind: "Word", size: "38 KB" },
   },
   {
     n: 9,
@@ -884,6 +892,7 @@ const ECO_EJERCICIOS_ONLINE = [
     deliverable: "Tabla de 8 ratios con trazabilidad de línea + semáforo vs sector + 3 líneas de recomendación para el comité.",
     cost: "USD 0",
     color: "#22C55E",
+    file: { name: "Balance Q1 2026 · TextilAndes", file: "09-balance-textilandes-q1.docx", kind: "Word", size: "37 KB" },
   },
   {
     n: 10,
@@ -907,6 +916,7 @@ const ECO_EJERCICIOS_ONLINE = [
     deliverable: "Dossier 1-página .md con URLs verificadas + 5 preguntas para la llamada de mañana.",
     cost: "USD 0 en los 2",
     color: "#15803D",
+    file: { name: "Brief DD Express · AgroValle Pacífico", file: "10-dd-brief-agrovalle.docx", kind: "Word", size: "37 KB" },
   },
 ];
 
@@ -972,7 +982,7 @@ const CASOS_ECOSISTEMA = [
     flow: [
       { tool: "NotebookLM", role: "60 fuentes cargadas: reports, presentaciones, papers, videos" },
       { tool: "NotebookLM Studio", role: "Mindmap + audio overview ES + video overview" },
-      { tool: "ChatGPT Canvas", role: "Redacción del memo con GPT-5.2" },
+      { tool: "ChatGPT Canvas", role: "Redacción del memo con GPT-5.5" },
       { tool: "Gemini en Docs", role: "Layout final, gráficos y formato BTG" },
     ],
     impact: "1 día de proceso vs 2 semanas · cada afirmación citada contra fuente original",
@@ -1004,6 +1014,213 @@ const ECO_DECISION = [
   { trigger: "La data no puede salir de la red — P-III+", tool: "DeepSeek local + Docling", color: "#22C55E" },
   { trigger: "El diseño del dashboard está en Figma y hay que implementarlo", tool: "Figma MCP + Cursor", color: "#7B73E8" },
   { trigger: "Hay que mover un proceso que se repite todos los días", tool: "n8n (Módulo 03)", color: "#F97316" },
+];
+
+/* ════════════════════════════ PANORAMA · MAYO 2026 — QUÉ CAMBIÓ EN 30 DÍAS ════════════════════════════ */
+
+const MAYO_STATS = [
+  { n: "30", l: "días desde el panorama de abril", c: "#5B52D5" },
+  { n: "10", l: "movimientos de mercado", c: "#7B73E8" },
+  { n: "5", l: "lanzamientos / GA nuevos", c: "#3A7BD5" },
+  { n: "82.1%", l: "récord SWE-bench Verified", c: "#D4AF4C" },
+  { n: "may 26", l: "datos al cierre", c: "#00E5A0" },
+];
+
+const MAYO_TAGS: Record<string, { label: string; color: string }> = {
+  lanzamiento: { label: "Lanzamiento / GA", color: "#5B52D5" },
+  precio: { label: "Precio", color: "#22C55E" },
+  benchmark: { label: "Benchmark", color: "#D4AF4C" },
+  adopcion: { label: "Adopción", color: "#00D4E5" },
+};
+
+type MayoChange = {
+  date: string; vendor: string; color: string; logo: string; tag: keyof typeof MAYO_TAGS;
+  title: string; before: string; after: string; btg: string;
+};
+
+const MAYO_CHANGELOG: MayoChange[] = [
+  {
+    date: "02 may", vendor: "Anthropic", color: "#00E5A0", logo: "◆", tag: "lanzamiento",
+    title: "Claude Code on web sale de beta",
+    before: "Agente en CLI / extensión VS Code · sesiones locales y efímeras",
+    after: "Sesiones cloud desde el navegador · agentes en paralelo con sandbox aislado · billing y políticas por organización · misma memoria (CLAUDE.md, skills, hooks) que la CLI",
+    btg: "Auditorías cross-repo sin instalar nada en la máquina del analista · log de actividad centralizado para seguridad.",
+  },
+  {
+    date: "05 may", vendor: "Anysphere · Cursor", color: "#7B73E8", logo: "▲", tag: "lanzamiento",
+    title: "Cursor 2.x — enjambre de agentes por defecto",
+    before: "Composer multi-archivo · un agente a la vez",
+    after: "Hasta 8 agentes en paralelo (fan-out) · revisión unificada de diffs · Plan Mode obligatorio antes de editar · navegador embebido para QA visual de la UI generada",
+    btg: "Un analista lanza 3 variantes de un refactor y compara · ojo: revisar cada diff sigue siendo trabajo humano.",
+  },
+  {
+    date: "07 may", vendor: "GitHub · Microsoft", color: "#3A7BD5", logo: "✦", tag: "lanzamiento",
+    title: "'Agent HQ' GA en GitHub.com",
+    before: "El coding agent de Copilot corría aislado dentro de GitHub",
+    after: "Un panel único para asignar issues a agentes de Copilot, Cursor, Devin o Codex, ver su progreso y revisar todos sus PRs en el mismo lugar · branch protection y CODEOWNERS heredados",
+    btg: "El sitio donde un tech lead BTG reparte trabajo a varios agentes y firma los PRs · audit trail empresarial nativo.",
+  },
+  {
+    date: "08 may", vendor: "Google", color: "#4C8DF6", logo: "◉", tag: "lanzamiento",
+    title: "Antigravity GA · Gemini 3 Pro por defecto",
+    before: "Public preview gratis · ~6% de adopción global",
+    after: "GA con 'Mission Control' (colas de agentes), Gemini 3 Pro como modelo base, 80.4% en SWE-bench Verified · se anuncia plan Pro de pago y límite de agentes en el free tier",
+    btg: "Atractivo para POCs multi-agente · pero el modelo de precios se está definiendo — no comprometer flujos críticos aún.",
+  },
+  {
+    date: "12 may", vendor: "OpenAI", color: "#10A37F", logo: "◉", tag: "precio",
+    title: "GPT-5.5 Pro (API) −30%",
+    before: "GPT-5.5 Pro: USD 30 / USD 180 por 1M tokens (in/out)",
+    after: "USD 21 / USD 126 por 1M tokens · ChatGPT Business añade 'Codex cloud' con repos privados conectados",
+    btg: "Baja el costo de agentes de razonamiento profundo · presión competitiva de Gemini 3 y DeepSeek-V3.2.",
+  },
+  {
+    date: "14 may", vendor: "Cognition · Windsurf", color: "#58C2A8", logo: "❖", tag: "lanzamiento",
+    title: "Windsurf 2.0 — IDE + Devin en una sola sesión",
+    before: "Windsurf (ex-Codeium) y Devin como productos separados de Cognition",
+    after: "El IDE y el agente autónomo comparten estado: editas, le pasas la tarea a Devin sin cambiar de contexto, vuelve con el PR en el mismo workspace",
+    btg: "Interesante para equipos que ya usaban Windsurf · muy nuevo bajo la fusión — dejar madurar 1–2 trimestres.",
+  },
+  {
+    date: "16 may", vendor: "SWE-bench (récord)", color: "#D4AF4C", logo: "◈", tag: "benchmark",
+    title: "Nuevo récord SWE-bench Verified: 82.1%",
+    before: "Récord ~71% en nov-2025 · ~76% en abril-2026",
+    after: "82.1% con Claude Opus 4.7 + scaffold de Cursor · el benchmark 'fácil' se está saturando — la atención se mueve a SWE-bench Pro y Terminal-Bench, mucho más difíciles (35–45%)",
+    btg: "Lección: los números de marketing suben rápido · evalúa con tu propio repo y tus propios PRs, no con benchmarks públicos.",
+  },
+  {
+    date: "20 may", vendor: "JetBrains", color: "#FF6B57", logo: "◼", tag: "lanzamiento",
+    title: "Junie CLI sale de beta · 'Junie on CI'",
+    before: "Junie como agente dentro de IntelliJ / PyCharm · CLI en beta",
+    after: "Junie CLI estable + GitHub Action: corre en cada PR de proyectos Kotlin/Java, propone fixes tipados verificados contra el índice semántico y los tests",
+    btg: "Para las mesas con motores en Kotlin/Java/C++ · refactors tipados sin romper el índice del proyecto, ahora también en CI.",
+  },
+  {
+    date: "22 may", vendor: "Amazon Web Services", color: "#FF9900", logo: "△", tag: "lanzamiento",
+    title: "Kiro GA global + 'Kiro for Teams'",
+    before: "Kiro estable desde ene-2026 · free tier generoso",
+    after: "GA en todas las regiones · specs (requirements.md / architecture.md) versionados en Git como artefacto de compliance auditable · integración con CodeCatalyst · free tier recortado a ~50 specs/mes",
+    btg: "Spec-driven encaja con trazabilidad regulatoria · revisar el costo real ahora que el free tier se achicó.",
+  },
+  {
+    date: "—", vendor: "Encuesta de desarrolladores · mayo 2026", color: "#00D4E5", logo: "◐", tag: "adopcion",
+    title: "62% de los devs usa un asistente de IA a diario",
+    before: "51% en oct-2025 · los agentes autónomos eran 'experimentales'",
+    after: "62% uso diario · share entre asistentes: GitHub Copilot 41% · Cursor 23% · Claude Code 14% · Antigravity 9% · resto 13% · 1 de cada 4 ya delega tareas a un agente que abre PRs solo",
+    btg: "El piso cambió: no usar un asistente ya es la excepción · el nuevo diferencial es revisar bien lo que produce el agente.",
+  },
+];
+
+const MAYO_BENCH = [
+  { name: "Cursor 2.x + Claude Opus 4.7", score: 82.1, color: "#7B73E8", note: "scaffold propio de Cursor" },
+  { name: "Antigravity + Gemini 3 Pro", score: 80.4, color: "#4C8DF6", note: "GA 08-may" },
+  { name: "Claude Code (Opus 4.7)", score: 79.6, color: "#00E5A0", note: "agente CLI / cloud" },
+  { name: "GitHub Copilot coding agent · GPT-5.5", score: 77.8, color: "#3A7BD5", note: "default corporativo" },
+  { name: "Devin 2.x (Cognition)", score: 75.2, color: "#58C2A8", note: "VM autónoma" },
+  { name: "GPT-5.5 baseline (sin scaffold)", score: 74.0, color: "#10A37F", note: "modelo solo" },
+  { name: "Amazon Q Developer", score: 71.5, color: "#FF9900", note: "+ code transformation" },
+];
+
+type AutoLevel = {
+  id: string; level: string; name: string; icon: string; color: string;
+  what: string; control: string; tools: string; btg: string;
+};
+
+const AUTONOMIA_SPECTRUM: AutoLevel[] = [
+  {
+    id: "l1", level: "L1", name: "Autocomplete", icon: "⇥", color: "#3A7BD5",
+    what: "Predice la siguiente línea o bloque mientras escribes.",
+    control: "Aceptas con Tab, rechazas con Esc. Tú escribes el 100% de la intención.",
+    tools: "GitHub Copilot · Cursor Tab · Gemini Code Assist · JetBrains AI",
+    btg: "ETLs de precios, scripts repetitivos, boilerplate de tests.",
+  },
+  {
+    id: "l2", level: "L2", name: "Inline & chat", icon: "✦", color: "#00D4E5",
+    what: "Editas una selección con un prompt corto, o preguntas con el archivo como contexto.",
+    control: "Ves el diff antes de aplicarlo. Cambios acotados a lo que seleccionaste.",
+    tools: "Cursor ⌘K · Copilot Chat · JetBrains AI · Gemini Code Assist",
+    btg: "Renombrar y documentar una función, explicar un script legacy, generar variantes de una fórmula.",
+  },
+  {
+    id: "l3", level: "L3", name: "Composer multi-archivo", icon: "📝", color: "#5B52D5",
+    what: "Describes un feature; el modelo planea y edita varios archivos a la vez.",
+    control: "Apruebas el plan y revisas el diff completo. No toca tu shell sin permiso.",
+    tools: "Cursor Composer · Claude Code (1 sesión) · Copilot Edits",
+    btg: "Añadir logging + manejo de errores a los 6 módulos del pipeline de P&L diario.",
+  },
+  {
+    id: "l4", level: "L4", name: "Agente autónomo", icon: "🤖", color: "#E85A1F",
+    what: "Le das una tarea; corre comandos (pip, pytest, git), itera sobre errores y abre el PR.",
+    control: "Opera en su branch / sandbox. Revisas el PR como si lo hubiera hecho un analista junior.",
+    tools: "Claude Code · Cursor Agent · Copilot coding agent · Devin · Junie · Kiro hooks",
+    btg: "Implementar el módulo de VaR + tests + PR · upgrades de dependencias en lote.",
+  },
+  {
+    id: "l5", level: "L5", name: "Enjambre de agentes", icon: "⚡", color: "#D4AF4C",
+    what: "Varios agentes en paralelo: uno implementa, otro prueba, otro documenta. Tú orquestas la cola.",
+    control: "Mission Control / Agent HQ. Revisas N PRs. El cuello de botella eres tú revisando.",
+    tools: "Cursor 2.x (8 agentes) · Antigravity Mission Control · GitHub Agent HQ · Claude Code Cloud",
+    btg: "Migrar 11 repos a Python 3.13 en una tarde · 3 agentes corriendo, un humano firmando.",
+  },
+];
+
+type MayoPrecio = { tool: string; color: string; antes: string; ahora: string; delta: string; note: string };
+
+const MAYO_PRECIOS: MayoPrecio[] = [
+  { tool: "Cursor Pro", color: "#7B73E8", antes: "USD 20/mes · pool de créditos", ahora: "USD 20/mes · mismo pool", delta: "≈", note: "El pool rinde ~20% más: Opus 4.7 en modo batch consume menos por tarea." },
+  { tool: "GPT-5.5 Pro (API)", color: "#10A37F", antes: "USD 30 / 180 por 1M tok", ahora: "USD 21 / 126 por 1M tok", delta: "−30%", note: "Presión de Gemini 3 y DeepSeek-V3.2. El GPT-5.5 estándar no cambió." },
+  { tool: "Claude API · Opus 4.7", color: "#00E5A0", antes: "Sin cambio de tarifa", ahora: "Igual · prompt caching TTL 1h", delta: "≈", note: "El TTL extendido baja ~15% el costo efectivo en agentes de larga duración." },
+  { tool: "GitHub Copilot Pro+", color: "#3A7BD5", antes: "USD 39 · 1.500 premium reqs", ahora: "USD 39 · 2.000 premium reqs", delta: "+cuota", note: "Mismo precio, más cuota — y el coding agent ya no descuenta del límite de chat." },
+  { tool: "Devin (Cognition)", color: "#58C2A8", antes: "USD 20 + USD 2.25/ACU", ahora: "USD 20 + USD 1.95/ACU", delta: "−13%", note: "Una auditoría de 12 ACUs baja de ~USD 27 a ~USD 23." },
+  { tool: "Kiro Pro (AWS)", color: "#FF9900", antes: "USD 19 · free tier generoso", ahora: "USD 19 · free tier ~50 specs/mes", delta: "free↓", note: "Monetización post-GA. Recalcular si dependías del tier gratis." },
+  { tool: "Antigravity (Google)", color: "#4C8DF6", antes: "Preview · gratis para individuos", ahora: "Pro USD 20/mes anunciado · free con límite de agentes", delta: "→pago", note: "Fin del 'todo gratis'. Reevaluar en agosto cuando el pricing esté firme." },
+];
+
+const CASOS_MAYO = [
+  {
+    n: 1, title: "Migración cross-repo con enjambre de agentes",
+    scenario: "EOL de una librería crítica en 9 repos de microservicios. Hay que subir versión, arreglar breaking changes y mergear esta semana.",
+    flow: [
+      { tool: "GitHub Agent HQ", role: "Un tech lead crea 9 issues y los asigna a agentes" },
+      { tool: "Claude Code Cloud", role: "3 agentes corren en paralelo en sandbox aislado" },
+      { tool: "Cursor Agent + Devin", role: "Toman los 6 repos restantes en paralelo" },
+      { tool: "Copilot Code Review", role: "Revisa los 9 PRs y marca los riesgosos" },
+      { tool: "Humano (CODEOWNERS)", role: "Firma 7 directos, devuelve 2 con comentarios" },
+    ],
+    impact: "9 repos migrados en una tarde · 3 agentes en paralelo · costo ≈ USD 40 · cada paso reversible y auditado",
+    color: "#E85A1F",
+  },
+  {
+    n: 2, title: "Dashboard de treasury: de Figma a URL en 30 min",
+    scenario: "Producto entregó el nuevo panel de treasury en Figma a las 3 pm. El comité lo quiere ver mañana.",
+    flow: [
+      { tool: "Figma MCP (Dev Mode)", role: "Frame + design tokens expuestos al IDE" },
+      { tool: "Google AI Studio", role: "Vibe coding con Gemini 3 → primer corte React + Chart.js" },
+      { tool: "Cursor Composer", role: "Afina con .cursorrules BTG: paleta, formato COP, accesibilidad" },
+      { tool: "GitHub Action → Pages", role: "Deploy automático en cada push a main" },
+    ],
+    impact: "30 min de mockup a URL compartible · respeta tokens y spacing al primer intento · cero backend",
+    color: "#7B73E8",
+  },
+  {
+    n: 3, title: "Triage matutino de PRs de agentes",
+    scenario: "El equipo dejó 14 agentes trabajando overnight en mantenimiento. A las 8 am hay 14 PRs esperando.",
+    flow: [
+      { tool: "GitHub Agent HQ", role: "Lista los 14 PRs con resumen y diff stats por agente" },
+      { tool: "Copilot Code Review", role: "Pre-clasifica: 9 verdes, 3 ámbar, 2 rojos" },
+      { tool: "Claude Code", role: "'Resume los 2 rojos y dime por qué fallan los tests'" },
+      { tool: "Humano", role: "Mergea 9, ajusta 3 con un prompt, cierra 2 mal planteados" },
+    ],
+    impact: "14 PRs triados en 35 min · el rol del dev se mueve de escribir a revisar y decidir",
+    color: "#00D4E5",
+  },
+];
+
+const MAYO_VERDICTO = [
+  { tier: "Activa ya", color: "#22C55E", icon: "✓", what: "Claude Code on web · auditorías cross-repo", why: "Sandbox aislado + log por organización encajan con lo que pide seguridad. No instala nada en la máquina del analista." },
+  { tier: "Pilotea con un equipo", color: "#D4AF4C", icon: "◐", what: "Cursor 2.x con enjambre de agentes", why: "Gran salto de productividad, pero exige disciplina: Plan Mode obligatorio y revisión humana de cada PR. Empieza con un squad y mide PRs revisados/día." },
+  { tier: "Espera un trimestre", color: "#E85A1F", icon: "◷", what: "Antigravity GA · Windsurf 2.0", why: "Prometedores pero con pricing y roadmap en movimiento (free tier de Antigravity, fusión Cognition–Windsurf). Reevaluar en agosto." },
+  { tier: "No lo dejes sin gobernanza", color: "#E74C3C", icon: "⚠", what: "Cualquier agente que abra PRs solo", why: "Branch protection, CODEOWNERS, sandbox y un humano que firma. Un agente sin guardrails en un repo productivo es un incidente esperando ocurrir." },
 ];
 
 /* ════════════════════════════ COMPONENT ════════════════════════════ */
@@ -1047,6 +1264,26 @@ export default function Sesion6() {
     ECOSISTEMA_CATS.forEach((c) => { m[c.id] = ECOSISTEMA_TOOLS.filter((t) => t.cat === c.id).length; });
     return m;
   }, []);
+
+  /* Panorama mayo 2026 */
+  const [mayoFilter, setMayoFilter] = useState<string>("all");
+  const mayoChanges = useMemo(
+    () => (mayoFilter === "all" ? MAYO_CHANGELOG : MAYO_CHANGELOG.filter((c) => c.tag === mayoFilter)),
+    [mayoFilter]
+  );
+  const mayoTagCounts = useMemo(() => {
+    const m: Record<string, number> = {};
+    Object.keys(MAYO_TAGS).forEach((k) => { m[k] = MAYO_CHANGELOG.filter((c) => c.tag === k).length; });
+    return m;
+  }, []);
+  const [autoLevel, setAutoLevel] = useState<string>("l4");
+  const autoData = useMemo(() => AUTONOMIA_SPECTRUM.find((a) => a.id === autoLevel)!, [autoLevel]);
+  const [benchReady, setBenchReady] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setBenchReady(true), 250);
+    return () => clearTimeout(t);
+  }, []);
+  const benchMax = Math.max(...MAYO_BENCH.map((b) => b.score));
 
   /* Ejercicios */
   const [exIdx, setExIdx] = useState(0);
@@ -2784,6 +3021,364 @@ export default function Sesion6() {
         </section>
       </RevealSection>
 
+      {/* ═══════════════ 9B-bis. PANORAMA MAYO 2026 · QUÉ CAMBIÓ EN 30 DÍAS ═══════════════ */}
+      <RevealSection>
+        <section className="relative max-w-6xl mx-auto px-6 py-24">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_20%_15%,rgba(123,115,232,0.1),transparent),radial-gradient(ellipse_55%_50%_at_85%_85%,rgba(0,229,160,0.07),transparent)] pointer-events-none" />
+
+          <div className="relative">
+            <div className="flex items-center gap-3 mb-3">
+              <span className="font-mono text-[0.72rem] text-purple-light uppercase tracking-widest">Actualización · mayo 2026</span>
+              <span className="font-mono text-[0.55rem] px-2 py-0.5 rounded-full bg-cyan/15 text-cyan border border-cyan/30 uppercase tracking-widest">+30 días vs el panorama de abril</span>
+            </div>
+            <h2 className="text-3xl md:text-5xl font-bold text-white-f leading-tight mb-5">
+              30 días después: <span className="bg-gradient-to-r from-purple-light via-cyan to-gold bg-clip-text text-transparent">la programación asistida ya no se escribe, se orquesta</span>
+            </h2>
+            <p className="text-lg text-muted max-w-3xl mb-10 leading-relaxed">
+              El bloque anterior fotografió abril. En mayo de 2026 el centro de gravedad se movió otra vez:
+              de <em>un</em> agente que edita tu repo a <em>varios</em> agentes en paralelo gestionados desde un panel. Claude Code salió a la nube, Cursor pasó a enjambres, GitHub estrenó Agent HQ, Antigravity llegó a GA. El cuello de botella dejó de ser teclear código — ahora es revisar bien lo que el agente produce.
+            </p>
+
+            {/* Hero stats mayo */}
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-12">
+              {MAYO_STATS.map((s) => (
+                <div key={s.l} className="bg-[#151A3A] border rounded-2xl p-4 text-center" style={{ borderColor: `${s.c}25` }}>
+                  <p className="text-2xl font-bold" style={{ color: s.c }}>{s.n}</p>
+                  <p className="text-[0.64rem] text-muted uppercase tracking-widest mt-1 leading-tight">{s.l}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* ────── Changelog timeline ────── */}
+            <div className="flex items-center gap-3 mb-3">
+              <span className="font-mono text-[0.7rem] text-purple-light uppercase tracking-widest">Bitácora del mes</span>
+              <span className="h-[1px] flex-1 bg-gradient-to-r from-purple-light/40 to-transparent" />
+            </div>
+            <h3 className="text-2xl md:text-3xl font-bold text-white-f mb-3 leading-tight">
+              10 movimientos que <span className="bg-gradient-to-r from-purple-light to-cyan bg-clip-text text-transparent">cambian el tablero</span>
+            </h3>
+            <p className="text-[0.88rem] text-muted mb-6 max-w-3xl leading-relaxed">
+              Cada tarjeta: qué era hace un mes (<span className="text-white-f/70">antes</span>), qué es hoy (<span className="text-white-f/90">ahora</span>) y por qué le importa a un analista de BTG. Filtra por tipo de movimiento.
+            </p>
+
+            {/* Filtros */}
+            <div className="flex flex-wrap gap-2 mb-6">
+              <button
+                onClick={() => setMayoFilter("all")}
+                className="font-mono text-[0.62rem] px-3 py-1.5 rounded-full border transition-all uppercase tracking-widest"
+                style={{
+                  background: mayoFilter === "all" ? "rgba(255,255,255,0.08)" : "transparent",
+                  borderColor: mayoFilter === "all" ? "rgba(255,255,255,0.25)" : "rgba(255,255,255,0.1)",
+                  color: mayoFilter === "all" ? "#F5F7FF" : "#8892B0",
+                }}
+              >
+                Todos · {MAYO_CHANGELOG.length}
+              </button>
+              {Object.entries(MAYO_TAGS).map(([k, v]) => {
+                const active = mayoFilter === k;
+                return (
+                  <button
+                    key={k}
+                    onClick={() => setMayoFilter(active ? "all" : k)}
+                    className="font-mono text-[0.62rem] px-3 py-1.5 rounded-full border transition-all uppercase tracking-widest"
+                    style={{
+                      background: active ? `${v.color}22` : "transparent",
+                      borderColor: active ? v.color : `${v.color}30`,
+                      color: active ? v.color : `${v.color}cc`,
+                    }}
+                  >
+                    {v.label} · {mayoTagCounts[k]}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Timeline */}
+            <div className="relative pl-6 md:pl-8">
+              <div className="absolute left-[7px] md:left-[11px] top-2 bottom-2 w-[2px] bg-gradient-to-b from-purple-light/50 via-cyan/30 to-gold/40" />
+              <div className="space-y-4">
+                {mayoChanges.map((c) => {
+                  const tag = MAYO_TAGS[c.tag];
+                  return (
+                    <div key={c.title} className="relative">
+                      {/* dot */}
+                      <div
+                        className="absolute -left-[1.05rem] md:-left-[1.4rem] top-5 w-3.5 h-3.5 rounded-full border-2"
+                        style={{ background: "#080C1F", borderColor: c.color, boxShadow: `0 0 0 3px ${c.color}22` }}
+                      />
+                      <div
+                        className="bg-[#0D1229] border rounded-2xl p-5 transition-all hover:-translate-y-0.5"
+                        style={{ borderColor: `${c.color}28` }}
+                      >
+                        <div className="flex items-start gap-4">
+                          <div
+                            className="w-11 h-11 rounded-xl grid place-items-center text-xl shrink-0"
+                            style={{ background: `${c.color}1e`, color: c.color, border: `1px solid ${c.color}3a` }}
+                          >
+                            {c.logo}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 flex-wrap mb-1">
+                              <span className="font-mono text-[0.62rem] px-2 py-0.5 rounded-md font-bold" style={{ background: `${c.color}1e`, color: c.color }}>{c.date}</span>
+                              <span className="font-mono text-[0.55rem] px-1.5 py-0.5 rounded uppercase tracking-widest" style={{ background: `${tag.color}18`, color: tag.color, border: `1px solid ${tag.color}35` }}>{tag.label}</span>
+                              <span className="font-mono text-[0.58rem] uppercase tracking-widest text-muted">{c.vendor}</span>
+                            </div>
+                            <p className="text-[1.02rem] font-bold text-white-f leading-tight mb-3">{c.title}</p>
+
+                            <div className="grid sm:grid-cols-2 gap-2 mb-3">
+                              <div className="rounded-lg p-2.5 bg-white/[0.03] border border-white/[0.06]">
+                                <p className="font-mono text-[0.52rem] uppercase tracking-widest text-muted mb-1">◂ Antes</p>
+                                <p className="text-[0.74rem] text-white-f/65 leading-snug">{c.before}</p>
+                              </div>
+                              <div className="rounded-lg p-2.5 border" style={{ background: `${c.color}0c`, borderColor: `${c.color}30` }}>
+                                <p className="font-mono text-[0.52rem] uppercase tracking-widest mb-1" style={{ color: c.color }}>▸ Ahora · mayo 2026</p>
+                                <p className="text-[0.74rem] text-white-f/90 leading-snug">{c.after}</p>
+                              </div>
+                            </div>
+
+                            <div className="flex gap-2 items-start">
+                              <span className="font-mono text-[0.55rem] text-gold uppercase tracking-widest shrink-0 mt-0.5">BTG</span>
+                              <p className="text-[0.74rem] text-white-f/80 leading-snug">{c.btg}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* ────── Benchmark bars ────── */}
+            <div className="mt-16">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="font-mono text-[0.7rem] text-gold uppercase tracking-widest">Estado del arte · mayo 2026</span>
+                <span className="h-[1px] flex-1 bg-gradient-to-r from-gold/40 to-transparent" />
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-white-f mb-3 leading-tight">
+                SWE-bench Verified: <span className="bg-gradient-to-r from-gold to-orange bg-clip-text text-transparent">la barra se acerca al techo</span>
+              </h3>
+              <p className="text-[0.88rem] text-muted mb-7 max-w-3xl leading-relaxed">
+                500 issues reales de GitHub · % resuelto sin intervención humana. En seis meses pasó de ~71% a 82.1%. Importante: estos números mezclan modelo + scaffold (el andamiaje del IDE pesa tanto como el modelo). En benchmarks más duros — SWE-bench Pro, Terminal-Bench — los mismos sistemas rondan 35–45%: el problema difícil sigue abierto.
+              </p>
+
+              <div className="bg-[#0D1229] border border-white/[0.08] rounded-3xl p-6 md:p-8">
+                <div className="space-y-3">
+                  {MAYO_BENCH.map((b, i) => (
+                    <div key={b.name} className="flex items-center gap-3">
+                      <div className="w-[42%] sm:w-[34%] shrink-0 text-right">
+                        <p className="text-[0.74rem] font-semibold text-white-f leading-tight">{b.name}</p>
+                        <p className="font-mono text-[0.55rem] text-muted uppercase tracking-widest">{b.note}</p>
+                      </div>
+                      <div className="flex-1 h-7 rounded-lg bg-white/[0.04] overflow-hidden relative">
+                        <div
+                          className="h-full rounded-lg flex items-center justify-end pr-2 transition-all duration-1000 ease-out"
+                          style={{
+                            width: benchReady ? `${(b.score / 100) * 100}%` : "0%",
+                            background: `linear-gradient(90deg, ${b.color}55, ${b.color})`,
+                            transitionDelay: `${i * 90}ms`,
+                          }}
+                        >
+                          <span className="font-mono text-[0.66rem] font-bold text-white-f drop-shadow">{b.score.toFixed(1)}%</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-5 pt-4 border-t border-white/[0.06] flex flex-wrap items-center gap-x-6 gap-y-2">
+                  <p className="font-mono text-[0.58rem] text-muted uppercase tracking-widest">▸ Récord nov-25: ~71% &nbsp;·&nbsp; abr-26: ~76% &nbsp;·&nbsp; <span className="text-gold">may-26: 82.1%</span></p>
+                  <p className="font-mono text-[0.58rem] text-muted uppercase tracking-widest">▸ SWE-bench Pro / Terminal-Bench: 35–45% — el techo real está más arriba</p>
+                </div>
+              </div>
+            </div>
+
+            {/* ────── Espectro de autonomía ────── */}
+            <div className="mt-16">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="font-mono text-[0.7rem] text-cyan uppercase tracking-widest">Cómo leer el mercado</span>
+                <span className="h-[1px] flex-1 bg-gradient-to-r from-cyan/40 to-transparent" />
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-white-f mb-3 leading-tight">
+                El espectro de autonomía: <span className="bg-gradient-to-r from-blue via-cyan to-gold bg-clip-text text-transparent">de Tab a enjambre</span>
+              </h3>
+              <p className="text-[0.88rem] text-muted mb-7 max-w-3xl leading-relaxed">
+                Toda herramienta de programación asistida cae en algún punto de esta escala. Cuanto más a la derecha, más produce el agente y más se mueve tu trabajo de <em>escribir</em> a <em>revisar y decidir</em>. Haz clic en cada nivel.
+              </p>
+
+              {/* Selector strip */}
+              <div className="grid grid-cols-5 gap-1.5 mb-5 rounded-2xl overflow-hidden border border-white/[0.08]">
+                {AUTONOMIA_SPECTRUM.map((a) => {
+                  const active = autoLevel === a.id;
+                  return (
+                    <button
+                      key={a.id}
+                      onClick={() => setAutoLevel(a.id)}
+                      className="relative px-2 py-4 text-center transition-all"
+                      style={{
+                        background: active ? `linear-gradient(180deg, ${a.color}30, ${a.color}10)` : "#0D1229",
+                        boxShadow: active ? `0 0 0 1px ${a.color} inset` : undefined,
+                      }}
+                    >
+                      <div className="text-xl mb-1" style={{ color: a.color }}>{a.icon}</div>
+                      <p className="font-mono text-[0.6rem] font-bold" style={{ color: active ? a.color : "#8892B0" }}>{a.level}</p>
+                      <p className="text-[0.62rem] leading-tight mt-0.5" style={{ color: active ? "#F0F2F8" : "#6b7390" }}>{a.name}</p>
+                    </button>
+                  );
+                })}
+              </div>
+              {/* Gradient progress bar */}
+              <div className="h-1.5 rounded-full mb-6" style={{ background: "linear-gradient(90deg,#3A7BD5,#00D4E5,#5B52D5,#E85A1F,#D4AF4C)" }} />
+
+              {/* Detail card */}
+              <div
+                className="rounded-3xl p-6 md:p-8 border transition-all"
+                style={{ background: `linear-gradient(135deg, ${autoData.color}14, #0D1229 60%)`, borderColor: `${autoData.color}40` }}
+              >
+                <div className="flex items-center gap-4 mb-5">
+                  <div className="w-14 h-14 rounded-2xl grid place-items-center text-3xl shrink-0" style={{ background: `${autoData.color}22`, color: autoData.color, border: `1px solid ${autoData.color}45` }}>
+                    {autoData.icon}
+                  </div>
+                  <div>
+                    <p className="font-mono text-[0.6rem] uppercase tracking-widest" style={{ color: autoData.color }}>{autoData.level} · espectro de autonomía</p>
+                    <p className="text-2xl font-bold text-white-f leading-tight">{autoData.name}</p>
+                  </div>
+                </div>
+                <p className="text-[0.95rem] text-white-f/90 leading-relaxed mb-5">{autoData.what}</p>
+                <div className="grid md:grid-cols-3 gap-3">
+                  <div className="rounded-xl p-4 bg-white/[0.03] border border-white/[0.07]">
+                    <p className="font-mono text-[0.55rem] uppercase tracking-widest text-muted mb-1.5">Tu control</p>
+                    <p className="text-[0.78rem] text-white-f/85 leading-snug">{autoData.control}</p>
+                  </div>
+                  <div className="rounded-xl p-4 border" style={{ background: `${autoData.color}0c`, borderColor: `${autoData.color}30` }}>
+                    <p className="font-mono text-[0.55rem] uppercase tracking-widest mb-1.5" style={{ color: autoData.color }}>Herramientas (mayo 2026)</p>
+                    <p className="text-[0.78rem] text-white-f/90 leading-snug">{autoData.tools}</p>
+                  </div>
+                  <div className="rounded-xl p-4 bg-white/[0.03] border border-white/[0.07]">
+                    <p className="font-mono text-[0.55rem] uppercase tracking-widest text-gold mb-1.5">En BTG</p>
+                    <p className="text-[0.78rem] text-white-f/85 leading-snug">{autoData.btg}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* ────── Precios — qué cambió ────── */}
+            <div className="mt-16">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="font-mono text-[0.7rem] text-green uppercase tracking-widest">Bolsillo · mayo 2026</span>
+                <span className="h-[1px] flex-1 bg-gradient-to-r from-green/40 to-transparent" />
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-white-f mb-3 leading-tight">
+                Lo que cambió en <span className="bg-gradient-to-r from-green to-gold bg-clip-text text-transparent">precios</span> este mes
+              </h3>
+              <p className="text-[0.88rem] text-muted mb-7 max-w-3xl leading-relaxed">
+                Tendencia clara: los modelos bajan (presión de DeepSeek y Gemini), las suscripciones de IDE se quedan igual pero rinden más, y los productos en preview empiezan a cobrar. Negocia con esto en la mano.
+              </p>
+              <div className="grid md:grid-cols-2 gap-3">
+                {MAYO_PRECIOS.map((p) => (
+                  <div key={p.tool} className="bg-[#0D1229] border rounded-2xl p-4 flex gap-4 items-start" style={{ borderColor: `${p.color}28` }}>
+                    <div className="shrink-0 w-16 text-center">
+                      <span
+                        className="font-mono text-[0.66rem] font-bold px-2 py-1 rounded-lg inline-block"
+                        style={{
+                          background: p.delta.includes("−") || p.delta === "free↓" ? "#22c55e1e" : p.delta.includes("+") || p.delta === "→pago" ? "#e85a1f1e" : "rgba(255,255,255,0.05)",
+                          color: p.delta.includes("−") || p.delta === "free↓" ? "#22C55E" : p.delta.includes("+") || p.delta === "→pago" ? "#E85A1F" : "#8892B0",
+                        }}
+                      >
+                        {p.delta}
+                      </span>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[0.92rem] font-bold text-white-f leading-tight mb-1.5">{p.tool}</p>
+                      <div className="flex items-center gap-2 text-[0.72rem] mb-2 flex-wrap">
+                        <span className="text-white-f/50 line-through decoration-white/30">{p.antes}</span>
+                        <span style={{ color: p.color }}>→</span>
+                        <span className="text-white-f/90 font-medium">{p.ahora}</span>
+                      </div>
+                      <p className="text-[0.72rem] text-muted leading-snug">{p.note}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* ────── Casos compuestos mayo ────── */}
+            <div className="mt-16">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="font-mono text-[0.7rem] text-orange uppercase tracking-widest">Cómo se ve en la práctica</span>
+                <span className="h-[1px] flex-1 bg-gradient-to-r from-orange/40 to-transparent" />
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-white-f mb-3 leading-tight">
+                3 flujos que <span className="bg-gradient-to-r from-orange via-purple-light to-cyan bg-clip-text text-transparent">solo existen desde mayo</span>
+              </h3>
+              <p className="text-[0.88rem] text-muted mb-6 max-w-3xl leading-relaxed">
+                Lo nuevo no es una herramienta suelta, es que ahora se pueden encadenar agentes en paralelo y un panel para gobernarlos. Estos tres flujos eran impracticables hace un mes.
+              </p>
+              <div className="grid md:grid-cols-3 gap-4">
+                {CASOS_MAYO.map((c) => (
+                  <div key={c.n} className="bg-[#0D1229] border rounded-2xl p-5 transition-all hover:-translate-y-0.5" style={{ borderColor: `${c.color}30` }}>
+                    <div className="flex items-start gap-3 mb-3">
+                      <div className="w-9 h-9 rounded-lg grid place-items-center shrink-0 font-mono text-xs" style={{ background: `${c.color}20`, color: c.color, border: `1px solid ${c.color}40` }}>
+                        {String(c.n).padStart(2, "0")}
+                      </div>
+                      <p className="text-[0.95rem] font-bold text-white-f leading-tight">{c.title}</p>
+                    </div>
+                    <p className="text-[0.74rem] text-white-f/70 leading-snug italic mb-4">&ldquo;{c.scenario}&rdquo;</p>
+                    <p className="font-mono text-[0.52rem] uppercase tracking-widest mb-2" style={{ color: c.color }}>Flujo</p>
+                    <div className="space-y-1.5 mb-4">
+                      {c.flow.map((step, i) => (
+                        <div key={i} className="flex items-start gap-2">
+                          <div className="w-4 h-4 rounded-full grid place-items-center font-mono text-[0.5rem] shrink-0 mt-0.5" style={{ background: `${c.color}15`, color: c.color, border: `1px solid ${c.color}30` }}>{i + 1}</div>
+                          <div className="flex-1 min-w-0">
+                            <span className="font-mono text-[0.68rem] font-bold" style={{ color: c.color }}>{step.tool}</span>
+                            <span className="text-[0.68rem] text-white-f/70 leading-snug"> — {step.role}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="rounded-lg p-2.5 border" style={{ background: `${c.color}12`, borderColor: `${c.color}30` }}>
+                      <p className="font-mono text-[0.52rem] uppercase tracking-widest mb-1" style={{ color: c.color }}>⚡ Impacto</p>
+                      <p className="text-[0.7rem] text-white-f/90 leading-snug">{c.impact}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* ────── Veredicto BTG ────── */}
+            <div className="mt-16 bg-gradient-to-br from-[#0F1438] via-[#0D1229] to-[#080C1F] border border-white/[0.08] rounded-3xl p-7 md:p-9">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="font-mono text-[0.7rem] text-purple-light uppercase tracking-widest">Qué adoptar ahora</span>
+                <span className="h-[1px] flex-1 bg-gradient-to-r from-purple-light/40 to-transparent" />
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-white-f mb-3 leading-tight">
+                Veredicto para BTG · <span className="bg-gradient-to-r from-purple-light to-cyan bg-clip-text text-transparent">mayo 2026</span>
+              </h3>
+              <p className="text-[0.85rem] text-muted mb-6 max-w-3xl leading-relaxed">
+                No todo lo que se anunció este mes hay que adoptarlo este mes. Esta es la lectura para un equipo de banca de inversión que ya tiene gobernanza de datos: qué prender, qué pilotear, qué esperar y qué nunca dejar sin barandas.
+              </p>
+              <div className="grid md:grid-cols-2 gap-3 mb-6">
+                {MAYO_VERDICTO.map((v) => (
+                  <div key={v.tier} className="rounded-2xl p-5 border" style={{ background: `${v.color}0c`, borderColor: `${v.color}30` }}>
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="w-7 h-7 rounded-lg grid place-items-center text-sm shrink-0" style={{ background: `${v.color}22`, color: v.color, border: `1px solid ${v.color}40` }}>{v.icon}</span>
+                      <p className="font-mono text-[0.62rem] uppercase tracking-widest font-bold" style={{ color: v.color }}>{v.tier}</p>
+                    </div>
+                    <p className="text-[0.9rem] font-bold text-white-f leading-tight mb-1.5">{v.what}</p>
+                    <p className="text-[0.76rem] text-white-f/80 leading-snug">{v.why}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="rounded-2xl p-5 bg-gradient-to-r from-purple/15 via-cyan/10 to-transparent border border-purple-light/25">
+                <p className="font-mono text-[0.6rem] uppercase tracking-widest text-purple-light mb-1.5">Regla de oro · mayo 2026</p>
+                <p className="text-[0.95rem] text-white-f/95 leading-relaxed">
+                  El cuello de botella ya no es <em>generar</em> código — es <em>revisarlo bien</em>. Tu ventaja competitiva en 2026 no es escribir más rápido: es cuántos PRs de agente puedes revisar con criterio por día. Invierte ahí — en lectura de diffs, tests y gobernanza — no en coleccionar herramientas.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </RevealSection>
+
       {/* ═══════════════ 9C. PRIMEROS EJERCICIOS · QUICK WINS ═══════════════ */}
       <RevealSection>
         <section className="relative max-w-6xl mx-auto px-6 py-20">
@@ -2859,6 +3454,33 @@ export default function Sesion6() {
                         </span>
                       ))}
                     </div>
+
+                    {/* Archivo insumo */}
+                    {e.file && (
+                      <a
+                        href={`/sesion-6/${e.file.file}`}
+                        download
+                        className="group flex items-center gap-3 px-3 py-2.5 rounded-lg border transition-all hover:scale-[1.01] mb-4"
+                        style={{ background: `${e.color}10`, borderColor: `${e.color}40` }}
+                      >
+                        <span
+                          className="w-9 h-9 rounded-lg grid place-items-center text-base font-bold shrink-0"
+                          style={{ background: `${e.color}25`, color: e.color }}
+                        >
+                          {e.file.kind === "Excel" ? "📊" : "📄"}
+                        </span>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-[0.78rem] font-semibold text-white-f leading-tight truncate">{e.file.name}</p>
+                          <p className="font-mono text-[0.55rem] text-muted/80 truncate">{e.file.kind} · {e.file.size} · {e.file.file}</p>
+                        </div>
+                        <span
+                          className="font-mono text-[0.55rem] px-2 py-1 rounded uppercase tracking-widest font-bold shrink-0 group-hover:scale-110 transition-transform"
+                          style={{ background: e.color, color: "#000" }}
+                        >
+                          ↓
+                        </span>
+                      </a>
+                    )}
 
                     {/* Context */}
                     <div className="mb-3">
@@ -2974,6 +3596,33 @@ export default function Sesion6() {
                         </span>
                       ))}
                     </div>
+
+                    {/* Archivo insumo */}
+                    {e.file && (
+                      <a
+                        href={`/sesion-6/${e.file.file}`}
+                        download
+                        className="group flex items-center gap-3 px-3 py-2.5 rounded-lg border transition-all hover:scale-[1.01] mb-4"
+                        style={{ background: `${e.color}10`, borderColor: `${e.color}40` }}
+                      >
+                        <span
+                          className="w-9 h-9 rounded-lg grid place-items-center text-base font-bold shrink-0"
+                          style={{ background: `${e.color}25`, color: e.color }}
+                        >
+                          {e.file.kind === "Excel" ? "📊" : "📄"}
+                        </span>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-[0.78rem] font-semibold text-white-f leading-tight truncate">{e.file.name}</p>
+                          <p className="font-mono text-[0.55rem] text-muted/80 truncate">{e.file.kind} · {e.file.size} · {e.file.file}</p>
+                        </div>
+                        <span
+                          className="font-mono text-[0.55rem] px-2 py-1 rounded uppercase tracking-widest font-bold shrink-0 group-hover:scale-110 transition-transform"
+                          style={{ background: e.color, color: "#000" }}
+                        >
+                          ↓
+                        </span>
+                      </a>
+                    )}
 
                     {/* Context */}
                     <div className="mb-3">
@@ -3101,6 +3750,33 @@ export default function Sesion6() {
                         </span>
                       ))}
                     </div>
+
+                    {/* Archivo insumo */}
+                    {e.file && (
+                      <a
+                        href={`/sesion-6/${e.file.file}`}
+                        download
+                        className="group flex items-center gap-3 px-3 py-2.5 rounded-lg border transition-all hover:scale-[1.01] mb-4"
+                        style={{ background: `${e.color}10`, borderColor: `${e.color}40` }}
+                      >
+                        <span
+                          className="w-9 h-9 rounded-lg grid place-items-center text-base font-bold shrink-0"
+                          style={{ background: `${e.color}25`, color: e.color }}
+                        >
+                          {e.file.kind === "Excel" ? "📊" : "📄"}
+                        </span>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-[0.78rem] font-semibold text-white-f leading-tight truncate">{e.file.name}</p>
+                          <p className="font-mono text-[0.55rem] text-muted/80 truncate">{e.file.kind} · {e.file.size} · {e.file.file}</p>
+                        </div>
+                        <span
+                          className="font-mono text-[0.55rem] px-2 py-1 rounded uppercase tracking-widest font-bold shrink-0 group-hover:scale-110 transition-transform"
+                          style={{ background: e.color, color: "#000" }}
+                        >
+                          ↓
+                        </span>
+                      </a>
+                    )}
 
                     {/* Context */}
                     <div className="mb-3">
