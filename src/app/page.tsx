@@ -54,11 +54,11 @@ const sesiones = [
   { n: 3, title: "Prompt engineering: comunicarse con la IA", sub: "Técnicas avanzadas y criterios para elegir la herramienta correcta", mod: "M02", active: true },
   { n: 4, title: "Asistentes IA para finanzas", sub: "Flujos profesionales de análisis y creación", mod: "M02", active: true },
   { n: 5, title: "Ecosistemas, research y modelos abiertos", sub: "NotebookLM, Gemini, Copilot M365 y el universo de modelos (DeepSeek, Llama, Mistral, Qwen, Kimi)", mod: "M02", active: true },
-  { n: 6, title: "Programación asistida por IA", sub: "Cursor, Claude Code, GitHub Copilot y el ecosistema 2026 (21 herramientas + DeepSeek/Kimi)", mod: "M02", active: true },
-  { n: 7, title: "Ciberseguridad y gobernanza de datos", sub: "Vectores, clasificación P-I/II/III/IV, matriz 21×4, casos reales y autodiagnóstico personal", mod: "M02", active: true },
-  { n: 8, title: "Evaluación, riesgo de modelo y monitoreo", sub: "LLMOps: ciclo de vida, 9 métricas, Promptfoo/Langfuse, red teaming y unit economics", mod: "M02", active: true },
-  { n: 9, title: "Power Platform: Power Apps + Power Automate", sub: "Aplicaciones low-code y automatización de procesos", mod: "M03", active: false },
-  { n: 10, title: "Power Platform: Copilot Studio, AI Builder y Power BI", sub: "Agentes virtuales, modelos de IA y analítica con lenguaje natural", mod: "M03", active: false },
+  { n: 6, title: "Programación asistida por IA", sub: "Cursor, Claude Code, GitHub Copilot, el ecosistema 2026 (21 herramientas) y el panorama de mayo 2026: enjambres de agentes y Agent HQ", mod: "M02", active: true },
+  { n: 7, title: "Power Platform: Power Apps + Power Automate", sub: "Apertura ciber + prompt injection en vivo · low-code y automatización de procesos en banca", mod: "M02", active: true },
+  { n: 8, title: "Power Platform: Copilot Studio, AI Builder y Power BI", sub: "Agentes virtuales, modelos prebuilt/custom y analítica con lenguaje natural", mod: "M02", active: true },
+  { n: 9, title: "Creatividad, JTBD y buenas prácticas antes de construir", sub: "5 mentalidades, 5 métodos creativos, banco de 25 preguntas y Stack Selector BTG", mod: "M03", active: true },
+  { n: 10, title: "Automatización con n8n", sub: "Orquestación, conectores y agentes operativos en banca", mod: "M03", active: false },
   { n: 11, title: "IA agéntica en finanzas", sub: "Agentes autónomos para trading, compliance y experiencia de cliente", mod: "M03", active: false },
   { n: 12, title: "Ecosistema FinTech 2026: mapa de fuerzas", sub: "Del open banking a los agentes financieros autónomos", mod: "M03", active: false },
   { n: 13, title: "IA aplicada a líneas de negocio de BTG Pactual", sub: "Definición del proyecto con JTBD (IB, WM, AM, S&T, operaciones, compliance, tech)", mod: "M04", active: false },
@@ -99,7 +99,7 @@ export default function Home() {
           financieros para BTG Pactual Colombia.
         </p>
 
-        <div className="relative z-10 flex gap-4 animate-fadeUp-3">
+        <div className="relative z-10 flex flex-wrap gap-4 justify-center animate-fadeUp-3">
           <Link
             href="/sesion/1"
             className="px-8 py-3 rounded-xl bg-purple text-white font-semibold text-sm hover:bg-purple-light transition-all shadow-lg shadow-[rgba(91,82,213,0.3)]"
@@ -111,6 +111,12 @@ export default function Home() {
             className="px-8 py-3 rounded-xl bg-white/5 border border-white/10 text-white-f font-semibold text-sm hover:bg-white/10 transition-all"
           >
             Sesión 2
+          </Link>
+          <Link
+            href="/sesion/plus"
+            className="px-8 py-3 rounded-xl bg-gradient-to-r from-[#00E5A0]/20 to-[#D4AF4C]/20 border border-[#00E5A0]/40 text-[#00E5A0] font-semibold text-sm hover:from-[#00E5A0]/30 hover:to-[#D4AF4C]/30 transition-all shadow-lg shadow-[rgba(0,229,160,0.15)]"
+          >
+            ✦ Sesión PLUS · JTBD + Canvas
           </Link>
         </div>
       </section>

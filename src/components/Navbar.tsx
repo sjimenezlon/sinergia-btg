@@ -12,6 +12,8 @@ const links = [
   { href: "/sesion/6", label: "S6" },
   { href: "/sesion/7", label: "S7" },
   { href: "/sesion/8", label: "S8" },
+  { href: "/sesion/9", label: "S9" },
+  { href: "/sesion/plus", label: "PLUS", highlight: true },
 ];
 
 export default function Navbar() {
@@ -33,19 +35,37 @@ export default function Navbar() {
       </Link>
 
       <div className="flex items-center gap-1">
-        {links.map((l) => (
-          <Link
-            key={l.href}
-            href={l.href}
-            className={`text-xs font-medium px-3 py-1.5 rounded-md transition-all ${
-              pathname === l.href
-                ? "text-white bg-purple/20"
-                : "text-muted hover:text-white hover:bg-white/5"
-            }`}
-          >
-            {l.label}
-          </Link>
-        ))}
+        {links.map((l) => {
+          const active = pathname === l.href;
+          if (l.highlight) {
+            return (
+              <Link
+                key={l.href}
+                href={l.href}
+                className={`text-xs font-bold px-3 py-1.5 rounded-md transition-all ${
+                  active
+                    ? "text-white bg-gradient-to-r from-[#00E5A0]/30 to-[#D4AF4C]/30 border border-[#00E5A0]/50"
+                    : "text-[#00E5A0] bg-gradient-to-r from-[#00E5A0]/15 to-[#D4AF4C]/15 border border-[#00E5A0]/30 hover:from-[#00E5A0]/25 hover:to-[#D4AF4C]/25"
+                }`}
+              >
+                ✦ {l.label}
+              </Link>
+            );
+          }
+          return (
+            <Link
+              key={l.href}
+              href={l.href}
+              className={`text-xs font-medium px-3 py-1.5 rounded-md transition-all ${
+                active
+                  ? "text-white bg-purple/20"
+                  : "text-muted hover:text-white hover:bg-white/5"
+              }`}
+            >
+              {l.label}
+            </Link>
+          );
+        })}
       </div>
 
       <div className="hidden md:flex items-center gap-3 text-[0.68rem] text-muted">
