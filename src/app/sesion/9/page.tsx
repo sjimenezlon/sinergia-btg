@@ -5,15 +5,6 @@ import RevealSection from "@/components/RevealSection";
 
 /* ════════════════════════════ DATA ════════════════════════════ */
 
-const AGENDA = [
-  { time: "0:00–0:10", label: "Apertura · por qué la mejor IA empieza sin IA", color: "#FF6B9D" },
-  { time: "0:10–0:25", label: "5 mentalidades para pensar antes de construir", color: "#5B52D5" },
-  { time: "0:25–0:55", label: "Métodos creativos · divergir antes de converger", color: "#00E5A0" },
-  { time: "0:55–1:20", label: "Banco de 25 preguntas orientadoras", color: "#D4AF4C" },
-  { time: "1:20–1:45", label: "Stack Selector · cuál herramienta BTG resuelve tu job", color: "#0F6CBD" },
-  { time: "1:45–2:00", label: "10 buenas prácticas + workshop de 1 hora", color: "#E85A1F" },
-];
-
 const OBJETIVOS = [
   { icon: "◐", title: "Piensas antes de prototipar", detail: "Reconoces cuándo lanzarte a construir es trampa · cuándo merece otra ronda de divergencia." },
   { icon: "✺", title: "Operas 5 mentalidades", detail: "First principles, inversion, pre-mortem, beginner's mind y constraint-led como músculos diarios." },
@@ -711,7 +702,6 @@ export default function Sesion9() {
             <span className="font-mono text-[0.6rem] uppercase tracking-widest px-3 py-1 rounded-full bg-gradient-to-r from-[#FF6B9D]/20 to-[#00E5A0]/20 border border-[#FF6B9D]/40 text-[#FF6B9D]">
               Sesión 9 · M03 · Automatizaciones
             </span>
-            <span className="font-mono text-[0.6rem] text-muted">2 horas · taller</span>
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white-f leading-tight mb-6 animate-fadeUp-1">
             <span className="text-white-f">Antes de construir,</span>{" "}
@@ -762,7 +752,7 @@ export default function Sesion9() {
                 <polygon points="417,41 424,45 417,49" fill="#7A82A0" opacity="0.6" />
               </g>
               {/* Pie */}
-              <text x="300" y="100" textAnchor="middle" fontSize="9" fontFamily="monospace" fill="#7A82A0" letterSpacing="2">3 capas · 2 horas · 1 proyecto</text>
+              <text x="300" y="100" textAnchor="middle" fontSize="9" fontFamily="monospace" fill="#7A82A0" letterSpacing="2">3 capas · 1 proyecto</text>
             </svg>
           </div>
 
@@ -793,25 +783,7 @@ export default function Sesion9() {
         </div>
       </section>
 
-      {/* ═══════════ 2. AGENDA ═══════════ */}
-      <RevealSection>
-        <section className="max-w-6xl mx-auto px-6 py-12">
-          <p className="font-mono text-[0.72rem] text-[#FF6B9D] uppercase tracking-widest mb-6">Agenda · Sesión 9</p>
-          <div className="flex flex-col sm:flex-row gap-2">
-            {AGENDA.map((a, i) => (
-              <div key={i} className="flex-1 rounded-xl p-4 border transition-all hover:scale-[1.02] relative overflow-hidden" style={{
-                background: `linear-gradient(135deg, ${a.color}12, ${a.color}06)`, borderColor: `${a.color}30`,
-              }}>
-                <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: a.color }} />
-                <p className="font-mono text-xs font-semibold mb-1" style={{ color: a.color }}>{a.time}</p>
-                <p className="text-sm text-white-f font-medium">{a.label}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-      </RevealSection>
-
-      {/* ═══════════ 3. OBJETIVOS ═══════════ */}
+      {/* ═══════════ 2. OBJETIVOS ═══════════ */}
       <RevealSection>
         <section className="max-w-6xl mx-auto px-6 py-12">
           <p className="font-mono text-[0.72rem] text-[#FF6B9D] uppercase tracking-widest mb-3">Objetivos</p>
