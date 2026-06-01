@@ -23,6 +23,7 @@ const INDICE = [
   { id: "recursos", label: "Anthropic hoy", icon: "🎓", color: "#00E5A0" },
   { id: "tecnico", label: "Bajo el capó", icon: "⚙️", color: "#5B52D5" },
   { id: "rutas", label: "Rutas de implementación", icon: "🚀", color: CORAL },
+  { id: "formacion", label: "Plan de formación", icon: "🎓", color: "#00E5A0" },
   { id: "beneficios", label: "Beneficios", icon: "🎯", color: CORAL },
 ];
 
@@ -420,6 +421,37 @@ const RUTAS = [
   },
 ];
 
+/* ── Plan de formación · Anthropic Academy curado para BTG ── */
+const ROLES = [
+  { id: "todos", label: "Todos", icon: "👥", color: "#7a82a0" },
+  { id: "negocio", label: "Negocio (IB·WM·AM)", icon: "💼", color: "#3A7BD5" },
+  { id: "tech", label: "Tech & Data", icon: "⌨️", color: "#22C55E" },
+  { id: "compliance", label: "Compliance & Riesgo", icon: "🛡️", color: "#D4AF4C" },
+  { id: "lideres", label: "Liderazgo", icon: "🎯", color: "#7B73E8" },
+];
+const TIER_META: Record<string, { label: string; color: string; rank: number }> = {
+  "1": { label: "Imprescindible", color: "#E07856", rank: 1 },
+  "2": { label: "Alto valor", color: "#5B52D5", rank: 2 },
+  cloud: { label: "Según su nube", color: "#D4AF4C", rank: 3 },
+  "3": { label: "Complementario", color: "#7a82a0", rank: 4 },
+};
+const ACADEMY = [
+  { t: "AI Fluency: Framework & Foundations", tier: "1", roles: ["negocio", "tech", "compliance", "lideres"], why: "Base común segura y ética antes de usar IA en un entorno vigilado. Habilita todo lo demás ante compliance." },
+  { t: "Claude 101", tier: "1", roles: ["negocio", "lideres"], why: "Productividad inmediata para los cientos de personas que no programan (IB, WM, AM, asesores)." },
+  { t: "Building with the Claude API", tier: "1", roles: ["tech"], why: "El núcleo para embeber Claude en sistemas internos y construir los MVPs del programa." },
+  { t: "Introduction to Model Context Protocol", tier: "1", roles: ["tech"], why: "Conectar Claude al DWH, core y CRM de forma gobernada. Lo que convierte pilotos en producción." },
+  { t: "Model Context Protocol: Advanced Topics", tier: "2", roles: ["tech"], why: "Sampling, notificaciones y acceso a archivos para integraciones internas serias." },
+  { t: "Introduction to agent skills", tier: "2", roles: ["tech", "negocio"], why: "Empaquetar y compartir procedimientos del banco (validación SFC, formato de memo) como Skills." },
+  { t: "Introduction to subagents", tier: "2", roles: ["tech"], why: "Contexto aislado y agentes especializados: uno de riesgo, otro de normativa, otro de datos." },
+  { t: "Claude Code 101", tier: "2", roles: ["tech"], why: "Programación asistida para devs y quants (ya introducido en la Sesión 6 del programa)." },
+  { t: "Claude Code in Action", tier: "2", roles: ["tech"], why: "Llevar Claude Code al flujo real de desarrollo del equipo." },
+  { t: "Claude con Amazon Bedrock", tier: "cloud", roles: ["tech", "compliance"], why: "Si BTG corre en AWS: Claude dentro de su VPC, con residencia de datos y controles propios." },
+  { t: "Claude con Google Cloud Vertex AI", tier: "cloud", roles: ["tech", "compliance"], why: "Si BTG corre en Google Cloud: mismos controles de gobernanza y datos en su entorno." },
+  { t: "AI Capabilities and Limitations", tier: "3", roles: ["compliance", "negocio", "lideres"], why: "Sesgos y límites del modelo; soporte conceptual para riesgo y comité (alineado a S1–S2)." },
+  { t: "Introduction to Claude Cowork", tier: "3", roles: ["negocio", "tech"], why: "Agente de escritorio para trabajo multi-paso; emergente, útil tras dominar lo anterior." },
+];
+const ACADEMY_SKIP = "AI Fluency for educators / students / nonprofits / small businesses y Teaching AI Fluency — orientados a educación, ONG y pymes, sin encaje en banca.";
+
 /* ── App vs Local ── */
 const APP_LOCAL = {
   app: {
@@ -748,6 +780,7 @@ export default function SesionClaude() {
   const [feat, setFeat] = useState({ thinking: false, tools: false, cache: false });
   const [arch, setArch] = useState("tools");
   const [ruta, setRuta] = useState("integrador");
+  const [rol, setRol] = useState("todos");
   // calculadora de costos
   const [calcModel, setCalcModel] = useState("sonnet");
   const [inK, setInK] = useState(20);
@@ -774,6 +807,9 @@ export default function SesionClaude() {
   const techCapSel = TECH_CAPS.find((t) => t.id === techCap)!;
   const archSel = ARCH.find((a) => a.id === arch)!;
   const rutaSel = RUTAS.find((r) => r.id === ruta)!;
+  const cursosRol = ACADEMY
+    .filter((c) => rol === "todos" || c.roles.includes(rol))
+    .sort((a, b) => TIER_META[a.tier].rank - TIER_META[b.tier].rank);
   // cálculo de costos
   const cm = MODELOS_SPEC.find((m) => m.id === `claude-${calcModel === "opus" ? "opus-4-8" : calcModel === "sonnet" ? "sonnet-4-6" : "haiku-4-5"}`)!;
   const inRate = useCache ? cm.input * 0.1 : cm.input;
@@ -1768,10 +1804,105 @@ export default function SesionClaude() {
         </section>
       </RevealSection>
 
-      {/* ═══════════════ 13 · BENEFICIOS ═══════════════ */}
+      {/* ═══════════════ 13 · PLAN DE FORMACIÓN (ACADEMY) ═══════════════ */}
+      <RevealSection>
+        <section id="formacion" className="max-w-6xl mx-auto px-6 py-20 scroll-mt-20">
+          <p className="font-mono text-[0.72rem] uppercase tracking-widest mb-3 text-cyan">13 · Plan de formación</p>
+          <h2 className="text-2xl md:text-4xl font-bold text-white-f leading-tight mb-3">
+            Anthropic Academy, <span className="text-cyan">curado para BTG</span>
+          </h2>
+          <p className="text-muted max-w-3xl mb-4">
+            La Academy tiene ~18 cursos gratis. No todos importan igual para un banco de inversión vigilado. Construir los
+            sistemas (ruta anterior) va de la mano con <strong className="text-white-f">formar a las personas</strong>. Filtra por
+            rol y mira qué priorizar.
+          </p>
+
+          {/* filtro por rol */}
+          <div className="flex flex-wrap gap-2 mb-6">
+            {ROLES.map((r) => {
+              const on = rol === r.id;
+              return (
+                <button
+                  key={r.id}
+                  onClick={() => setRol(r.id)}
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl text-[0.8rem] font-semibold border transition-all"
+                  style={{ background: on ? r.color : "transparent", color: on ? "#080C1F" : "#7a82a0", borderColor: on ? r.color : "rgba(255,255,255,0.1)" }}
+                >
+                  <span>{r.icon}</span>{r.label}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* leyenda de prioridad */}
+          <div className="flex flex-wrap gap-3 mb-6">
+            {Object.entries(TIER_META).sort((a, b) => a[1].rank - b[1].rank).map(([k, v]) => (
+              <span key={k} className="flex items-center gap-1.5 text-[0.7rem] text-muted">
+                <span className="w-2.5 h-2.5 rounded-sm" style={{ background: v.color }} />{v.label}
+              </span>
+            ))}
+          </div>
+
+          {/* tarjetas de cursos */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
+            {cursosRol.map((c) => {
+              const tm = TIER_META[c.tier];
+              return (
+                <div key={c.t} className="rounded-2xl border border-white/[0.06] bg-card p-5 flex flex-col" style={{ boxShadow: `inset 0 2px 0 ${tm.color}` }}>
+                  <div className="flex items-start justify-between gap-2 mb-2">
+                    <h3 className="text-[0.92rem] font-bold text-white-f leading-tight">{c.t}</h3>
+                  </div>
+                  <span className="self-start font-mono text-[0.56rem] uppercase tracking-widest px-2 py-0.5 rounded-full mb-3" style={{ background: `${tm.color}1e`, color: tm.color }}>
+                    {tm.label}
+                  </span>
+                  <p className="text-[0.8rem] text-muted flex-1">{c.why}</p>
+                  <div className="flex flex-wrap gap-1 mt-3">
+                    {c.roles.map((rid) => {
+                      const rr = ROLES.find((x) => x.id === rid)!;
+                      return (
+                        <span key={rid} className="font-mono text-[0.54rem] px-1.5 py-0.5 rounded-sm border" style={{ borderColor: `${rr.color}40`, color: rr.color }}>
+                          {rr.icon}
+                        </span>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* síntesis */}
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="rounded-2xl border p-6" style={{ borderColor: "rgba(224,120,86,0.35)", background: "rgba(224,120,86,0.06)" }}>
+              <p className="text-[0.9rem] font-bold text-white-f mb-3">🏆 Si BTG solo elige tres</p>
+              <ol className="space-y-2 text-[0.84rem] text-txt list-decimal list-inside">
+                <li><span className="font-semibold text-white-f">AI Fluency</span> — el marco seguro y ético que habilita todo.</li>
+                <li><span className="font-semibold text-white-f">MCP (Intro + Advanced)</span> — integra Claude a los sistemas del banco.</li>
+                <li><span className="font-semibold text-white-f">Building with the Claude API</span> — para construir las soluciones internas.</li>
+              </ol>
+              <p className="text-[0.78rem] text-muted mt-3">…más el de <span className="text-gold font-semibold">Bedrock o Vertex</span> como llave de gobernanza de datos.</p>
+            </div>
+            <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6 flex flex-col">
+              <p className="text-[0.9rem] font-bold text-white-f mb-2">❌ Qué saltar</p>
+              <p className="text-[0.82rem] text-muted flex-1">{ACADEMY_SKIP}</p>
+              <a
+                href="https://anthropic.skilljar.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 self-start inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all"
+                style={{ background: "rgba(0,229,160,0.14)", color: "#00E5A0", border: "1px solid rgba(0,229,160,0.35)" }}
+              >
+                Ir a Anthropic Academy ↗
+              </a>
+            </div>
+          </div>
+        </section>
+      </RevealSection>
+
+      {/* ═══════════════ 14 · BENEFICIOS ═══════════════ */}
       <RevealSection>
         <section id="beneficios" className="max-w-6xl mx-auto px-6 py-20 scroll-mt-20">
-          <p className="font-mono text-[0.72rem] uppercase tracking-widest mb-3" style={{ color: CORAL }}>13 · Beneficios</p>
+          <p className="font-mono text-[0.72rem] uppercase tracking-widest mb-3" style={{ color: CORAL }}>14 · Beneficios</p>
           <h2 className="text-2xl md:text-4xl font-bold text-white-f leading-tight mb-10">
             Por qué Claude, <span style={{ color: CORAL }}>para un banco</span>
           </h2>
