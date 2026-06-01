@@ -840,7 +840,7 @@ export default function SesionClaude() {
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white-f leading-tight mb-6 animate-fadeUp-1">
-            Claude, de cabo a rabo
+            Claude, a fondo
             <br />
             <span
               className="bg-clip-text text-transparent"

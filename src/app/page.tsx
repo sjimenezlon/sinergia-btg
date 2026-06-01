@@ -191,7 +191,7 @@ export default function Home() {
                   Lección especial · Junio 2026
                 </div>
                 <h3 className="text-xl md:text-2xl font-bold text-white-f mb-2">
-                  ✦ Conoce a Claude de cabo a rabo
+                  ✦ Conoce a Claude a fondo
                 </h3>
                 <p className="text-[0.88rem] text-muted">
                   Su historia, los modelos (Opus 4.8 · Sonnet 4.6 · Haiku 4.5), los 6 modos de uso, qué son skills y
