@@ -21,6 +21,8 @@ const INDICE = [
   { id: "correr", label: "App vs Local", icon: "💻", color: "#E85A1F" },
   { id: "memoria", label: "Memoria", icon: "🧠", color: "#7B73E8" },
   { id: "recursos", label: "Anthropic hoy", icon: "🎓", color: "#00E5A0" },
+  { id: "tecnico", label: "Bajo el capó", icon: "⚙️", color: "#5B52D5" },
+  { id: "rutas", label: "Rutas de implementación", icon: "🚀", color: CORAL },
   { id: "beneficios", label: "Beneficios", icon: "🎯", color: CORAL },
 ];
 
@@ -328,6 +330,96 @@ const RECURSOS = [
   { icon: "💻", title: "Claude Code + Cowork", color: "#00E5A0", desc: "Buenas prácticas de Claude Code y el nuevo agente de escritorio Cowork: del repo en terminal al agente que trabaja contigo en el escritorio.", url: "https://www.anthropic.com/claude-code", cta: "Claude Code" },
 ];
 
+/* ── Specs técnicas de modelos (referencia jun-2026, USD / millón de tokens) ── */
+const MODELOS_SPEC = [
+  { name: "Opus 4.8", id: "claude-opus-4-8", ctx: "1M", input: 5, output: 25, color: "#E07856", note: "Razonamiento profundo · coding agéntico" },
+  { name: "Sonnet 4.6", id: "claude-sonnet-4-6", ctx: "1M", input: 3, output: 15, color: "#5B52D5", note: "Balance · el caballo de batalla" },
+  { name: "Haiku 4.5", id: "claude-haiku-4-5", ctx: "200K", input: 1, output: 5, color: "#00E5A0", note: "Veloz y económico · alto volumen" },
+];
+
+/* ── Capacidades técnicas (explorador) ── */
+const TECH_CATS = [
+  { id: "nucleo", label: "Núcleo", color: "#3A7BD5" },
+  { id: "efic", label: "Eficiencia y costo", color: "#D4AF4C" },
+  { id: "agentico", label: "Agéntico", color: "#22C55E" },
+  { id: "datos", label: "Datos y multimodal", color: "#7B73E8" },
+];
+const TECH_CAPS = [
+  { cat: "nucleo", id: "messages", name: "Messages API", icon: "✉️", spec: "REST + SDK Python/TS", desc: "El endpoint único: envías system + messages + parámetros y recibes la respuesta. Todo lo demás se construye encima." },
+  { cat: "nucleo", id: "tools", name: "Tool use", icon: "🛠️", spec: "function calling", desc: "Declaras herramientas con su JSON schema; Claude decide cuándo llamarlas y con qué argumentos. La base de todo lo agéntico." },
+  { cat: "nucleo", id: "thinking", name: "Extended thinking", icon: "🧠", spec: "budget_tokens", desc: "Razonamiento extendido con presupuesto de tokens: Claude 'piensa' antes de responder en problemas difíciles. Tú controlas cuánto." },
+  { cat: "nucleo", id: "structured", name: "Structured outputs", icon: "🧩", spec: "JSON validado", desc: "Fuerza la salida a un esquema JSON estricto para integrarla directo a tus sistemas, sin parsear texto libre." },
+  { cat: "nucleo", id: "stream", name: "Streaming", icon: "🌊", spec: "SSE", desc: "Recibe la respuesta token a token para UIs en tiempo real y menor latencia percibida." },
+  { cat: "efic", id: "cache", name: "Prompt caching", icon: "⚡", spec: "lectura 0.1× · −90%", desc: "Cachea el contexto que se repite (políticas, plantillas, manuales): las lecturas cacheadas cuestan 10% del input. Escritura 1.25×." },
+  { cat: "efic", id: "batch", name: "Batch API", icon: "📦", spec: "−50% · <24h", desc: "Procesa lotes de forma asíncrona a mitad de precio. Combinado con caching reduce el gasto hasta ~95% en cargas elegibles." },
+  { cat: "efic", id: "select", name: "Selección de modelo", icon: "🎚️", spec: "Opus/Sonnet/Haiku", desc: "El mayor ahorro es de arquitectura: enruta cada tarea al modelo correcto. Haiku para volumen, Opus solo para lo difícil." },
+  { cat: "agentico", id: "sdk", name: "Agent SDK", icon: "🤖", spec: "pip / npm", desc: "El mismo loop, tools y gestión de contexto de Claude Code, como librería en Python y TypeScript para construir agentes propios." },
+  { cat: "agentico", id: "sub", name: "Subagentes", icon: "🪆", spec: "contexto aislado", desc: "Instancias separadas que el agente principal lanza para subtareas en paralelo, con herramientas restringidas (p.ej. solo Read/Grep)." },
+  { cat: "agentico", id: "hooks", name: "Hooks", icon: "🪝", spec: "Pre/PostToolUse", desc: "Inyecta lógica en el loop: aprobar, denegar o modificar cada llamada a herramienta antes de que se ejecute. Control y auditoría." },
+  { cat: "agentico", id: "mcp", name: "MCP", icon: "🧷", spec: "tools·resources·prompts", desc: "Protocolo abierto para conectar sistemas externos. Un servidor MCP lo consumen Claude.ai, Claude Code y la API por igual." },
+  { cat: "datos", id: "vision", name: "Visión + PDF", icon: "👁️", spec: "imágenes y PDF", desc: "Lee gráficos, estados financieros escaneados y PDFs nativos, razonando sobre tablas y figuras, no solo texto." },
+  { cat: "datos", id: "files", name: "Files API", icon: "🗂️", spec: "subida reutilizable", desc: "Sube documentos una vez y referéncialos en múltiples llamadas sin reenviarlos cada vez." },
+  { cat: "datos", id: "citations", name: "Citations", icon: "🔖", spec: "trazabilidad", desc: "Respuestas con citas verificables al fragmento exacto de la fuente. Clave para auditoría y cumplimiento." },
+  { cat: "datos", id: "codeexec", name: "Code execution", icon: "🐍", spec: "sandbox", desc: "Claude ejecuta código en un entorno aislado para cálculos, análisis de datos y generación de gráficos." },
+];
+
+/* ── Arquitectura de un agente (Agent SDK) ── */
+const ARCH = [
+  { id: "tools", label: "Tools", color: "#3A7BD5", d: "Read / Edit / Bash / WebSearch integradas + tus herramientas propias con JSON schema." },
+  { id: "mcp", label: "MCP", color: "#7B73E8", d: "Conecta sistemas internos (DWH, CRM, core) como herramientas reutilizables y gobernadas." },
+  { id: "sub", label: "Subagentes", color: "#22C55E", d: "Instancias aisladas que corren subtareas en paralelo con tools restringidas." },
+  { id: "hooks", label: "Hooks", color: "#D4AF4C", d: "PreToolUse / PostToolUse: aprobar, denegar o modificar cada acción antes de ejecutarla." },
+  { id: "ctx", label: "Contexto", color: "#00E5A0", d: "Compactación automática + memoria persistente gestionadas por el SDK." },
+];
+
+/* ── Rutas de implementación ── */
+const RUTAS = [
+  {
+    id: "analista", name: "Analista aumentado", level: "Bajo–medio", color: "#3A7BD5", icon: "📊",
+    goal: "Máxima productividad sin escribir código.",
+    steps: [
+      { t: "Claude.ai + Proyectos", d: "Crea un Proyecto con las políticas y plantillas del área; cada chat hereda ese contexto.", c: "Proyecto → Knowledge → Instrucciones", lang: "setup" },
+      { t: "Conectores (MCP)", d: "Conecta Drive / Gmail / Calendar con permisos explícitos; Claude lee fuentes reales.", c: "Settings → Connectors → autorizar", lang: "setup" },
+      { t: "Skills del equipo", d: "Empaqueta procedimientos repetidos (validación SFC, formato de memo) como Skills compartidas.", c: "SKILL.md + recursos → compartir", lang: "setup" },
+      { t: "Gobernanza", d: "Define qué datos pueden subirse, retención y revisión humana. Documenta el uso.", c: null, lang: null },
+    ],
+  },
+  {
+    id: "integrador", name: "Integrador (API)", level: "Medio", color: "#D4AF4C", icon: "🔌",
+    goal: "Claude embebido en una aplicación interna.",
+    steps: [
+      { t: "API key + Messages API", d: "Primera llamada con el SDK; elige modelo por tarea.", c: "pip install anthropic", lang: "bash" },
+      { t: "Tool use", d: "Define herramientas (consultar BD, calcular riesgo); Claude decide cuándo llamarlas.", c: "tools=[{ name, input_schema }]", lang: "python" },
+      { t: "Structured outputs", d: "Fuerza salidas JSON validadas para integrarlas a tus sistemas.", c: "response_format = json_schema", lang: "python" },
+      { t: "Caching + Batch", d: "Cachea el contexto repetido (−90% input) y procesa lotes (−50%).", c: "cache_control + Batch API", lang: "python" },
+      { t: "Observabilidad", d: "Logging, rate limits, manejo de errores y control de costos por modelo.", c: null, lang: null },
+    ],
+  },
+  {
+    id: "agentes", name: "Constructor de agentes", level: "Medio–alto", color: "#22C55E", icon: "🤖",
+    goal: "Agentes que ejecutan flujos reales de punta a punta.",
+    steps: [
+      { t: "Claude Code + CLAUDE.md", d: "Primer agente en tu repo con las reglas del proyecto.", c: "npm i -g @anthropic-ai/claude-code", lang: "bash" },
+      { t: "Agent SDK", d: "El mismo loop de Claude Code, como librería en Python / TS.", c: "pip install claude-agent-sdk", lang: "bash" },
+      { t: "Custom tools + MCP", d: "Conecta sistemas internos como herramientas del agente.", c: "@tool / mcp_servers=[...]", lang: "python" },
+      { t: "Subagentes", d: "Aísla contexto y corre tareas en paralelo con herramientas restringidas.", c: "subagents: [{ tools: ['Read','Grep'] }]", lang: "ts" },
+      { t: "Hooks", d: "Aprueba/deniega/modifica cada tool call. Control y auditoría.", c: "hooks: { PreToolUse, PostToolUse }", lang: "ts" },
+      { t: "Orquestación", d: "Compón patrones (orquestador-trabajadores, evaluador) para fiabilidad.", c: null, lang: null },
+    ],
+  },
+  {
+    id: "plataforma", name: "Plataforma MCP", level: "Alto", color: "#7B73E8", icon: "🧷",
+    goal: "Exponer los sistemas del banco a Claude de forma gobernada.",
+    steps: [
+      { t: "Diseña el servidor MCP", d: "Define tools/resources/prompts que exponen un sistema interno (core, CRM, DWH).", c: null, lang: null },
+      { t: "Implementa con el SDK", d: "Servidor en Python/TS; autenticación y permisos por herramienta.", c: "pip install mcp", lang: "bash" },
+      { t: "Conecta a Claude", d: "Claude.ai, Claude Code y la API consumen el mismo servidor.", c: "claude mcp add <server>", lang: "bash" },
+      { t: "Seguridad y auditoría", d: "Scopes mínimos, logging de cada llamada, revisión de prompt injection.", c: null, lang: null },
+      { t: "Escala", d: "Un servidor, muchos consumidores. Reutilizable por toda la organización.", c: null, lang: null },
+    ],
+  },
+];
+
 /* ── App vs Local ── */
 const APP_LOCAL = {
   app: {
@@ -539,6 +631,104 @@ function PatternSVG({ id, c }: { id: string; c: string }) {
   }
 }
 
+/* ════════════════════════════ BLOQUE DE CÓDIGO ════════════════════════════ */
+function CodeBlock({ label, lang, code, accent = CORAL }: { label: string; lang?: string; code: string; accent?: string }) {
+  return (
+    <div className="rounded-xl overflow-hidden border border-white/[0.08] bg-[#0A0E22]">
+      <div className="flex items-center gap-2 px-4 py-2 border-b border-white/[0.06] bg-white/[0.02]">
+        <span className="flex gap-1.5">
+          <span className="w-2.5 h-2.5 rounded-full" style={{ background: "rgba(232,90,31,0.7)" }} />
+          <span className="w-2.5 h-2.5 rounded-full" style={{ background: "rgba(212,175,76,0.7)" }} />
+          <span className="w-2.5 h-2.5 rounded-full" style={{ background: "rgba(34,197,94,0.7)" }} />
+        </span>
+        <span className="ml-2 font-mono text-[0.62rem] text-muted">{label}</span>
+        {lang && (
+          <span className="ml-auto font-mono text-[0.56rem] px-2 py-0.5 rounded" style={{ background: `${accent}1e`, color: accent }}>
+            {lang}
+          </span>
+        )}
+      </div>
+      <pre className="p-4 overflow-x-auto text-[0.72rem] leading-relaxed font-mono text-[#C5CAE0]">
+        <code>{code}</code>
+      </pre>
+    </div>
+  );
+}
+
+/* Genera el snippet de la Messages API según lenguaje y features activas */
+function buildSnippet(lang: string, f: { thinking: boolean; tools: boolean; cache: boolean }): string {
+  if (lang === "Python") {
+    const sys = f.cache
+      ? `    system=[{\n        "type": "text",\n        "text": "Eres analista senior de BTG Pactual.",\n        "cache_control": {"type": "ephemeral"},  # ← se cachea\n    }],`
+      : `    system="Eres analista senior de BTG Pactual.",`;
+    const think = f.thinking ? `    thinking={"type": "enabled", "budget_tokens": 8000},\n` : "";
+    const tools = f.tools
+      ? `    tools=[{\n        "name": "consultar_dwh",\n        "description": "Consulta el data warehouse",\n        "input_schema": {"type": "object", "properties": {"sql": {"type": "string"}}},\n    }],\n`
+      : "";
+    return `from anthropic import Anthropic\nclient = Anthropic()\n\nmsg = client.messages.create(\n    model="claude-sonnet-4-6",\n    max_tokens=1024,\n${think}${tools}${sys}\n    messages=[{"role": "user", "content": "Resume este memo de crédito"}],\n)\nprint(msg.content[0].text)`;
+  }
+  if (lang === "TypeScript") {
+    const sys = f.cache
+      ? `  system: [{\n    type: "text",\n    text: "Eres analista senior de BTG Pactual.",\n    cache_control: { type: "ephemeral" }, // ← se cachea\n  }],`
+      : `  system: "Eres analista senior de BTG Pactual.",`;
+    const think = f.thinking ? `  thinking: { type: "enabled", budget_tokens: 8000 },\n` : "";
+    const tools = f.tools
+      ? `  tools: [{\n    name: "consultar_dwh",\n    description: "Consulta el data warehouse",\n    input_schema: { type: "object", properties: { sql: { type: "string" } } },\n  }],\n`
+      : "";
+    return `import Anthropic from "@anthropic-ai/sdk";\nconst client = new Anthropic();\n\nconst msg = await client.messages.create({\n  model: "claude-sonnet-4-6",\n  max_tokens: 1024,\n${think}${tools}${sys}\n  messages: [{ role: "user", content: "Resume este memo de crédito" }],\n});\nconsole.log(msg.content[0].text);`;
+  }
+  // cURL
+  const think = f.thinking ? `    "thinking": {"type": "enabled", "budget_tokens": 8000},\n` : "";
+  const tools = f.tools
+    ? `    "tools": [{"name": "consultar_dwh", "input_schema": {"type": "object"}}],\n`
+    : "";
+  const sys = f.cache
+    ? `    "system": [{"type": "text", "text": "Eres analista de BTG.", "cache_control": {"type": "ephemeral"}}],\n`
+    : `    "system": "Eres analista de BTG.",\n`;
+  return `curl https://api.anthropic.com/v1/messages \\\n  -H "x-api-key: $ANTHROPIC_API_KEY" \\\n  -H "anthropic-version: 2023-06-01" \\\n  -H "content-type: application/json" \\\n  -d '{\n    "model": "claude-sonnet-4-6",\n    "max_tokens": 1024,\n${think}${tools}${sys}    "messages": [{"role": "user", "content": "Resume este memo"}]\n  }'`;
+}
+
+/* ════════════════════════════ ARQUITECTURA DE AGENTE (SVG) ════════════════════════════ */
+function AgentArchSVG({ sel, onSel }: { sel: string; onSel: (id: string) => void }) {
+  const sats = [
+    { id: "tools", x: 30, y: 24, label: "Tools" },
+    { id: "mcp", x: 360, y: 24, label: "MCP" },
+    { id: "sub", x: 360, y: 232, label: "Subagentes" },
+    { id: "hooks", x: 30, y: 232, label: "Hooks" },
+    { id: "ctx", x: 195, y: 250, label: "Contexto" },
+  ];
+  return (
+    <svg viewBox="0 0 480 300" className="w-full h-auto">
+      <defs>
+        <marker id="arr2" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto">
+          <path d="M0,0 L7,3 L0,6 Z" fill="#7a82a0" />
+        </marker>
+      </defs>
+      {/* conexiones */}
+      {sats.map((s) => (
+        <line key={s.id} x1={240} y1={140} x2={s.x + 60} y2={s.y + 17} stroke="#7a82a0" strokeWidth={1.2} opacity={sel === s.id ? 0.9 : 0.3} strokeDasharray="4 3" />
+      ))}
+      {/* loop central */}
+      <circle cx={240} cy={140} r={62} fill="#E0785612" stroke={CORAL} strokeWidth={1.6} />
+      <text x={240} y={118} textAnchor="middle" fill="#E8ECF8" style={{ fontSize: 12, fontWeight: 700, fontFamily: "var(--font-mono)" }}>Agente</text>
+      <text x={240} y={138} textAnchor="middle" fill={CORAL_SOFT} style={{ fontSize: 9.5, fontFamily: "var(--font-mono)" }}>think →</text>
+      <text x={240} y={152} textAnchor="middle" fill={CORAL_SOFT} style={{ fontSize: 9.5, fontFamily: "var(--font-mono)" }}>act →</text>
+      <text x={240} y={166} textAnchor="middle" fill={CORAL_SOFT} style={{ fontSize: 9.5, fontFamily: "var(--font-mono)" }}>observe ↺</text>
+      {/* satélites (clicables) */}
+      {sats.map((s) => {
+        const a = ARCH.find((x) => x.id === s.id)!;
+        const on = sel === s.id;
+        return (
+          <g key={s.id} onClick={() => onSel(s.id)} style={{ cursor: "pointer" }}>
+            <rect x={s.x} y={s.y} width={120} height={34} rx={8} fill="#0D1229" stroke={a.color} strokeWidth={on ? 2.2 : 1.4} opacity={on ? 1 : 0.85} />
+            <text x={s.x + 60} y={s.y + 18} textAnchor="middle" dominantBaseline="middle" fill={on ? "#fff" : "#C5CAE0"} style={{ fontSize: 11, fontFamily: "var(--font-mono)" }}>{a.label}</text>
+          </g>
+        );
+      })}
+    </svg>
+  );
+}
+
 /* ════════════════════════════ COMPONENTE ════════════════════════════ */
 
 export default function SesionClaude() {
@@ -552,6 +742,19 @@ export default function SesionClaude() {
   const [vista, setVista] = useState<"app" | "local">("app");
   const [capa, setCapa] = useState("contexto");
   const [orq, setOrq] = useState("orchestrator");
+  const [techCat, setTechCat] = useState("nucleo");
+  const [techCap, setTechCap] = useState("messages");
+  const [lang, setLang] = useState("Python");
+  const [feat, setFeat] = useState({ thinking: false, tools: false, cache: false });
+  const [arch, setArch] = useState("tools");
+  const [ruta, setRuta] = useState("integrador");
+  // calculadora de costos
+  const [calcModel, setCalcModel] = useState("sonnet");
+  const [inK, setInK] = useState(20);
+  const [outK, setOutK] = useState(2);
+  const [calls, setCalls] = useState(10000);
+  const [useCache, setUseCache] = useState(false);
+  const [useBatch, setUseBatch] = useState(false);
 
   useEffect(() => {
     if (heroN >= 5) return;
@@ -568,6 +771,14 @@ export default function SesionClaude() {
   const capaSel = MEMORIA.find((c) => c.id === capa)!;
   const modoSel = MODOS.find((m) => m.id === modo)!;
   const orqSel = ORQUESTACION.find((o) => o.id === orq)!;
+  const techCapSel = TECH_CAPS.find((t) => t.id === techCap)!;
+  const archSel = ARCH.find((a) => a.id === arch)!;
+  const rutaSel = RUTAS.find((r) => r.id === ruta)!;
+  // cálculo de costos
+  const cm = MODELOS_SPEC.find((m) => m.id === `claude-${calcModel === "opus" ? "opus-4-8" : calcModel === "sonnet" ? "sonnet-4-6" : "haiku-4-5"}`)!;
+  const inRate = useCache ? cm.input * 0.1 : cm.input;
+  const perCall = (inK / 1000) * inRate + (outK / 1000) * cm.output;
+  const monthly = perCall * calls * (useBatch ? 0.5 : 1);
   const recModel = quiz !== null ? MODELOS.find((m) => m.id === TAREAS_QUIZ[quiz].rec)! : null;
 
   return (
@@ -1291,10 +1502,276 @@ export default function SesionClaude() {
         </section>
       </RevealSection>
 
-      {/* ═══════════════ 11 · BENEFICIOS ═══════════════ */}
+      {/* ═══════════════ 11 · BAJO EL CAPÓ (TÉCNICO) ═══════════════ */}
+      <RevealSection>
+        <section id="tecnico" className="max-w-6xl mx-auto px-6 py-20 scroll-mt-20">
+          <p className="font-mono text-[0.72rem] uppercase tracking-widest mb-3" style={{ color: "#5B52D5" }}>11 · Bajo el capó</p>
+          <h2 className="text-2xl md:text-4xl font-bold text-white-f leading-tight mb-3">
+            Lo técnico de Claude, <span className="text-purple-light">de verdad</span>
+          </h2>
+          <p className="text-muted max-w-3xl mb-10">
+            Todo lo anterior se apoya en una plataforma concreta: una API, un SDK de agentes y un conjunto de capacidades.
+            Aquí está el detalle técnico — con precios de referencia a junio 2026 (USD por millón de tokens).
+          </p>
+
+          {/* tabla de modelos */}
+          <div className="grid md:grid-cols-3 gap-3 mb-12">
+            {MODELOS_SPEC.map((m) => (
+              <div key={m.id} className="rounded-2xl border bg-card p-5" style={{ borderColor: `${m.color}40` }}>
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-lg font-bold text-white-f">{m.name}</h3>
+                  <span className="font-mono text-[0.58rem] px-2 py-0.5 rounded-full" style={{ background: `${m.color}1e`, color: m.color }}>ctx {m.ctx}</span>
+                </div>
+                <code className="block font-mono text-[0.66rem] text-muted mb-4 break-all">{m.id}</code>
+                <div className="grid grid-cols-2 gap-2 mb-3">
+                  <div className="rounded-lg bg-white/[0.03] border border-white/[0.06] p-2.5 text-center">
+                    <p className="text-[0.58rem] text-muted font-mono uppercase">Input</p>
+                    <p className="text-base font-bold" style={{ color: m.color }}>${m.input}</p>
+                  </div>
+                  <div className="rounded-lg bg-white/[0.03] border border-white/[0.06] p-2.5 text-center">
+                    <p className="text-[0.58rem] text-muted font-mono uppercase">Output</p>
+                    <p className="text-base font-bold" style={{ color: m.color }}>${m.output}</p>
+                  </div>
+                </div>
+                <p className="text-[0.74rem] text-muted">{m.note}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* explorador de capacidades */}
+          <h3 className="text-xl font-bold text-white-f mb-1">Explorador de capacidades</h3>
+          <p className="text-[0.85rem] text-muted mb-5">Elige una categoría y luego una capacidad para ver el detalle.</p>
+          <div className="flex flex-wrap gap-2 mb-5">
+            {TECH_CATS.map((c) => {
+              const on = techCat === c.id;
+              return (
+                <button
+                  key={c.id}
+                  onClick={() => {
+                    setTechCat(c.id);
+                    const first = TECH_CAPS.find((t) => t.cat === c.id);
+                    if (first) setTechCap(first.id);
+                  }}
+                  className="px-4 py-2 rounded-lg text-[0.8rem] font-semibold border transition-all"
+                  style={{ background: on ? c.color : "transparent", color: on ? "#080C1F" : "#7a82a0", borderColor: on ? c.color : "rgba(255,255,255,0.1)" }}
+                >
+                  {c.label}
+                </button>
+              );
+            })}
+          </div>
+          <div className="grid md:grid-cols-[1fr_1.1fr] gap-6 items-start mb-14">
+            <div className="grid grid-cols-2 gap-2">
+              {TECH_CAPS.filter((t) => t.cat === techCat).map((t) => {
+                const on = techCap === t.id;
+                const cc = TECH_CATS.find((c) => c.id === t.cat)!.color;
+                return (
+                  <button
+                    key={t.id}
+                    onClick={() => setTechCap(t.id)}
+                    className="flex items-center gap-2 rounded-xl px-3 py-3 border text-left transition-all"
+                    style={{ background: on ? `${cc}18` : "rgba(255,255,255,0.02)", borderColor: on ? `${cc}66` : "rgba(255,255,255,0.06)" }}
+                  >
+                    <span>{t.icon}</span>
+                    <span className="text-[0.78rem] font-semibold" style={{ color: on ? "#fff" : "#c5cae0" }}>{t.name}</span>
+                  </button>
+                );
+              })}
+            </div>
+            <div className="rounded-2xl border bg-card p-6" style={{ borderColor: `${TECH_CATS.find((c) => c.id === techCat)!.color}33` }}>
+              <div className="flex items-center gap-3 mb-2">
+                <span className="text-2xl">{techCapSel.icon}</span>
+                <h4 className="text-lg font-bold text-white-f">{techCapSel.name}</h4>
+              </div>
+              <span className="inline-block font-mono text-[0.62rem] px-2.5 py-1 rounded-full mb-4" style={{ background: `${TECH_CATS.find((c) => c.id === techCat)!.color}1e`, color: TECH_CATS.find((c) => c.id === techCat)!.color }}>
+                {techCapSel.spec}
+              </span>
+              <p className="text-txt leading-relaxed">{techCapSel.desc}</p>
+            </div>
+          </div>
+
+          {/* anatomía de una request */}
+          <h3 className="text-xl font-bold text-white-f mb-1">Anatomía de una llamada</h3>
+          <p className="text-[0.85rem] text-muted mb-5">La misma Messages API en tres lenguajes. Activa features y mira cómo cambia el código.</p>
+          <div className="flex flex-wrap items-center gap-2 mb-3">
+            <div className="inline-flex rounded-lg border border-white/[0.1] p-1 bg-[#0D1229]">
+              {["Python", "TypeScript", "cURL"].map((l) => (
+                <button
+                  key={l}
+                  onClick={() => setLang(l)}
+                  className="px-3.5 py-1.5 rounded-md text-[0.76rem] font-semibold font-mono transition-all"
+                  style={{ background: lang === l ? "#5B52D5" : "transparent", color: lang === l ? "#fff" : "#7a82a0" }}
+                >
+                  {l}
+                </button>
+              ))}
+            </div>
+            <span className="text-muted text-[0.7rem] mx-1">features:</span>
+            {([
+              ["thinking", "Extended thinking"],
+              ["tools", "Tool use"],
+              ["cache", "Prompt caching"],
+            ] as const).map(([k, label]) => {
+              const on = feat[k];
+              return (
+                <button
+                  key={k}
+                  onClick={() => setFeat((p) => ({ ...p, [k]: !p[k] }))}
+                  className="px-3 py-1.5 rounded-md text-[0.72rem] font-mono border transition-all"
+                  style={{ background: on ? "rgba(0,229,160,0.16)" : "rgba(255,255,255,0.02)", borderColor: on ? "rgba(0,229,160,0.45)" : "rgba(255,255,255,0.08)", color: on ? "#00E5A0" : "#7a82a0" }}
+                >
+                  {on ? "✓ " : "+ "}{label}
+                </button>
+              );
+            })}
+          </div>
+          <CodeBlock label="messages.create()" lang={lang} accent="#5B52D5" code={buildSnippet(lang, feat)} />
+
+          {/* calculadora de costos */}
+          <div className="mt-14 grid lg:grid-cols-[1fr_1fr] gap-6 items-stretch">
+            <div className="rounded-2xl border border-white/[0.08] bg-card p-6">
+              <h3 className="text-xl font-bold text-white-f mb-1">Calculadora de costos</h3>
+              <p className="text-[0.8rem] text-muted mb-5">Estima el gasto mensual de un caso de uso.</p>
+              <div className="flex gap-2 mb-5">
+                {[["opus", "Opus"], ["sonnet", "Sonnet"], ["haiku", "Haiku"]].map(([id, n]) => {
+                  const c = MODELOS_SPEC.find((m) => m.name.startsWith(n))!.color;
+                  const on = calcModel === id;
+                  return (
+                    <button key={id} onClick={() => setCalcModel(id)} className="flex-1 py-2 rounded-lg text-[0.78rem] font-semibold border transition-all" style={{ background: on ? c : "transparent", color: on ? "#080C1F" : "#7a82a0", borderColor: on ? c : "rgba(255,255,255,0.1)" }}>
+                      {n}
+                    </button>
+                  );
+                })}
+              </div>
+              {[
+                { label: "Tokens de entrada / llamada", val: inK, set: setInK, min: 1, max: 200, step: 1, unit: "K" },
+                { label: "Tokens de salida / llamada", val: outK, set: setOutK, min: 1, max: 16, step: 1, unit: "K" },
+              ].map((s) => (
+                <div key={s.label} className="mb-4">
+                  <div className="flex justify-between text-[0.74rem] mb-1.5">
+                    <span className="text-muted">{s.label}</span>
+                    <span className="font-mono text-white-f">{s.val}{s.unit}</span>
+                  </div>
+                  <input type="range" min={s.min} max={s.max} step={s.step} value={s.val} onChange={(e) => s.set(Number(e.target.value))} />
+                </div>
+              ))}
+              <div className="mb-4">
+                <div className="flex justify-between text-[0.74rem] mb-1.5">
+                  <span className="text-muted">Llamadas / mes</span>
+                  <span className="font-mono text-white-f">{calls.toLocaleString("es")}</span>
+                </div>
+                <input type="range" min={1000} max={1000000} step={1000} value={calls} onChange={(e) => setCalls(Number(e.target.value))} />
+              </div>
+              <div className="flex gap-2">
+                <button onClick={() => setUseCache((v) => !v)} className="flex-1 py-2 rounded-lg text-[0.72rem] font-mono border transition-all" style={{ background: useCache ? "rgba(212,175,76,0.16)" : "rgba(255,255,255,0.02)", borderColor: useCache ? "rgba(212,175,76,0.45)" : "rgba(255,255,255,0.08)", color: useCache ? "#D4AF4C" : "#7a82a0" }}>
+                  {useCache ? "✓ " : "+ "}caching (−90% input)
+                </button>
+                <button onClick={() => setUseBatch((v) => !v)} className="flex-1 py-2 rounded-lg text-[0.72rem] font-mono border transition-all" style={{ background: useBatch ? "rgba(212,175,76,0.16)" : "rgba(255,255,255,0.02)", borderColor: useBatch ? "rgba(212,175,76,0.45)" : "rgba(255,255,255,0.08)", color: useBatch ? "#D4AF4C" : "#7a82a0" }}>
+                  {useBatch ? "✓ " : "+ "}batch (−50%)
+                </button>
+              </div>
+            </div>
+            <div className="rounded-2xl border p-6 flex flex-col justify-center text-center" style={{ borderColor: `${cm.color}44`, background: `${cm.color}0d` }}>
+              <p className="font-mono text-[0.66rem] uppercase tracking-widest text-muted mb-2">Costo estimado · {cm.name}</p>
+              <p className="text-5xl font-bold text-white-f mb-1">${monthly.toLocaleString("es", { maximumFractionDigits: 0 })}</p>
+              <p className="text-[0.78rem] text-muted mb-6">por mes ({calls.toLocaleString("es")} llamadas)</p>
+              <div className="grid grid-cols-2 gap-3 text-left">
+                <div className="rounded-lg bg-white/[0.03] border border-white/[0.06] p-3">
+                  <p className="text-[0.58rem] text-muted font-mono uppercase">Por llamada</p>
+                  <p className="font-mono font-bold" style={{ color: cm.color }}>${perCall.toFixed(4)}</p>
+                </div>
+                <div className="rounded-lg bg-white/[0.03] border border-white/[0.06] p-3">
+                  <p className="text-[0.58rem] text-muted font-mono uppercase">Tarifa input</p>
+                  <p className="font-mono font-bold" style={{ color: cm.color }}>${inRate.toFixed(2)}/M</p>
+                </div>
+              </div>
+              <p className="text-[0.62rem] text-muted/70 mt-4">Estimación ilustrativa con tarifas de referencia jun-2026. Caching y batch son escenarios óptimos.</p>
+            </div>
+          </div>
+
+          {/* arquitectura de agente */}
+          <div className="mt-14">
+            <h3 className="text-xl font-bold text-white-f mb-1">Arquitectura de un agente (Agent SDK)</h3>
+            <p className="text-[0.85rem] text-muted mb-5">Un loop central rodeado de capacidades. Haz clic en cada pieza.</p>
+            <div className="grid md:grid-cols-[1.2fr_1fr] gap-6 items-center">
+              <div className="rounded-2xl border border-white/[0.08] bg-[#0A0E22] p-6">
+                <AgentArchSVG sel={arch} onSel={setArch} />
+              </div>
+              <div className="rounded-2xl border bg-card p-6" style={{ borderColor: `${archSel.color}40` }}>
+                <h4 className="text-lg font-bold mb-3" style={{ color: archSel.color }}>{archSel.label}</h4>
+                <p className="text-txt leading-relaxed">{archSel.d}</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </RevealSection>
+
+      {/* ═══════════════ 12 · RUTAS DE IMPLEMENTACIÓN ═══════════════ */}
+      <RevealSection>
+        <section id="rutas" className="bg-deep scroll-mt-20">
+          <div className="max-w-6xl mx-auto px-6 py-20">
+            <p className="font-mono text-[0.72rem] uppercase tracking-widest mb-3" style={{ color: CORAL }}>12 · Rutas de implementación</p>
+            <h2 className="text-2xl md:text-4xl font-bold text-white-f leading-tight mb-3">
+              Cómo <span style={{ color: CORAL }}>empezar a construir</span>
+            </h2>
+            <p className="text-muted max-w-3xl mb-8">
+              Cuatro rutas según tu perfil y nivel técnico, de menor a mayor profundidad. Elige la tuya y sigue los pasos.
+            </p>
+
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
+              {RUTAS.map((r) => {
+                const on = ruta === r.id;
+                return (
+                  <button
+                    key={r.id}
+                    onClick={() => setRuta(r.id)}
+                    className="rounded-2xl border p-5 text-left transition-all"
+                    style={{ background: on ? `${r.color}16` : "rgba(255,255,255,0.02)", borderColor: on ? `${r.color}66` : "rgba(255,255,255,0.06)", transform: on ? "translateY(-3px)" : "none" }}
+                  >
+                    <div className="text-2xl mb-2">{r.icon}</div>
+                    <p className="text-[0.9rem] font-bold text-white-f leading-tight mb-1">{r.name}</p>
+                    <span className="font-mono text-[0.56rem] px-2 py-0.5 rounded-full" style={{ background: `${r.color}1e`, color: r.color }}>nivel {r.level}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="rounded-2xl border bg-card p-6 md:p-8" style={{ borderColor: `${rutaSel.color}33` }}>
+              <div className="flex items-center gap-3 mb-1">
+                <span className="text-2xl">{rutaSel.icon}</span>
+                <h3 className="text-xl font-bold text-white-f">{rutaSel.name}</h3>
+              </div>
+              <p className="text-[0.85rem] text-muted mb-7">🎯 {rutaSel.goal}</p>
+              <div className="space-y-0">
+                {rutaSel.steps.map((s, i) => (
+                  <div key={i} className="grid grid-cols-[40px_1fr] gap-4">
+                    <div className="flex flex-col items-center">
+                      <span className="w-9 h-9 rounded-full grid place-items-center font-mono text-[0.8rem] font-bold flex-shrink-0" style={{ background: `${rutaSel.color}1e`, color: rutaSel.color, border: `1.5px solid ${rutaSel.color}66` }}>
+                        {i + 1}
+                      </span>
+                      {i < rutaSel.steps.length - 1 && <span className="w-0.5 flex-1 my-1" style={{ background: `${rutaSel.color}33` }} />}
+                    </div>
+                    <div className="pb-7">
+                      <h4 className="text-[0.95rem] font-bold text-white-f mb-1">{s.t}</h4>
+                      <p className="text-[0.84rem] text-muted mb-2">{s.d}</p>
+                      {s.c && (
+                        <code className="inline-block font-mono text-[0.72rem] px-3 py-1.5 rounded-lg bg-[#0A0E22] border border-white/[0.08]" style={{ color: rutaSel.color }}>
+                          {s.lang === "bash" ? "$ " : ""}{s.c}
+                        </code>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      </RevealSection>
+
+      {/* ═══════════════ 13 · BENEFICIOS ═══════════════ */}
       <RevealSection>
         <section id="beneficios" className="max-w-6xl mx-auto px-6 py-20 scroll-mt-20">
-          <p className="font-mono text-[0.72rem] uppercase tracking-widest mb-3" style={{ color: CORAL }}>11 · Beneficios</p>
+          <p className="font-mono text-[0.72rem] uppercase tracking-widest mb-3" style={{ color: CORAL }}>13 · Beneficios</p>
           <h2 className="text-2xl md:text-4xl font-bold text-white-f leading-tight mb-10">
             Por qué Claude, <span style={{ color: CORAL }}>para un banco</span>
           </h2>
