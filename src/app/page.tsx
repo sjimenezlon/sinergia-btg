@@ -118,6 +118,12 @@ export default function Home() {
           >
             ✦ Sesión PLUS · JTBD + Canvas
           </Link>
+          <Link
+            href="/sesion/claude"
+            className="px-8 py-3 rounded-xl bg-gradient-to-r from-[#E07856]/20 to-[#7B73E8]/20 border border-[#E07856]/40 text-[#F0A88A] font-semibold text-sm hover:from-[#E07856]/30 hover:to-[#7B73E8]/30 transition-all shadow-lg shadow-[rgba(224,120,86,0.15)]"
+          >
+            ✦ Lección Claude · Historia, modos y agentes
+          </Link>
         </div>
       </section>
 
@@ -171,6 +177,42 @@ export default function Home() {
             </div>
           ))}
         </div>
+      </section>
+
+      {/* LECCIÓN CLAUDE */}
+      <section className="px-6 pt-4 pb-12 max-w-7xl mx-auto">
+        <Link href="/sesion/claude" className="block group">
+          <div className="relative overflow-hidden rounded-2xl border border-[#E07856]/30 bg-gradient-to-br from-[#1a1330] via-[#151a3a] to-[#0d1229] p-7 md:p-9 hover:border-[#E07856]/50 transition-all">
+            <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_50%_60%_at_85%_50%,rgba(224,120,86,0.12),transparent),radial-gradient(ellipse_40%_60%_at_10%_50%,rgba(123,115,232,0.10),transparent)]" />
+            <div className="relative flex flex-col md:flex-row md:items-center gap-6 justify-between">
+              <div className="max-w-2xl">
+                <div className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[0.62rem] font-mono uppercase tracking-widest mb-3 bg-[#E07856]/15 border border-[#E07856]/30 text-[#F0A88A]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#E07856] animate-pulse-dot" />
+                  Lección especial · Junio 2026
+                </div>
+                <h3 className="text-xl md:text-2xl font-bold text-white-f mb-2">
+                  ✦ Conoce a Claude de cabo a rabo
+                </h3>
+                <p className="text-[0.88rem] text-muted">
+                  Su historia, los modelos (Opus 4.8 · Sonnet 4.6 · Haiku 4.5), los 6 modos de uso, qué son skills y
+                  agentes, cómo se corre en la app y en local, y cómo funciona su memoria — interactivo y aplicado a banca.
+                </p>
+                <div className="flex flex-wrap gap-1.5 mt-4">
+                  {["Historia", "Modelos", "Modos", "Skills", "Agentes", "Orquestación", "App vs Local", "Memoria", "Anthropic hoy"].map((t) => (
+                    <span key={t} className="font-mono text-[0.58rem] px-2 py-0.5 bg-white/[0.04] border border-white/[0.08] rounded-sm text-muted">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="flex-shrink-0">
+                <span className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#E07856]/15 border border-[#E07856]/40 text-[#F0A88A] font-semibold text-sm group-hover:bg-[#E07856]/25 transition-all">
+                  Abrir lección →
+                </span>
+              </div>
+            </div>
+          </div>
+        </Link>
       </section>
 
       {/* SESIONES */}

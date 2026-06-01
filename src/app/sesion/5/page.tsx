@@ -311,6 +311,115 @@ const TALLER_STEPS = [
   { n: 7, title: "Demo 2 min", desc: "Muestra el output + decide qué ecosistema adoptarías en BTG y por qué." },
 ];
 
+/* ════════ EJERCICIOS PRÁCTICOS · 3 hands-on labs ════════ */
+type ExerciseStep = { n: number; action: string; detail: string; output: string };
+type Exercise = {
+  id: string;
+  tag: string;
+  title: string;
+  subtitle: string;
+  duration: string;
+  color: string;
+  accent: string;
+  icon: string;
+  tool: string;
+  objective: string;
+  prereq: string;
+  steps: ExerciseStep[];
+  evidence: string[];
+  common: { ok: string; trap: string };
+};
+
+const EJERCICIOS: Exercise[] = [
+  {
+    id: "ex1",
+    tag: "Ejercicio 1",
+    title: "NotebookLM como sistema RAG",
+    subtitle: "Indexa un data room BTG y consúltalo sin alucinaciones",
+    duration: "15 min",
+    color: "#00E5A0",
+    accent: "#22C55E",
+    icon: "📚",
+    tool: "NotebookLM",
+    objective: "Crear un notebook operativo con 5+ fuentes + Study Guide + 1 consulta con citas verificables.",
+    prereq: "Cuenta Google Workspace BTG · 5 documentos del deal Target Retail LatAm (CIM, audit, research, circular SFC 048, earnings call).",
+    steps: [
+      { n: 1, action: "Crear el notebook", detail: "Abre notebooklm.google.com → New Notebook. Nombre: 'BTG · Retail LatAm Q2 2026'. Un notebook por mandato — no mezcles deals.", output: "Notebook vacío creado, ID visible en URL" },
+      { n: 2, action: "Cargar las 5 fuentes", detail: "Sidebar izquierdo → Add sources. PDF · CIM_Target.pdf · Audit_KPMG_2024.pdf · Research_EAFIT_Retail.pdf · URL circular SFC 048 · transcript YouTube earnings.", output: "5/300 fuentes indexadas. Cada una con número [1]..[5]" },
+      { n: 3, action: "Generar Study Guide", detail: "Studio panel → Study Guide. En 20s NotebookLM produce FAQ, timeline, glosario y puntos clave cruzando las 5 fuentes.", output: "Guía con 22 Q&A + timeline 2020–2026 + 18 términos" },
+      { n: 4, action: "Hacer la consulta clave", detail: "Chat: '¿Cuáles son los 3 riesgos macro del target según las fuentes? Cita documento y página.'", output: "Respuesta con 3 riesgos y superíndices [3][1] [6][4] [5] clicables al párrafo exacto" },
+      { n: 5, action: "Validar las citas", detail: "Haz clic en cada [n]. Confirma que el passage abre el PDF en la página correcta. Si alguna cita no cierra → fuente mal OCR, recárgala.", output: "100% de citas auditables. Zero alucinaciones." },
+    ],
+    evidence: [
+      "Screenshot del chat con las 3 citas expandidas",
+      "Study Guide exportada a Google Docs",
+      "Listado de fuentes con timestamps de indexación",
+    ],
+    common: {
+      ok: "Si el modelo dice 'no encuentro esto en las fuentes' — perfecto, está respetando el corpus.",
+      trap: "Evita pegar texto directo como fuente cuando el PDF existe: pierdes citas auditables.",
+    },
+  },
+  {
+    id: "ex2",
+    tag: "Ejercicio 2",
+    title: "Gemini 3.1 como asistente conectado",
+    subtitle: "Extiende el notebook con Deep Research autónomo + multimodal",
+    duration: "20 min",
+    color: "#5B52D5",
+    accent: "#3A7BD5",
+    icon: "🔬",
+    tool: "Gemini Advanced + Deep Research",
+    objective: "Generar un reporte Deep Research de 15 págs con 80 citas web y agregarlo como fuente 6 al notebook.",
+    prereq: "Cuenta Gemini Advanced · notebook del Ejercicio 1 listo · 10 min de espera para que corra Deep Research.",
+    steps: [
+      { n: 1, action: "Abrir Gemini + referenciar notebook", detail: "gemini.google.com → selecciona el Gem conectado a Workspace. Escribe @ y selecciona el notebook 'BTG · Retail LatAm Q2 2026' como contexto.", output: "Banner 'Notebook conectado' con 5 fuentes visibles" },
+      { n: 2, action: "Lanzar Deep Research", detail: "Modo → Deep Research. Prompt: 'Research completo del sector retail LatAm: tendencias 2026, regulación por país, comps cotizados y privados, y escenarios macro. Usar el notebook como base.'", output: "Plan de búsqueda: 47 queries · tiempo estimado 11 min" },
+      { n: 3, action: "Monitorear el plan", detail: "Gemini despliega un plan editable (puedes eliminar pasos). Acepta o refina. El modelo lee 80+ URLs, extrae pasajes y los sintetiza.", output: "Progreso: 47/47 búsquedas · 83 pasajes · drafting…" },
+      { n: 4, action: "Recibir el reporte", detail: "Reporte de 15 páginas con secciones: tendencias, regulación, comps, macro, conclusión. Cada afirmación con cita [1]..[83] a URL web.", output: "Reporte en Canvas lateral · export a Google Docs" },
+      { n: 5, action: "Importar al notebook", detail: "Descarga el reporte como PDF → vuelve a NotebookLM → Add source → sube el PDF. Ahora es la fuente [6] con citas cruzadas.", output: "Notebook con 6 fuentes · Q internas + research web combinados" },
+    ],
+    evidence: [
+      "URL del reporte Gemini Deep Research compartido",
+      "Notebook actualizado con fuente [6] visible",
+      "Prompt de consulta cruzada: '¿Qué tendencias 2026 agravan los riesgos macro identificados?'",
+    ],
+    common: {
+      ok: "Deep Research tarda 5–15 min — si termina en 1 min, el modelo se saltó pasos: relanza.",
+      trap: "No uses Deep Research para preguntas puntuales. Es para síntesis sectoriales profundas.",
+    },
+  },
+  {
+    id: "ex3",
+    tag: "Ejercicio 3",
+    title: "Copilot M365 con OneDrive y SharePoint",
+    subtitle: "Memo + pitch + reunión leídos del tenant corporativo",
+    duration: "25 min",
+    color: "#7B73E8",
+    accent: "#0078D4",
+    icon: "🏢",
+    tool: "Microsoft 365 Copilot",
+    objective: "Producir memo IC (Word) + pitch deck (PowerPoint) + action items (Teams) sin salir del tenant M365.",
+    prereq: "Licencia Copilot M365 E5 · acceso a SharePoint /IB/Deals/Q2/ · permisos sobre el CIM del target.",
+    steps: [
+      { n: 1, action: "Abrir Word en OneDrive", detail: "Ribbon → ✨ Copilot → 'Draft with Copilot'. Prompt: 'Redacta un memo IC estilo BTG a partir del CIM en /IB/Deals/2026/Q2/CIM_Target.pdf y el audit KPMG 2024. 2 páginas, secciones: tesis, riesgos, comps, next steps.'", output: "Draft de 1,850 palabras con estructura IC · primera versión en 45s" },
+      { n: 2, action: "Refinar con sensitivity labels", detail: "Copilot respeta labels: si el CIM está marcado 'Confidential · IB', el memo hereda el label automáticamente. Edita tono: 'Reescribe sección 1 más ejecutiva.'", output: "Memo etiquetado · Confidential · DLP activo" },
+      { n: 3, action: "Generar pitch en PowerPoint", detail: "Abre PowerPoint → Copilot → 'Crea un deck de 12 slides desde este memo Word'. PowerPoint toma el memo abierto en OneDrive como input.", output: "12 slides · diseño BTG · imágenes sugeridas · speaker notes de 90s por slide" },
+      { n: 4, action: "Resumir reunión IC en Teams", detail: "Durante el comité, Copilot graba y transcribe. Al final → 'Resume la reunión y extrae action items con owner y fecha.'", output: "Resumen de 600 palabras · 8 action items · asignados a 4 personas" },
+      { n: 5, action: "Triaje de Outlook post-comité", detail: "Outlook → Copilot → 'Revisa los 50 correos desde las 9am. Prioriza los relacionados al deal Target Retail. Draftea respuesta a los 3 más urgentes.'", output: "5 correos priorizados · 3 drafts listos para revisar + enviar" },
+    ],
+    evidence: [
+      "IC_Memo_TargetRetail_v1.docx en SharePoint /IB/Deals/Q2/",
+      "Pitch_IC_TargetRetail.pptx con slides numerados",
+      "Teams chat con el summary + action items exportados a Planner",
+    ],
+    common: {
+      ok: "Copilot respeta permisos: si no tienes acceso a un doc, no lo incluye en la respuesta.",
+      trap: "No uses Copilot para datos externos al tenant — ahí usa Gemini o Claude, no tiene web browsing nativa.",
+    },
+  },
+];
+
 /* Universo de modelos 2026 — frontier + abiertos + especializados */
 type ModelCategory = "frontier" | "open" | "specialized";
 const MODELS_2026: Array<{
@@ -328,11 +437,11 @@ const MODELS_2026: Array<{
     btg: "Due diligence, compliance, memos IC — el adoptado por BTG",
   },
   {
-    id: "gpt", name: "GPT-5.4", provider: "OpenAI", flag: "🇺🇸",
+    id: "gpt", name: "GPT-5.5", provider: "OpenAI", flag: "🇺🇸",
     category: "frontier", color: "#22C55E", icon: "◎",
-    context: "400K", input: 10, output: 40, license: "Propietario",
-    strength: "Razonamiento nativo · Canvas · Code Interpreter · DALL·E 4",
-    btg: "Modelación cuantitativa · Custom GPTs · research visual",
+    context: "400K", input: 5, output: 30, license: "Propietario",
+    strength: "Agentic nativo · absorbe Codex · Canvas · Code Interpreter · DALL·E 4",
+    btg: "Modelación cuantitativa · Custom GPTs · research visual · agentes multi-tool",
   },
   {
     id: "gemini", name: "Gemini 3.1", provider: "Google", flag: "🇺🇸",
@@ -570,6 +679,21 @@ export default function Sesion5() {
 
   const ecoData = useMemo(() => ECOSYSTEMS.find((e) => e.id === activeEcosystem)!, [activeEcosystem]);
   const featureData = useMemo(() => GEMINI_FEATURES.find((f) => f.id === activeFeature)!, [activeFeature]);
+
+  /* Ejercicios prácticos */
+  const [exIdx, setExIdx] = useState(0);
+  const [exStepIdx, setExStepIdx] = useState(0);
+  const [exCompleted, setExCompleted] = useState<Record<string, number[]>>({ ex1: [], ex2: [], ex3: [] });
+  const currentEx = EJERCICIOS[exIdx];
+  const toggleStepDone = (stepN: number) => {
+    setExCompleted((prev) => {
+      const list = prev[currentEx.id] ?? [];
+      const next = list.includes(stepN) ? list.filter((x) => x !== stepN) : [...list, stepN];
+      return { ...prev, [currentEx.id]: next };
+    });
+  };
+  const completedCount = (exCompleted[currentEx.id] ?? []).length;
+  const progressPct = Math.round((completedCount / currentEx.steps.length) * 100);
 
   return (
     <div className="min-h-screen bg-[#080C1F]">
@@ -1325,7 +1449,7 @@ export default function Sesion5() {
                 {[
                   { name: "Gemini 3.1 Ultra", tokens: 2000000, color: "#3A7BD5", bar: 100, label: "2M", note: "2 años de earnings calls + 50 PDFs" },
                   { name: "Claude 4.7 Opus", tokens: 1000000, color: "#E85A1F", bar: 50, label: "1M", note: "Data room completo + histórico" },
-                  { name: "GPT-5.4", tokens: 1000000, color: "#22C55E", bar: 50, label: "1M", note: "Empatado con Opus" },
+                  { name: "GPT-5.5", tokens: 400000, color: "#22C55E", bar: 20, label: "400K", note: "Lanzado 23-abr-2026 · agentic nativo" },
                   { name: "Data room BTG típico", tokens: 400000, color: "#D4AF4C", bar: 20, label: "400K", note: "Referencia · lo que subes", dashed: true },
                   { name: "Claude Sonnet 4.6", tokens: 200000, color: "#7B73E8", bar: 10, label: "200K", note: "Tareas diarias" },
                   { name: "DeepSeek R1", tokens: 128000, color: "#D4AF4C", bar: 6.4, label: "128K", note: "Budget model" },
@@ -1900,6 +2024,224 @@ export default function Sesion5() {
                 <p className="text-[0.7rem] text-muted leading-snug italic">{d.why}</p>
               </div>
             ))}
+          </div>
+        </section>
+      </RevealSection>
+
+      {/* ═══════════════ 8B. EJERCICIOS PRÁCTICOS ═══════════════ */}
+      <RevealSection>
+        <section className="relative max-w-6xl mx-auto px-6 py-24">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_30%_30%,rgba(0,229,160,0.06),transparent),radial-gradient(ellipse_60%_60%_at_80%_70%,rgba(91,82,213,0.06),transparent)] pointer-events-none" />
+          <div className="relative">
+            <p className="font-mono text-[0.72rem] uppercase tracking-widest text-cyan mb-3">Ejercicios prácticos · hands-on</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-white-f leading-tight mb-5">
+              De teoría a <span className="bg-gradient-to-r from-cyan via-blue to-purple-light bg-clip-text text-transparent">operación real</span>
+            </h2>
+            <p className="text-lg text-muted max-w-3xl mb-10">
+              Tres laboratorios concatenados. Al cerrar los tres, tienes un data room indexado, un reporte de investigación autónomo y un memo + deck generados en el tenant M365 — todo en 60 min.
+            </p>
+
+            {/* Exercise tabs */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+              {EJERCICIOS.map((e, i) => {
+                const active = i === exIdx;
+                const done = (exCompleted[e.id] ?? []).length;
+                const total = e.steps.length;
+                return (
+                  <button
+                    key={e.id}
+                    onClick={() => { setExIdx(i); setExStepIdx(0); }}
+                    className="text-left rounded-2xl border p-4 transition-all relative overflow-hidden group"
+                    style={{
+                      background: active ? `linear-gradient(135deg, ${e.color}22, ${e.accent}08)` : "#151A3A",
+                      borderColor: active ? `${e.color}80` : "rgba(255,255,255,0.06)",
+                      boxShadow: active ? `0 10px 30px ${e.color}25` : "none",
+                    }}
+                  >
+                    <div className="absolute -top-10 -right-10 w-28 h-28 rounded-full blur-2xl opacity-20 transition-opacity group-hover:opacity-40" style={{ background: e.color }} />
+                    <div className="relative flex items-start gap-3">
+                      <div className="w-11 h-11 rounded-xl grid place-items-center text-2xl shrink-0" style={{ background: `${e.color}22`, color: e.color }}>{e.icon}</div>
+                      <div className="min-w-0 flex-1">
+                        <p className="font-mono text-[0.58rem] uppercase tracking-widest mb-0.5" style={{ color: e.color }}>{e.tag} · {e.duration}</p>
+                        <p className="text-sm font-bold text-white-f leading-tight mb-1">{e.title}</p>
+                        <p className="text-[0.68rem] text-muted leading-snug">{e.tool}</p>
+                      </div>
+                    </div>
+                    <div className="relative mt-3 flex items-center gap-2">
+                      <div className="h-1 flex-1 rounded-full bg-white/5 overflow-hidden">
+                        <div className="h-full transition-all duration-500" style={{ width: `${(done / total) * 100}%`, background: e.color }} />
+                      </div>
+                      <span className="font-mono text-[0.6rem] text-muted shrink-0">{done}/{total}</span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Active exercise panel */}
+            <div className="bg-[#0D1229] border rounded-3xl overflow-hidden" style={{ borderColor: `${currentEx.color}35` }}>
+              {/* Header */}
+              <div
+                className="px-6 md:px-8 py-6 border-b border-white/[0.06] grid gap-5 md:grid-cols-[auto_1fr_auto] items-center"
+                style={{ background: `linear-gradient(90deg, ${currentEx.color}15, transparent 70%)` }}
+              >
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 rounded-2xl grid place-items-center text-3xl" style={{ background: `${currentEx.color}20`, border: `1px solid ${currentEx.color}50` }}>{currentEx.icon}</div>
+                  <div>
+                    <p className="font-mono text-[0.6rem] uppercase tracking-widest" style={{ color: currentEx.color }}>{currentEx.tag} · {currentEx.duration}</p>
+                    <h3 className="text-xl md:text-2xl font-bold text-white-f leading-tight">{currentEx.title}</h3>
+                    <p className="text-[0.78rem] text-muted italic">{currentEx.subtitle}</p>
+                  </div>
+                </div>
+                <div className="hidden md:block" />
+                <div className="bg-[#151A3A] rounded-2xl px-4 py-3 border border-white/[0.06] min-w-[160px]">
+                  <p className="font-mono text-[0.55rem] uppercase tracking-widest text-muted mb-1">Progreso</p>
+                  <p className="text-xl font-bold font-mono" style={{ color: currentEx.color }}>{progressPct}%</p>
+                  <div className="mt-1.5 h-1 rounded-full bg-white/5 overflow-hidden">
+                    <div className="h-full transition-all duration-500" style={{ width: `${progressPct}%`, background: `linear-gradient(90deg, ${currentEx.color}, ${currentEx.accent})` }} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Body */}
+              <div className="grid lg:grid-cols-[1fr_1.1fr] gap-0">
+                {/* LEFT · objective + steps */}
+                <div className="p-6 md:p-8 border-r border-white/[0.04]">
+                  {/* Objective + prereq */}
+                  <div className="grid grid-cols-1 gap-3 mb-6">
+                    <div className="bg-[#151A3A] border border-white/[0.05] rounded-xl p-4">
+                      <p className="font-mono text-[0.55rem] uppercase tracking-widest mb-1.5" style={{ color: currentEx.color }}>🎯 Objetivo</p>
+                      <p className="text-[0.82rem] text-white-f leading-snug">{currentEx.objective}</p>
+                    </div>
+                    <div className="bg-white/[0.015] border border-white/[0.04] rounded-xl p-4">
+                      <p className="font-mono text-[0.55rem] uppercase tracking-widest text-muted mb-1.5">🔑 Prerrequisitos</p>
+                      <p className="text-[0.75rem] text-muted leading-snug">{currentEx.prereq}</p>
+                    </div>
+                  </div>
+
+                  {/* Step list — clickable checklist */}
+                  <p className="font-mono text-[0.6rem] uppercase tracking-widest text-muted mb-3">Pasos · marca a medida que los completas</p>
+                  <div className="space-y-2">
+                    {currentEx.steps.map((s, i) => {
+                      const done = (exCompleted[currentEx.id] ?? []).includes(s.n);
+                      const active = exStepIdx === i;
+                      return (
+                        <div
+                          key={s.n}
+                          onClick={() => setExStepIdx(i)}
+                          className="group rounded-xl border p-3.5 cursor-pointer transition-all"
+                          style={{
+                            background: active ? `${currentEx.color}10` : "#151A3A",
+                            borderColor: active ? `${currentEx.color}55` : done ? `${currentEx.accent}40` : "rgba(255,255,255,0.06)",
+                          }}
+                        >
+                          <div className="flex items-start gap-3">
+                            <button
+                              type="button"
+                              onClick={(ev) => { ev.stopPropagation(); toggleStepDone(s.n); }}
+                              className="w-7 h-7 rounded-full grid place-items-center font-mono text-xs font-bold shrink-0 transition-all"
+                              style={{
+                                background: done ? currentEx.color : "transparent",
+                                border: `1.5px solid ${done ? currentEx.color : `${currentEx.color}60`}`,
+                                color: done ? "#080C1F" : currentEx.color,
+                              }}
+                            >
+                              {done ? "✓" : s.n}
+                            </button>
+                            <div className="flex-1 min-w-0">
+                              <p className={`text-[0.82rem] font-semibold leading-tight ${done ? "text-muted line-through" : "text-white-f"}`}>{s.action}</p>
+                              <p className="text-[0.7rem] text-muted leading-snug mt-0.5">{s.detail}</p>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* RIGHT · visual sim + evidence */}
+                <div className="p-6 md:p-8 bg-[#080C1F]">
+                  {/* Terminal / simulated UI */}
+                  <div className="rounded-xl overflow-hidden border border-white/[0.08] bg-[#05070f] shadow-2xl mb-5">
+                    <div className="flex items-center gap-1.5 px-3 py-2 border-b border-white/[0.06] bg-[#0A0E1C]">
+                      <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F57]" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-[#FEBC2E]" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-[#28C840]" />
+                      <span className="ml-3 font-mono text-[0.62rem] text-white/50">{currentEx.tool} · paso {exStepIdx + 1} de {currentEx.steps.length}</span>
+                      <span className="ml-auto flex items-center gap-1.5 text-[0.58rem] font-mono" style={{ color: currentEx.color }}>
+                        <span className="w-1.5 h-1.5 rounded-full animate-pulse-dot" style={{ background: currentEx.color }} />
+                        LIVE
+                      </span>
+                    </div>
+                    <div className="p-4 font-mono text-[0.72rem] leading-relaxed min-h-[210px]">
+                      <p className="text-white/40 mb-1">
+                        <span style={{ color: currentEx.color }}>btg@nodo</span>
+                        <span className="text-white/40"> ~/</span>
+                        <span className="text-white/70">{currentEx.tool.toLowerCase().replace(/\s+/g, "-")}</span>
+                        <span className="text-white/40"> $</span>
+                      </p>
+                      <p className="text-white/80 mb-3">
+                        <span style={{ color: currentEx.accent }}>▸ </span>
+                        {currentEx.steps[exStepIdx].action}
+                      </p>
+                      <p className="text-white/60 mb-3 whitespace-pre-wrap">{currentEx.steps[exStepIdx].detail}</p>
+                      <div className="border-t border-white/[0.05] pt-3 mt-2">
+                        <p className="font-mono text-[0.55rem] uppercase tracking-widest text-muted mb-1.5">✦ Output esperado</p>
+                        <p className="text-[0.78rem] leading-snug" style={{ color: currentEx.color }}>{currentEx.steps[exStepIdx].output}</p>
+                      </div>
+                    </div>
+                    {/* Step progress bar */}
+                    <div className="px-3 py-2 bg-[#0A0E1C] border-t border-white/[0.04] flex items-center gap-3">
+                      <button
+                        onClick={() => setExStepIdx((i) => Math.max(0, i - 1))}
+                        disabled={exStepIdx === 0}
+                        className="w-7 h-7 rounded grid place-items-center text-white/60 hover:text-white-f hover:bg-white/5 disabled:opacity-30 transition-all"
+                      >◂</button>
+                      <div className="flex-1 flex gap-1">
+                        {currentEx.steps.map((_, i) => (
+                          <div
+                            key={i}
+                            className="flex-1 h-1 rounded-full transition-all cursor-pointer"
+                            onClick={() => setExStepIdx(i)}
+                            style={{ background: i === exStepIdx ? currentEx.color : i < exStepIdx ? `${currentEx.color}55` : "rgba(255,255,255,0.08)" }}
+                          />
+                        ))}
+                      </div>
+                      <button
+                        onClick={() => setExStepIdx((i) => Math.min(currentEx.steps.length - 1, i + 1))}
+                        disabled={exStepIdx === currentEx.steps.length - 1}
+                        className="w-7 h-7 rounded grid place-items-center text-white/60 hover:text-white-f hover:bg-white/5 disabled:opacity-30 transition-all"
+                      >▸</button>
+                    </div>
+                  </div>
+
+                  {/* Evidence */}
+                  <div className="rounded-xl border p-4 mb-3" style={{ borderColor: `${currentEx.accent}30`, background: `${currentEx.accent}08` }}>
+                    <p className="font-mono text-[0.6rem] uppercase tracking-widest mb-2" style={{ color: currentEx.accent }}>✓ Evidencia de éxito · entregables</p>
+                    <ul className="space-y-1.5">
+                      {currentEx.evidence.map((e, i) => (
+                        <li key={i} className="flex gap-2 items-start text-[0.75rem] text-white-f/85 leading-snug">
+                          <span style={{ color: currentEx.accent }}>▸</span>
+                          <span>{e}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Common pitfall / wins */}
+                  <div className="grid grid-cols-1 gap-2">
+                    <div className="flex gap-3 items-start bg-[rgba(34,197,94,0.05)] border border-[rgba(34,197,94,0.2)] rounded-lg p-3">
+                      <span className="text-sm">✅</span>
+                      <p className="text-[0.72rem] text-white-f/85 leading-snug">{currentEx.common.ok}</p>
+                    </div>
+                    <div className="flex gap-3 items-start bg-[rgba(232,90,31,0.05)] border border-[rgba(232,90,31,0.2)] rounded-lg p-3">
+                      <span className="text-sm">⚠</span>
+                      <p className="text-[0.72rem] text-white-f/85 leading-snug">{currentEx.common.trap}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </RevealSection>

@@ -13,6 +13,7 @@ const links = [
   { href: "/sesion/7", label: "S7" },
   { href: "/sesion/8", label: "S8" },
   { href: "/sesion/9", label: "S9" },
+  { href: "/sesion/claude", label: "CLAUDE", claude: true },
   { href: "/sesion/plus", label: "PLUS", highlight: true },
 ];
 
@@ -37,6 +38,21 @@ export default function Navbar() {
       <div className="flex items-center gap-1">
         {links.map((l) => {
           const active = pathname === l.href;
+          if (l.claude) {
+            return (
+              <Link
+                key={l.href}
+                href={l.href}
+                className={`text-xs font-bold px-3 py-1.5 rounded-md transition-all ${
+                  active
+                    ? "text-white bg-[#E07856]/30 border border-[#E07856]/60"
+                    : "text-[#F0A88A] bg-[#E07856]/12 border border-[#E07856]/30 hover:bg-[#E07856]/22"
+                }`}
+              >
+                ✦ {l.label}
+              </Link>
+            );
+          }
           if (l.highlight) {
             return (
               <Link
