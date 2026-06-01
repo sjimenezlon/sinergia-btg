@@ -25,6 +25,7 @@ const INDICE = [
   { id: "rutas", label: "Rutas de implementación", icon: "🚀", color: CORAL },
   { id: "formacion", label: "Plan de formación", icon: "🎓", color: "#00E5A0" },
   { id: "beneficios", label: "Beneficios", icon: "🎯", color: CORAL },
+  { id: "cuando", label: "Cuándo elegir Claude", icon: "✅", color: "#22C55E" },
 ];
 
 /* ── Línea de tiempo ── */
@@ -532,6 +533,18 @@ const BENEFICIOS = [
   { icon: "🤖", title: "De chat a agente", color: "#22C55E", body: "El mismo Claude responde, construye software y opera flujos autónomos con herramientas reales." },
   { icon: "🧩", title: "Extensible", color: "#D4AF4C", body: "Skills, MCP y el Agent SDK lo adaptan a los procesos del banco sin reentrenar nada." },
   { icon: "🧠", title: "Aprende tu contexto", color: "#7B73E8", body: "Proyectos y memoria persistente: deja de repetir el contexto cada vez." },
+];
+
+/* ── Cuándo elegir Claude: ejemplos concretos ── */
+const CUANDO = [
+  { icon: "📚", color: "#3A7BD5", para: "Leer un prospecto o contrato de 400 páginas y encontrar una cláusula puntual", porque: "Ventana de hasta 1M de tokens: lee el documento completo sin trocearlo ni perder contexto.", badge: "Opus 4.8 · 1M ctx" },
+  { icon: "🔖", color: "#7B73E8", para: "Un análisis que el comité o la auditoría puedan verificar", porque: "Citations: cada afirmación enlaza al fragmento exacto de la fuente. Trazable y defendible.", badge: "Citations · API" },
+  { icon: "✍️", color: "#E07856", para: "Redactar un memo de crédito o una carta a un cliente en español, con matiz", porque: "Calidad de escritura y razonamiento: tono institucional, preciso y revisable.", badge: "Sonnet 4.6" },
+  { icon: "🪝", color: "#22C55E", para: "Un agente que opere un flujo interno sin perder el control", porque: "Hooks del Agent SDK: apruebas, deniegas o modificas cada acción antes de que se ejecute.", badge: "Agent SDK · Hooks" },
+  { icon: "📦", color: "#00E5A0", para: "Clasificar 50.000 transacciones o extraer campos de miles de documentos", porque: "Haiku + Batch + caching: alto volumen a costo mínimo, hasta ~95% de ahorro.", badge: "Haiku 4.5 · Batch" },
+  { icon: "🔒", color: "#D4AF4C", para: "Usar IA sin que los datos salgan del entorno controlado del banco", porque: "Bedrock o Vertex + MCP: Claude corre en su nube, con residencia de datos y permisos por herramienta.", badge: "Bedrock/Vertex · MCP" },
+  { icon: "🛡️", color: "#5B52D5", para: "Operar en un entorno regulado con confianza", porque: "Constitutional AI: alineación, rechazo de instrucciones dañinas y razonamiento auditable.", badge: "Seguridad por diseño" },
+  { icon: "⌨️", color: "#E85A1F", para: "Construir y mantener software sobre el repo del banco", porque: "Claude Code: lee el repo, planea, edita, prueba y commitea siguiendo las reglas de CLAUDE.md.", badge: "Claude Code" },
 ];
 
 /* ════════════════════════════ DIAGRAMAS SVG ════════════════════════════ */
@@ -1914,6 +1927,43 @@ export default function SesionClaude() {
                 <p className="text-[0.85rem] text-muted">{b.body}</p>
               </div>
             ))}
+          </div>
+        </section>
+      </RevealSection>
+
+      {/* ═══════════════ 15 · CUÁNDO ELEGIR CLAUDE ═══════════════ */}
+      <RevealSection>
+        <section id="cuando" className="bg-deep scroll-mt-20">
+          <div className="max-w-6xl mx-auto px-6 py-20">
+            <p className="font-mono text-[0.72rem] uppercase tracking-widest mb-3 text-green">15 · Cuándo elegir Claude</p>
+            <h2 className="text-2xl md:text-4xl font-bold text-white-f leading-tight mb-3">
+              Ejemplos concretos: <span className="text-green">la tarea y el porqué</span>
+            </h2>
+            <p className="text-muted max-w-3xl mb-10">
+              No es &ldquo;Claude para todo&rdquo;. Es Claude cuando la tarea pide algo específico que Claude hace bien. Ocho casos de banca.
+            </p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
+              {CUANDO.map((c) => (
+                <div
+                  key={c.para}
+                  className="rounded-2xl border border-white/[0.06] bg-card p-6 hover:-translate-y-1 transition-all flex flex-col"
+                  style={{ boxShadow: `inset 3px 0 0 ${c.color}` }}
+                >
+                  <div className="flex items-start gap-4">
+                    <span className="text-2xl mt-0.5">{c.icon}</span>
+                    <div className="flex-1">
+                      <p className="font-mono text-[0.58rem] uppercase tracking-widest text-muted mb-1">Para</p>
+                      <p className="text-[0.95rem] font-bold text-white-f leading-snug mb-3">{c.para}</p>
+                      <p className="font-mono text-[0.58rem] uppercase tracking-widest mb-1" style={{ color: c.color }}>Elige Claude porque</p>
+                      <p className="text-[0.85rem] text-txt">{c.porque}</p>
+                      <span className="inline-block mt-4 font-mono text-[0.6rem] px-2.5 py-1 rounded-full" style={{ background: `${c.color}1e`, color: c.color }}>
+                        {c.badge}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
       </RevealSection>
