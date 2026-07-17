@@ -54,7 +54,7 @@ const sesiones = [
   { n: 3, title: "Prompt engineering: comunicarse con la IA", sub: "Técnicas avanzadas y criterios para elegir la herramienta correcta", mod: "M02", active: true },
   { n: 4, title: "Asistentes IA para finanzas", sub: "Flujos profesionales de análisis y creación", mod: "M02", active: true },
   { n: 5, title: "Ecosistemas, research y modelos abiertos", sub: "NotebookLM, Gemini, Copilot M365 y el universo de modelos (DeepSeek, Llama, Mistral, Qwen, Kimi)", mod: "M02", active: true },
-  { n: 6, title: "Programación asistida por IA", sub: "Cursor, Claude Code, GitHub Copilot, el ecosistema 2026 (21 herramientas) y el panorama de mayo 2026: enjambres de agentes y Agent HQ", mod: "M02", active: true },
+  { n: 6, title: "Programación asistida por IA", sub: "Cursor, Claude Code, GitHub Copilot, el ecosistema 2026 (21 herramientas) y el panorama mayo–julio 2026: Claude 5, GPT-5.6, enjambres de agentes y Agent HQ", mod: "M02", active: true },
   { n: 7, title: "Power Platform: Power Apps + Power Automate", sub: "Apertura ciber + prompt injection en vivo · low-code y automatización de procesos en banca", mod: "M02", active: true },
   { n: 8, title: "Power Platform: Copilot Studio, AI Builder y Power BI", sub: "Agentes virtuales, modelos prebuilt/custom y analítica con lenguaje natural", mod: "M02", active: true },
   { n: 9, title: "Creatividad, JTBD y buenas prácticas antes de construir", sub: "5 mentalidades, 5 métodos creativos, banco de 25 preguntas y Stack Selector BTG", mod: "M03", active: true },
@@ -188,7 +188,7 @@ export default function Home() {
               <div className="max-w-2xl">
                 <div className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[0.62rem] font-mono uppercase tracking-widest mb-3 bg-[#E07856]/15 border border-[#E07856]/30 text-[#F0A88A]">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#E07856] animate-pulse-dot" />
-                  Lección especial · Junio 2026
+                  Lección especial · Julio 2026
                 </div>
                 <h3 className="text-xl md:text-2xl font-bold text-white-f mb-2">
                   ✦ Conoce a Claude a fondo
