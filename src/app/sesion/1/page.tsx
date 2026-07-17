@@ -104,33 +104,33 @@ const TOKEN_COLORS = [
 
 const MODELS = [
   {
-    name: "GPT-5.4",
+    name: "GPT-5.6 (Sol)",
     provider: "OpenAI",
     icon: "◈",
     color: "#22C55E",
-    context: 1000000,
-    costIn: 2.5,
-    costOut: 10,
-    desc: "El modelo flagship de OpenAI. Razonamiento avanzado, herramientas nativas, visión multimodal.",
+    context: 400000,
+    costIn: 5,
+    costOut: 30,
+    desc: "El flagship de OpenAI (jul-2026), familia Sol·Terra·Luna. Razonamiento avanzado, herramientas nativas, visión multimodal.",
     tags: ["Multimodal", "Herramientas", "Razonamiento"],
     strengths: "Mejor en código, matemáticas, razonamiento largo",
     weakness: "Costo alto en outputs extensos",
   },
   {
-    name: "Claude 4.7",
+    name: "Claude Sonnet 5",
     provider: "Anthropic",
     icon: "◉",
     color: "#E85A1F",
     context: 1000000,
     costIn: 3,
     costOut: 15,
-    desc: "Contexto de 1M tokens. Ideal para análisis de documentos largos, due diligence, y compliance financiero.",
+    desc: "Contexto de 1M tokens (intro $2/$10 hasta ago-2026). Ideal para documentos largos, due diligence y compliance financiero.",
     tags: ["1M Contexto", "Documentos", "Seguro"],
     strengths: "Documentos largos, instrucciones complejas, seguridad",
     weakness: "Más conservador en creatividad libre",
   },
   {
-    name: "Gemini 3.1",
+    name: "Gemini 3.5",
     provider: "Google",
     icon: "◆",
     color: "#3A7BD5",
@@ -193,7 +193,7 @@ const PRESETS: Record<
     system:
       "Eres un analista senior de banca de inversión en BTG Pactual Colombia. Respondes con precisión, citas fuentes, y estructuras tus respuestas con headers claros. Priorizas datos cuantitativos y comparables de mercado. Formato: markdown con tablas cuando aplique.",
     temp: 0.3,
-    model: "Claude 4.7",
+    model: "Claude Sonnet 5",
   },
   research: {
     label: "Research",
@@ -201,7 +201,7 @@ const PRESETS: Record<
     system:
       "Eres un investigador de equity research para mercados emergentes latinoamericanos. Produces análisis tipo sell-side con tesis de inversión, drivers, riesgos y target price. Usas múltiplos comparables (EV/EBITDA, P/E, P/BV). Tono profesional pero accesible.",
     temp: 0.5,
-    model: "GPT-5.4",
+    model: "GPT-5.6 (Sol)",
   },
   compliance: {
     label: "Compliance",
@@ -209,7 +209,7 @@ const PRESETS: Record<
     system:
       "Eres un oficial de cumplimiento especializado en regulación financiera colombiana (SFC, URF) y estándares internacionales (Basilea, FATF/GAFI). Identificas riesgos regulatorios, citas normas específicas, y propones controles. Nunca das consejo legal definitivo, siempre recomiendas consultar al área jurídica.",
     temp: 0.1,
-    model: "Claude 4.7",
+    model: "Claude Sonnet 5",
   },
   creative: {
     label: "Creative",
@@ -217,7 +217,7 @@ const PRESETS: Record<
     system:
       "Eres un estratega de comunicaciones de BTG Pactual. Produces contenido para presentaciones a C-suite, propuestas de valor para clientes institucionales, y narrativas de marca. Tono: sofisticado, conciso, impactante. Usas datos para respaldar narrativas.",
     temp: 0.9,
-    model: "Gemini 3.1",
+    model: "Gemini 3.5",
   },
 };
 
@@ -1014,7 +1014,7 @@ Formato: Memo ejecutivo de máximo 500 palabras con tabla de comparables.`;
                     ))}
                   </div>
                   <p className="text-muted text-xs mt-3">
-                    GPT-5.4: 120 capas &middot; Claude 4.7: 96 capas &middot; Gemini 3.1: 80 capas
+                    GPT-5.6: 120 capas &middot; Claude 5: 96 capas &middot; Gemini 3.5: 80 capas
                   </p>
                 </div>
               </div>
@@ -1960,7 +1960,7 @@ Formato: Memo ejecutivo de máximo 500 palabras con tabla de comparables.`;
               <div className="bg-[#151A3A] border border-white/[0.06] rounded-2xl p-6">
                 <p className="font-mono text-xs text-muted mb-3">Modelo:</p>
                 <div className="grid grid-cols-3 gap-2">
-                  {["GPT-5.4", "Claude 4.7", "Gemini 3.1"].map((m) => (
+                  {["GPT-5.6", "Claude 5", "Gemini 3.5"].map((m) => (
                     <button
                       key={m}
                       onClick={() => setLabModel(m)}
@@ -2156,7 +2156,7 @@ Formato: Memo ejecutivo de máximo 500 palabras con tabla de comparables.`;
                 {
                   n: 2,
                   title: "Envía a 3 modelos",
-                  desc: "Usa ChatGPT (GPT-5.4), Claude.ai (Claude 4.7) y Gemini. Misma temperatura: 0.3.",
+                  desc: "Usa ChatGPT (GPT-5.6), Claude.ai (Sonnet 5) y Gemini. Misma temperatura: 0.3.",
                 },
                 {
                   n: 3,

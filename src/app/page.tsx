@@ -194,7 +194,7 @@ export default function Home() {
                   ✦ Conoce a Claude a fondo
                 </h3>
                 <p className="text-[0.88rem] text-muted">
-                  Su historia, los modelos (Opus 4.8 · Sonnet 4.6 · Haiku 4.5), los 6 modos de uso, qué son skills y
+                  Su historia, los modelos (Fable 5 · Opus 4.8 · Sonnet 5 · Haiku 4.5), los 6 modos de uso, qué son skills y
                   agentes, cómo se corre en la app y en local, y cómo funciona su memoria — interactivo y aplicado a banca.
                 </p>
                 <div className="flex flex-wrap gap-1.5 mt-4">

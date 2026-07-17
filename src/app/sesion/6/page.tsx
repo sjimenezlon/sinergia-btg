@@ -284,7 +284,7 @@ const EJERCICIOS: S6Exercise[] = [
     color: "#5B52D5",
     accent: "#7B73E8",
     icon: "◈",
-    tool: "Cursor + Claude Sonnet 4.6",
+    tool: "Cursor + Claude Sonnet 5",
     objective: "Configurar Cursor como IDE principal y producir portafolio.py con manejo de errores, tipos y tests — en menos de 15 minutos.",
     prereq: "Cursor instalado · cuenta gratis Cursor Pro Trial · Python 3.11 local · carpeta btg-portafolio/ vacía.",
     steps: [
@@ -403,7 +403,7 @@ const ENTREGABLES = [
   { n: 6, item: "Reflexión 150 palabras", detail: "¿Qué tareas de tu área en BTG podrían automatizarse con este stack?" },
 ];
 
-/* ════════════════════════════ ECOSISTEMA · PANORAMA ABRIL 2026 ════════════════════════════ */
+/* ════════════════════════════ ECOSISTEMA · PANORAMA JULIO 2026 ════════════════════════════ */
 
 const ECOSISTEMA_CATS = [
   {
@@ -467,66 +467,66 @@ const ECOSISTEMA_TOOLS: EcoTool[] = [
   {
     id: "cursor", name: "Cursor", vendor: "Anysphere (USA)", cat: "ide_ai", logo: "▲",
     tagline: "Fork de VS Code con IA en cada capa.",
-    detail: "Tab completion con todo el repo como contexto, Composer multi-archivo y Agent mode autónomo. Mezcla Claude Opus 4.7, GPT-5.5 (lanzado 23-abr-2026 · absorbe Codex), Gemini 3 Pro. Desde junio 2025 usa modelo de créditos: cada plan trae un pool mensual en USD equivalente al precio.",
+    detail: "Tab completion con todo el repo como contexto, Composer multi-archivo y Agent mode autónomo. A julio 2026 mezcla Claude Opus 4.8 / Sonnet 5 / Fable 5, GPT-5.5 y 5.6, Gemini 3.1 Pro / 3.5 Flash, Grok 4.5 y su modelo propio Composer 2.5. Modelo de créditos: cada plan trae un pool mensual en USD equivalente al precio.",
     btg: "Feature nuevo desde cero · refactor de repos legacy · onboarding rápido de analistas nuevos.",
-    example: "Abril 2026 · un analista de renta fija pide: 'añade optimización Markowitz al módulo portafolio.py y escribe tests'. Composer planea, edita 4 archivos y corre pytest en 6 min.",
-    price: "Hobby gratis · Pro USD 20 · Pro+ USD 60 · Ultra USD 200 · Teams USD 40/user",
+    example: "Julio 2026 · un analista de renta fija pide: 'añade optimización Markowitz al módulo portafolio.py y escribe tests'. Composer planea, edita 4 archivos y corre pytest en 6 min.",
+    price: "Hobby gratis · Pro USD 20 · Pro+ USD 60 · Ultra USD 200 · Teams USD 40 o Premium USD 120/user (jun-2026)",
     status: "core",
   },
   {
     id: "claude-code", name: "Claude Code (CLI + VS Code)", vendor: "Anthropic (USA)", cat: "ide_ai", logo: "◆",
     tagline: "Agente de ingeniería con memoria, skills y hooks.",
-    detail: "Claude Opus 4.7 con contexto 1M. Skills (carpetas con SKILL.md reutilizables), hooks que disparan en eventos del IDE, worktrees con un comando, PreCompact hooks para bloquear compactación. CLI + extensión VS Code. Background plugin monitors para agentes paralelos.",
+    detail: "Claude Opus 4.8 (default) con Sonnet 5 y Fable 5 disponibles, contexto 1M. Skills reutilizables, hooks, worktrees, dynamic workflows que orquestan cientos de subagentes en background, auto mode desde el plan Pro y navegador integrado en Desktop. CLI + escritorio + web + extensión VS Code.",
     btg: "Auditorías sobre muchos repos · runbooks automáticos · tareas largas sin supervisión · scripts ad-hoc sobre data warehouse.",
-    example: "Abril 2026 · 'audita 9 repos de microservicios por CVEs abiertos, genera reporte markdown con recomendaciones'. Claude Code corre 25 min solo y regresa con PR propuesto por repo.",
-    price: "Incluido en Claude Max USD 100/mes · API pago-por-uso · Claude Pro USD 20 con límites",
+    example: "Julio 2026 · 'audita 9 repos de microservicios por CVEs abiertos, genera reporte markdown con recomendaciones'. Claude Code corre 25 min solo y regresa con PR propuesto por repo.",
+    price: "Incluido en todo plan pago: Claude Pro USD 20 · Max USD 100 (5×) · Max USD 200 (20×) · API pago-por-uso",
     status: "core",
   },
   {
     id: "kiro", name: "Kiro", vendor: "Amazon Web Services", cat: "ide_ai", logo: "△",
     tagline: "IDE AI-first de AWS con workflow por specs.",
-    detail: "Spec-driven development: describes el feature en lenguaje natural → Kiro genera requirements.md, architecture.md, test plan y recién después el código. Hooks event-driven (on save, PR open). Routea entre Claude Sonnet (specs) y Amazon Nova (throughput) vía Bedrock. Estable desde ene 2026.",
+    detail: "Spec-driven development: describes el feature en lenguaje natural → Kiro genera requirements.md, architecture.md, test plan y recién después el código. Hooks event-driven (on save, PR open). Routea entre Claude Sonnet (specs) y Amazon Nova (throughput) vía Bedrock. Desde may-2026 es el reemplazo oficial de Amazon Q Developer.",
     btg: "Microservicios en Lambda · migraciones a AWS · teams con Landing Zone ya montada · compliance trazable (specs versionados).",
-    example: "Abril 2026 · un spec de 2 párrafos sobre endpoint de KYC genera requirements doc, plan arquitectónico y código Lambda + CDK + tests listos para merge.",
-    price: "Free tier generoso · Pro desde USD 19/user (rollout 2026)",
+    example: "Julio 2026 · un spec de 2 párrafos sobre endpoint de KYC genera requirements doc, plan arquitectónico y código Lambda + CDK + tests listos para merge.",
+    price: "Free (50 créditos) · Pro USD 20 · Pro+ USD 40 · Pro Max USD 100 · Power USD 200 · overage USD 0,04/crédito",
     status: "emerging",
   },
   {
     id: "firebase-studio", name: "Firebase Studio", vendor: "Google", cat: "ide_ai", logo: "◇",
     tagline: "SUNSET 19-mar-2026 · migrar a AI Studio o Antigravity.",
-    detail: "El IDE en navegador sucesor de Project IDX fue sunset el 19 de marzo de 2026. Workspaces existentes siguen accesibles hasta el 22-mar-2027, pero la creación de nuevos workspaces se desactiva el 22-jun-2026. Google movió la apuesta a AI Studio (vibe coding con Gemini 3) y Antigravity (agent-first).",
-    btg: "Migrar proyectos vivos antes de jun-2026 · sustituir por Google AI Studio (rapid prototyping) o Antigravity (agent-first).",
-    example: "Abril 2026 · cualquier proyecto nuevo que hubiera ido a Firebase Studio en 2025 hoy se abre en Antigravity o AI Studio — el runtime Firebase (Hosting, Functions) sigue vigente.",
+    detail: "El IDE en navegador sucesor de Project IDX entró en sunset (anuncio 19-mar-2026). Desde el 22-jun-2026 ya no se pueden crear workspaces nuevos; los existentes siguen accesibles hasta el cierre definitivo del 22-mar-2027. Google movió la apuesta a AI Studio (vibe coding con Gemini) y Antigravity (agent-first).",
+    btg: "Migrar los proyectos que sigan vivos · sustituir por Google AI Studio (rapid prototyping) o Antigravity (agent-first).",
+    example: "Julio 2026 · cualquier proyecto nuevo que hubiera ido a Firebase Studio en 2025 hoy se abre en Antigravity o AI Studio — el runtime Firebase (Hosting, Functions) sigue vigente.",
     price: "Deprecated · usar AI Studio (gratis) o Antigravity (preview)",
     status: "sunset",
   },
   {
     id: "antigravity", name: "Google Antigravity", vendor: "Google", cat: "ide_ai", logo: "◉",
-    tagline: "IDE agent-first con Gemini 3 Pro + Claude Opus 4.6 built-in.",
-    detail: "Lanzado 18-nov-2025 junto a Gemini 3. No es un chatbot en sidebar: dos surfaces — Editor View (autocompletado + inline) y Manager Surface donde orquestas agentes en paralelo con navegador Chrome embebido. 76.2% en SWE-bench Verified. 6% de adopción global a abril 2026.",
+    tagline: "IDE agent-first de Google. Antigravity 2.0 + CLI desde I/O 2026.",
+    detail: "Lanzado 18-nov-2025 junto a Gemini 3. Dos surfaces — Editor View (autocompletado + inline) y Manager Surface donde orquestas agentes en paralelo con navegador Chrome embebido. En I/O 2026 (may) llegó Antigravity 2.0 y el Antigravity CLI, que reemplaza a Gemini CLI (retirado 18-jun). Absorbe también a Gemini Code Assist individual.",
     btg: "Tareas que se benefician de paralelismo — un agente documenta, otro prueba, otro implementa · POCs con multi-agente.",
-    example: "Abril 2026 · un dev abre 3 agentes en paralelo desde Manager: uno escribe tests Jest, otro documenta con markdown, otro implementa un endpoint de pricing. Los ve avanzar asíncronos.",
-    price: "Public preview gratis para individuos a abril 2026",
+    example: "Julio 2026 · un dev abre 3 agentes en paralelo desde Manager: uno escribe tests Jest, otro documenta con markdown, otro implementa un endpoint de pricing. Los ve avanzar asíncronos.",
+    price: "Tier gratis con límites (refrescan ~5 h) · atado a Google AI Pro/Ultra · créditos USD 0,01 c/u",
     status: "emerging",
   },
 
   /* IDE plugin */
   {
     id: "copilot-cli", name: "GitHub Copilot (IDE + CLI + coding agent)", vendor: "GitHub · Microsoft", cat: "ide_plugin", logo: "✦",
-    tagline: "El default corporativo. Coding agent autónomo desde mar 2026.",
-    detail: "Copilot en VS Code y JetBrains + `gh copilot suggest/explain` + Copilot Workspace + coding agent autónomo (determina qué archivos editar, corre terminal, itera sobre errores). Modelos seleccionables: GPT-5.5, Claude Opus 4.7, Gemini 3. Premium requests por plan.",
-    btg: "Estándar del equipo · PRs con Copilot Code Review · audit trail empresarial · fixes de tests sin supervisión.",
-    example: "Abril 2026 · abres un PR en GitHub Enterprise, Copilot Code Review comenta 12 líneas con sugerencias accionables y el coding agent corrige los tests rotos antes del merge.",
-    price: "Free · Pro USD 10 · Pro+ USD 39 (1.500 premium reqs) · Business USD 19/user · Enterprise USD 39/user",
+    tagline: "El default corporativo. Desde 1-jun-2026 factura por AI Credits (tokens).",
+    detail: "Copilot en VS Code y JetBrains + `gh copilot suggest/explain` + Copilot Workspace + coding agent autónomo (determina qué archivos editar, corre terminal, itera sobre errores). Modelos seleccionables: GPT-5.6, Claude Opus 4.8, Gemini 3.5. Cambio mayor: el 1-jun-2026 las 'premium requests' fueron reemplazadas por AI Credits basados en tokens a tarifa de API — vigila el consumo de agentes (hay reportes de facturas 25×).",
+    btg: "Estándar del equipo · PRs con Copilot Code Review · audit trail empresarial · fixes de tests sin supervisión — con gobierno de consumo de créditos.",
+    example: "Julio 2026 · abres un PR en GitHub Enterprise, Copilot Code Review comenta 12 líneas con sugerencias accionables y el coding agent corrige los tests rotos antes del merge.",
+    price: "Free · Pro USD 10 · Pro+ USD 39 · Business USD 19/user · Enterprise USD 39/user — cada plan incluye AI Credits por su valor",
     status: "corporate",
   },
   {
     id: "gemini-code", name: "Gemini Code Assist", vendor: "Google Cloud", cat: "ide_plugin", logo: "★",
-    tagline: "Plugin para VS Code, IntelliJ y Cloud Workstations.",
-    detail: "Autocompletado con Gemini 3, chat contextual, scanning SAST, conectores directos a BigQuery y Cloud Storage. Tier gratis de 180k completions/mes (de los más generosos del mercado). Standard con retención de datos controlada y data residency.",
-    btg: "Alternativa corporate-friendly a Copilot · equipos con stack GCP · compliance con residencia de datos por región.",
-    example: "Abril 2026 · migración de un pipeline Python a Dataflow: Gemini Code Assist samplea datos reales desde BigQuery y ajusta la función de transformación según el schema actual.",
-    price: "Gratis hasta 180k comp/mes · Standard USD 19/user · Enterprise custom",
+    tagline: "Individual deprecado el 18-jun-2026 → migración a Antigravity. Standard/Enterprise siguen.",
+    detail: "Autocompletado con Gemini, chat contextual, scanning SAST, conectores directos a BigQuery y Cloud Storage. Ojo: desde el 18-jun-2026 las extensiones IDE dejaron de funcionar para cuentas individuales (el viejo tier gratis de 180k completions murió) — Google empuja a Antigravity. Los planes Standard y Enterprise vía Google Cloud siguen vigentes con data residency.",
+    btg: "Solo con contrato Google Cloud (Standard/Enterprise) · equipos con stack GCP · compliance con residencia de datos por región.",
+    example: "Julio 2026 · migración de un pipeline Python a Dataflow: Gemini Code Assist samplea datos reales desde BigQuery y ajusta la función de transformación según el schema actual.",
+    price: "Individual: deprecado (usar Antigravity) · Standard USD 19/user · Enterprise custom",
     status: "corporate",
   },
   {
@@ -534,7 +534,7 @@ const ECOSISTEMA_TOOLS: EcoTool[] = [
     tagline: "IA nativa en IntelliJ, PyCharm, CLion. Junie CLI en beta mar 2026.",
     detail: "Chat contextual, edición multi-archivo y Junie (agent mode). Modelo-agnóstico: Claude, GPT, Gemini, local. Aprovecha el indexador semántico de JetBrains — el mejor para refactors tipados. Consumo basado en créditos: 1 AI Credit = USD 1. Junie CLI (beta mar 2026) opera desde terminal.",
     btg: "Quants en PyCharm · devs Kotlin/Java en IntelliJ · motores C++ en CLion. Refactors tipados sin romper el índice del proyecto.",
-    example: "Abril 2026 · 'migra este risk engine a Python 3.13 y mueve a asyncio donde corresponda'. Junie consulta el índice, propone el refactor tipado, corre mypy y los tests.",
+    example: "Julio 2026 · 'migra este risk engine a Python 3.13 y mueve a asyncio donde corresponda'. Junie consulta el índice, propone el refactor tipado, corre mypy y los tests.",
     price: "AI Pro USD 10/mes o USD 100/año · AI Ultimate USD 30/mes (USD 60/org) · créditos USD 1 c/u",
     status: "pro",
   },
@@ -543,37 +543,37 @@ const ECOSISTEMA_TOOLS: EcoTool[] = [
     tagline: "IDE profesional de C/C++ con AI Assistant.",
     detail: "Refactors tipados sobre C++20/23, CMake, Bazel. Integración con CUDA y toolchains remotas. Con AI Assistant: explicación de templates, generación de Catch2/GoogleTest, análisis de lifetimes.",
     btg: "Mesa cuantitativa con motores de pricing de baja latencia en C++ · risk engines tick-by-tick · análisis de performance con perf + flamegraphs.",
-    example: "Abril 2026 · en el pricing engine, CLion + AI Assistant explica un template variadic de 80 líneas y genera Catch2 para cada especialización. El quant acepta 6 de 8 tests.",
+    example: "Julio 2026 · en el pricing engine, CLion + AI Assistant explica un template variadic de 80 líneas y genera Catch2 para cada especialización. El quant acepta 6 de 8 tests.",
     price: "USD 249/año Individual · USD 499/año Company · All Products Pack USD 779/año",
     status: "pro",
   },
   {
     id: "amazon-q", name: "Amazon Q Business + Developer", vendor: "AWS", cat: "ide_plugin", logo: "◧",
-    tagline: "Asistente empresarial con RAG sobre datos internos.",
-    detail: "Q Business indexa S3, SharePoint, Confluence, Jira, Gmail y responde preguntas con permisos heredados. Q Developer entra en VS Code/IntelliJ para código + transformación de legacy (Java 8 → 21, COBOL → Java, .NET upgrades). Pro trae IP indemnity, SSO, analytics.",
-    btg: "Chatbot corporativo con procedimientos internos · transformación de mainframe legacy · auditoría IAM.",
-    example: "Abril 2026 · Q Business responde 'cuáles son los pasos para aprobar un nuevo emisor' leyendo 340 pp de procedimientos en SharePoint con permisos heredados por rol.",
-    price: "Q Business Lite USD 3/user · Q Business Pro USD 20/user · Q Developer Pro USD 19/user (1.000 agentic req + 4.000 LOC/mes)",
+    tagline: "Q Business sigue · Q Developer entró en sunset (Kiro es el reemplazo).",
+    detail: "Q Business indexa S3, SharePoint, Confluence, Jira, Gmail y responde preguntas con permisos heredados. Q Developer entró en sunset: sin nuevas suscripciones desde el 15-may-2026 y end-of-support de los plugins IDE el 30-abr-2027 — AWS designó a Kiro como reemplazo oficial para código.",
+    btg: "Chatbot corporativo con procedimientos internos · para transformación de legacy y código, migrar a Kiro.",
+    example: "Julio 2026 · Q Business responde 'cuáles son los pasos para aprobar un nuevo emisor' leyendo 340 pp de procedimientos en SharePoint con permisos heredados por rol.",
+    price: "Q Business Lite USD 3/user · Q Business Pro USD 20/user · Q Developer: sunset (migrar a Kiro)",
     status: "corporate",
   },
 
   /* Chats & agentes */
   {
     id: "chatgpt", name: "ChatGPT", vendor: "OpenAI", cat: "chat", logo: "◉",
-    tagline: "Chat universal. GPT-5.5 lanzado 23-abr-2026 · absorbe Codex.",
-    detail: "GPT-5.5 (release 23-abr-2026, API 24-abr) unifica general + coding/agentic — antes eran GPT-5.2 + GPT-5.3-Codex. Mejora notable en planeación multi-paso, uso de tools y tareas largas sin supervisión. Canvas, Code Interpreter, Deep Research, conectores a Drive/SharePoint, ChatGPT Agent. También está GPT-5.5 Pro (USD 30/180 por 1M tokens) para razonamiento más profundo.",
+    tagline: "Chat universal. GPT-5.6 (Sol · Terra · Luna) lanzado 9-jul-2026.",
+    detail: "GPT-5.6 (público 9-jul-2026) llega como familia de tres: Luna (rápido/barato), Terra (medio, ≈GPT-5.5 a mitad de costo) y Sol (flagship para coding y agentes; 80 en el Coding Agent Index). Codex se fusionó en la superapp de escritorio de ChatGPT (navegador + computer control) y debutó ChatGPT Work. API: Sol USD 5/30, Terra 2,50/15, Luna 1/6 por 1M tokens; GPT-5.5 Pro sigue en USD 30/180.",
     btg: "Análisis ad-hoc · memos financieros · presentaciones · drafts rápidos · agentes con navegador y tools para investigación web extendida.",
-    example: "Abril 2026 · un AVP sube el Excel de comisiones a Code Interpreter: 'compara vs mes anterior, grafica outliers y dame memo de 1 página'. GPT-5.5 entrega en 90 s.",
-    price: "Free (con ads) · Go USD 8 · Plus USD 20 · Pro USD 100 (nuevo abr 2026) · Pro USD 200",
+    example: "Julio 2026 · un AVP sube el Excel de comisiones a Code Interpreter: 'compara vs mes anterior, grafica outliers y dame memo de 1 página'. GPT-5.6 entrega en 90 s.",
+    price: "Free · Go USD 8 (sin GPT-5.6) · Plus USD 20 (Sol) · Pro USD 100 (5×) · Pro USD 200 (20×)",
     status: "core",
   },
   {
     id: "gemini", name: "Gemini (App + Workspace)", vendor: "Google", cat: "chat", logo: "✶",
-    tagline: "Gemini 3 liberado 15-abr-2026. Nativo en Docs, Sheets, Slides.",
-    detail: "Gemini 3 Pro en preview desde 15-abr-2026 y Gemini 3 Flash como default en la app. Gemini 3.1 Flash-Lite en preview (mar 2026). Contexto 2M tokens, Deep Think en Ultra para razonamiento profundo. Embebido en Workspace (Docs/Sheets/Slides/Gmail) y Chrome (Win/Mac).",
+    tagline: "Gemini 3.5 Flash GA desde I/O (19-may-2026) · 3.5 Pro aún en preview.",
+    detail: "Gemini 3.5 Flash es GA y el default de la app desde el 19-may-2026; Gemini 3.5 Pro se anunció en I/O pero a mediados de julio sigue en preview limitado (Vertex AI). Gemini 3.1 Flash-Lite pasó a GA el 7-may. Contexto hasta 2M tokens, Deep Think en Ultra. Embebido en Workspace (Docs/Sheets/Slides/Gmail) y Chrome.",
     btg: "Equipos en Google Workspace · análisis de Sheets muy grandes · síntesis de correos · research docs con citación.",
-    example: "Abril 2026 · en Sheets de análisis de M&A con 200 targets, Gemini 3 identifica los 10 más alineados al thesis y genera ficha individual por cada uno.",
-    price: "Gratis (app con Flash) · Google AI Pro USD 20/mes · Google AI Ultra USD 250/mes (Deep Think) · Workspace Business USD 24/user",
+    example: "Julio 2026 · en Sheets de análisis de M&A con 200 targets, Gemini identifica los 10 más alineados al thesis y genera ficha individual por cada uno.",
+    price: "Gratis · AI Plus USD 7,99 · AI Pro USD 19,99 · AI Ultra USD 99,99 · Ultra Max USD 199,99 · Workspace Business ~USD 14/user con Gemini incluido",
     status: "corporate",
   },
   {
@@ -581,35 +581,35 @@ const ECOSISTEMA_TOOLS: EcoTool[] = [
     tagline: "Capa gobernada de IA generativa corporativa.",
     detail: "Patrón banca: orquestador propio que expone modelos de frontera (Claude, GPT, Gemini) con guardrails, masking de PII, logs de auditoría, control de costos y asignación por área. No es un modelo — es el control-tower. Único canal aprobado por seguridad para data P-II/III.",
     btg: "Único canal autorizado para data sensible · uniforma costos y controles entre áreas · registro y trazabilidad de prompts.",
-    example: "Abril 2026 · un analista sube matriz de riesgo con datos de clientes. ADA la enruta a Claude con masking de PII automático. La respuesta llega anonimizada con log de auditoría.",
+    example: "Julio 2026 · un analista sube matriz de riesgo con datos de clientes. ADA la enruta a Claude con masking de PII automático. La respuesta llega anonimizada con log de auditoría.",
     price: "Licenciamiento interno · pass-through de tokens del modelo subyacente",
     status: "corporate",
   },
   {
     id: "devin", name: "Devin 2.0", vendor: "Cognition AI (USA)", cat: "chat", logo: "◎",
-    tagline: "Devin 2.0 (abr 2025) bajó a USD 20/mes pay-as-you-go.",
-    detail: "Agente de software autónomo con su propia VM (navegador, editor, terminal). Le asignas un ticket de Jira/Linear y devuelve un PR. 1 ACU ≈ 15 min de trabajo activo. Devin 2.0 (abril 2025) bajó el entry de USD 500 a USD 20/mes Core pay-as-you-go. Equipos grandes pagan Team USD 500/mes con 250 ACUs.",
+    tagline: "Agente autónomo de Cognition. Windsurf ahora es 'Devin Desktop' (jun-2026).",
+    detail: "Agente de software autónomo con su propia VM (navegador, editor, terminal). Le asignas un ticket de Jira/Linear y devuelve un PR. 1 ACU ≈ 15 min de trabajo activo. En may-2026 Cognition cerró una ronda de más de USD 1.000M a valoración de USD 26B, y en jun-2026 rebautizó Windsurf como Devin Desktop (Free · Pro USD 20 · Max USD 200).",
     btg: "Offload de mantenimiento · upgrades de dependencias · bug-fixes menores · refactors mecánicos en lote.",
-    example: "Abril 2026 · ticket 'sube pandas 2.0 → 2.3 en 11 repos'. Devin abre 11 PRs con tests verdes en 3 h. Costo ~12 ACUs × USD 2.25 = USD 27.",
+    example: "Julio 2026 · ticket 'sube pandas 2.0 → 2.3 en 11 repos'. Devin abre 11 PRs con tests verdes en 3 h. Costo ~12 ACUs × USD 2.25 = USD 27.",
     price: "Core USD 20/mes + USD 2.25/ACU · Team USD 500/mes (250 ACUs + USD 2/extra) · Enterprise VPC custom",
     status: "emerging",
   },
   {
     id: "notebooklm", name: "NotebookLM", vendor: "Google", cat: "chat", logo: "◐",
     tagline: "Research anclado a fuentes. Mindmaps + video overviews + quizzes.",
-    detail: "Cargas PDFs, videos YouTube, audios, webs, Slides. NotebookLM responde solo con lo cargado y cita — anti-alucinación por diseño. Studio: audio overviews (9 idiomas), video overviews, mindmaps interactivos, slide decks, infográficos, quizzes, flashcards. Plus: +100 notebooks y >50 fuentes por notebook.",
+    detail: "Cargas PDFs, videos YouTube, audios, webs, Slides. NotebookLM responde solo con lo cargado y cita — anti-alucinación por diseño. Studio: audio overviews (9 idiomas), video overviews (con Veo 3 en Ultra), mindmaps, slide decks, quizzes, flashcards. Desde jun-2026: Deep Research y descubrimiento agéntico de fuentes vía Google Search.",
     btg: "Due diligence · estudios sectoriales · síntesis de reportes · onboarding a sectores nuevos · compliance training.",
-    example: "Abril 2026 · cargo 40 reportes sectoriales de utilities LatAm. Pido mindmap + audio overview en español. Resultado: síntesis auditada con citas para comité.",
-    price: "Gratis · NotebookLM Plus USD 20/mes · incluido en Google AI Pro/Ultra",
+    example: "Julio 2026 · cargo 40 reportes sectoriales de utilities LatAm. Pido mindmap + audio overview en español. Resultado: síntesis auditada con citas para comité.",
+    price: "Gratis · el viejo 'Plus USD 20' ya no existe: va incluido en los planes Google AI (Plus 7,99 · Pro 19,99 · Ultra)",
     status: "open",
   },
   {
-    id: "deepseek", name: "DeepSeek-V3.2 (local)", vendor: "DeepSeek AI (CN)", cat: "chat", logo: "◑",
-    tagline: "Open weights con calidad frontera. Pensamiento + tool use integrados.",
-    detail: "DeepSeek-V3.2 (dic 2025) es el flagship actual con DeepSeek Sparse Attention (DSA) para eficiencia, y es el primer modelo de la casa que integra thinking directamente con tool use. Performance comparable a GPT-5 en benchmarks. R2 especializado en razonamiento. Corre con Ollama, vLLM, SGLang.",
+    id: "deepseek", name: "DeepSeek-V4 (local)", vendor: "DeepSeek AI (CN)", cat: "chat", logo: "◑",
+    tagline: "Open weights (MIT) con calidad frontera y 1M de contexto.",
+    detail: "DeepSeek-V4 Preview (24-abr-2026) llega en dos variantes: V4-Pro (1,6T parámetros MoE / 49B activos) y V4-Flash (284B / 13B activos), ambas con 1M de contexto y licencia MIT en Hugging Face — el único open-weight con 1M bajo MIT. Para on-prem corporativo el objetivo práctico es V4-Flash cuantizado. El rumoreado R2 sigue sin existir.",
     btg: "Casos P-III+ donde no puede salir data · POCs on-prem · cargas masivas de resumen y clasificación a bajo costo.",
-    example: "Abril 2026 · on-prem con 4 H100. Procesamos memos P-III con DeepSeek-V3.2 en Ollama — cero tokens salen de la red BTG, latencia ~350 ms/query.",
-    price: "Open weights gratis · costo = infra GPU propia · API DeepSeek ~10× más barata que GPT-5",
+    example: "Julio 2026 · on-prem con GPUs propias. Procesamos memos P-III con DeepSeek-V4-Flash en Ollama — cero tokens salen de la red BTG. Ojo: usar solo modelos locales, sin sufijo ':cloud'.",
+    price: "Open weights gratis (MIT) · costo = infra GPU propia · API DeepSeek ~10× más barata que los frontier",
     status: "local",
   },
 
@@ -619,7 +619,7 @@ const ECOSISTEMA_TOOLS: EcoTool[] = [
     tagline: "IDE universal de BD con AI Chat desde Lite.",
     detail: "Conecta ~80 motores: Oracle, PostgreSQL, Snowflake, Redshift, MS SQL, MongoDB, BigQuery. AI Chat disponible en Lite/Enterprise/Ultimate. Pro y Enterprise integran OpenAI, GitHub Copilot, Azure OpenAI y Google Gemini para text-to-SQL, troubleshooting y exploración de esquemas.",
     btg: "Analistas y data engineers consultando el datawarehouse · queries ad-hoc · modelado visual · migraciones entre motores.",
-    example: "Abril 2026 · analista conectado a Snowflake: 'dame el top 10 de clientes por AUM del último trimestre'. DBeaver AI genera el SQL con los joins correctos contra el modelo estrella.",
+    example: "Julio 2026 · analista conectado a Snowflake: 'dame el top 10 de clientes por AUM del último trimestre'. DBeaver AI genera el SQL con los joins correctos contra el modelo estrella.",
     price: "Community gratis · Lite USD 11/mes · Pro/Ultimate USD 100–200/año (estimado) · Enterprise custom",
     status: "pro",
   },
@@ -628,7 +628,7 @@ const ECOSISTEMA_TOOLS: EcoTool[] = [
     tagline: "Conector Model Context Protocol. Cursor/VS Code/Claude Code/Codex/Windsurf.",
     detail: "Dos modalidades: remote server (recomendado) o desktop. Expone frames, design tokens, variables, componentes y FigJam al IDE. Genera código con Code Connect mapeado a componentes reales. Puede escribir directo al canvas (crear/actualizar contenido Figma desde el IDE).",
     btg: "Implementar dashboards del equipo de producto · mantener consistencia con el design system BTG · cerrar gap design→code.",
-    example: "Abril 2026 · el equipo de diseño entrega el nuevo panel de treasury en Figma. En Cursor: '@figma — implementa este frame'. React + tokens + spacing respetados al primer intento.",
+    example: "Julio 2026 · el equipo de diseño entrega el nuevo panel de treasury en Figma. En Cursor: '@figma — implementa este frame'. React + tokens + spacing respetados al primer intento.",
     price: "Incluido en Figma Dev Mode (todos los planes de pago)",
     status: "open",
   },
@@ -637,7 +637,7 @@ const ECOSISTEMA_TOOLS: EcoTool[] = [
     tagline: "Parsing de PDFs complejos. v2 dic 2025 — más barato y preciso.",
     detail: "Tablas anidadas, charts, formularios, estados financieros escaneados → Markdown, JSON estructurado o CSVs. Modo premium con LLM para documentos difíciles. v2 (dic 2025): mejor accuracy, menor latencia, nuevos precios por modo. Integra directo con RAG sobre LlamaIndex.",
     btg: "Prospectos de emisión · memorias anuales · estados financieros escaneados · KID/KIID de fondos · reportes regulatorios.",
-    example: "Abril 2026 · prospecto de 180 pp con tablas anidadas en modo premium: 10.800 créditos ≈ USD 13,5. Salida Markdown estructurada lista para embeddings.",
+    example: "Julio 2026 · prospecto de 180 pp con tablas anidadas en modo premium: 10.800 créditos ≈ USD 13,5. Salida Markdown estructurada lista para embeddings.",
     price: "10.000 créditos gratis/mes · 1.000 créditos = USD 1,25 · premium 60 créditos/pg",
     status: "pro",
   },
@@ -646,7 +646,7 @@ const ECOSISTEMA_TOOLS: EcoTool[] = [
     tagline: "Donado a Linux Foundation en 2026. Granite-Docling 258M built-in.",
     detail: "PDF, DOCX, PPTX, XLSX, HTML, WAV, MP3, WebVTT, imágenes, LaTeX → Markdown/JSON. Heron layout model (dic 2025) y Granite-Docling 258M VLM (Apache 2.0). En 2026: donado al Linux Foundation (AAIF) + OpenShift Operator con Red Hat targeting bancos.",
     btg: "Alternativa a LlamaParse cuando el documento no puede salir de la red · pipelines batch on-prem · compliance con datos sensibles.",
-    example: "Abril 2026 · pipeline on-prem con OpenShift Operator de Red Hat (partnership IBM). Procesa 5.000 PDFs/día de extractos bancarios sin salir de la red BTG.",
+    example: "Julio 2026 · pipeline on-prem con OpenShift Operator de Red Hat (partnership IBM). Procesa 5.000 PDFs/día de extractos bancarios sin salir de la red BTG.",
     price: "Apache 2.0 · costo = CPU/GPU propia · Red Hat OpenShift Operator según contrato RHEL",
     status: "local",
   },
@@ -655,9 +655,9 @@ const ECOSISTEMA_TOOLS: EcoTool[] = [
   {
     id: "n8n", name: "n8n", vendor: "n8n GmbH (Berlín)", cat: "automation", logo: "⚡",
     tagline: "Orquestador low-code self-hostable. Módulo 03.",
-    detail: "+500 nodos nativos: Outlook, SharePoint, Snowflake, Slack, Jira, HTTP, bases de datos, LLMs (OpenAI, Anthropic, Gemini, local). Cron, webhooks, bifurcación lógica, manejo de errores. Desde 2026: sin límites de workflows activos en ningún plan — solo se paga por ejecuciones.",
+    detail: "+500 nodos nativos: Outlook, SharePoint, Snowflake, Slack, Jira, HTTP, bases de datos, LLMs (OpenAI, Anthropic, Gemini, local). En 2026 viró fuerte a agentes: AI Agent node reconstruido (tool calling estructurado, 4 tipos de memoria), orquestación multi-agente y MCP nativos, y un AI Assistant que construye workflows en lenguaje natural. Solo se paga por ejecuciones exitosas.",
     btg: "Módulo 03 del curso. Pegamento entre IA + sistemas: alertas de riesgo, aprobaciones, notificaciones, pipelines de ingesta documental.",
-    example: "Abril 2026 · cron nocturno n8n: lee nuevos PDFs en SharePoint → Docling los parsea → ADA resume con Claude → escribe ficha en Snowflake → notifica research en Slack.",
+    example: "Julio 2026 · cron nocturno n8n: lee nuevos PDFs en SharePoint → Docling los parsea → ADA resume con Claude → escribe ficha en Snowflake → notifica research en Slack.",
     price: "Self-hosted gratis · Starter EUR 24 · Pro EUR 60 · Business EUR 800 · Startup Program USD 400/mes · Enterprise custom",
     status: "next-module",
   },
@@ -759,7 +759,7 @@ const ECO_EJERCICIOS_DEEPSEEK = [
       { name: "ChatGPT (comparación)", color: "#6B7280" },
     ],
     context: "Tu equipo evalúa alternativas a ChatGPT porque los costos de token se dispararon. En 8 min tienes que dar una opinión informada en el daily.",
-    why: "DeepSeek-V3.2 es open weights y comparable a GPT-5 en muchos benchmarks, con API ~10× más barata. Vale la pena tenerlo en el radar aunque el equipo siga en ChatGPT.",
+    why: "DeepSeek-V4 es open weights (MIT) y comparable a los frontier en muchos benchmarks, con API ~10× más barata. Vale la pena tenerlo en el radar aunque el equipo siga en ChatGPT.",
     steps: [
       { s: "1", t: "Abre chat.deepseek.com en una pestaña y chatgpt.com en otra. DeepSeek no pide login en la primera interacción." },
       { s: "2", t: "Pega la misma pregunta en ambos: 'Explícame en 150 palabras la estructura de capital típica de una emisión corporativa colombiana 2026 — senior secured, senior unsecured, subordinada, híbrida — con rangos de spread orientativos.'" },
@@ -805,7 +805,7 @@ const ECO_EJERCICIOS_DEEPSEEK = [
       { name: "chat.deepseek.com", color: "#22C55E" },
     ],
     context: "Salió una circular nueva de la SFC de 14 páginas sobre un cambio regulatorio. El MD vuela a Bogotá en 1 h y quiere el TL;DR para la reunión con la junta.",
-    why: "DeepSeek-V3.2 maneja bien español técnico regulatorio y da respuestas estructuradas sin cuenta ni pago. Para lecturas rápidas de circulares SFC o URF es la herramienta más liviana del ecosistema.",
+    why: "DeepSeek-V4 maneja bien español técnico regulatorio y da respuestas estructuradas sin cuenta ni pago. Para lecturas rápidas de circulares SFC o URF es la herramienta más liviana del ecosistema.",
     steps: [
       { s: "1", t: "Ve a sfc.gov.co o urf.gov.co, descarga la circular más reciente (o usa una que ya tengas). Copia el texto completo (Ctrl+A, Ctrl+C del PDF)." },
       { s: "2", t: "En chat.deepseek.com pega: 'Eres el chief of staff de un MD en banca. Resume esta circular SFC en 5 bullets de máximo 22 palabras cada uno, para una reunión con la junta en 1 hora. Incluye: fecha de entrada en vigor, impacto directo para un banco universal colombiano y 1 acción recomendada. [pega texto]'." },
@@ -837,7 +837,7 @@ const ECO_EJERCICIOS_ONLINE = [
     steps: [
       { s: "1", t: "Abre 3 pestañas: chatgpt.com, chat.deepseek.com y kimi.com (login Google en Kimi para evitar el SMS chino)." },
       { s: "2", t: "Pregunta de cifras (idéntica en las 3): 'Calcula la duración modificada y convexidad de un TES B 2032, cupón 7.25% anual, precio 92.50, base 365. Muestra las fórmulas.'" },
-      { s: "3", t: "Pregunta cualitativa local: '¿Qué riesgos específicos tiene un bono perpetuo Tier 1 (AT1) de un banco colombiano vs uno brasileño en abril 2026? Considera regulación SFC vs Bacen.'" },
+      { s: "3", t: "Pregunta cualitativa local: '¿Qué riesgos específicos tiene un bono perpetuo Tier 1 (AT1) de un banco colombiano vs uno brasileño en julio 2026? Considera regulación SFC vs Bacen.'" },
       { s: "4", t: "Pregunta de español técnico: 'Resume las reglas de provisión de la Circular Externa 100 de la SFC en 5 bullets de máximo 20 palabras cada uno.'" },
       { s: "5", t: "Arma la matriz 3×3 (modelos × preguntas) con puntaje 1-5 en precisión, español técnico y citas." },
     ],
@@ -907,7 +907,7 @@ const ECO_EJERCICIOS_ONLINE = [
     context: "A las 3 pm te avisan: tienes primera llamada con un emisor que no conocías, mañana 9 am. En 12 minutos tienes que saber lo material público y tener preguntas punzantes listas.",
     why: "Web search integrada + modo razonamiento en ambos modelos hace lo que antes era una hora de Google + Bloomberg. Usar dos fuentes en paralelo reduce el riesgo de que uno alucine citas.",
     steps: [
-      { s: "1", t: "En chat.deepseek.com activa el botón globo (web search) y DeepThink. Pregunta: 'Dossier ejecutivo del emisor [NOMBRE] a abril 2026: eventos materiales últimos 12 meses, rating vigente (S&P/Moody/Fitch), últimas revisiones, cambios en gobierno corporativo y noticias negativas si existen. Cita URL exacta de cada dato.'" },
+      { s: "1", t: "En chat.deepseek.com activa el botón globo (web search) y DeepThink. Pregunta: 'Dossier ejecutivo del emisor [NOMBRE] a julio 2026: eventos materiales últimos 12 meses, rating vigente (S&P/Moody/Fitch), últimas revisiones, cambios en gobierno corporativo y noticias negativas si existen. Cita URL exacta de cada dato.'" },
       { s: "2", t: "En paralelo, en kimi.com activa Web Search y Thinking. Haz la misma pregunta palabra por palabra." },
       { s: "3", t: "Pide a ambos: 'Ahora dame 5 preguntas punzantes que haría un analista sénior en la primera llamada con el CFO, basadas en lo que encontraste. Ordénalas de más a menos material.'" },
       { s: "4", t: "Cruza las dos respuestas: ¿qué fuente encontró cada uno? ¿alguno citó un URL inventado? Click en cada URL y verifica que exista." },
@@ -920,7 +920,7 @@ const ECO_EJERCICIOS_ONLINE = [
   },
 ];
 
-/* Casos reales abril 2026 — cómo se combinan varias herramientas */
+/* Casos reales julio 2026 — cómo se combinan varias herramientas */
 const CASOS_ECOSISTEMA = [
   {
     n: 1,
@@ -967,7 +967,7 @@ const CASOS_ECOSISTEMA = [
     title: "Migración legacy Java 8 → Java 21",
     scenario: "120k líneas de código de un sistema de liquidación corren en Java 8 — EOL de soporte es este año.",
     flow: [
-      { tool: "Amazon Q Developer", role: "Code transformation (bulk Java 8 → 21)" },
+      { tool: "Amazon Q Developer → Kiro", role: "Code transformation (bulk Java 8 → 21) · Q Developer en sunset" },
       { tool: "Junie (JetBrains)", role: "Verifica tests tipados y refactor con índice semántico" },
       { tool: "GitHub Copilot", role: "Code Review antes del merge + sugerencias defensivas" },
       { tool: "DBeaver AI", role: "Valida queries SQL con el nuevo driver JDBC" },
@@ -982,7 +982,7 @@ const CASOS_ECOSISTEMA = [
     flow: [
       { tool: "NotebookLM", role: "60 fuentes cargadas: reports, presentaciones, papers, videos" },
       { tool: "NotebookLM Studio", role: "Mindmap + audio overview ES + video overview" },
-      { tool: "ChatGPT Canvas", role: "Redacción del memo con GPT-5.5" },
+      { tool: "ChatGPT Canvas", role: "Redacción del memo con GPT-5.6" },
       { tool: "Gemini en Docs", role: "Layout final, gráficos y formato BTG" },
     ],
     impact: "1 día de proceso vs 2 semanas · cada afirmación citada contra fuente original",
@@ -994,7 +994,7 @@ const CASOS_ECOSISTEMA = [
     scenario: "Movimientos anómalos en portafolios con data clasificada P-III que no puede salir de la red.",
     flow: [
       { tool: "Docling (local)", role: "Parsea reportes diarios de custodia (on-prem)" },
-      { tool: "DeepSeek-V3.2 (Ollama)", role: "Clasificación + resumen con modelo local" },
+      { tool: "DeepSeek-V4-Flash (Ollama)", role: "Clasificación + resumen con modelo local" },
       { tool: "n8n (self-hosted)", role: "Orquesta pipeline y genera alertas" },
       { tool: "ADA", role: "Escala a analista si umbral cruzado (con log de auditoría)" },
     ],
@@ -1016,14 +1016,14 @@ const ECO_DECISION = [
   { trigger: "Hay que mover un proceso que se repite todos los días", tool: "n8n (Módulo 03)", color: "#F97316" },
 ];
 
-/* ════════════════════════════ PANORAMA · MAYO 2026 — QUÉ CAMBIÓ EN 30 DÍAS ════════════════════════════ */
+/* ════════════════════════════ PANORAMA · MAYO–JULIO 2026 — QUÉ CAMBIÓ EN 90 DÍAS ════════════════════════════ */
 
 const MAYO_STATS = [
-  { n: "30", l: "días desde el panorama de abril", c: "#5B52D5" },
-  { n: "10", l: "movimientos de mercado", c: "#7B73E8" },
-  { n: "5", l: "lanzamientos / GA nuevos", c: "#3A7BD5" },
-  { n: "82.1%", l: "récord SWE-bench Verified", c: "#D4AF4C" },
-  { n: "may 26", l: "datos al cierre", c: "#00E5A0" },
+  { n: "90", l: "días desde el panorama de abril", c: "#5B52D5" },
+  { n: "18", l: "movimientos de mercado", c: "#7B73E8" },
+  { n: "3", l: "familias de modelos nuevas (Claude 5 · GPT-5.6 · Grok 4.5)", c: "#3A7BD5" },
+  { n: "82.1%", l: "récord SWE-bench Verified (may)", c: "#D4AF4C" },
+  { n: "jul 17", l: "datos al cierre", c: "#00E5A0" },
 ];
 
 const MAYO_TAGS: Record<string, { label: string; color: string }> = {
@@ -1068,13 +1068,6 @@ const MAYO_CHANGELOG: MayoChange[] = [
     btg: "Atractivo para POCs multi-agente · pero el modelo de precios se está definiendo — no comprometer flujos críticos aún.",
   },
   {
-    date: "12 may", vendor: "OpenAI", color: "#10A37F", logo: "◉", tag: "precio",
-    title: "GPT-5.5 Pro (API) −30%",
-    before: "GPT-5.5 Pro: USD 30 / USD 180 por 1M tokens (in/out)",
-    after: "USD 21 / USD 126 por 1M tokens · ChatGPT Business añade 'Codex cloud' con repos privados conectados",
-    btg: "Baja el costo de agentes de razonamiento profundo · presión competitiva de Gemini 3 y DeepSeek-V3.2.",
-  },
-  {
     date: "14 may", vendor: "Cognition · Windsurf", color: "#58C2A8", logo: "❖", tag: "lanzamiento",
     title: "Windsurf 2.0 — IDE + Devin en una sola sesión",
     before: "Windsurf (ex-Codeium) y Devin como productos separados de Cognition",
@@ -1108,6 +1101,69 @@ const MAYO_CHANGELOG: MayoChange[] = [
     before: "51% en oct-2025 · los agentes autónomos eran 'experimentales'",
     after: "62% uso diario · share entre asistentes: GitHub Copilot 41% · Cursor 23% · Claude Code 14% · Antigravity 9% · resto 13% · 1 de cada 4 ya delega tareas a un agente que abre PRs solo",
     btg: "El piso cambió: no usar un asistente ya es la excepción · el nuevo diferencial es revisar bien lo que produce el agente.",
+  },
+  {
+    date: "29 may", vendor: "Anthropic", color: "#00E5A0", logo: "◆", tag: "lanzamiento",
+    title: "Claude Opus 4.8 — nuevo default · fast mode 3× más barato",
+    before: "Opus 4.7 como tope de la línea · fast mode caro y en preview",
+    after: "Opus 4.8 default en Max/Team Premium/API · effort 'xhigh' · fast mode a USD 10/50 por 1M tokens (3× más barato) · el fast mode de 4.7 se elimina el 24-jul",
+    btg: "El modelo que corre Claude Code por defecto en BTG · mejor code review y menos supervisión en corridas largas.",
+  },
+  {
+    date: "01 jun", vendor: "GitHub · Microsoft", color: "#3A7BD5", logo: "✦", tag: "precio",
+    title: "Copilot pasa a 'AI Credits' — facturación por tokens",
+    before: "Premium requests por plan (p.ej. Pro+ 1.500 reqs/mes)",
+    after: "Cada plan incluye AI Credits por su valor (Pro USD 10, Business USD 19…) y el consumo se mide en tokens a tarifa de API · reportes de facturas hasta 25× en usuarios intensivos de agentes",
+    btg: "Riesgo de costo nuevo: gobernar el consumo de agentes por equipo antes de que la factura sorprenda.",
+  },
+  {
+    date: "02 jun", vendor: "Cognition", color: "#58C2A8", logo: "❖", tag: "lanzamiento",
+    title: "Windsurf desaparece como marca → 'Devin Desktop'",
+    before: "Windsurf IDE + Devin como línea fusionada de Cognition",
+    after: "Rebrand completo: Devin Desktop (Free · Pro USD 20 · Max USD 200) · Cognition levanta +USD 1.000M a valoración USD 26B (27-may)",
+    btg: "Si alguien del equipo usaba Windsurf, la migración es automática pero el contrato cambia de nombre.",
+  },
+  {
+    date: "18 jun", vendor: "Google", color: "#4C8DF6", logo: "★", tag: "lanzamiento",
+    title: "Gemini Code Assist individual y Gemini CLI mueren → Antigravity",
+    before: "GCA individual con 180k completions/mes gratis · Gemini CLI en terminal",
+    after: "Extensiones IDE individuales desactivadas el 18-jun · Gemini CLI retirado · todo migra a Antigravity 2.0 + Antigravity CLI (I/O 2026) · GCA Standard/Enterprise (USD 19) siguen",
+    btg: "Si un analista usaba el tier gratis de GCA, ya no funciona: mover a Antigravity o a licencia Standard.",
+  },
+  {
+    date: "01 jul", vendor: "Anthropic", color: "#D4AF4C", logo: "✦", tag: "lanzamiento",
+    title: "Claude Fable 5 (clase Mythos) — redeploy global",
+    before: "Opus como tope de capacidad de Anthropic",
+    after: "Fable 5 estrena la clase Mythos por encima de Opus (GA 9-jun, suspendido el 12-jun por directiva de exportación de EE.UU., redeployado globalmente el 1-jul) · USD 10/50 por 1M tokens · 1M de contexto · disponible en Claude.ai, Claude Code, API, AWS y Foundry",
+    btg: "El modelo para los análisis más difíciles y corridas agénticas largas · y una lección de riesgo regulatorio en vivo.",
+  },
+  {
+    date: "03 jul", vendor: "Anthropic", color: "#00E5A0", logo: "◈", tag: "lanzamiento",
+    title: "Claude Sonnet 5 — calidad casi-Opus a precio Sonnet",
+    before: "Sonnet 4.6 como caballo de batalla (200K–1M según config)",
+    after: "Sonnet 5 con 1M de contexto nativo y adaptive thinking · default para Pro/Team/Enterprise · USD 3/15 con precio intro de USD 2/10 hasta el 31-ago",
+    btg: "El default nuevo para el 80% del trabajo diario del banco — más barato durante la ventana intro.",
+  },
+  {
+    date: "01 jul", vendor: "Microsoft", color: "#7B73E8", logo: "⊞", tag: "precio",
+    title: "Reempaquetado M365: Copilot entra a los bundles",
+    before: "M365 Copilot como add-on de USD 30/usuario/mes",
+    after: "Business Standard + Copilot USD 23,50 · Business Premium + Copilot USD 32 · nuevo E7 'Frontier Suite' USD 99 (incluye Agent 365) · Copilot Business standalone sube a USD 21 · Copilot Cowork GA desde el 16-jun",
+    btg: "Recalcular el TCO de licencias: para muchos equipos el bundle sale más barato que E5 + add-on.",
+  },
+  {
+    date: "08 jul", vendor: "xAI", color: "#9333EA", logo: "𝕏", tag: "lanzamiento",
+    title: "Grok 4.5 público + Grok Build CLI open source",
+    before: "Grok 4.3 GA (video multimodal, 1M contexto) desde mayo",
+    after: "Grok 4.5 a USD 2/6 por 1M tokens, contexto 500K (sin UE al lanzamiento) · Grok Build: CLI de coding agent con 2M de contexto y 8 subagentes, liberado open source en julio",
+    btg: "Sentiment de mercado con datos de X en vivo · Grok Build como CLI experimental — no apto aún para código de producción bancaria.",
+  },
+  {
+    date: "09 jul", vendor: "OpenAI", color: "#10A37F", logo: "◉", tag: "lanzamiento",
+    title: "GPT-5.6: familia Sol · Terra · Luna + superapp de escritorio",
+    before: "GPT-5.5 unificado (abr-2026) · Codex como producto aparte",
+    after: "Tres variantes: Sol (flagship, 80 en Coding Agent Index, USD 5/30), Terra (≈GPT-5.5 a mitad de costo, USD 2,50/15) y Luna (USD 1/6) · Codex fusionado en la superapp ChatGPT con navegador y computer control · debuta ChatGPT Work · el lanzamiento se retrasó de junio a julio por revisión del gobierno de EE.UU.",
+    btg: "Terra baja el costo del razonamiento medio a la mitad · segundo episodio de intervención regulatoria del trimestre (con Fable 5): riesgo de proveedor a monitorear.",
   },
 ];
 
@@ -1167,13 +1223,14 @@ const AUTONOMIA_SPECTRUM: AutoLevel[] = [
 type MayoPrecio = { tool: string; color: string; antes: string; ahora: string; delta: string; note: string };
 
 const MAYO_PRECIOS: MayoPrecio[] = [
-  { tool: "Cursor Pro", color: "#7B73E8", antes: "USD 20/mes · pool de créditos", ahora: "USD 20/mes · mismo pool", delta: "≈", note: "El pool rinde ~20% más: Opus 4.7 en modo batch consume menos por tarea." },
-  { tool: "GPT-5.5 Pro (API)", color: "#10A37F", antes: "USD 30 / 180 por 1M tok", ahora: "USD 21 / 126 por 1M tok", delta: "−30%", note: "Presión de Gemini 3 y DeepSeek-V3.2. El GPT-5.5 estándar no cambió." },
-  { tool: "Claude API · Opus 4.7", color: "#00E5A0", antes: "Sin cambio de tarifa", ahora: "Igual · prompt caching TTL 1h", delta: "≈", note: "El TTL extendido baja ~15% el costo efectivo en agentes de larga duración." },
-  { tool: "GitHub Copilot Pro+", color: "#3A7BD5", antes: "USD 39 · 1.500 premium reqs", ahora: "USD 39 · 2.000 premium reqs", delta: "+cuota", note: "Mismo precio, más cuota — y el coding agent ya no descuenta del límite de chat." },
-  { tool: "Devin (Cognition)", color: "#58C2A8", antes: "USD 20 + USD 2.25/ACU", ahora: "USD 20 + USD 1.95/ACU", delta: "−13%", note: "Una auditoría de 12 ACUs baja de ~USD 27 a ~USD 23." },
-  { tool: "Kiro Pro (AWS)", color: "#FF9900", antes: "USD 19 · free tier generoso", ahora: "USD 19 · free tier ~50 specs/mes", delta: "free↓", note: "Monetización post-GA. Recalcular si dependías del tier gratis." },
-  { tool: "Antigravity (Google)", color: "#4C8DF6", antes: "Preview · gratis para individuos", ahora: "Pro USD 20/mes anunciado · free con límite de agentes", delta: "→pago", note: "Fin del 'todo gratis'. Reevaluar en agosto cuando el pricing esté firme." },
+  { tool: "Cursor", color: "#7B73E8", antes: "Pro USD 20 · Teams USD 40/user", ahora: "Pro USD 20 · Teams USD 40 o Premium USD 120/user", delta: "+seat", note: "Los planes individuales no cambiaron; en jun-2026 Teams sumó un asiento Premium con 5× de uso." },
+  { tool: "OpenAI API · tier medio", color: "#10A37F", antes: "GPT-5.5: USD 5 / 30 por 1M tok", ahora: "GPT-5.6 Terra: USD 2,50 / 15", delta: "−50%", note: "La familia 5.6 (9-jul) baja a la mitad el costo del razonamiento medio. GPT-5.5 Pro sigue en 30/180." },
+  { tool: "Claude API · Sonnet", color: "#00E5A0", antes: "Sonnet 4.6: USD 3 / 15 por 1M tok", ahora: "Sonnet 5 intro: USD 2 / 10 (hasta 31-ago)", delta: "−33%", note: "Ventana de precio intro; después vuelve a 3/15. Además, fast mode de Opus 4.8 quedó 3× más barato (10/50)." },
+  { tool: "GitHub Copilot", color: "#3A7BD5", antes: "Premium requests por plan (Pro+ 1.500)", ahora: "AI Credits por tokens a tarifa de API (1-jun)", delta: "→uso", note: "Mismo precio de lista, riesgo de sobrecosto real: reportes de facturas hasta 25× en usuarios intensivos de agentes." },
+  { tool: "Devin (Cognition)", color: "#58C2A8", antes: "Core USD 20 + USD 2.25/ACU", ahora: "Igual · Windsurf ahora es Devin Desktop", delta: "≈", note: "Precios estables; el cambio fue corporativo: ronda de +USD 1.000M a valoración USD 26B." },
+  { tool: "Kiro (AWS)", color: "#FF9900", antes: "Free generoso · Pro USD 19", ahora: "Free 50 créditos · Pro USD 20 → Power USD 200", delta: "+escala", note: "Escala completa de planes post-GA y overage de USD 0,04/crédito. Ahora es el reemplazo de Q Developer." },
+  { tool: "Google AI (Gemini)", color: "#4C8DF6", antes: "AI Pro USD 20 · AI Ultra USD 250", ahora: "AI Plus 7,99 · Pro 19,99 · Ultra 99,99 · Ultra Max 199,99", delta: "−precio", note: "Reestructura de I/O 2026: el Ultra de USD 250 ya no existe; Antigravity quedó atado a estos planes + créditos de USD 0,01." },
+  { tool: "Microsoft 365", color: "#7B73E8", antes: "Copilot como add-on USD 30/user", ahora: "Bundles: Business Std+Copilot 23,50 · Premium+Copilot 32 · E7 99", delta: "bundle", note: "Reempaquetado del 1-jul-2026. Copilot Business standalone subió de 18 a 21." },
 ];
 
 const CASOS_MAYO = [
@@ -2722,18 +2779,18 @@ export default function Sesion6() {
         </section>
       </RevealSection>
 
-      {/* ═══════════════ 9B. PANORAMA ECOSISTEMA ABRIL 2026 ═══════════════ */}
+      {/* ═══════════════ 9B. PANORAMA ECOSISTEMA JULIO 2026 ═══════════════ */}
       <RevealSection>
         <section className="relative max-w-6xl mx-auto px-6 py-24">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_20%,rgba(91,82,213,0.08),transparent),radial-gradient(ellipse_50%_50%_at_80%_80%,rgba(0,212,229,0.06),transparent)] pointer-events-none" />
 
           <div className="relative">
-            <p className="font-mono text-[0.72rem] text-purple-light uppercase tracking-widest mb-3">Panorama · abril 2026</p>
+            <p className="font-mono text-[0.72rem] text-purple-light uppercase tracking-widest mb-3">Panorama · julio 2026</p>
             <h2 className="text-3xl md:text-5xl font-bold text-white-f leading-tight mb-5">
               El ecosistema completo: <span className="bg-gradient-to-r from-purple-light via-cyan to-gold bg-clip-text text-transparent">21 herramientas, 5 categorías, 6 casos reales</span>
             </h2>
             <p className="text-lg text-muted max-w-3xl mb-10 leading-relaxed">
-              Hasta aquí trabajamos con Cursor, Claude Code y GitHub Copilot — el núcleo. Pero el mercado se mueve rápido: Gemini 3 se liberó el 15-abr, Firebase Studio fue sunset el 19-mar, Devin 2.0 bajó a USD 20/mes. Este es el mapa vivo — con precios, ejemplos concretos y flujos end-to-end — que un analista BTG debería conocer a abril de 2026.
+              Hasta aquí trabajamos con Cursor, Claude Code y GitHub Copilot — el núcleo. Pero el mercado se mueve rápido: en un trimestre llegaron Claude 5 (Fable 5 · Sonnet 5), GPT-5.6 y Grok 4.5, Copilot cambió su facturación a AI Credits y Amazon Q Developer entró en sunset. Este es el mapa vivo — con precios, ejemplos concretos y flujos end-to-end — que un analista BTG debería conocer a julio de 2026.
             </p>
 
             {/* Hero stats del ecosistema */}
@@ -2859,7 +2916,7 @@ export default function Sesion6() {
                       {t.detail}
                     </p>
 
-                    {/* Example — abril 2026 */}
+                    {/* Example — julio 2026 */}
                     <div
                       className="pl-2 pr-2 py-2 mb-3 rounded-lg border-l-2"
                       style={{ borderColor: cat.color, background: `${cat.color}0A` }}
@@ -2889,7 +2946,7 @@ export default function Sesion6() {
             {/* ────── Casos reales · Cómo se combinan ────── */}
             <div className="mt-14">
               <div className="flex items-center gap-3 mb-3">
-                <span className="font-mono text-[0.7rem] text-cyan uppercase tracking-widest">Casos reales · abril 2026</span>
+                <span className="font-mono text-[0.7rem] text-cyan uppercase tracking-widest">Casos reales · julio 2026</span>
                 <span className="h-[1px] flex-1 bg-gradient-to-r from-cyan/40 to-transparent" />
               </div>
               <h3 className="text-2xl md:text-3xl font-bold text-white-f mb-3 leading-tight">
@@ -3021,22 +3078,22 @@ export default function Sesion6() {
         </section>
       </RevealSection>
 
-      {/* ═══════════════ 9B-bis. PANORAMA MAYO 2026 · QUÉ CAMBIÓ EN 30 DÍAS ═══════════════ */}
+      {/* ═══════════════ 9B-bis. PANORAMA MAYO–JULIO 2026 · QUÉ CAMBIÓ EN 90 DÍAS ═══════════════ */}
       <RevealSection>
         <section className="relative max-w-6xl mx-auto px-6 py-24">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_20%_15%,rgba(123,115,232,0.1),transparent),radial-gradient(ellipse_55%_50%_at_85%_85%,rgba(0,229,160,0.07),transparent)] pointer-events-none" />
 
           <div className="relative">
             <div className="flex items-center gap-3 mb-3">
-              <span className="font-mono text-[0.72rem] text-purple-light uppercase tracking-widest">Actualización · mayo 2026</span>
-              <span className="font-mono text-[0.55rem] px-2 py-0.5 rounded-full bg-cyan/15 text-cyan border border-cyan/30 uppercase tracking-widest">+30 días vs el panorama de abril</span>
+              <span className="font-mono text-[0.72rem] text-purple-light uppercase tracking-widest">Actualización · mayo–julio 2026</span>
+              <span className="font-mono text-[0.55rem] px-2 py-0.5 rounded-full bg-cyan/15 text-cyan border border-cyan/30 uppercase tracking-widest">+90 días vs el panorama de abril</span>
             </div>
             <h2 className="text-3xl md:text-5xl font-bold text-white-f leading-tight mb-5">
-              30 días después: <span className="bg-gradient-to-r from-purple-light via-cyan to-gold bg-clip-text text-transparent">la programación asistida ya no se escribe, se orquesta</span>
+              90 días después: <span className="bg-gradient-to-r from-purple-light via-cyan to-gold bg-clip-text text-transparent">la programación asistida ya no se escribe, se orquesta</span>
             </h2>
             <p className="text-lg text-muted max-w-3xl mb-10 leading-relaxed">
-              El bloque anterior fotografió abril. En mayo de 2026 el centro de gravedad se movió otra vez:
-              de <em>un</em> agente que edita tu repo a <em>varios</em> agentes en paralelo gestionados desde un panel. Claude Code salió a la nube, Cursor pasó a enjambres, GitHub estrenó Agent HQ, Antigravity llegó a GA. El cuello de botella dejó de ser teclear código — ahora es revisar bien lo que el agente produce.
+              El bloque anterior fotografió abril. En el trimestre siguiente el centro de gravedad se movió dos veces:
+              en mayo, de <em>un</em> agente que edita tu repo a <em>varios</em> agentes en paralelo gestionados desde un panel (Claude Code en la nube, enjambres de Cursor, Agent HQ de GitHub). Y entre junio y julio llegaron las familias nuevas — Claude 5 (Fable 5 · Sonnet 5), GPT-5.6 (Sol · Terra · Luna), Grok 4.5 — junto con dos episodios de intervención regulatoria de EE.UU. sobre modelos frontera. El cuello de botella dejó de ser teclear código — ahora es revisar bien lo que el agente produce.
             </p>
 
             {/* Hero stats mayo */}
@@ -3051,11 +3108,11 @@ export default function Sesion6() {
 
             {/* ────── Changelog timeline ────── */}
             <div className="flex items-center gap-3 mb-3">
-              <span className="font-mono text-[0.7rem] text-purple-light uppercase tracking-widest">Bitácora del mes</span>
+              <span className="font-mono text-[0.7rem] text-purple-light uppercase tracking-widest">Bitácora del trimestre</span>
               <span className="h-[1px] flex-1 bg-gradient-to-r from-purple-light/40 to-transparent" />
             </div>
             <h3 className="text-2xl md:text-3xl font-bold text-white-f mb-3 leading-tight">
-              10 movimientos que <span className="bg-gradient-to-r from-purple-light to-cyan bg-clip-text text-transparent">cambian el tablero</span>
+              {MAYO_CHANGELOG.length} movimientos que <span className="bg-gradient-to-r from-purple-light to-cyan bg-clip-text text-transparent">cambian el tablero</span>
             </h3>
             <p className="text-[0.88rem] text-muted mb-6 max-w-3xl leading-relaxed">
               Cada tarjeta: qué era hace un mes (<span className="text-white-f/70">antes</span>), qué es hoy (<span className="text-white-f/90">ahora</span>) y por qué le importa a un analista de BTG. Filtra por tipo de movimiento.
@@ -3152,7 +3209,7 @@ export default function Sesion6() {
             {/* ────── Benchmark bars ────── */}
             <div className="mt-16">
               <div className="flex items-center gap-3 mb-3">
-                <span className="font-mono text-[0.7rem] text-gold uppercase tracking-widest">Estado del arte · mayo 2026</span>
+                <span className="font-mono text-[0.7rem] text-gold uppercase tracking-widest">Estado del arte · snapshot may-2026 (último dato público)</span>
                 <span className="h-[1px] flex-1 bg-gradient-to-r from-gold/40 to-transparent" />
               </div>
               <h3 className="text-2xl md:text-3xl font-bold text-white-f mb-3 leading-tight">
@@ -3250,7 +3307,7 @@ export default function Sesion6() {
                     <p className="text-[0.78rem] text-white-f/85 leading-snug">{autoData.control}</p>
                   </div>
                   <div className="rounded-xl p-4 border" style={{ background: `${autoData.color}0c`, borderColor: `${autoData.color}30` }}>
-                    <p className="font-mono text-[0.55rem] uppercase tracking-widest mb-1.5" style={{ color: autoData.color }}>Herramientas (mayo 2026)</p>
+                    <p className="font-mono text-[0.55rem] uppercase tracking-widest mb-1.5" style={{ color: autoData.color }}>Herramientas (julio 2026)</p>
                     <p className="text-[0.78rem] text-white-f/90 leading-snug">{autoData.tools}</p>
                   </div>
                   <div className="rounded-xl p-4 bg-white/[0.03] border border-white/[0.07]">
@@ -3264,14 +3321,14 @@ export default function Sesion6() {
             {/* ────── Precios — qué cambió ────── */}
             <div className="mt-16">
               <div className="flex items-center gap-3 mb-3">
-                <span className="font-mono text-[0.7rem] text-green uppercase tracking-widest">Bolsillo · mayo 2026</span>
+                <span className="font-mono text-[0.7rem] text-green uppercase tracking-widest">Bolsillo · abril → julio 2026</span>
                 <span className="h-[1px] flex-1 bg-gradient-to-r from-green/40 to-transparent" />
               </div>
               <h3 className="text-2xl md:text-3xl font-bold text-white-f mb-3 leading-tight">
-                Lo que cambió en <span className="bg-gradient-to-r from-green to-gold bg-clip-text text-transparent">precios</span> este mes
+                Lo que cambió en <span className="bg-gradient-to-r from-green to-gold bg-clip-text text-transparent">precios</span> este trimestre
               </h3>
               <p className="text-[0.88rem] text-muted mb-7 max-w-3xl leading-relaxed">
-                Tendencia clara: los modelos bajan (presión de DeepSeek y Gemini), las suscripciones de IDE se quedan igual pero rinden más, y los productos en preview empiezan a cobrar. Negocia con esto en la mano.
+                Tendencia clara: los modelos bajan (Terra a mitad de costo, Sonnet 5 con precio intro, Google reestructuró sus tiers hacia abajo), pero la facturación por uso sube el riesgo (AI Credits de Copilot). Negocia con esto en la mano.
               </p>
               <div className="grid md:grid-cols-2 gap-3">
                 {MAYO_PRECIOS.map((p) => (
@@ -3308,7 +3365,7 @@ export default function Sesion6() {
                 <span className="h-[1px] flex-1 bg-gradient-to-r from-orange/40 to-transparent" />
               </div>
               <h3 className="text-2xl md:text-3xl font-bold text-white-f mb-3 leading-tight">
-                3 flujos que <span className="bg-gradient-to-r from-orange via-purple-light to-cyan bg-clip-text text-transparent">solo existen desde mayo</span>
+                3 flujos que <span className="bg-gradient-to-r from-orange via-purple-light to-cyan bg-clip-text text-transparent">no existían en abril</span>
               </h3>
               <p className="text-[0.88rem] text-muted mb-6 max-w-3xl leading-relaxed">
                 Lo nuevo no es una herramienta suelta, es que ahora se pueden encadenar agentes en paralelo y un panel para gobernarlos. Estos tres flujos eran impracticables hace un mes.
@@ -3685,7 +3742,7 @@ export default function Sesion6() {
               Solo navegador: <span className="bg-gradient-to-r from-emerald-300 to-green-400 bg-clip-text text-transparent">los modelos chinos gratis</span>
             </h3>
             <p className="text-[0.88rem] text-muted mb-6 max-w-3xl leading-relaxed">
-              Cuatro quick wins 100% en el navegador — cero instalaciones, cero API keys, cero tarjetas de crédito. <span className="text-white-f font-medium">Kimi K2.5</span> (kimi.com) trae 256K tokens de contexto (≈ 524 páginas) para procesar memorias completas, y <span className="text-white-f font-medium">DeepSeek V3.2</span> (chat.deepseek.com) acepta file upload directo hasta 10 MB con modo razonamiento DeepThink. Ambos con web search integrada.
+              Cuatro quick wins 100% en el navegador — cero instalaciones, cero API keys, cero tarjetas de crédito. <span className="text-white-f font-medium">Kimi K2.5</span> (kimi.com) trae 256K tokens de contexto (≈ 524 páginas) para procesar memorias completas, y <span className="text-white-f font-medium">DeepSeek V4</span> (chat.deepseek.com) acepta file upload directo hasta 10 MB con modo razonamiento DeepThink. Ambos con web search integrada.
             </p>
 
             {/* Nota operativa de acceso */}

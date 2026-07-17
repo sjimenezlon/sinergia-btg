@@ -450,7 +450,7 @@ export default function SesionPlus() {
               </div>
             ))}
           </div>
-          <p className="text-[0.6rem] font-mono text-muted mt-4 opacity-60">* Frameworks: Christensen (HBR 2016) · Ulwick (ODI Strategyn) · Switch (Heath 2018) · Double Diamond (Design Council) · Datos abr-2026</p>
+          <p className="text-[0.6rem] font-mono text-muted mt-4 opacity-60">* Frameworks: Christensen (HBR 2016) · Ulwick (ODI Strategyn) · Switch (Heath 2018) · Double Diamond (Design Council) · Datos a jul-2026</p>
         </div>
       </section>
 
@@ -493,7 +493,7 @@ export default function SesionPlus() {
       {/* ═══════════ 4. POR QUÉ ═══════════ */}
       <RevealSection>
         <section className="max-w-6xl mx-auto px-6 py-20">
-          <p className="font-mono text-[0.72rem] text-[#DC2626] uppercase tracking-widest mb-3">El problema · proyectos IA en banca · abril 2026</p>
+          <p className="font-mono text-[0.72rem] text-[#DC2626] uppercase tracking-widest mb-3">El problema · proyectos IA en banca · julio 2026</p>
           <h2 className="text-3xl md:text-5xl font-bold text-white-f leading-tight mb-5">
             Por qué la mayoría <span className="bg-gradient-to-r from-[#DC2626] to-[#E85A1F] bg-clip-text text-transparent">no llegan a producción</span>
           </h2>

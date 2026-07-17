@@ -8,7 +8,7 @@ import RevealSection from "@/components/RevealSection";
 const AGENDA = [
   { time: "0:00–0:15", label: "Ecosistemas en guerra: Google vs Microsoft", color: "#3A7BD5" },
   { time: "0:15–0:40", label: "NotebookLM + Audio Overview", color: "#00E5A0" },
-  { time: "0:40–1:00", label: "Gemini 3.1 + Workspace", color: "#5B52D5" },
+  { time: "0:40–1:00", label: "Gemini 3.5 + Workspace", color: "#5B52D5" },
   { time: "1:00–1:25", label: "Copilot M365 en Word, Excel, PPT, Teams", color: "#7B73E8" },
   { time: "1:25–1:45", label: "Taller: Briefing + Pitch", color: "#D4AF4C" },
   { time: "1:45–2:00", label: "Demo + decisión ecosistema", color: "#E85A1F" },
@@ -119,7 +119,7 @@ const GEMINI_FEATURES = [
     name: "Contexto 2M tokens",
     icon: "◆",
     color: "#3A7BD5",
-    detail: "Gemini 3.1 Ultra procesa hasta 2 millones de tokens en una sola consulta — el mayor del mercado. Equivale a subir 3,000 páginas o 50 horas de audio a la vez.",
+    detail: "Gemini (tier Ultra) procesa hasta 2 millones de tokens en una sola consulta — el mayor del mercado. Equivale a subir 3,000 páginas o 50 horas de audio a la vez.",
     btg: "Sube el data room completo + 5 años de earnings calls + research del sector. El modelo tiene TODO presente al responder.",
   },
   {
@@ -363,7 +363,7 @@ const EJERCICIOS: Exercise[] = [
   {
     id: "ex2",
     tag: "Ejercicio 2",
-    title: "Gemini 3.1 como asistente conectado",
+    title: "Gemini como asistente conectado",
     subtitle: "Extiende el notebook con Deep Research autónomo + multimodal",
     duration: "20 min",
     color: "#5B52D5",
@@ -430,32 +430,39 @@ const MODELS_2026: Array<{
 }> = [
   // FRONTIER (cerrados)
   {
-    id: "claude", name: "Claude 4.7 Opus", provider: "Anthropic", flag: "🇺🇸",
+    id: "fable", name: "Claude Fable 5", provider: "Anthropic", flag: "🇺🇸",
+    category: "frontier", color: "#D4AF4C", icon: "✦",
+    context: "1M", input: 10, output: 50, license: "Propietario",
+    strength: "Clase Mythos (jul-2026) · el más capaz del mercado · agentes de horizonte largo",
+    btg: "Los análisis más difíciles · corridas agénticas de horas sin supervisión",
+  },
+  {
+    id: "claude", name: "Claude Opus 4.8", provider: "Anthropic", flag: "🇺🇸",
     category: "frontier", color: "#E85A1F", icon: "◉",
-    context: "1M", input: 15, output: 75, license: "Propietario",
-    strength: "Extended Thinking · docs largos · el más seguro para finanzas",
+    context: "1M", input: 5, output: 25, license: "Propietario",
+    strength: "Adaptive thinking · docs largos · el más seguro para finanzas",
     btg: "Due diligence, compliance, memos IC — el adoptado por BTG",
   },
   {
-    id: "gpt", name: "GPT-5.5", provider: "OpenAI", flag: "🇺🇸",
+    id: "gpt", name: "GPT-5.6 (Sol)", provider: "OpenAI", flag: "🇺🇸",
     category: "frontier", color: "#22C55E", icon: "◎",
     context: "400K", input: 5, output: 30, license: "Propietario",
-    strength: "Agentic nativo · absorbe Codex · Canvas · Code Interpreter · DALL·E 4",
-    btg: "Modelación cuantitativa · Custom GPTs · research visual · agentes multi-tool",
+    strength: "Familia Sol·Terra·Luna (9-jul-2026) · 80 en Coding Agent Index · superapp con Codex fusionado",
+    btg: "Modelación cuantitativa · Custom GPTs · research visual · agentes multi-tool (Terra a mitad de costo)",
   },
   {
-    id: "gemini", name: "Gemini 3.1", provider: "Google", flag: "🇺🇸",
+    id: "gemini", name: "Gemini 3.5", provider: "Google", flag: "🇺🇸",
     category: "frontier", color: "#3A7BD5", icon: "◆",
     context: "2M", input: 7, output: 28, license: "Propietario",
-    strength: "2M contexto · Deep Research · NotebookLM nativo",
-    btg: "Research masivo · Workspace · cross-referencing de fuentes",
+    strength: "3.5 Flash GA (may-2026) · 2M contexto · Deep Research · NotebookLM nativo · 3.5 Pro en preview",
+    btg: "Research masivo · Workspace (ahora incluido en Business) · cross-referencing de fuentes",
   },
   // OPEN WEIGHTS
   {
-    id: "deepseek", name: "DeepSeek R2", provider: "DeepSeek AI", flag: "🇨🇳",
+    id: "deepseek", name: "DeepSeek V4", provider: "DeepSeek AI", flag: "🇨🇳",
     category: "open", color: "#7B73E8", icon: "🐋",
-    context: "256K", input: 0.2, output: 1.1, license: "DeepSeek Open (MIT-like)",
-    strength: "25× más barato · razonamiento tipo O-series · self-hosting real",
+    context: "1M", input: 0.2, output: 1.1, license: "MIT",
+    strength: "V4 Preview (24-abr-2026) · 1M contexto open-weight bajo MIT · V4-Flash para on-prem",
     btg: "Scoring on-premise · clasificación masiva · casos con datos sensibles",
   },
   {
@@ -466,18 +473,18 @@ const MODELS_2026: Array<{
     btg: "RAG interno · fine-tune sector financiero LATAM · self-hosting",
   },
   {
-    id: "mistral", name: "Mistral Small 3", provider: "Mistral AI", flag: "🇫🇷",
+    id: "mistral", name: "Mistral Medium 3.5", provider: "Mistral AI", flag: "🇫🇷",
     category: "open", color: "#FF7000", icon: "⚜",
-    context: "512K", input: 0.3, output: 0.9, license: "Apache 2.0",
-    strength: "Soberanía europea · GDPR · on-prem dentro de la UE",
+    context: "256K", input: 0.4, output: 2.0, license: "Open-weight",
+    strength: "128B denso open-weight (abr-2026) · corre en Ollama · soberanía europea · GDPR",
     btg: "Compliance DORA · operaciones EU · data residency estricta",
   },
   {
-    id: "qwen", name: "Qwen 3 Max", provider: "Alibaba", flag: "🇨🇳",
+    id: "qwen", name: "Qwen3.7 · Qwen 4 Coder", provider: "Alibaba", flag: "🇨🇳",
     category: "open", color: "#6B5CFF", icon: "阿",
-    context: "1M", input: 0.6, output: 2.4, license: "Apache 2.0",
-    strength: "Líder benchmarks AsiaPac · multilingüe (mandarín, español)",
-    btg: "Análisis mercados asiáticos · research emitentes chinos y coreanos",
+    context: "1M", input: 0.6, output: 2.4, license: "Mixta (flagship API · Coder Apache 2.0)",
+    strength: "Qwen3.7-Max/Plus cerrados (may–jun 2026) · Qwen 4 Coder 32B: 1er open >82% SWE-Verified",
+    btg: "Análisis mercados asiáticos · research emitentes chinos y coreanos · coder local en Mac de 24 GB",
   },
   // ESPECIALIZADOS
   {
@@ -495,10 +502,10 @@ const MODELS_2026: Array<{
     btg: "Knowledge base interno · búsqueda semántica · compliance trail",
   },
   {
-    id: "grok", name: "Grok 4", provider: "xAI", flag: "🇺🇸",
+    id: "grok", name: "Grok 4.5", provider: "xAI", flag: "🇺🇸",
     category: "specialized", color: "#9333EA", icon: "𝕏",
-    context: "256K", input: 3.0, output: 15.0, license: "Propietario",
-    strength: "Datos X/Twitter en vivo · noticias financieras instantáneas",
+    context: "500K", input: 2.0, output: 6.0, license: "Propietario",
+    strength: "Público 8-jul-2026 · datos X/Twitter en vivo · noticias financieras instantáneas (sin UE al inicio)",
     btg: "Sentiment de mercados · monitoreo reputacional ticker-level",
   },
 ];
@@ -855,7 +862,7 @@ export default function Sesion5() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_30%,rgba(123,115,232,0.06),transparent),radial-gradient(ellipse_50%_60%_at_85%_80%,rgba(34,197,94,0.05),transparent)] pointer-events-none" />
 
           <div className="relative">
-            <p className="font-mono text-[0.72rem] uppercase tracking-widest text-purple-light mb-3">El universo de modelos · abril 2026</p>
+            <p className="font-mono text-[0.72rem] uppercase tracking-widest text-purple-light mb-3">El universo de modelos · julio 2026</p>
             <h2 className="text-3xl md:text-5xl font-bold text-white-f leading-tight mb-4">
               No son <span className="text-muted line-through decoration-2">tres</span>{" "}
               <span className="bg-gradient-to-r from-orange via-purple-light to-cyan bg-clip-text text-transparent">son diez</span>
@@ -972,7 +979,7 @@ export default function Sesion5() {
                 {
                   t: "Costo",
                   v: "25× más barato",
-                  d: "DeepSeek R2 a $0.20/M vs Claude Opus a $15/M. Misma capacidad para el 80% de tareas.",
+                  d: "DeepSeek V4 a $0.20/M vs Claude Opus 4.8 a $5/M. Misma capacidad para el 80% de tareas.",
                   c: "#22C55E",
                   icon: "💰",
                 },
@@ -1072,7 +1079,7 @@ export default function Sesion5() {
                   <div className="text-lg">📒</div>
                   <div>
                     <p className="text-sm font-semibold text-gray-900">Sector Retail LatAm · Q2 2026</p>
-                    <p className="text-[0.65rem] text-gray-500">22 fuentes · última edición 14 abr 2026</p>
+                    <p className="text-[0.65rem] text-gray-500">22 fuentes · última edición 14 jul 2026</p>
                   </div>
                 </div>
                 <div className="flex gap-2">
@@ -1397,7 +1404,7 @@ export default function Sesion5() {
       {/* ═══════════════ 5. GEMINI FEATURES ═══════════════ */}
       <RevealSection>
         <section className="max-w-6xl mx-auto px-6 py-20">
-          <p className="font-mono text-[0.72rem] uppercase tracking-widest text-blue mb-3">Gemini 3.1</p>
+          <p className="font-mono text-[0.72rem] uppercase tracking-widest text-blue mb-3">Gemini 3.5</p>
           <h2 className="text-3xl md:text-5xl font-bold text-white-f leading-tight mb-5">
             El modelo con <span className="text-blue">el mayor contexto</span> del mercado
           </h2>
@@ -1447,11 +1454,11 @@ export default function Sesion5() {
               </p>
               <div className="space-y-3">
                 {[
-                  { name: "Gemini 3.1 Ultra", tokens: 2000000, color: "#3A7BD5", bar: 100, label: "2M", note: "2 años de earnings calls + 50 PDFs" },
-                  { name: "Claude 4.7 Opus", tokens: 1000000, color: "#E85A1F", bar: 50, label: "1M", note: "Data room completo + histórico" },
+                  { name: "Gemini (Ultra)", tokens: 2000000, color: "#3A7BD5", bar: 100, label: "2M", note: "2 años de earnings calls + 50 PDFs" },
+                  { name: "Claude Fable 5 / Opus 4.8 / Sonnet 5", tokens: 1000000, color: "#E85A1F", bar: 50, label: "1M", note: "Data room completo + histórico" },
                   { name: "GPT-5.5", tokens: 400000, color: "#22C55E", bar: 20, label: "400K", note: "Lanzado 23-abr-2026 · agentic nativo" },
                   { name: "Data room BTG típico", tokens: 400000, color: "#D4AF4C", bar: 20, label: "400K", note: "Referencia · lo que subes", dashed: true },
-                  { name: "Claude Sonnet 4.6", tokens: 200000, color: "#7B73E8", bar: 10, label: "200K", note: "Tareas diarias" },
+                  { name: "Claude Haiku 4.5", tokens: 200000, color: "#7B73E8", bar: 10, label: "200K", note: "Tareas de volumen" },
                   { name: "DeepSeek R1", tokens: 128000, color: "#D4AF4C", bar: 6.4, label: "128K", note: "Budget model" },
                   { name: "GPT-3.5 (2022)", tokens: 4096, color: "#7a82a0", bar: 0.2, label: "4K", note: "Cuando empezó todo", faded: true },
                 ].map((m) => (
@@ -1573,7 +1580,7 @@ export default function Sesion5() {
                   {COPILOT_APPS[activeApp].app === "Word" && (
                     <div className="text-gray-800">
                       <p className="text-center font-bold text-sm mb-2">IC MEMO · TARGET LATAM RETAIL</p>
-                      <p className="text-center text-gray-500 mb-3 text-[0.55rem]">BTG Pactual · abril 2026</p>
+                      <p className="text-center text-gray-500 mb-3 text-[0.55rem]">BTG Pactual · julio 2026</p>
                       <p className="font-semibold">1. Investment Thesis</p>
                       <div className="h-1 bg-gray-200 rounded w-full my-1" />
                       <div className="h-1 bg-gray-200 rounded w-[92%] my-1" />
@@ -1780,7 +1787,7 @@ export default function Sesion5() {
                       <div className="text-center mb-5 pb-3 border-b-2 border-[#2B579A]">
                         <p className="font-mono text-[0.58rem] uppercase tracking-widest text-[#2B579A] mb-1">Investment Committee Memo</p>
                         <h4 className="text-lg font-bold">Adquisición · Cementos Portales</h4>
-                        <p className="text-[0.65rem] text-gray-600 mt-0.5">Preparado por: María Ortega · IB Latam · 20-abr-2026</p>
+                        <p className="text-[0.65rem] text-gray-600 mt-0.5">Preparado por: María Ortega · IB Latam · 20-jul-2026</p>
                       </div>
                       <p className="text-[0.72rem] font-bold text-[#2B579A] mb-2 uppercase tracking-wide">Red flags materiales</p>
                       <div className="space-y-2 text-[0.72rem] leading-relaxed">

@@ -19,8 +19,8 @@ const ASSISTANT_LAYERS = [
     id: "model",
     layer: "1 · Modelo base",
     title: "El cerebro razonante",
-    desc: "El LLM que piensa: Claude 4.7 Opus, GPT-5.4, Gemini 3.1. Decide la calidad del análisis, la latencia y el costo por token.",
-    finance: "Para due diligence en M&A: Claude Opus (1M ctx + Extended Thinking). Para modelación cuantitativa: GPT-5.4 o o3.",
+    desc: "El LLM que piensa: Claude Opus 4.8, GPT-5.6, Gemini 3.5. Decide la calidad del análisis, la latencia y el costo por token.",
+    finance: "Para due diligence en M&A: Claude Opus (1M ctx + Extended Thinking). Para modelación cuantitativa: GPT-5.6 (Sol).",
     color: "#E85A1F",
     icon: "◉",
   },
@@ -930,7 +930,7 @@ const LIVE_CHAT: ChatMsg[] = [
   },
   {
     role: "assistant",
-    name: "Claude 4.7 Opus · DD Assistant BTG",
+    name: "Claude Opus 4.8 · DD Assistant BTG",
     avatar: "◉",
     time: "09:14",
     text: "**3 red flags materiales identificados**\n\n**1 · DSO en deterioro severo**\nDías de cobro pasaron de 45 (2022) a 78 (2025). Implica liquidez estructural comprometida o venta forzada a clientes de bajo rating crediticio.\n\n**2 · Covenant breach inminente**\nNet Debt / EBITDA actual: 3.42×. Covenant: 3.50×. Margen de solo 0.08×. Un trimestre débil lo revienta y gatilla aceleración.\n\n**3 · Contingencia DIAN no provisionada**\nLa DIAN notificó ajuste fiscal por COP 8.200M el 12-feb-2026. No aparece ni en los EEFF ni en el memo del target. Materialidad: 1.4% EBITDA.",
@@ -1580,7 +1580,7 @@ export default function Sesion4() {
                   </div>
                   <div className="rounded bg-[#1a1a1a] border border-white/[0.06] p-3 text-[0.55rem]">
                     <p className="font-bold text-white-f mb-1">IC Memo · Target LatAm Retail</p>
-                    <p className="text-muted leading-snug mb-2">Draft generado · abril 2026</p>
+                    <p className="text-muted leading-snug mb-2">Draft generado · julio 2026</p>
                     <div className="space-y-1">
                       <div className="h-1 bg-orange/40 rounded w-full" />
                       <div className="h-1 bg-orange/40 rounded w-[85%]" />
@@ -1830,7 +1830,7 @@ export default function Sesion4() {
                 {activeArtifact === 0 && (
                   <div className="bg-[#fafafa] rounded-lg p-4 text-[0.6rem] text-[#1a1a1a] space-y-1.5">
                     <p className="font-bold text-[#E85A1F]">IC MEMO · TARGET LATAM RETAIL</p>
-                    <p className="text-[0.5rem] text-gray-500">abril 2026 · BTG Pactual</p>
+                    <p className="text-[0.5rem] text-gray-500">julio 2026 · BTG Pactual</p>
                     <div className="h-px bg-gray-300 my-2" />
                     <p className="font-bold">1. Investment Thesis</p>
                     <div className="h-1 bg-gray-300 rounded w-full" />

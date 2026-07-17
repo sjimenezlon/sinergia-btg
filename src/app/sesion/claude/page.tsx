@@ -71,11 +71,11 @@ const TIMELINE = [
     btg: "Deja de ser 'un modelo' y se vuelve una plataforma: skills de compliance, agentes de monitoreo, memoria de cada cliente y conectores a los sistemas del banco.",
   },
   {
-    year: "Jun 2026",
-    title: "Hoy",
+    year: "Jul 2026",
+    title: "Hoy · Claude 5",
     color: CORAL,
-    tag: "Opus 4.8 · Sonnet 4.6 · Haiku 4.5",
-    body: "La familia actual: Opus 4.8 (máxima capacidad, hasta 1M de contexto), Sonnet 4.6 (el caballo de batalla) y Haiku 4.5 (veloz y económico). Claude Code corre en terminal, escritorio, web e IDE; los agentes, las skills y la memoria son ciudadanos de primera clase.",
+    tag: "Fable 5 · Opus 4.8 · Sonnet 5 · Haiku 4.5",
+    body: "Llega la familia Claude 5: Fable 5 estrena una clase de modelo por encima de Opus (razonamiento y trabajo agéntico de horizonte largo, 1M de contexto), Sonnet 5 lleva calidad casi-Opus al precio Sonnet, y Opus 4.8 y Haiku 4.5 completan la línea. Claude Code corre en terminal, escritorio, web e IDE; los agentes, las skills y la memoria son ciudadanos de primera clase.",
     btg: "El stack que verás en esta lección es exactamente el que un equipo de BTG puede adoptar hoy para análisis, automatización y desarrollo asistido.",
   },
 ];
@@ -102,14 +102,14 @@ const MODELOS = [
   },
   {
     id: "sonnet",
-    name: "Claude Sonnet 4.6",
+    name: "Claude Sonnet 5",
     tier: "Balance",
     icon: "◈",
     color: "#5B52D5",
     speed: 4,
     depth: 4,
     cost: 3,
-    pitch: "El caballo de batalla: casi la inteligencia de Opus a una fracción del costo y mucho más rápido. El default para el día a día.",
+    pitch: "El caballo de batalla: calidad casi-Opus en coding y trabajo agéntico a una fracción del costo y mucho más rápido. El default para el día a día.",
     use: [
       "Redacción de memos e informes",
       "Análisis de datos recurrente",
@@ -322,7 +322,7 @@ const ORQUESTACION = [
   },
 ];
 
-/* ── Recursos publicados por Anthropic (jun 2026) ── */
+/* ── Recursos publicados por Anthropic (jul 2026) ── */
 const RECURSOS = [
   { icon: "🎓", title: "Anthropic Academy", color: "#E07856", desc: "Plataforma oficial de formación (lanzada mar-2026). ~17 cursos gratis en 5 tracks, con certificados: Claude Code, API, MCP, Agent Skills, sub-agentes y fiabilidad.", url: "https://www.anthropic.com/learn", cta: "anthropic.com/learn" },
   { icon: "🤖", title: "Building Effective Agents", color: "#22C55E", desc: "La guía de ingeniería que define workflows vs. agentes y los patrones de orquestación. Principio rector: empieza simple, agrega complejidad solo si mejora el resultado.", url: "https://www.anthropic.com/engineering/building-effective-agents", cta: "Guía de ingeniería" },
@@ -332,10 +332,11 @@ const RECURSOS = [
   { icon: "💻", title: "Claude Code + Cowork", color: "#00E5A0", desc: "Buenas prácticas de Claude Code y el nuevo agente de escritorio Cowork: del repo en terminal al agente que trabaja contigo en el escritorio.", url: "https://www.anthropic.com/claude-code", cta: "Claude Code" },
 ];
 
-/* ── Specs técnicas de modelos (referencia jun-2026, USD / millón de tokens) ── */
+/* ── Specs técnicas de modelos (referencia jul-2026, USD / millón de tokens) ── */
 const MODELOS_SPEC = [
+  { name: "Fable 5", id: "claude-fable-5", ctx: "1M", input: 10, output: 50, color: "#D4AF4C", note: "Clase Mythos · el más capaz · horizonte largo" },
   { name: "Opus 4.8", id: "claude-opus-4-8", ctx: "1M", input: 5, output: 25, color: "#E07856", note: "Razonamiento profundo · coding agéntico" },
-  { name: "Sonnet 4.6", id: "claude-sonnet-4-6", ctx: "1M", input: 3, output: 15, color: "#5B52D5", note: "Balance · el caballo de batalla" },
+  { name: "Sonnet 5", id: "claude-sonnet-5", ctx: "1M", input: 3, output: 15, color: "#5B52D5", note: "Balance · casi-Opus · intro $2/$10 hasta 31-ago" },
   { name: "Haiku 4.5", id: "claude-haiku-4-5", ctx: "200K", input: 1, output: 5, color: "#00E5A0", note: "Veloz y económico · alto volumen" },
 ];
 
@@ -349,7 +350,7 @@ const TECH_CATS = [
 const TECH_CAPS = [
   { cat: "nucleo", id: "messages", name: "Messages API", icon: "✉️", spec: "REST + SDK Python/TS", desc: "El endpoint único: envías system + messages + parámetros y recibes la respuesta. Todo lo demás se construye encima." },
   { cat: "nucleo", id: "tools", name: "Tool use", icon: "🛠️", spec: "function calling", desc: "Declaras herramientas con su JSON schema; Claude decide cuándo llamarlas y con qué argumentos. La base de todo lo agéntico." },
-  { cat: "nucleo", id: "thinking", name: "Extended thinking", icon: "🧠", spec: "budget_tokens", desc: "Razonamiento extendido con presupuesto de tokens: Claude 'piensa' antes de responder en problemas difíciles. Tú controlas cuánto." },
+  { cat: "nucleo", id: "thinking", name: "Adaptive thinking", icon: "🧠", spec: "adaptive · effort", desc: "Claude decide cuándo y cuánto 'pensar' antes de responder. Ajustas la profundidad con effort (low→max); el budget_tokens fijo quedó obsoleto en los modelos actuales." },
   { cat: "nucleo", id: "structured", name: "Structured outputs", icon: "🧩", spec: "JSON validado", desc: "Fuerza la salida a un esquema JSON estricto para integrarla directo a tus sistemas, sin parsear texto libre." },
   { cat: "nucleo", id: "stream", name: "Streaming", icon: "🌊", spec: "SSE", desc: "Recibe la respuesta token a token para UIs en tiempo real y menor latencia percibida." },
   { cat: "efic", id: "cache", name: "Prompt caching", icon: "⚡", spec: "lectura 0.1× · −90%", desc: "Cachea el contexto que se repite (políticas, plantillas, manuales): las lecturas cacheadas cuestan 10% del input. Escritura 1.25×." },
@@ -493,7 +494,7 @@ const MEMORIA = [
     icon: "🪟",
     color: "#3A7BD5",
     short: "Lo que cabe en una conversación",
-    body: "Todo lo que Claude 've' en un momento dado: hasta 200K tokens (≈500 páginas) y hasta 1M en Opus 4.8. Dentro de la conversación lo recuerda todo perfectamente.",
+    body: "Todo lo que Claude 've' en un momento dado: hasta 200K tokens (≈500 páginas) en Haiku y hasta 1M en Fable 5, Opus 4.8 y Sonnet 5. Dentro de la conversación lo recuerda todo perfectamente.",
     btg: "Pegas un contrato de 400 páginas y preguntas por cualquier cláusula sin trocearlo.",
   },
   {
@@ -539,7 +540,7 @@ const BENEFICIOS = [
 const CUANDO = [
   { icon: "📚", color: "#3A7BD5", para: "Leer un prospecto o contrato de 400 páginas y encontrar una cláusula puntual", porque: "Ventana de hasta 1M de tokens: lee el documento completo sin trocearlo ni perder contexto.", badge: "Opus 4.8 · 1M ctx" },
   { icon: "🔖", color: "#7B73E8", para: "Un análisis que el comité o la auditoría puedan verificar", porque: "Citations: cada afirmación enlaza al fragmento exacto de la fuente. Trazable y defendible.", badge: "Citations · API" },
-  { icon: "✍️", color: "#E07856", para: "Redactar un memo de crédito o una carta a un cliente en español, con matiz", porque: "Calidad de escritura y razonamiento: tono institucional, preciso y revisable.", badge: "Sonnet 4.6" },
+  { icon: "✍️", color: "#E07856", para: "Redactar un memo de crédito o una carta a un cliente en español, con matiz", porque: "Calidad de escritura y razonamiento: tono institucional, preciso y revisable.", badge: "Sonnet 5" },
   { icon: "🪝", color: "#22C55E", para: "Un agente que opere un flujo interno sin perder el control", porque: "Hooks del Agent SDK: apruebas, deniegas o modificas cada acción antes de que se ejecute.", badge: "Agent SDK · Hooks" },
   { icon: "📦", color: "#00E5A0", para: "Clasificar 50.000 transacciones o extraer campos de miles de documentos", porque: "Haiku + Batch + caching: alto volumen a costo mínimo, hasta ~95% de ahorro.", badge: "Haiku 4.5 · Batch" },
   { icon: "🔒", color: "#D4AF4C", para: "Usar IA sin que los datos salgan del entorno controlado del banco", porque: "Bedrock o Vertex + MCP: Claude corre en su nube, con residencia de datos y permisos por herramienta.", badge: "Bedrock/Vertex · MCP" },
@@ -706,31 +707,31 @@ function buildSnippet(lang: string, f: { thinking: boolean; tools: boolean; cach
     const sys = f.cache
       ? `    system=[{\n        "type": "text",\n        "text": "Eres analista senior de BTG Pactual.",\n        "cache_control": {"type": "ephemeral"},  # ← se cachea\n    }],`
       : `    system="Eres analista senior de BTG Pactual.",`;
-    const think = f.thinking ? `    thinking={"type": "enabled", "budget_tokens": 8000},\n` : "";
+    const think = f.thinking ? `    thinking={"type": "adaptive"},\n` : "";
     const tools = f.tools
       ? `    tools=[{\n        "name": "consultar_dwh",\n        "description": "Consulta el data warehouse",\n        "input_schema": {"type": "object", "properties": {"sql": {"type": "string"}}},\n    }],\n`
       : "";
-    return `from anthropic import Anthropic\nclient = Anthropic()\n\nmsg = client.messages.create(\n    model="claude-sonnet-4-6",\n    max_tokens=1024,\n${think}${tools}${sys}\n    messages=[{"role": "user", "content": "Resume este memo de crédito"}],\n)\nprint(msg.content[0].text)`;
+    return `from anthropic import Anthropic\nclient = Anthropic()\n\nmsg = client.messages.create(\n    model="claude-sonnet-5",\n    max_tokens=1024,\n${think}${tools}${sys}\n    messages=[{"role": "user", "content": "Resume este memo de crédito"}],\n)\nprint(msg.content[0].text)`;
   }
   if (lang === "TypeScript") {
     const sys = f.cache
       ? `  system: [{\n    type: "text",\n    text: "Eres analista senior de BTG Pactual.",\n    cache_control: { type: "ephemeral" }, // ← se cachea\n  }],`
       : `  system: "Eres analista senior de BTG Pactual.",`;
-    const think = f.thinking ? `  thinking: { type: "enabled", budget_tokens: 8000 },\n` : "";
+    const think = f.thinking ? `  thinking: { type: "adaptive" },\n` : "";
     const tools = f.tools
       ? `  tools: [{\n    name: "consultar_dwh",\n    description: "Consulta el data warehouse",\n    input_schema: { type: "object", properties: { sql: { type: "string" } } },\n  }],\n`
       : "";
-    return `import Anthropic from "@anthropic-ai/sdk";\nconst client = new Anthropic();\n\nconst msg = await client.messages.create({\n  model: "claude-sonnet-4-6",\n  max_tokens: 1024,\n${think}${tools}${sys}\n  messages: [{ role: "user", content: "Resume este memo de crédito" }],\n});\nconsole.log(msg.content[0].text);`;
+    return `import Anthropic from "@anthropic-ai/sdk";\nconst client = new Anthropic();\n\nconst msg = await client.messages.create({\n  model: "claude-sonnet-5",\n  max_tokens: 1024,\n${think}${tools}${sys}\n  messages: [{ role: "user", content: "Resume este memo de crédito" }],\n});\nconsole.log(msg.content[0].text);`;
   }
   // cURL
-  const think = f.thinking ? `    "thinking": {"type": "enabled", "budget_tokens": 8000},\n` : "";
+  const think = f.thinking ? `    "thinking": {"type": "adaptive"},\n` : "";
   const tools = f.tools
     ? `    "tools": [{"name": "consultar_dwh", "input_schema": {"type": "object"}}],\n`
     : "";
   const sys = f.cache
     ? `    "system": [{"type": "text", "text": "Eres analista de BTG.", "cache_control": {"type": "ephemeral"}}],\n`
     : `    "system": "Eres analista de BTG.",\n`;
-  return `curl https://api.anthropic.com/v1/messages \\\n  -H "x-api-key: $ANTHROPIC_API_KEY" \\\n  -H "anthropic-version: 2023-06-01" \\\n  -H "content-type: application/json" \\\n  -d '{\n    "model": "claude-sonnet-4-6",\n    "max_tokens": 1024,\n${think}${tools}${sys}    "messages": [{"role": "user", "content": "Resume este memo"}]\n  }'`;
+  return `curl https://api.anthropic.com/v1/messages \\\n  -H "x-api-key: $ANTHROPIC_API_KEY" \\\n  -H "anthropic-version: 2023-06-01" \\\n  -H "content-type: application/json" \\\n  -d '{\n    "model": "claude-sonnet-5",\n    "max_tokens": 1024,\n${think}${tools}${sys}    "messages": [{"role": "user", "content": "Resume este memo"}]\n  }'`;
 }
 
 /* ════════════════════════════ ARQUITECTURA DE AGENTE (SVG) ════════════════════════════ */
@@ -824,7 +825,7 @@ export default function SesionClaude() {
     .filter((c) => rol === "todos" || c.roles.includes(rol))
     .sort((a, b) => TIER_META[a.tier].rank - TIER_META[b.tier].rank);
   // cálculo de costos
-  const cm = MODELOS_SPEC.find((m) => m.id === `claude-${calcModel === "opus" ? "opus-4-8" : calcModel === "sonnet" ? "sonnet-4-6" : "haiku-4-5"}`)!;
+  const cm = MODELOS_SPEC.find((m) => m.id === `claude-${calcModel === "fable" ? "fable-5" : calcModel === "opus" ? "opus-4-8" : calcModel === "sonnet" ? "sonnet-5" : "haiku-4-5"}`)!;
   const inRate = useCache ? cm.input * 0.1 : cm.input;
   const perCall = (inK / 1000) * inRate + (outK / 1000) * cm.output;
   const monthly = perCall * calls * (useBatch ? 0.5 : 1);
@@ -1560,11 +1561,11 @@ export default function SesionClaude() {
           </h2>
           <p className="text-muted max-w-3xl mb-10">
             Todo lo anterior se apoya en una plataforma concreta: una API, un SDK de agentes y un conjunto de capacidades.
-            Aquí está el detalle técnico — con precios de referencia a junio 2026 (USD por millón de tokens).
+            Aquí está el detalle técnico — con precios de referencia a julio 2026 (USD por millón de tokens).
           </p>
 
           {/* tabla de modelos */}
-          <div className="grid md:grid-cols-3 gap-3 mb-12">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3 mb-12">
             {MODELOS_SPEC.map((m) => (
               <div key={m.id} className="rounded-2xl border bg-card p-5" style={{ borderColor: `${m.color}40` }}>
                 <div className="flex items-center justify-between mb-3">
@@ -1682,7 +1683,7 @@ export default function SesionClaude() {
               <h3 className="text-xl font-bold text-white-f mb-1">Calculadora de costos</h3>
               <p className="text-[0.8rem] text-muted mb-5">Estima el gasto mensual de un caso de uso.</p>
               <div className="flex gap-2 mb-5">
-                {[["opus", "Opus"], ["sonnet", "Sonnet"], ["haiku", "Haiku"]].map(([id, n]) => {
+                {[["fable", "Fable"], ["opus", "Opus"], ["sonnet", "Sonnet"], ["haiku", "Haiku"]].map(([id, n]) => {
                   const c = MODELOS_SPEC.find((m) => m.name.startsWith(n))!.color;
                   const on = calcModel === id;
                   return (
@@ -1734,7 +1735,7 @@ export default function SesionClaude() {
                   <p className="font-mono font-bold" style={{ color: cm.color }}>${inRate.toFixed(2)}/M</p>
                 </div>
               </div>
-              <p className="text-[0.62rem] text-muted/70 mt-4">Estimación ilustrativa con tarifas de referencia jun-2026. Caching y batch son escenarios óptimos.</p>
+              <p className="text-[0.62rem] text-muted/70 mt-4">Estimación ilustrativa con tarifas de referencia jul-2026. Caching y batch son escenarios óptimos.</p>
             </div>
           </div>
 

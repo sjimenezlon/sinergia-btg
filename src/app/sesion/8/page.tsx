@@ -472,7 +472,7 @@ export default function Sesion8() {
               </div>
             ))}
           </div>
-          <p className="text-[0.6rem] font-mono text-muted mt-4 opacity-60">* Features y precios verificados a abril 2026 · Copilot Studio v3 · AI Builder credits M365 E5 · Power BI Pro/PPU</p>
+          <p className="text-[0.6rem] font-mono text-muted mt-4 opacity-60">* Features y precios verificados a julio 2026 · Copilot Studio v3 · AI Builder credits M365 E5 · Power BI Pro/PPU</p>
         </div>
       </section>
 
